@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>第一篇post</title>
-    <url>/2020/09/05/%E7%AC%AC%E4%B8%80%E7%AF%87post/</url>
-    <content><![CDATA[]]></content>
+    <title>Commands Often Used</title>
+    <url>/2020/09/05/Commands%20often%20used/</url>
+    <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post_name&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <tags>
+        <tag>Commands</tag>
+      </tags>
   </entry>
   <entry>
-    <title>new-post</title>
-    <url>/2020/09/05/new-post/</url>
-    <content><![CDATA[]]></content>
+    <title>Leetcode-剑指Offer篇</title>
+    <url>/2020/09/05/Algorithm-jianzhioffer/</url>
+    <content><![CDATA[<h4 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a><a href="https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/">左旋转字符串</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseLeftWords</span>(<span class="params">s,n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> s[n:] + s[:n]</span><br></pre></td></tr></table></figure>
+
+<h4 id="求1-2-…-n"><a href="#求1-2-…-n" class="headerlink" title="求1+2+…+n"></a><a href="https://leetcode-cn.com/problems/qiu-12n-lcof/">求1+2+…+n</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">res = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumNums</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="keyword">global</span> res</span><br><span class="line">    n &gt; <span class="number">1</span> <span class="keyword">and</span> sumNums(n<span class="number">-1</span>) <span class="comment"># n=1 终止递归的需求，可通过短路效应实现</span></span><br><span class="line">    res += n </span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组中数字出现的次数-II"><a href="#数组中数字出现的次数-II" class="headerlink" title="数组中数字出现的次数 II"></a><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/">数组中数字出现的次数 II</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">nums</span>):</span></span><br><span class="line">  <span class="comment"># 1.数学 (sum(set(nums))*3-sum(nums))//2  2.字典思路 3. 位运算</span></span><br><span class="line">  <span class="comment"># a^a = 0  a^0 = a 位运算</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>): <span class="comment"># 1 &lt;= nums[i] &lt; 2^31限制</span></span><br><span class="line">        idx = <span class="number">1</span> &lt;&lt; i  <span class="comment"># 0001   0010   0010</span></span><br><span class="line">        count = <span class="number">0</span> </span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> num &amp; idx !=<span class="number">0</span>:</span><br><span class="line">                count+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count%<span class="number">3</span> ==<span class="number">1</span>: <span class="comment"># 表明唯一的那个数在这一位上为1</span></span><br><span class="line">            res = res|idx</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h4 id="二叉树的深度"><a href="#二叉树的深度" class="headerlink" title="二叉树的深度"></a><a href="https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/">二叉树的深度</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> <span class="number">0</span> <span class="comment"># 递归出口</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + max(self.maxDepth(root.left),self.maxDepth(root.right))</span><br><span class="line"><span class="comment"># 非递归方法： BFS 获得层数即二叉树的深度</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="链表中倒数第k个节点"><a href="#链表中倒数第k个节点" class="headerlink" title="链表中倒数第k个节点*"></a><a href="https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/">链表中倒数第k个节点</a>*</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> <span class="number">0</span> <span class="comment"># 递归出口</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + max(self.maxDepth(root.left),self.maxDepth(root.right))</span><br><span class="line"><span class="comment"># 非递归方法： BFS 获得层数即二叉树的深度</span></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
       <tags>
-        <tag>生活</tag>
-        <tag>随笔.</tag>
+        <tag>Leetcode</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
 </search>
