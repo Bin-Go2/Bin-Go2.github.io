@@ -41,19 +41,47 @@
 
 <h4 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a><a href="https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/">重建二叉树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">buildTree</span>(<span class="params">preorder, inorder</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> preorder:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span> </span><br><span class="line">    root = preorder[<span class="number">0</span>]</span><br><span class="line">    pos = inorder.index(root)</span><br><span class="line"></span><br><span class="line">    binary_tree = TreeNode(root)</span><br><span class="line">    binary_tree.left = self.buildTree(preorder[<span class="number">1</span>:pos+<span class="number">1</span>],inorder[:pos])</span><br><span class="line">    binary_tree.right = self.buildTree(preorder[pos+<span class="number">1</span>:],inorder[pos+<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">return</span> binary_tree</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h4 id="从上到下打印二叉树-I"><a href="#从上到下打印二叉树-I" class="headerlink" title="从上到下打印二叉树 I"></a><a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/">从上到下打印二叉树 I</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> []</span><br><span class="line">    queue = deque()</span><br><span class="line">    queue.append(root)</span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">while</span> queue:</span><br><span class="line">        level_size = len(queue)</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(level_size):</span><br><span class="line">            node = queue.popleft()</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                queue.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                queue.append(node.right)</span><br><span class="line">            res.append(node.val)</span><br><span class="line">    <span class="keyword">return</span> res </span><br></pre></td></tr></table></figure>
+
+
 <h4 id="从上到下打印二叉树-II"><a href="#从上到下打印二叉树-II" class="headerlink" title="从上到下打印二叉树 II"></a><a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/">从上到下打印二叉树 II</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="comment"># BFS 层序遍历 使用队列实现</span></span><br><span class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> []</span><br><span class="line">    queue = deque()</span><br><span class="line">    queue.append(root)</span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">while</span> queue:</span><br><span class="line">        level_size = len(queue)</span><br><span class="line">        cur_level = []</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(level_size):</span><br><span class="line">            node = queue.popleft()</span><br><span class="line">            cur_level.append(node.val)</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                queue.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                queue.append(node.right)</span><br><span class="line">        res.append(cur_level)</span><br><span class="line">    <span class="keyword">return</span> res </span><br></pre></td></tr></table></figure>
 
 <h4 id="礼物的最大价值"><a href="#礼物的最大价值" class="headerlink" title="礼物的最大价值"></a><a href="https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/">礼物的最大价值</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxValue</span>(<span class="params">grid</span>):</span> </span><br><span class="line">    <span class="comment"># 二维dp  grid[i][j] = max(grid[i][j - 1], grid[i - 1][j]) +  grid[i][j]</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(grid)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(grid[<span class="number">0</span>])):</span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">0</span> <span class="keyword">and</span> j == <span class="number">0</span>: <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">0</span>: grid[i][j] += grid[i][j - <span class="number">1</span>]</span><br><span class="line">            <span class="keyword">elif</span> j == <span class="number">0</span>: grid[i][j] += grid[i - <span class="number">1</span>][j]</span><br><span class="line">            <span class="keyword">else</span>: grid[i][j] += max(grid[i][j - <span class="number">1</span>], grid[i - <span class="number">1</span>][j])</span><br><span class="line">    <span class="keyword">return</span> grid[<span class="number">-1</span>][<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
 
 <h4 id="数组中出现次数超过一半的数字"><a href="#数组中出现次数超过一半的数字" class="headerlink" title="数组中出现次数超过一半的数字"></a><a href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/">数组中出现次数超过一半的数字</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">majorityElement</span>(<span class="params">nums</span>):</span></span><br><span class="line">    <span class="keyword">return</span> sorted(nums)[len(nums)//<span class="number">2</span>]  <span class="comment">#  排序后取中间的数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#Boyer-Moore 投票法 O(n)</span></span><br><span class="line">    res = nums[<span class="number">0</span>]</span><br><span class="line">    cal = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> cal ==<span class="number">0</span>: </span><br><span class="line">            res = i</span><br><span class="line">        <span class="keyword">if</span> i == res:</span><br><span class="line">            cal+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cal-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 
-<h4 id="和为s的两个数字"><a href="#和为s的两个数字" class="headerlink" title="和为s的两个数字"></a><a href="https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/">和为s的两个数字</a></h4>]]></content>
+<h4 id="和为s的两个数字"><a href="#和为s的两个数字" class="headerlink" title="和为s的两个数字"></a><a href="https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/">和为s的两个数字</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">twoSum</span>(<span class="params">nums,target</span>):</span>  </span><br><span class="line">    left, right = <span class="number">0</span>,len(nums)<span class="number">-1</span> <span class="comment"># 使用双指针 空间复杂度O(1)</span></span><br><span class="line">    <span class="keyword">while</span> left&lt;right:</span><br><span class="line">        sums = nums[left]+nums[right]</span><br><span class="line">        <span class="keyword">if</span> sums&lt;target:</span><br><span class="line">            left+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> sums&gt;target:</span><br><span class="line">            right-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> [nums[left],nums[right]]</span><br><span class="line">    <span class="keyword">return</span> []</span><br></pre></td></tr></table></figure>
+
+<h4 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a><a href="https://leetcode-cn.com/problems/chou-shu-lcof/">丑数</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nthUglyNumber</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="comment"># 带条件的动态规划</span></span><br><span class="line">    dp, a, b, c = [<span class="number">1</span>] * n, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        n2, n3, n5 = dp[a] * <span class="number">2</span>, dp[b] * <span class="number">3</span>, dp[c] * <span class="number">5</span></span><br><span class="line">        dp[i] = min(n2, n3, n5)</span><br><span class="line">        <span class="keyword">if</span> dp[i] == n2: a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> dp[i] == n3: b += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> dp[i] == n5: c += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="调整数组顺序使奇数位于偶数前面"><a href="#调整数组顺序使奇数位于偶数前面" class="headerlink" title="调整数组顺序使奇数位于偶数前面"></a><a href="https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/">调整数组顺序使奇数位于偶数前面</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exchange</span>(<span class="params">self, nums: List[int]</span>) -&gt; List[int]:</span></span><br><span class="line">    left,right = <span class="number">0</span>,len(nums)<span class="number">-1</span></span><br><span class="line">    <span class="keyword">while</span> left&lt;right:</span><br><span class="line">    <span class="comment"># 保证nums[left]奇数,nums[right]为偶数</span></span><br><span class="line">        <span class="keyword">if</span> nums[left]%<span class="number">2</span>==<span class="number">1</span>:  </span><br><span class="line">            left+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> nums[right]%<span class="number">2</span> ==<span class="number">1</span>:</span><br><span class="line">                nums[left],nums[right]=nums[right],nums[left]</span><br><span class="line">                left+=<span class="number">1</span></span><br><span class="line">                right-=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                right-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+
+<h4 id="股票的最大利润"><a href="#股票的最大利润" class="headerlink" title="股票的最大利润"></a><a href="https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/">股票的最大利润</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span>(<span class="params">prices</span>):</span></span><br><span class="line">    <span class="comment"># opt[i] = max(opt[i-1],prices[i]-min(prices[:i])) 动态规划转移方程</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> prices: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    min_price = prices[<span class="number">0</span>] <span class="comment"># 存储当天前最低的股票</span></span><br><span class="line">    opt = [<span class="number">0</span>]*len(prices)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(prices)):</span><br><span class="line">        <span class="keyword">if</span> prices[i]&lt;min_price:</span><br><span class="line">            min_price = prices[i]</span><br><span class="line">        opt[i] = max(opt[i<span class="number">-1</span>],prices[i]-min_price)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> opt[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="圆圈中最后剩下的数字"><a href="#圆圈中最后剩下的数字" class="headerlink" title="圆圈中最后剩下的数字"></a><a href="https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/">圆圈中最后剩下的数字</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
       <tags>
         <tag>Leetcode</tag>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Commands Often Used</title>
+    <url>/2020/09/05/Commands%20Often%20Used/</url>
+    <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>Efficiency</category>
+      </categories>
+      <tags>
+        <tag>Commands</tag>
       </tags>
   </entry>
   <entry>
@@ -66,18 +94,6 @@
 ]]></content>
       <tags>
         <tag>Course</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Commands Often Used</title>
-    <url>/2020/09/05/Commands%20Often%20Used/</url>
-    <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <tags>
-        <tag>Commands</tag>
       </tags>
   </entry>
   <entry>
@@ -96,7 +112,7 @@
 <li>any other interesting operation …</li>
 </ol>
 <h3 id="关于-Realtime-database"><a href="#关于-Realtime-database" class="headerlink" title="关于 Realtime database"></a>关于 Realtime database</h3><ul>
-<li>Data in JSON(Javascript Object Notation) format  <a href="#">Post not found: JSON-review</a> </li>
+<li>Data in JSON(Javascript Object Notation) format  <a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a> </li>
 <li>When creating a real-time database, we should open up the access to allow us to read and write the data.</li>
 <li>There are some difference between storing style from JSON file and Firebase real-time database<ol>
 <li>JSON文件中的array元素在Realtime database下以object的形式存在，object对应的key为数组元素的索引</li>
@@ -140,10 +156,75 @@
   <entry>
     <title>JSON-review</title>
     <url>/2020/09/07/JSON-review/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id="JSON概述"><a href="#JSON概述" class="headerlink" title="JSON概述"></a>JSON概述</h2><p><strong>JSON</strong>（<strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来<strong>传输由属性值或者序列性的值组成的数据对象</strong>。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。</p>
+<ul>
+<li>Light-weight data exchange format<br>Much simpler than XML; Language-independent; Inspired by the syntax of JavaScript object literals</li>
+<li>Some differences from JavaScript objects<br><strong>String in JSON must be double-quoted</strong>; Okay to single-quote in JavaScript (&amp; Python)</li>
+<li>JSON is case-sensitive</li>
+</ul>
+<p>一句话表达就是，JSON是一种格式，基于文本，优于轻量，用于交换数据，由于其用文本格式的保存方式，所以一般也叫JSON字符串。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li>value = string | number | object | array | true | false | null</li>
+<li>object = {} | { members }<ul>
+<li>members = pair | pair, members </li>
+<li>pair = string : value</li>
+</ul>
+</li>
+<li>array = [] | [ elements ]<ul>
+<li>elements = value | value, elements</li>
+</ul>
+</li>
+</ul>
+<p>一般情况下，JSON大多为一个array，array里的每一个元素为一个object，object可以理解为字典<br>JSON 在线检查器:   <a href="https://www.json.cn/">https://www.json.cn/</a></p>
+<h2 id="Python中使用JSON"><a href="#Python中使用JSON" class="headerlink" title="Python中使用JSON"></a>Python中使用JSON</h2><h3 id="encode-decode"><a href="#encode-decode" class="headerlink" title="encode/decode"></a>encode/decode</h3><p>JSON操作主要分为两个：</p>
+<ol>
+<li>encode，将Python对象转化为JSON文本，主要函数 dump( ) dumps( )</li>
+<li>decode，将JSON文本转化为Python对象，主要函数 load( ) loads( )</li>
+</ol>
+<h3 id="转化规则"><a href="#转化规则" class="headerlink" title="转化规则"></a>转化规则</h3><table>
+<thead>
+<tr>
+<th align="center">Python</th>
+<th align="center">JSON</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">list/tuple</td>
+<td align="center">array</td>
+</tr>
+<tr>
+<td align="center">dict</td>
+<td align="center">object</td>
+</tr>
+<tr>
+<td align="center">None</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center">True</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">False</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">‘abc’</td>
+<td align="center">“abc”</td>
+</tr>
+</tbody></table>
+<p>关于Python字典转JSON文本的说明：</p>
+<ul>
+<li>Keys in Python can be number, string, or tuple. </li>
+<li>Number is also converted to string.</li>
+<li>But tuple (with two or more components) is not acceptable by dumps()/dump()</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> json <span class="comment"># json库为Python自带的标准库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON encoder Python object =&gt; JSON document   </span></span><br><span class="line">json.dumps([<span class="number">3</span>, <span class="string">&#x27;abc&#x27;</span>, <span class="literal">True</span>, <span class="literal">None</span>])  <span class="comment"># &#x27;[3, &quot;abc&quot;, true, null]&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python object =&gt; JSON file</span></span><br><span class="line">data = &#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;Sam&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">23</span>&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">&#x27;user_info.json&#x27;</span>,<span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> out_file:</span><br><span class="line">    json.dump(data,out_file)</span><br><span class="line"></span><br><span class="line"><span class="comment">## JSON decoder </span></span><br><span class="line">json.loads(<span class="string">&#x27;[&quot;foo&quot;, &#123;&quot;bar&quot;:[&quot;baz&quot;, null, 1.0, 2]&#125;]&#x27;</span>) <span class="comment"># [&#x27;foo&#x27;, &#123;&#x27;bar&#x27;: [&#x27;baz&#x27;, None, 1.0, 2]&#125;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON file =&gt; Python object</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">&#x27;user_info.json&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> in_file:</span><br><span class="line">    data = json.load(in_file)</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <tags>
         <tag>Python</tag>
-        <tag>Format</tag>
+        <tag>File Format</tag>
       </tags>
   </entry>
 </search>
