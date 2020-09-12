@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Leetcode-剑指Offer篇</title>
+    <title>Leetcode-剑指Offer</title>
     <url>/2020/09/05/Algorithm-jianzhioffer/</url>
     <content><![CDATA[<h4 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a><a href="https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/">左旋转字符串</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseLeftWords</span>(<span class="params">s,n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> s[n:] + s[:n]</span><br></pre></td></tr></table></figure>
 
@@ -87,11 +87,7 @@
   <entry>
     <title>DSCI551 outline</title>
     <url>/2020/09/06/DSCI551-outline/</url>
-    <content><![CDATA[<h2 id="Outline-of-DSCI551-Foundations-of-Data-Management"><a href="#Outline-of-DSCI551-Foundations-of-Data-Management" class="headerlink" title="Outline of DSCI551(Foundations of Data Management)"></a>Outline of DSCI551(Foundations of Data Management)</h2><ul>
-<li><a href="/2020/09/06/Firebase-rest-web-api/" title="Firebase rest &amp; web api">Firebase rest &amp; web api</a> 
-</li>
-</ul>
-]]></content>
+    <content><![CDATA[<h2 id="DSCI551-Foundations-of-Data-Management"><a href="#DSCI551-Foundations-of-Data-Management" class="headerlink" title="DSCI551 - Foundations of Data Management"></a>DSCI551 - Foundations of Data Management</h2><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/09/06/Firebase-rest-web-api/" title="Firebase rest &amp; web api">Firebase rest &amp; web api</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><a href="/2020/09/08/Storage-systems/" title="Storage systems">Storage systems</a></h3>]]></content>
       <tags>
         <tag>Course</tag>
       </tags>
@@ -225,6 +221,189 @@
       <tags>
         <tag>Python</tag>
         <tag>File Format</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Storage systems</title>
+    <url>/2020/09/08/Storage-systems/</url>
+    <content><![CDATA[<h2 id="Storage-Device"><a href="#Storage-Device" class="headerlink" title="Storage Device"></a>Storage Device</h2><h3 id="Hierarchy"><a href="#Hierarchy" class="headerlink" title="Hierarchy"></a>Hierarchy</h3><p><img src="/image/storage_hierarchy.png"></p>
+<h3 id="Characters"><a href="#Characters" class="headerlink" title="Characters"></a>Characters</h3><ul>
+<li>Capacity(bytes) - How much data it can hold</li>
+<li>Cost($) -  Price per byte of storage</li>
+<li>Bandwidth(bytes/sec) - Number of bytes that can be transferred per second;  read and write bandwidth may be different</li>
+<li>Latency(sec) - Time elapsed, waiting for response/delivery of data</li>
+</ul>
+<h3 id="Basic-Function-CRUD"><a href="#Basic-Function-CRUD" class="headerlink" title="Basic Function : CRUD"></a>Basic Function : CRUD</h3><ul>
+<li>C(reate)/write</li>
+<li>R(ead)</li>
+<li>U(pdate)/overwrite</li>
+<li>D(elete)</li>
+</ul>
+<h3 id="Some-terms"><a href="#Some-terms" class="headerlink" title="Some terms"></a>Some terms</h3><ul>
+<li>Access times: Time taken before drive is ready to transfer data 一般来说，物理设备（硬盘，内存..）在进行数据的转换前需要索引到目标位置， 内存-纳秒 SSD-微秒 HDD-毫秒</li>
+<li>Access pattern: how storage read/write data <ul>
+<li>Sequential: Data to be accessed are located next to each other or sequentially on the device</li>
+<li>Random: Access data located randomly on storage device</li>
+</ul>
+</li>
+<li>Completion Time：Time to complete an read/write operation <ul>
+<li><strong>CompletionTime = Latency + Size/Bandwidth</strong></li>
+<li>Depends on lots of factors(device, operation type, access pattern…)</li>
+</ul>
+</li>
+</ul>
+<p>Note: 这里主要讨论HDD和SSD</p>
+<h2 id="Hard-Disk-Drive"><a href="#Hard-Disk-Drive" class="headerlink" title="Hard Disk Drive"></a>Hard Disk Drive</h2><h3 id="Organization"><a href="#Organization" class="headerlink" title="Organization"></a>Organization</h3><p><img src="/image/hdd.png"></p>
+<ul>
+<li>One or more spinning magnetic platters, typically two surface per platter</li>
+<li>Data stored in tracks</li>
+<li>Disk arm positions over the radial positon - swings across tracks but don’t extend</li>
+<li>Data is read/written by disk head as platter spins</li>
+</ul>
+<p>Hard disk head movement while copying files between two folders：<br><a href="https://www.youtube.com/watch?v=BlB49F6ExkQ">https://www.youtube.com/watch?v=BlB49F6ExkQ</a></p>
+<h3 id="Physical-characteristics"><a href="#Physical-characteristics" class="headerlink" title="Physical characteristics"></a>Physical characteristics</h3><ul>
+<li>3.5” (diameter, common in desktops), 2.5” (common in laptops)</li>
+<li>Rotational Speed: 4800/5400/7200/10000 RPM (rotations per minute)</li>
+<li>Between 5-7 platters</li>
+<li>Current capacity up to 10TB</li>
+</ul>
+<h3 id="Data-Storage"><a href="#Data-Storage" class="headerlink" title="Data Storage"></a>Data Storage</h3><ul>
+<li>1 platter  is divided into a number of tracks</li>
+<li>1 tracker is divided into N fixed size sectors<ul>
+<li>sector size: 4KB</li>
+<li>Entire sector is written “atomically” -&gt; sector为最小的操作单元，所以不论读写都首先进行sector的寻址</li>
+</ul>
+</li>
+</ul>
+<h3 id="Address-Method-CHS-cylinder-head-sector"><a href="#Address-Method-CHS-cylinder-head-sector" class="headerlink" title="Address Method - CHS(cylinder-head-sector)"></a>Address Method - CHS(cylinder-head-sector)</h3><h4 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h4><p>CHS is an early way to address a sector. (LBA(Logical Block Addressing) is  more common now.) </p>
+<p><img src="/image/CHS.png"></p>
+<p>举个例子：<br>#cylinders: 256<br>#heads: 16 (i.e., 8 platters, 2 heads/platter)<br>#sectors/track: 64<br>sector size = 4KB<br>=&gt; capacity of the drive:  2^8 * 2^6 * 2^2* 2^10 * 2^4 = 2^30 = 1GB</p>
+<h4 id="address-step"><a href="#address-step" class="headerlink" title="address step"></a>address step</h4><p><strong>According to CHS, data can be located before transferring, then data can be transferred</strong></p>
+<ol>
+<li>Wait for the disk haed on right track    - seek time <ol>
+<li>On average seek time is about  1⁄3  max seek time</li>
+<li><img src="/image/seek-time.png"></li>
+</ol>
+</li>
+<li>wait for the right sector to rotate under the head. - rotational latency <ol>
+<li>On average: about 1⁄2 of time of a full rotation</li>
+<li>example:  Assume 10,000 RPM (rotations per minute) 60000 ms/ 10000 rotations  = 6ms / rotation</li>
+</ol>
+</li>
+</ol>
+<h3 id="Data-Operation"><a href="#Data-Operation" class="headerlink" title="Data Operation"></a>Data Operation</h3><blockquote>
+<p>T = T_seek + T_rotation + T_transfer<br>T_seek : Time to get the disk head on right track<br>T_rotation :Time to wait for the right sector to rotate under the head<br>T_transfer: Time to actually transfer data</p>
+</blockquote>
+<h4 id="T-transfer"><a href="#T-transfer" class="headerlink" title="T_transfer"></a>T_transfer</h4><p>Assume that data will be transferred:  512KB, 128 MB/sec transmission bandwidth<br>Transfer time:  512KB/128MB * 1000ms = 4ms</p>
+<h4 id="Actual-Bandwidth"><a href="#Actual-Bandwidth" class="headerlink" title="Actual Bandwidth"></a>Actual Bandwidth</h4><p>Actual Bandwidth = data / actual time ，所以一般情况下实际带宽会小</p>
+<h4 id="数据传输中的block和sector区分"><a href="#数据传输中的block和sector区分" class="headerlink" title="数据传输中的block和sector区分"></a>数据传输中的block和sector区分</h4><ul>
+<li>Sector is the  basic unit of hard disk dirve</li>
+<li>Block is the basic unit of file system</li>
+<li>Block has 1 or more sectors  （in this course, assuming one block = one sector）</li>
+</ul>
+<p>硬盘本身没有block的概念，block概念存在于文件系统的概念中，文件系统是一个块一个块的读取数据，如果是按照一个sector一个sector的来读数据，太慢了，所以才有了block这样一个逻辑块的概念。</p>
+<h4 id="不同access-pattern对读写的影响"><a href="#不同access-pattern对读写的影响" class="headerlink" title="不同access pattern对读写的影响"></a>不同access pattern对读写的影响</h4><ul>
+<li>Sequential operation:<ul>
+<li>May assume all sectors involved are on the same track<br>– need to seek to the right track or rotate to the first sector （一次seektime）<br>– But no rotation/seeking needed afterwardSSD</li>
+</ul>
+</li>
+<li>Random operation:  <ul>
+<li>May assume all sectors are on different tracks and sectors （多次seektime）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">example: 7ms avg seek,  10,000 RPM  50 MB/sec transfer rate 4KB/block</span><br><span class="line">Sequential access of 10 MB:</span><br><span class="line">– Completion time = 7ms + 60*1000/10000/2 ms + 10/50 *1000 ms = 210ms</span><br><span class="line">– Actual bandwidth = 10MB/210ms = 47.62 MB/s</span><br><span class="line"></span><br><span class="line">Random access of 10 MB </span><br><span class="line">– block numbers: 10*1000/4 = 2500  (assume 1 block = 1 sector)</span><br><span class="line">– Completion time = 2500 * (7 + 3 + 4/50) = 25.2s</span><br><span class="line">– Actual bandwidth = 10MB / 25.2s = 0.397 MB/s</span><br></pre></td></tr></table></figure>
+
+<h2 id="Soild-State-Drive"><a href="#Soild-State-Drive" class="headerlink" title="Soild State Drive"></a>Soild State Drive</h2><h3 id="Organization-1"><a href="#Organization-1" class="headerlink" title="Organization"></a>Organization</h3><p><img src="/image/ssd.png"></p>
+<p>SSD contains a number of flash memory chips</p>
+<p><img src="/image/chip.png"></p>
+<p>chip -&gt; dies -&gt; planes -&gt; blocks -&gt; pages (rows) -&gt; cells</p>
+<h3 id="Characteristics"><a href="#Characteristics" class="headerlink" title="Characteristics"></a>Characteristics</h3><ul>
+<li>All electronic, made from flash memory</li>
+<li>Limited lifetime, can only write a limited number of times.</li>
+<li>More expensive, less capacity  - 3 times or more expensive</li>
+<li>Significantly better latency: no seek or rotational delay</li>
+<li>Much better performance on random (however, write has much higher latency than read )</li>
+</ul>
+<h3 id="Data-Storage-1"><a href="#Data-Storage-1" class="headerlink" title="Data Storage"></a>Data Storage</h3><ul>
+<li>Cells are made of floating-gate transistors : By applying high positive/negative voltage to control gate, electrons can be attracted to or repelled from floating gate<ul>
+<li>State = 1, if no electrons in the floating gate</li>
+<li>State = 0, if there are electrons (negative charges)<br>– Electrons stuck there even when power is off<br>– So state is retained</li>
+</ul>
+</li>
+<li>Data in SSD are represented by the ‘01010…’ formats, that is the state of the electrons</li>
+</ul>
+<p><img src="/image/floating-gate.png"></p>
+<h3 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h3><h4 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h4><ul>
+<li>Electrons on the floating gate affect the threshold voltage for the floating gate transistor to conduct</li>
+<li>Higher voltage needed when gate has electrons</li>
+</ul>
+<p><img src="/image/ssd_read.png"></p>
+<p>Steps: </p>
+<ol>
+<li>Apply Vint (intermediate voltage) </li>
+<li>If the current is detected, gate has no electrons=&gt; bit = 1</li>
+<li>If no current, gate must have electrons =&gt; bit = 0</li>
+</ol>
+<p><u><strong>Page is the smallest unit that can be read</strong></u></p>
+<h4 id="Write-and-Erase"><a href="#Write-and-Erase" class="headerlink" title="Write and Erase"></a>Write and Erase</h4><h4 id="Write-and-erase"><a href="#Write-and-erase" class="headerlink" title="Write and erase"></a>Write and erase</h4><ul>
+<li>Write: 1 =&gt; 0 (get electron)<ul>
+<li>Apply high positive voltage (&gt;&gt; voltage for read) to the control gate</li>
+<li>Attract electrons from channel to floating gate (through quantum tunneling)</li>
+<li>Page is the smallest unit for write</li>
+</ul>
+</li>
+<li>Erase: 0 =&gt; 1 (make electrons empty)<ul>
+<li>Need to apply much higher negative voltage to the control gate</li>
+<li>Get rid of electrons from floating gate</li>
+<li>May stress surrounding cells(dangerous to do on individual pages)</li>
+<li>Block is the smallest unit for erase</li>
+</ul>
+</li>
+</ul>
+<h3 id="P-E-cycle"><a href="#P-E-cycle" class="headerlink" title="P/E cycle"></a>P/E cycle</h3><blockquote>
+<p>P/E cycle: Data is written to cells (P) and then erased (E)<br>Every write &amp; erase damages oxide layer surrounding the floating-gate to some extent</p>
+</blockquote>
+<ul>
+<li>Page is the smallest unit for read and write (write is also called program, 1-&gt;0)</li>
+<li>Block is the smallest unit for erase (0-&gt;1) – i.e., make cells “empty” (i.e., no electrons)  (关于为什么使用block作为最小擦除单元：SSD的物理结构导致，擦除过程会作用到整个block施加高电压，将电子吸引出来)</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSCI570-outline</title>
+    <url>/2020/09/08/CSCI570-outline/</url>
+    <content><![CDATA[<p>hello world!</p>
+]]></content>
+      <tags>
+        <tag>Course</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Leetcode-滑动窗口</title>
+    <url>/2020/09/09/Algorithm-sliding-window/</url>
+    <content><![CDATA[<h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p><u>连续</u>子数组</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ul>
+<li>根据要求，找到第一个满足条件的窗口</li>
+<li>调整窗口(右移/左移)使其继续满足要求，并进行重复</li>
+<li>得到最合适的窗口即为答案</li>
+</ul>
+<h3 id="Leetcode例题"><a href="#Leetcode例题" class="headerlink" title="Leetcode例题"></a>Leetcode例题</h3><h5 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">if</span> len(s) == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_start,res = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(s)):</span><br><span class="line">        char = s[window_end]</span><br><span class="line">        <span class="keyword">if</span> char <span class="keyword">in</span> dic <span class="keyword">and</span> dic[char]&gt;=window_start: <span class="comment"># 注意这里的第二个条件dic[char]&gt;=window_start！！ 起到一个覆盖的作用</span></span><br><span class="line">            window_start = dic[char] +<span class="number">1</span></span><br><span class="line">        dic[char] = window_end</span><br><span class="line">        width = window_end-window_start+<span class="number">1</span></span><br><span class="line">        res = max(width,res)</span><br><span class="line">    <span class="keyword">return</span> res  </span><br></pre></td></tr></table></figure>
+
+<h5 id="大小为-K-且平均值大于等于阈值的子数组数目"><a href="#大小为-K-且平均值大于等于阈值的子数组数目" class="headerlink" title="大小为 K 且平均值大于等于阈值的子数组数目"></a><a href="https://leetcode-cn.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/">大小为 K 且平均值大于等于阈值的子数组数目</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numOfSubarrays</span>(<span class="params">arr,k,threshold</span>):</span></span><br><span class="line">    <span class="keyword">if</span> arr == [] <span class="keyword">or</span> len(arr)&lt;k:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_sum,window_start,res = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    temp = threshold*k</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">        window_sum+=arr[window_end]</span><br><span class="line">        <span class="keyword">if</span> window_end&gt;=k<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> window_sum &gt;=temp:</span><br><span class="line">                res+=<span class="number">1</span></span><br><span class="line">            window_sum-=arr[window_start]</span><br><span class="line">            window_start+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h5 id="替换后的最长重复字符"><a href="#替换后的最长重复字符" class="headerlink" title="替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/">最小覆盖子串</a></h5><h5 id="滑动窗口中位数"><a href="#滑动窗口中位数" class="headerlink" title="滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></h5><h5 id="滑动窗口最大值"><a href="#滑动窗口最大值" class="headerlink" title="滑动窗口最大值"></a><a href="https://leetcode-cn.com/problems/sliding-window-maximum/">滑动窗口最大值</a></h5>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
 </search>

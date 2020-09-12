@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Storage DeviceHierarchy Characters Capacity(bytes) - How much data it can hold Cost($) -  Price per byte of storage Bandwidth(bytes&#x2F;sec) - Number of bytes that can be transferred per second;  read and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Storage systems">
+<meta property="og:url" content="http://example.com/2020/09/08/Storage-systems/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="Storage DeviceHierarchy Characters Capacity(bytes) - How much data it can hold Cost($) -  Price per byte of storage Bandwidth(bytes&#x2F;sec) - Number of bytes that can be transferred per second;  read and">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/storage_hierarchy.png">
+<meta property="og:image" content="http://example.com/image/hdd.png">
+<meta property="og:image" content="http://example.com/image/CHS.png">
+<meta property="og:image" content="http://example.com/image/seek-time.png">
+<meta property="og:image" content="http://example.com/image/ssd.png">
+<meta property="og:image" content="http://example.com/image/chip.png">
+<meta property="og:image" content="http://example.com/image/floating-gate.png">
+<meta property="og:image" content="http://example.com/image/ssd_read.png">
+<meta property="article:published_time" content="2020-09-08T22:19:06.000Z">
+<meta property="article:modified_time" content="2020-09-09T21:36:29.345Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Operating System">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/storage_hierarchy.png">
+
+<link rel="canonical" href="http://example.com/2020/09/08/Storage-systems/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Storage systems | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/08/Storage-systems/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Storage systems
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-08 15:19:06" itemprop="dateCreated datePublished" datetime="2020-09-08T15:19:06-07:00">2020-09-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-09 14:36:29" itemprop="dateModified" datetime="2020-09-09T14:36:29-07:00">2020-09-09</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Storage-Device"><a href="#Storage-Device" class="headerlink" title="Storage Device"></a>Storage Device</h2><h3 id="Hierarchy"><a href="#Hierarchy" class="headerlink" title="Hierarchy"></a>Hierarchy</h3><p><img src="/image/storage_hierarchy.png"></p>
+<h3 id="Characters"><a href="#Characters" class="headerlink" title="Characters"></a>Characters</h3><ul>
+<li>Capacity(bytes) - How much data it can hold</li>
+<li>Cost($) -  Price per byte of storage</li>
+<li>Bandwidth(bytes/sec) - Number of bytes that can be transferred per second;  read and write bandwidth may be different</li>
+<li>Latency(sec) - Time elapsed, waiting for response/delivery of data</li>
+</ul>
+<h3 id="Basic-Function-CRUD"><a href="#Basic-Function-CRUD" class="headerlink" title="Basic Function : CRUD"></a>Basic Function : CRUD</h3><ul>
+<li>C(reate)/write</li>
+<li>R(ead)</li>
+<li>U(pdate)/overwrite</li>
+<li>D(elete)</li>
+</ul>
+<h3 id="Some-terms"><a href="#Some-terms" class="headerlink" title="Some terms"></a>Some terms</h3><ul>
+<li>Access times: Time taken before drive is ready to transfer data 一般来说，物理设备（硬盘，内存..）在进行数据的转换前需要索引到目标位置， 内存-纳秒 SSD-微秒 HDD-毫秒</li>
+<li>Access pattern: how storage read/write data <ul>
+<li>Sequential: Data to be accessed are located next to each other or sequentially on the device</li>
+<li>Random: Access data located randomly on storage device</li>
+</ul>
+</li>
+<li>Completion Time：Time to complete an read/write operation <ul>
+<li><strong>CompletionTime = Latency + Size/Bandwidth</strong></li>
+<li>Depends on lots of factors(device, operation type, access pattern…)</li>
+</ul>
+</li>
+</ul>
+<p>Note: 这里主要讨论HDD和SSD</p>
+<h2 id="Hard-Disk-Drive"><a href="#Hard-Disk-Drive" class="headerlink" title="Hard Disk Drive"></a>Hard Disk Drive</h2><h3 id="Organization"><a href="#Organization" class="headerlink" title="Organization"></a>Organization</h3><p><img src="/image/hdd.png"></p>
+<ul>
+<li>One or more spinning magnetic platters, typically two surface per platter</li>
+<li>Data stored in tracks</li>
+<li>Disk arm positions over the radial positon - swings across tracks but don’t extend</li>
+<li>Data is read/written by disk head as platter spins</li>
+</ul>
+<p>Hard disk head movement while copying files between two folders：<br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=BlB49F6ExkQ">https://www.youtube.com/watch?v=BlB49F6ExkQ</a></p>
+<h3 id="Physical-characteristics"><a href="#Physical-characteristics" class="headerlink" title="Physical characteristics"></a>Physical characteristics</h3><ul>
+<li>3.5” (diameter, common in desktops), 2.5” (common in laptops)</li>
+<li>Rotational Speed: 4800/5400/7200/10000 RPM (rotations per minute)</li>
+<li>Between 5-7 platters</li>
+<li>Current capacity up to 10TB</li>
+</ul>
+<h3 id="Data-Storage"><a href="#Data-Storage" class="headerlink" title="Data Storage"></a>Data Storage</h3><ul>
+<li>1 platter  is divided into a number of tracks</li>
+<li>1 tracker is divided into N fixed size sectors<ul>
+<li>sector size: 4KB</li>
+<li>Entire sector is written “atomically” -&gt; sector为最小的操作单元，所以不论读写都首先进行sector的寻址</li>
+</ul>
+</li>
+</ul>
+<h3 id="Address-Method-CHS-cylinder-head-sector"><a href="#Address-Method-CHS-cylinder-head-sector" class="headerlink" title="Address Method - CHS(cylinder-head-sector)"></a>Address Method - CHS(cylinder-head-sector)</h3><h4 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h4><p>CHS is an early way to address a sector. (LBA(Logical Block Addressing) is  more common now.) </p>
+<p><img src="/image/CHS.png"></p>
+<p>举个例子：<br>#cylinders: 256<br>#heads: 16 (i.e., 8 platters, 2 heads/platter)<br>#sectors/track: 64<br>sector size = 4KB<br>=&gt; capacity of the drive:  2^8 * 2^6 * 2^2* 2^10 * 2^4 = 2^30 = 1GB</p>
+<h4 id="address-step"><a href="#address-step" class="headerlink" title="address step"></a>address step</h4><p><strong>According to CHS, data can be located before transferring, then data can be transferred</strong></p>
+<ol>
+<li>Wait for the disk haed on right track    - seek time <ol>
+<li>On average seek time is about  1⁄3  max seek time</li>
+<li><img src="/image/seek-time.png"></li>
+</ol>
+</li>
+<li>wait for the right sector to rotate under the head. - rotational latency <ol>
+<li>On average: about 1⁄2 of time of a full rotation</li>
+<li>example:  Assume 10,000 RPM (rotations per minute) 60000 ms/ 10000 rotations  = 6ms / rotation</li>
+</ol>
+</li>
+</ol>
+<h3 id="Data-Operation"><a href="#Data-Operation" class="headerlink" title="Data Operation"></a>Data Operation</h3><blockquote>
+<p>T = T_seek + T_rotation + T_transfer<br>T_seek : Time to get the disk head on right track<br>T_rotation :Time to wait for the right sector to rotate under the head<br>T_transfer: Time to actually transfer data</p>
+</blockquote>
+<h4 id="T-transfer"><a href="#T-transfer" class="headerlink" title="T_transfer"></a>T_transfer</h4><p>Assume that data will be transferred:  512KB, 128 MB/sec transmission bandwidth<br>Transfer time:  512KB/128MB * 1000ms = 4ms</p>
+<h4 id="Actual-Bandwidth"><a href="#Actual-Bandwidth" class="headerlink" title="Actual Bandwidth"></a>Actual Bandwidth</h4><p>Actual Bandwidth = data / actual time ，所以一般情况下实际带宽会小</p>
+<h4 id="数据传输中的block和sector区分"><a href="#数据传输中的block和sector区分" class="headerlink" title="数据传输中的block和sector区分"></a>数据传输中的block和sector区分</h4><ul>
+<li>Sector is the  basic unit of hard disk dirve</li>
+<li>Block is the basic unit of file system</li>
+<li>Block has 1 or more sectors  （in this course, assuming one block = one sector）</li>
+</ul>
+<p>硬盘本身没有block的概念，block概念存在于文件系统的概念中，文件系统是一个块一个块的读取数据，如果是按照一个sector一个sector的来读数据，太慢了，所以才有了block这样一个逻辑块的概念。</p>
+<h4 id="不同access-pattern对读写的影响"><a href="#不同access-pattern对读写的影响" class="headerlink" title="不同access pattern对读写的影响"></a>不同access pattern对读写的影响</h4><ul>
+<li>Sequential operation:<ul>
+<li>May assume all sectors involved are on the same track<br>– need to seek to the right track or rotate to the first sector （一次seektime）<br>– But no rotation/seeking needed afterwardSSD</li>
+</ul>
+</li>
+<li>Random operation:  <ul>
+<li>May assume all sectors are on different tracks and sectors （多次seektime）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">example: 7ms avg seek,  10,000 RPM  50 MB/sec transfer rate 4KB/block</span><br><span class="line">Sequential access of 10 MB:</span><br><span class="line">– Completion time = 7ms + 60*1000/10000/2 ms + 10/50 *1000 ms = 210ms</span><br><span class="line">– Actual bandwidth = 10MB/210ms = 47.62 MB/s</span><br><span class="line"></span><br><span class="line">Random access of 10 MB </span><br><span class="line">– block numbers: 10*1000/4 = 2500  (assume 1 block = 1 sector)</span><br><span class="line">– Completion time = 2500 * (7 + 3 + 4/50) = 25.2s</span><br><span class="line">– Actual bandwidth = 10MB / 25.2s = 0.397 MB/s</span><br></pre></td></tr></table></figure>
+
+<h2 id="Soild-State-Drive"><a href="#Soild-State-Drive" class="headerlink" title="Soild State Drive"></a>Soild State Drive</h2><h3 id="Organization-1"><a href="#Organization-1" class="headerlink" title="Organization"></a>Organization</h3><p><img src="/image/ssd.png"></p>
+<p>SSD contains a number of flash memory chips</p>
+<p><img src="/image/chip.png"></p>
+<p>chip -&gt; dies -&gt; planes -&gt; blocks -&gt; pages (rows) -&gt; cells</p>
+<h3 id="Characteristics"><a href="#Characteristics" class="headerlink" title="Characteristics"></a>Characteristics</h3><ul>
+<li>All electronic, made from flash memory</li>
+<li>Limited lifetime, can only write a limited number of times.</li>
+<li>More expensive, less capacity  - 3 times or more expensive</li>
+<li>Significantly better latency: no seek or rotational delay</li>
+<li>Much better performance on random (however, write has much higher latency than read )</li>
+</ul>
+<h3 id="Data-Storage-1"><a href="#Data-Storage-1" class="headerlink" title="Data Storage"></a>Data Storage</h3><ul>
+<li>Cells are made of floating-gate transistors : By applying high positive/negative voltage to control gate, electrons can be attracted to or repelled from floating gate<ul>
+<li>State = 1, if no electrons in the floating gate</li>
+<li>State = 0, if there are electrons (negative charges)<br>– Electrons stuck there even when power is off<br>– So state is retained</li>
+</ul>
+</li>
+<li>Data in SSD are represented by the ‘01010…’ formats, that is the state of the electrons</li>
+</ul>
+<p><img src="/image/floating-gate.png"></p>
+<h3 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h3><h4 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h4><ul>
+<li>Electrons on the floating gate affect the threshold voltage for the floating gate transistor to conduct</li>
+<li>Higher voltage needed when gate has electrons</li>
+</ul>
+<p><img src="/image/ssd_read.png"></p>
+<p>Steps: </p>
+<ol>
+<li>Apply Vint (intermediate voltage) </li>
+<li>If the current is detected, gate has no electrons=&gt; bit = 1</li>
+<li>If no current, gate must have electrons =&gt; bit = 0</li>
+</ol>
+<p><u><strong>Page is the smallest unit that can be read</strong></u></p>
+<h4 id="Write-and-Erase"><a href="#Write-and-Erase" class="headerlink" title="Write and Erase"></a>Write and Erase</h4><h4 id="Write-and-erase"><a href="#Write-and-erase" class="headerlink" title="Write and erase"></a>Write and erase</h4><ul>
+<li>Write: 1 =&gt; 0 (get electron)<ul>
+<li>Apply high positive voltage (&gt;&gt; voltage for read) to the control gate</li>
+<li>Attract electrons from channel to floating gate (through quantum tunneling)</li>
+<li>Page is the smallest unit for write</li>
+</ul>
+</li>
+<li>Erase: 0 =&gt; 1 (make electrons empty)<ul>
+<li>Need to apply much higher negative voltage to the control gate</li>
+<li>Get rid of electrons from floating gate</li>
+<li>May stress surrounding cells(dangerous to do on individual pages)</li>
+<li>Block is the smallest unit for erase</li>
+</ul>
+</li>
+</ul>
+<h3 id="P-E-cycle"><a href="#P-E-cycle" class="headerlink" title="P/E cycle"></a>P/E cycle</h3><blockquote>
+<p>P/E cycle: Data is written to cells (P) and then erased (E)<br>Every write &amp; erase damages oxide layer surrounding the floating-gate to some extent</p>
+</blockquote>
+<ul>
+<li>Page is the smallest unit for read and write (write is also called program, 1-&gt;0)</li>
+<li>Block is the smallest unit for erase (0-&gt;1) – i.e., make cells “empty” (i.e., no electrons)  (关于为什么使用block作为最小擦除单元：SSD的物理结构导致，擦除过程会作用到整个block施加高电压，将电子吸引出来)</li>
+</ul>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Operating-System/" rel="tag"># Operating System</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/07/JSON-review/" rel="prev" title="JSON-review">
+      <i class="fa fa-chevron-left"></i> JSON-review
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/08/CSCI570-outline/" rel="next" title="CSCI570-outline">
+      CSCI570-outline <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storage-Device"><span class="nav-number">1.</span> <span class="nav-text">Storage Device</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hierarchy"><span class="nav-number">1.1.</span> <span class="nav-text">Hierarchy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Characters"><span class="nav-number">1.2.</span> <span class="nav-text">Characters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-Function-CRUD"><span class="nav-number">1.3.</span> <span class="nav-text">Basic Function : CRUD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Some-terms"><span class="nav-number">1.4.</span> <span class="nav-text">Some terms</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hard-Disk-Drive"><span class="nav-number">2.</span> <span class="nav-text">Hard Disk Drive</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Organization"><span class="nav-number">2.1.</span> <span class="nav-text">Organization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Physical-characteristics"><span class="nav-number">2.2.</span> <span class="nav-text">Physical characteristics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Storage"><span class="nav-number">2.3.</span> <span class="nav-text">Data Storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Address-Method-CHS-cylinder-head-sector"><span class="nav-number">2.4.</span> <span class="nav-text">Address Method - CHS(cylinder-head-sector)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview"><span class="nav-number">2.4.1.</span> <span class="nav-text">overview</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#address-step"><span class="nav-number">2.4.2.</span> <span class="nav-text">address step</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Operation"><span class="nav-number">2.5.</span> <span class="nav-text">Data Operation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#T-transfer"><span class="nav-number">2.5.1.</span> <span class="nav-text">T_transfer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Actual-Bandwidth"><span class="nav-number">2.5.2.</span> <span class="nav-text">Actual Bandwidth</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E4%B8%AD%E7%9A%84block%E5%92%8Csector%E5%8C%BA%E5%88%86"><span class="nav-number">2.5.3.</span> <span class="nav-text">数据传输中的block和sector区分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%90%8Caccess-pattern%E5%AF%B9%E8%AF%BB%E5%86%99%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">2.5.4.</span> <span class="nav-text">不同access pattern对读写的影响</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Soild-State-Drive"><span class="nav-number">3.</span> <span class="nav-text">Soild State Drive</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Organization-1"><span class="nav-number">3.1.</span> <span class="nav-text">Organization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Characteristics"><span class="nav-number">3.2.</span> <span class="nav-text">Characteristics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Storage-1"><span class="nav-number">3.3.</span> <span class="nav-text">Data Storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operations"><span class="nav-number">3.4.</span> <span class="nav-text">Operations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Read"><span class="nav-number">3.4.1.</span> <span class="nav-text">Read</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Write-and-Erase"><span class="nav-number">3.4.2.</span> <span class="nav-text">Write and Erase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Write-and-erase"><span class="nav-number">3.4.3.</span> <span class="nav-text">Write and erase</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P-E-cycle"><span class="nav-number">3.5.</span> <span class="nav-text">P&#x2F;E cycle</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
