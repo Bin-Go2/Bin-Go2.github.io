@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Basic A filesystem is the methods and data structures that an operating system uses to keep track of files on a disk or partition; that is, the way the files are organized on the disk.   File content">
+<meta property="og:type" content="article">
+<meta property="og:title" content="File systems">
+<meta property="og:url" content="http://example.com/2020/09/10/File-Systems/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="Basic A filesystem is the methods and data structures that an operating system uses to keep track of files on a disk or partition; that is, the way the files are organized on the disk.   File content">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/file-system.png">
+<meta property="og:image" content="http://example.com/image/hard-soft-link.png">
+<meta property="og:image" content="http://example.com/image/inode.png">
+<meta property="og:image" content="http://example.com/image/double-indirect-pointers.png">
+<meta property="og:image" content="http://example.com/image/block_info_fs.png">
+<meta property="og:image" content="http://example.com/image/inumber.png">
+<meta property="og:image" content="http://example.com/image/directory.png">
+<meta property="og:image" content="http://example.com/image/read.png">
+<meta property="og:image" content="http://example.com/image/write.png">
+<meta property="article:published_time" content="2020-09-11T06:13:56.000Z">
+<meta property="article:modified_time" content="2020-09-11T22:17:31.057Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Operating System">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/file-system.png">
+
+<link rel="canonical" href="http://example.com/2020/09/10/File-Systems/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>File systems | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/10/File-Systems/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          File systems
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-10 23:13:56" itemprop="dateCreated datePublished" datetime="2020-09-10T23:13:56-07:00">2020-09-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-11 15:17:31" itemprop="dateModified" datetime="2020-09-11T15:17:31-07:00">2020-09-11</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><blockquote>
+<p>A filesystem is the methods and data structures that an operating system uses to keep track of files on a disk or partition; that is, the way the files are organized on the disk.</p>
+</blockquote>
+<ul>
+<li>File content stored in blocks on storage device</li>
+<li>Files are organized into directories (folders)<br><img src="/image/file-system.png"></li>
+</ul>
+<h3 id="Detail-about-file"><a href="#Detail-about-file" class="headerlink" title="Detail about file"></a>Detail about file</h3><h4 id="File-descriptor"><a href="#File-descriptor" class="headerlink" title="File descriptor"></a>File descriptor</h4><p>A file descriptor is a number that uniquely identifies an open file in a computer’s operating system. It describes a data resource, and how that resource may be accessed.<br>简单的说，根据Linux一切皆文件的概念来看，当进程打开或者创建文件的时候，内核会向进程返回一个数字，这个数字就是文件描述符，所有执行I/O操作的系统调用都通过文件描述符来进行。</p>
+<h4 id="Hard-link-and-symbolic-link-soft-link"><a href="#Hard-link-and-symbolic-link-soft-link" class="headerlink" title="Hard link and symbolic link/soft link"></a>Hard link and symbolic link/soft link</h4><p>A hard link is essentially a synced carbon copy of a file that refers directly to the inode of a file. Symbolic links on the other hand refer directly to the file which refers to the inode, a shortcut.</p>
+<p><img src="/image/hard-soft-link.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ln a.txt b.txt    <span class="comment"># 创建硬链接 - 副本</span></span><br><span class="line">$ ln -s a.txt c.txt <span class="comment"># 创建软链接 - 替身（快捷方式）</span></span><br><span class="line">$ unlink c.txt      <span class="comment"># 取消链接</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="File-permission-mode"><a href="#File-permission-mode" class="headerlink" title="File permission mode"></a>File permission mode</h4><p>3种模式  r:read w:write x:execute<br>3种身份: user group others<br>3*3 = 27 种访问权限<br>rw-r–r– =&gt; 110 (owner permission) 100 (group) 100 (others)<br>可以使用<code>chomod</code> 来进行权限的修改</p>
+<h4 id="Inode"><a href="#Inode" class="headerlink" title="Inode"></a>Inode</h4><p>The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2011/12/inode.html">更多inode细节</a> </p>
+<ul>
+<li>Stores metadata/attributes about the file ( use <code>stat file</code> to check the metadata )</li>
+<li>Also stores locations of blocks holding the content of the file</li>
+</ul>
+<h5 id="metadata"><a href="#metadata" class="headerlink" title="metadata"></a>metadata</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">More details about the file metadata</span><br><span class="line"></span><br><span class="line">struct stat &#123;</span><br><span class="line">dev_t st_dev; &#x2F;* ID of device containing file *&#x2F;</span><br><span class="line">ino_t st_ino; &#x2F;* inode number *&#x2F;</span><br><span class="line">mode_t st_mode; &#x2F;* protection *&#x2F;</span><br><span class="line">nlink_t st_nlink; &#x2F;* number of (hard) links *&#x2F;</span><br><span class="line">uid_t st_uid; &#x2F;* user ID of owner *&#x2F;</span><br><span class="line">gid_t st_gid; &#x2F;* group ID of owner *&#x2F;</span><br><span class="line">dev_t st_rdev; &#x2F;* device ID (if special device file, e.g., &#x2F;etc&#x2F;tty) *&#x2F; </span><br><span class="line">off_t st_size; &#x2F;* total size, in bytes *&#x2F;</span><br><span class="line">blksize_t st_blksize; &#x2F;* blocksize for filesystem I&#x2F;O *&#x2F;</span><br><span class="line">blkcnt_t st_blocks; &#x2F;* number of blocks allocated *&#x2F;</span><br><span class="line">time_t st_atime; &#x2F;* last time file content was accessed *&#x2F;</span><br><span class="line">time_t st_mtime; &#x2F;* last time file content was modified *&#x2F; </span><br><span class="line">time_t st_ctime; &#x2F;* last time inode was changed *&#x2F;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">time_t st_atime; &#x2F;* last time file content was accessed *&#x2F; 关于这一项的思考：</span><br><span class="line">这一项表明了不论对文件是什么操作，都会进行inode的修改，有的时候为了提升I&#x2F;O性能，会在挂载文件系统的时候指定“noatime,nodiratime”参数，意味着当访问一个文件和目录的时候，access time都不会更新</span><br><span class="line">可以通过 cat &#x2F;etc&#x2F;fstab 查看具体信息</span><br></pre></td></tr></table></figure>
+<p><img src="/image/inode.png"></p>
+<h5 id="locations-of-data"><a href="#locations-of-data" class="headerlink" title="locations of data"></a>locations of data</h5><p>An inode has:</p>
+<ul>
+<li>A number of direct pointers,each points to a data block<br>example: a inode has 8 pointers, each pointer points to a 4K block, then this inode is enogh for 8*4K = 32KB size of file</li>
+<li>Also has a slot for indirect pointer : a pointer points to a data block storing direct pointers<br>example: 1 block’s size: 4KB, pointer size: 4 bytes, then a block can hold 1024 pointers =&gt; Now file can have (8 + 1024) blocks , enough for 4MB size of file</li>
+</ul>
+<p>How to store larger files? - Multi-level index</p>
+<ul>
+<li>Pointers may be organized into multiple levels (double,triple,…n times) </li>
+</ul>
+<p><img src="/image/double-indirect-pointers.png"><br>1 direct pointer =&gt; 1 block (4KB)<br>1 indirect pointer =&gt; 2^10 direct pointer  =  2^10*4KB  = 4MB<br>1 double indirect pointer =&gt; 2^10 indirect pointers =&gt; 2^20 direct pointers  =&gt; 2^20*4KB = 4GB</p>
+<h4 id="Organization-of-blocks"><a href="#Organization-of-blocks" class="headerlink" title="Organization of blocks"></a>Organization of blocks</h4><p>Assumption:(便于理解，做些假设)</p>
+<ol>
+<li>Disk consists of a list of blocks and they are array-based.(other forms:Tree-based, e.g., SGI XFS -Blocks are organized into variable-length extents)</li>
+<li>a disk with 64 blocks<ul>
+<li>4KB/block   =&gt;文件系统的最小单元</li>
+<li>512B/sector =&gt;存储系统的最小单元 </li>
+<li>so there are 2^12/2^9 = 2^3 = 8 sectors/block and capacity of disk = 64 * 4KB = 256KB</li>
+</ul>
+</li>
+</ol>
+<p>Structure about these blocks: </p>
+<ol>
+<li>Data region (56 blocks (#8-63))</li>
+<li>Inode table (5 blocks #3 – #7) 元数据+文件内容地址<ul>
+<li>assume 256 bytes/inode 5 blocks, 4KB/block</li>
+<li>=&gt; 80 inodes total  (4KB/256B * 5)</li>
+<li>=&gt; File system can store at most 80 files</li>
+</ul>
+</li>
+<li>Bitmaps (#1, #2)  a vector of bits, 0 for free (inode/block), 1 for in-use<ul>
+<li>Inode bitmap (imap):keep track of which inodes in the inode table are available  (这里4KB一个block 1byte=8bit，所以一个block的话最多以存储80K个inode的状态)</li>
+<li>Data bitmap (dmap):keep track of which blocks in data region are available</li>
+</ul>
+</li>
+<li>Superblock(#0): Track where i/d blocks and inode table are; Indicate type of FS &amp; inumber of its root dir; Will be read first when file system is mounted</li>
+</ol>
+<p><img src="/image/block_info_fs.png"></p>
+<h4 id="Inumber"><a href="#Inumber" class="headerlink" title="Inumber"></a>Inumber</h4><p>Each inode is identified by a number: Low-level number of file name<br>Can figure out location of inode from inumber 通过inumber可以寻址到其代表的inode所在的sector<br>Location:  ⌊(inodeStartAddress + inumber ∗ inode size)/sector size⌋</p>
+<p>example: inumber = 32<br>Address:12K+32*256=20K<br>Sector #: 20K/512 = 40<br><img src="/image/inumber.png"></p>
+<p>总结inumber,inode,data一句话来说就是inumber =&gt; inode =&gt; data</p>
+<h3 id="Detail-about-directory"><a href="#Detail-about-directory" class="headerlink" title="Detail about directory"></a>Detail about directory</h3><h4 id="Basic-1"><a href="#Basic-1" class="headerlink" title="Basic"></a>Basic</h4><ul>
+<li>Directory itself stored as a file</li>
+<li>For each file in the directory, it stores:<ul>
+<li>name, inumber, record length, string length</li>
+</ul>
+</li>
+<li>If file is deleted (using rm command) or a name is unlinked (using unlink command),then inumber in its directory entry set to 0 (reserved for empty entry)<ul>
+<li>File is finally deleted when its last (hard) link is removed<br><img src="/image/directory.png"></li>
+</ul>
+</li>
+</ul>
+<h4 id="Storing-a-directory"><a href="#Storing-a-directory" class="headerlink" title="Storing a directory"></a>Storing a directory</h4><ul>
+<li>Also as a file with its own inode + data block</li>
+<li>inode:<ul>
+<li>file type: directory (instead of regular file)</li>
+<li>pointer to block(s) in data region storing directory entries</li>
+</ul>
+</li>
+</ul>
+<h3 id="Operations-on-file"><a href="#Operations-on-file" class="headerlink" title="Operations on file"></a>Operations on file</h3><ul>
+<li>Create: open(), write()</li>
+<li>Read:  open(),read(), lseek()</li>
+<li>Update: write(), lseek()</li>
+<li>Delete: unlink()</li>
+</ul>
+<p>Note: 这些函数都是操作系统自带提供的系统调用函数</p>
+<h4 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h4><ul>
+<li>User interface via GUI or touch command in Linux</li>
+<li>Implementation, e.g., via a C program with a system call: open()</li>
+<li>open() returns a file descriptor. Reserved fds: stdin 0, stdout, 1, stderr 2</li>
+<li>After getting the file descriptor of file, start read() <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">fd &#x3D; open(&quot;&#x2F;foo&#x2F;bar&quot;, O_RDONLY)</span><br><span class="line">- Need to locate inode of the file &quot;&#x2F;foo&#x2F;bar&quot;</span><br><span class="line">- Assume inumber of root, say 2, is known (e.g., when the file system is mounted)</span><br><span class="line"></span><br><span class="line">step1: read inode and content of &#x2F;  (2 reads)</span><br><span class="line">- Look for &quot;foo&quot; in &#x2F; -&gt; foo&#39;s inumber</span><br><span class="line"></span><br><span class="line">step2: read inode and content of &#x2F;foo (2 reads)</span><br><span class="line">- Look for &quot;bar&quot; in &#x2F;foo -&gt; bar&#39;s inumber</span><br><span class="line"></span><br><span class="line">step3: read inode of &#x2F;foo&#x2F;bar (1 read)</span><br><span class="line">– Permission check + allocate file descriptor</span><br><span class="line"></span><br><span class="line">open-file table per process(维护这些进程，系统有一个 open-file table)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">read(fd, buffer, size)</span><br><span class="line">– Note fd is maintained in per-process open-file table</span><br><span class="line">– Table translates fd -&gt; inumber of file</span><br><span class="line"></span><br><span class="line">step1: consult bar&#39;s inode to locate a block</span><br><span class="line">step2: read the block</span><br><span class="line">step3: update inode with newest file access time</span><br><span class="line">step4: update open-file table with new offset</span><br><span class="line">step5: repeat above steps until done(with reading data of given size)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<img src="/image/read.png"></li>
+</ul>
+<p>I/O cost for open(): 5 reads<br>I/O cost for reading a block: 2 reads + 1 write</p>
+<h4 id="Write"><a href="#Write" class="headerlink" title="Write"></a>Write</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int fd &#x3D; open(&quot;&#x2F;foo&#x2F;bar&quot;, O_WRONLY)</span><br><span class="line">– Or int fd &#x3D; create((&quot;&#x2F;foo&#x2F;bar&quot;)</span><br><span class="line">– Assume bar is a new file under foo</span><br><span class="line"></span><br><span class="line">step1: read&#39;&#x2F;&#39;inode &amp; content -&gt; obtain foo&#39;s inumber</span><br><span class="line">step2: read&#39;&#x2F;foo&#39;inode &amp; content -&gt; check if bar exists</span><br><span class="line">step3: read imap,to find a free inode for bar</span><br><span class="line">step4: update imap,setting 1 for allocated inode</span><br><span class="line">step5: write bar&#39;s inode</span><br><span class="line">step6: update foo&#39;s content block  - adding an entry for bar</span><br><span class="line">step7: update foo&#39;s inode  -update its modification time</span><br><span class="line"></span><br><span class="line">write(fd, buffer, size)</span><br><span class="line">step1: read inode of bar(by looking up its inumber in the open-file table)</span><br><span class="line">step2: allocate new data block – read and write bmap</span><br><span class="line">step3: write to data block of bar</span><br><span class="line">step4: update bar node - new modification time, add pointer to block</span><br></pre></td></tr></table></figure>
+<p><img src="/image/write.png"></p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Operating-System/" rel="tag"># Operating System</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/10/spacy-learning/" rel="prev" title="spaCy学习">
+      <i class="fa fa-chevron-left"></i> spaCy学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/11/NFS/" rel="next" title="Network File System">
+      Network File System <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic"><span class="nav-number">1.</span> <span class="nav-text">Basic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Detail-about-file"><span class="nav-number">2.</span> <span class="nav-text">Detail about file</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#File-descriptor"><span class="nav-number">2.1.</span> <span class="nav-text">File descriptor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hard-link-and-symbolic-link-soft-link"><span class="nav-number">2.2.</span> <span class="nav-text">Hard link and symbolic link&#x2F;soft link</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#File-permission-mode"><span class="nav-number">2.3.</span> <span class="nav-text">File permission mode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Inode"><span class="nav-number">2.4.</span> <span class="nav-text">Inode</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#metadata"><span class="nav-number">2.4.1.</span> <span class="nav-text">metadata</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#locations-of-data"><span class="nav-number">2.4.2.</span> <span class="nav-text">locations of data</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Organization-of-blocks"><span class="nav-number">2.5.</span> <span class="nav-text">Organization of blocks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Inumber"><span class="nav-number">2.6.</span> <span class="nav-text">Inumber</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Detail-about-directory"><span class="nav-number">3.</span> <span class="nav-text">Detail about directory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic-1"><span class="nav-number">3.1.</span> <span class="nav-text">Basic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Storing-a-directory"><span class="nav-number">3.2.</span> <span class="nav-text">Storing a directory</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operations-on-file"><span class="nav-number">4.</span> <span class="nav-text">Operations on file</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Read"><span class="nav-number">4.1.</span> <span class="nav-text">Read</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Write"><span class="nav-number">4.2.</span> <span class="nav-text">Write</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共8.9k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基本概念 spaCy (&#x2F;speɪˈsiː&#x2F;) is an open-source software library for advanced natural language processing written in the programming languages Python and Cython.  学习资源: https:&#x2F;&#x2F;spacy.io&#x2F;  https:&#x2F;&#x2F;course.spa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spaCy学习">
+<meta property="og:url" content="http://example.com/2020/09/10/spacy-learning/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="基本概念 spaCy (&#x2F;speɪˈsiː&#x2F;) is an open-source software library for advanced natural language processing written in the programming languages Python and Cython.  学习资源: https:&#x2F;&#x2F;spacy.io&#x2F;  https:&#x2F;&#x2F;course.spa">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/dependency_scapy.png">
+<meta property="article:published_time" content="2020-09-10T21:34:24.000Z">
+<meta property="article:modified_time" content="2020-09-11T03:19:15.598Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/dependency_scapy.png">
+
+<link rel="canonical" href="http://example.com/2020/09/10/spacy-learning/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>spaCy学习 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/10/spacy-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          spaCy学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-10 14:34:24 / Modified: 20:19:15" itemprop="dateCreated datePublished" datetime="2020-09-10T14:34:24-07:00">2020-09-10</time>
+            </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
+<p>spaCy (/speɪˈsiː/) is an open-source software library for advanced natural language processing written in the programming languages Python and Cython.</p>
+</blockquote>
+<p>学习资源: <a target="_blank" rel="noopener" href="https://spacy.io/">https://spacy.io/</a>  <a target="_blank" rel="noopener" href="https://course.spacy.io/en">https://course.spacy.io/en</a></p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ul>
+<li>nlp   : contains the processing pipeline; includes language-specific rules for tokenization etc.</li>
+<li>doc   : access information about the text in a structured way, and no information is lost.</li>
+<li>token : tokens in a document – for example, a word or a punctuation character.</li>
+<li>span  : a slice of the document consisting of one or more tokens</li>
+<li>lexical attributes : <code>token.i</code>, <code>token.text</code>, <code>token.is_alpha</code>, <code>token.is_punct</code>, <code>token.like_num</code>… They refer to the entry in the vocabulary and don’t depend on the token’s context.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入对应语言类 Note: Some language tokenizers require external dependencies. </span></span><br><span class="line"><span class="keyword">from</span> spacy.lang.zh <span class="keyword">import</span> Chinese   <span class="comment"># https://spacy.io/usage/models 查看lang后面对应的字符</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建nlp实例</span></span><br><span class="line">nlp = Chinese() 	</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用nlp对象处理一段文本并生成doc实例		</span></span><br><span class="line"><span class="comment"># When you call nlp on a string, spaCy first tokenizes the text and creates a document object.	  </span></span><br><span class="line">doc = nlp(<span class="string">&quot;这是一个句子。&quot;</span>) <span class="comment"># 底层调用 __call__方法					</span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:  <span class="comment"># 遍历doc实例中的token							</span></span><br><span class="line">    print(token.text)  </span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">这是</span></span><br><span class="line"><span class="string">一个</span></span><br><span class="line"><span class="string">句子</span></span><br><span class="line"><span class="string">。</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用索引获得某一个token</span></span><br><span class="line">specific_token = doc[<span class="number">1</span>]	</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用切片获得doc片段					</span></span><br><span class="line">span = doc[<span class="number">1</span>:<span class="number">3</span>]								</span><br><span class="line"></span><br><span class="line"><span class="comment"># token的一些属性</span></span><br><span class="line">doc = nlp(<span class="string">&quot;我花了20¥买了一个汉堡包。&quot;</span>)</span><br><span class="line">print(<span class="string">&quot;Index:   &quot;</span>, [token.i <span class="keyword">for</span> token <span class="keyword">in</span> doc])</span><br><span class="line">print(<span class="string">&quot;Text:    &quot;</span>, [token.text <span class="keyword">for</span> token <span class="keyword">in</span> doc])</span><br><span class="line">print(<span class="string">&quot;is_alpha:&quot;</span>, [token.is_alpha <span class="keyword">for</span> token <span class="keyword">in</span> doc])</span><br><span class="line">print(<span class="string">&quot;is_punct:&quot;</span>, [token.is_punct <span class="keyword">for</span> token <span class="keyword">in</span> doc])</span><br><span class="line">print(<span class="string">&quot;like_num:&quot;</span>, [token.like_num <span class="keyword">for</span> token <span class="keyword">in</span> doc])</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Index:    [0, 1, 2, 3, 4, 5, 6, 7, 8]</span></span><br><span class="line"><span class="string">Text:     [&#x27;我花&#x27;, &#x27;了&#x27;, &#x27;20&#x27;, &#x27;¥&#x27;, &#x27;买&#x27;, &#x27;了&#x27;, &#x27;一个&#x27;, &#x27;汉堡包&#x27;, &#x27;。&#x27;]</span></span><br><span class="line"><span class="string">is_alpha: [True, True, False, False, True, True, True, True, False]</span></span><br><span class="line"><span class="string">is_punct: [False, False, False, False, False, False, False, False, True]</span></span><br><span class="line"><span class="string">like_num: [False, False, True, False, False, False, False, False, False]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="统计模型"><a href="#统计模型" class="headerlink" title="统计模型"></a>统计模型</h3><p>来源: Models are trained on large datasets of labeled example texts.<br>作用: 词性标注 (Part-of-speech tags), 依存关系解析 (Syntactic dependencies), 命名实体识别 (Named entities)<br>优化: Can be updated with more examples to fine-tune predictions</p>
+<h4 id="模型包"><a href="#模型包" class="headerlink" title="模型包"></a>模型包</h4><p>spaCy提供了很多预训练好的模型包，可以使用<code>spacy download</code>进行下载 <a target="_blank" rel="noopener" href="https://spacy.io/usage/models">https://spacy.io/usage/models</a></p>
+<p>The package provides </p>
+<ul>
+<li>binary weights that enable spaCy to make predictions;</li>
+<li>vocabulary, and meta information to tell spaCy which language class to use;</li>
+<li>how to configure the processing pipeline;</li>
+</ul>
+<p>导入模型包和通过初始化语言类的nlp实例区别？</p>
+<ul>
+<li>spacy.lang.xxx中包含其实是特定语言的代码和规则，包括停用词，数字之类,简单认为就是最基础的一些规则</li>
+<li>模型包是建立在已经对大量的标记数据进行训练后得到的统计模型，简单认为是基于spacy.lang.xxx中某一种语言最基础规则之上,对大量数据进行训练学习得到的更多规则</li>
+</ul>
+<h4 id="词性标注-Part-of-speech-tags"><a href="#词性标注-Part-of-speech-tags" class="headerlink" title="词性标注 (Part-of-speech tags)"></a>词性标注 (Part-of-speech tags)</h4><p>通过标注每一个token的词性，为后于文本处理提供基础保证，<code>.pos_</code>属性返回词性标注的结果</p>
+<h4 id="依存关系解析-Syntactic-dependencies"><a href="#依存关系解析-Syntactic-dependencies" class="headerlink" title="依存关系解析 (Syntactic dependencies)"></a>依存关系解析 (Syntactic dependencies)</h4><p>由于已经对于token做了词性标注，由此可以进一步来进行词与词之间的关系的预测。比如一个词是某一个句子或者物体的主语。<code>.dep_</code>属性返回预测的依存关系标注,<code>.head</code>属性返回当前token的parent token(也就是依存的那一个token)</p>
+<p>关于依存关系:<br>20世纪70年代，Robinson提出依存语法中关于依存关系的四条公理：</p>
+<ul>
+<li>一个句子中只有一个成分是独立的；</li>
+<li>其它成分直接依存于某一成分；</li>
+<li>任何一个成分都不能依存与两个或两个以上的成分；</li>
+<li>如果A成分直接依存于B成分，而C成分在句中位于A和B之间，那么C或者直接依存于B，或者直接依存于A和B之间的某一成分；</li>
+</ul>
+<p>依存结构是加标签的有向图，箭头从中心词指向从属，具体来说，箭头是从head指向child,举个例子： I love you,中 I 依存于 love,所以会有一条有向边从love指向I<br><img src="/image/dependency_scapy.png"></p>
+<p>常用的依存标签：<br>root:  中心词,一般为动词<br>nsubj: nominal subject,名词性主语<br>dobj:  direct object, 直接宾语<br>prep: 介词<br>pobj: 介词宾语<br>cc: 连词<br>compound: 复合词<br>advmod: 状语<br>det: 限定词<br>amod: 形容词修饰语</p>
+<h4 id="命名实体识别-Named-entities"><a href="#命名实体识别-Named-entities" class="headerlink" title="命名实体识别 (Named entities)"></a>命名实体识别 (Named entities)</h4><p><code>doc.ents</code>读取模型预测出的所有命名实体,例如Bill Gates,使用<code>.label_</code>属性打印出实体标签，例如Person</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">$ python -m spacy download zh_core_web_sm </span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line">nlp = spacy.load(<span class="string">&quot;en_core_web_md&quot;</span>)  <span class="comment"># load a model package by name and returns an nlp object.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Process a text</span></span><br><span class="line">doc = nlp(<span class="string">&quot;I love you!&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Iterate over the tokens</span></span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:</span><br><span class="line">    <span class="comment"># Print the text and the predicted part-of-speech tag</span></span><br><span class="line">    print(token.text, token.pos_)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">I PRON</span></span><br><span class="line"><span class="string">love VERB</span></span><br><span class="line"><span class="string">you PRON</span></span><br><span class="line"><span class="string">! PUNCT</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:</span><br><span class="line">    print(token.text, token.pos_, token.dep_, token.head.text)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">I PRON nsubj love</span></span><br><span class="line"><span class="string">love VERB ROOT love</span></span><br><span class="line"><span class="string">you PRON dobj love</span></span><br><span class="line"><span class="string">! PUNCT punct love</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Process a text</span></span><br><span class="line">doc = nlp(<span class="string">&quot;Apple is looking at buying U.K. startup for $1 billion&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Iterate over the predicted entities</span></span><br><span class="line"><span class="keyword">for</span> ent <span class="keyword">in</span> doc.ents:</span><br><span class="line">    <span class="comment"># Print the entity text and its label</span></span><br><span class="line">    print(ent.text, ent.label_)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Process a text</span></span><br><span class="line">doc = nlp(<span class="string">&quot;Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Iterate over the predicted entities</span></span><br><span class="line"><span class="keyword">for</span> ent <span class="keyword">in</span> doc.ents:</span><br><span class="line">    <span class="comment"># Print the entity text and its label</span></span><br><span class="line">    print(ent.text, ent.label_)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Microsoft Corporation ORG</span></span><br><span class="line"><span class="string">American NORP</span></span><br><span class="line"><span class="string">Redmond GPE</span></span><br><span class="line"><span class="string">Washington GPE</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get quick definitions of the most common tags and labels.</span></span><br><span class="line">spacy.explain(<span class="string">&#x27;NORP&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;Nationalities or religious or political groups&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="基于规则的匹配抽取"><a href="#基于规则的匹配抽取" class="headerlink" title="基于规则的匹配抽取"></a>基于规则的匹配抽取</h4><p>使用预训练模型的缺陷：模型的预测是否正确取决于训练数据和处理的文本，如果处理的文本中许多规则没有被模型包含，则预测的精度不会很高。<br>解决方案: 使用预训练的模型 + 添加相应的规则</p>
+<p>Match patterns</p>
+<ul>
+<li>Lists of dictionaries, one per token  [{},{},{}]</li>
+<li>Match exact token texts</li>
+<li>Match lexical attributes</li>
+<li>Match any token attributes</li>
+</ul>
+<p>Match step:</p>
+<ol>
+<li>Import the <code>Matcher</code> from <code>spacy.matcher</code>.</li>
+<li>Initialize it with the <code>nlp</code> object’s shared <code>vocab</code>.</li>
+<li>Create patterns</li>
+<li>Use the <code>matcher.add</code> to add the pattern to the matcher.</li>
+<li>Call the matcher on the <code>doc</code> and store the result in the variable matches.</li>
+<li>Iterate over the matches and get the matched span from the <code>start</code> to the <code>end</code> index.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line"><span class="keyword">from</span> spacy.matcher <span class="keyword">import</span> Matcher <span class="comment"># # Import the Matcher</span></span><br><span class="line"></span><br><span class="line">nlp = spacy.load(<span class="string">&quot;en_core_web_md&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the matcher with the shared vocab</span></span><br><span class="line">matcher = Matcher(nlp.vocab)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the pattern to the matcher</span></span><br><span class="line">pattern = [&#123;<span class="string">&quot;TEXT&quot;</span>: <span class="string">&quot;iPhone&quot;</span>&#125;, &#123;<span class="string">&quot;TEXT&quot;</span>: <span class="string">&quot;X&quot;</span>&#125;]</span><br><span class="line">matcher.add(<span class="string">&quot;IPHONE_PATTERN&quot;</span>, <span class="literal">None</span>, pattern)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Process some text</span></span><br><span class="line">doc = nlp(<span class="string">&quot;Upcoming iPhone X release date leaked&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Call the matcher on the doc</span></span><br><span class="line">matches = matcher(doc)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Iterate over the matches</span></span><br><span class="line"><span class="keyword">for</span> match_id, start, end <span class="keyword">in</span> matches:</span><br><span class="line">    <span class="comment"># Get the matched span</span></span><br><span class="line">    matched_span = doc[start:end]</span><br><span class="line">    print(matched_span.text)</span><br><span class="line"><span class="string">&#x27;iPhone X&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">&#123;&quot;OP&quot;: &quot;!&quot;&#125;	Negation: match 0 times</span></span><br><span class="line"><span class="string">&#123;&quot;OP&quot;: &quot;?&quot;&#125;	Optional: match 0 or 1 times</span></span><br><span class="line"><span class="string">&#123;&quot;OP&quot;: &quot;+&quot;&#125;	Match 1 or more times</span></span><br><span class="line"><span class="string">&#123;&quot;OP&quot;: &quot;*&quot;&#125;	Match 0 or more times</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/NLP/" rel="tag"># NLP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/09/Algorithm-sliding-window/" rel="prev" title="Leetcode-滑动窗口">
+      <i class="fa fa-chevron-left"></i> Leetcode-滑动窗口
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/10/File-Systems/" rel="next" title="File systems">
+      File systems <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">统计模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%8C%85"><span class="nav-number">1.2.1.</span> <span class="nav-text">模型包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8-Part-of-speech-tags"><span class="nav-number">1.2.2.</span> <span class="nav-text">词性标注 (Part-of-speech tags)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%9D%E5%AD%98%E5%85%B3%E7%B3%BB%E8%A7%A3%E6%9E%90-Syntactic-dependencies"><span class="nav-number">1.2.3.</span> <span class="nav-text">依存关系解析 (Syntactic dependencies)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB-Named-entities"><span class="nav-number">1.2.4.</span> <span class="nav-text">命名实体识别 (Named entities)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99%E7%9A%84%E5%8C%B9%E9%85%8D%E6%8A%BD%E5%8F%96"><span class="nav-number">1.2.5.</span> <span class="nav-text">基于规则的匹配抽取</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共8.9k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
