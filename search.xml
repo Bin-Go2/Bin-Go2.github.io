@@ -75,10 +75,45 @@
       </tags>
   </entry>
   <entry>
+    <title>Leetcode-滑动窗口</title>
+    <url>/2020/09/09/Algorithm-sliding-window/</url>
+    <content><![CDATA[<h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p><u>连续</u>子数组</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ul>
+<li>根据要求，找到第一个满足条件的窗口</li>
+<li>调整窗口(右移/左移)使其继续满足要求，并进行重复</li>
+<li>得到最合适的窗口即为答案</li>
+</ul>
+<h3 id="Leetcode例题"><a href="#Leetcode例题" class="headerlink" title="Leetcode例题"></a>Leetcode例题</h3><h5 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">if</span> len(s) == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_start,res = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(s)):</span><br><span class="line">        char = s[window_end]</span><br><span class="line">        <span class="keyword">if</span> char <span class="keyword">in</span> dic <span class="keyword">and</span> dic[char]&gt;=window_start: <span class="comment"># 注意这里的第二个条件dic[char]&gt;=window_start！！ 起到一个覆盖的作用</span></span><br><span class="line">            window_start = dic[char] +<span class="number">1</span></span><br><span class="line">        dic[char] = window_end</span><br><span class="line">        width = window_end-window_start+<span class="number">1</span></span><br><span class="line">        res = max(width,res)</span><br><span class="line">    <span class="keyword">return</span> res  </span><br></pre></td></tr></table></figure>
+
+<h5 id="大小为-K-且平均值大于等于阈值的子数组数目"><a href="#大小为-K-且平均值大于等于阈值的子数组数目" class="headerlink" title="大小为 K 且平均值大于等于阈值的子数组数目"></a><a href="https://leetcode-cn.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/">大小为 K 且平均值大于等于阈值的子数组数目</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numOfSubarrays</span>(<span class="params">arr,k,threshold</span>):</span></span><br><span class="line">    <span class="keyword">if</span> arr == [] <span class="keyword">or</span> len(arr)&lt;k:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_sum,window_start,res = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    temp = threshold*k</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">        window_sum+=arr[window_end]</span><br><span class="line">        <span class="keyword">if</span> window_end&gt;=k<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> window_sum &gt;=temp:</span><br><span class="line">                res+=<span class="number">1</span></span><br><span class="line">            window_sum-=arr[window_start]</span><br><span class="line">            window_start+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h5 id="替换后的最长重复字符"><a href="#替换后的最长重复字符" class="headerlink" title="替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/">最小覆盖子串</a></h5><h5 id="滑动窗口中位数"><a href="#滑动窗口中位数" class="headerlink" title="滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></h5><h5 id="滑动窗口最大值"><a href="#滑动窗口最大值" class="headerlink" title="滑动窗口最大值"></a><a href="https://leetcode-cn.com/problems/sliding-window-maximum/">滑动窗口最大值</a></h5>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSCI570-outline</title>
+    <url>/2020/09/08/CSCI570-outline/</url>
+    <content><![CDATA[<p>hello world!</p>
+]]></content>
+      <tags>
+        <tag>Course</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Commands Often Used</title>
     <url>/2020/09/05/Commands%20Often%20Used/</url>
     <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
 
+
+<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line">切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line">修改环境名称（无法修改，只能复制+删除）</span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 ]]></content>
@@ -95,6 +130,110 @@
     <content><![CDATA[<h2 id="DSCI551-Foundations-of-Data-Management"><a href="#DSCI551-Foundations-of-Data-Management" class="headerlink" title="DSCI551 - Foundations of Data Management"></a>DSCI551 - Foundations of Data Management</h2><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/09/06/Firebase-rest-web-api/" title="Firebase rest &amp; web api">Firebase rest &amp; web api</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><a href="/2020/09/08/Storage-systems/" title="Storage systems">Storage systems</a></h3><h3 id="-3"><a href="#-3" class="headerlink" title=""></a><a href="/2020/09/10/File-Systems/" title="File systems">File systems</a></h3><h3 id="-4"><a href="#-4" class="headerlink" title=""></a><a href="/2020/09/11/NFS/" title="Network File System">Network File System</a></h3>]]></content>
       <tags>
         <tag>Course</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>File systems</title>
+    <url>/2020/09/10/File-Systems/</url>
+    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><blockquote>
+<p>A filesystem is the methods and data structures that an operating system uses to keep track of files on a disk or partition; that is, the way the files are organized on the disk.</p>
+</blockquote>
+<ul>
+<li>File content stored in blocks on storage device</li>
+<li>Files are organized into directories (folders)<br><img src="/image/file-system.png"></li>
+</ul>
+<h3 id="Detail-about-file"><a href="#Detail-about-file" class="headerlink" title="Detail about file"></a>Detail about file</h3><h4 id="File-descriptor"><a href="#File-descriptor" class="headerlink" title="File descriptor"></a>File descriptor</h4><p>A file descriptor is a number that uniquely identifies an open file in a computer’s operating system. It describes a data resource, and how that resource may be accessed.<br>简单的说，根据Linux一切皆文件的概念来看，当进程打开或者创建文件的时候，内核会向进程返回一个数字，这个数字就是文件描述符，所有执行I/O操作的系统调用都通过文件描述符来进行。</p>
+<h4 id="Hard-link-and-symbolic-link-soft-link"><a href="#Hard-link-and-symbolic-link-soft-link" class="headerlink" title="Hard link and symbolic link/soft link"></a>Hard link and symbolic link/soft link</h4><p>A hard link is essentially a synced carbon copy of a file that refers directly to the inode of a file. Symbolic links on the other hand refer directly to the file which refers to the inode, a shortcut.</p>
+<p><img src="/image/hard-soft-link.png"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ln a.txt b.txt    <span class="comment"># 创建硬链接 - 副本</span></span><br><span class="line">$ ln -s a.txt c.txt <span class="comment"># 创建软链接 - 替身（快捷方式）</span></span><br><span class="line">$ unlink c.txt      <span class="comment"># 取消链接</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="File-permission-mode"><a href="#File-permission-mode" class="headerlink" title="File permission mode"></a>File permission mode</h4><p>3种模式  r:read w:write x:execute<br>3种身份: user group others<br>3*3 = 27 种访问权限<br>rw-r–r– =&gt; 110 (owner permission) 100 (group) 100 (others)<br>可以使用<code>chomod</code> 来进行权限的修改</p>
+<h4 id="Inode"><a href="#Inode" class="headerlink" title="Inode"></a>Inode</h4><p>The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. <a href="http://www.ruanyifeng.com/blog/2011/12/inode.html">更多inode细节</a> </p>
+<ul>
+<li>Stores metadata/attributes about the file ( use <code>stat file</code> to check the metadata )</li>
+<li>Also stores locations of blocks holding the content of the file</li>
+</ul>
+<h5 id="metadata"><a href="#metadata" class="headerlink" title="metadata"></a>metadata</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">More details about the file metadata</span><br><span class="line"></span><br><span class="line">struct stat &#123;</span><br><span class="line">dev_t st_dev; &#x2F;* ID of device containing file *&#x2F;</span><br><span class="line">ino_t st_ino; &#x2F;* inode number *&#x2F;</span><br><span class="line">mode_t st_mode; &#x2F;* protection *&#x2F;</span><br><span class="line">nlink_t st_nlink; &#x2F;* number of (hard) links *&#x2F;</span><br><span class="line">uid_t st_uid; &#x2F;* user ID of owner *&#x2F;</span><br><span class="line">gid_t st_gid; &#x2F;* group ID of owner *&#x2F;</span><br><span class="line">dev_t st_rdev; &#x2F;* device ID (if special device file, e.g., &#x2F;etc&#x2F;tty) *&#x2F; </span><br><span class="line">off_t st_size; &#x2F;* total size, in bytes *&#x2F;</span><br><span class="line">blksize_t st_blksize; &#x2F;* blocksize for filesystem I&#x2F;O *&#x2F;</span><br><span class="line">blkcnt_t st_blocks; &#x2F;* number of blocks allocated *&#x2F;</span><br><span class="line">time_t st_atime; &#x2F;* last time file content was accessed *&#x2F;</span><br><span class="line">time_t st_mtime; &#x2F;* last time file content was modified *&#x2F; </span><br><span class="line">time_t st_ctime; &#x2F;* last time inode was changed *&#x2F;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">time_t st_atime; &#x2F;* last time file content was accessed *&#x2F; 关于这一项的思考：</span><br><span class="line">这一项表明了不论对文件是什么操作，都会进行inode的修改，有的时候为了提升I&#x2F;O性能，会在挂载文件系统的时候指定“noatime,nodiratime”参数，意味着当访问一个文件和目录的时候，access time都不会更新</span><br><span class="line">可以通过 cat &#x2F;etc&#x2F;fstab 查看具体信息</span><br></pre></td></tr></table></figure>
+<p><img src="/image/inode.png"></p>
+<h5 id="locations-of-data"><a href="#locations-of-data" class="headerlink" title="locations of data"></a>locations of data</h5><p>An inode has:</p>
+<ul>
+<li>A number of direct pointers,each points to a data block<br>example: a inode has 8 pointers, each pointer points to a 4K block, then this inode is enogh for 8*4K = 32KB size of file</li>
+<li>Also has a slot for indirect pointer : a pointer points to a data block storing direct pointers<br>example: 1 block’s size: 4KB, pointer size: 4 bytes, then a block can hold 1024 pointers =&gt; Now file can have (8 + 1024) blocks , enough for 4MB size of file</li>
+</ul>
+<p>How to store larger files? - Multi-level index</p>
+<ul>
+<li>Pointers may be organized into multiple levels (double,triple,…n times) </li>
+</ul>
+<p><img src="/image/double-indirect-pointers.png"><br>1 direct pointer =&gt; 1 block (4KB)<br>1 indirect pointer =&gt; 2^10 direct pointer  =  2^10*4KB  = 4MB<br>1 double indirect pointer =&gt; 2^10 indirect pointers =&gt; 2^20 direct pointers  =&gt; 2^20*4KB = 4GB</p>
+<h4 id="Organization-of-blocks"><a href="#Organization-of-blocks" class="headerlink" title="Organization of blocks"></a>Organization of blocks</h4><p>Assumption:(便于理解，做些假设)</p>
+<ol>
+<li>Disk consists of a list of blocks and they are array-based.(other forms:Tree-based, e.g., SGI XFS -Blocks are organized into variable-length extents)</li>
+<li>a disk with 64 blocks<ul>
+<li>4KB/block   =&gt;文件系统的最小单元</li>
+<li>512B/sector =&gt;存储系统的最小单元 </li>
+<li>so there are 2^12/2^9 = 2^3 = 8 sectors/block and capacity of disk = 64 * 4KB = 256KB</li>
+</ul>
+</li>
+</ol>
+<p>Structure about these blocks: </p>
+<ol>
+<li>Data region (56 blocks (#8-63))</li>
+<li>Inode table (5 blocks #3 – #7) 元数据+文件内容地址<ul>
+<li>assume 256 bytes/inode 5 blocks, 4KB/block</li>
+<li>=&gt; 80 inodes total  (4KB/256B * 5)</li>
+<li>=&gt; File system can store at most 80 files</li>
+</ul>
+</li>
+<li>Bitmaps (#1, #2)  a vector of bits, 0 for free (inode/block), 1 for in-use<ul>
+<li>Inode bitmap (imap):keep track of which inodes in the inode table are available  (这里4KB一个block 1byte=8bit，所以一个block的话最多以存储80K个inode的状态)</li>
+<li>Data bitmap (dmap):keep track of which blocks in data region are available</li>
+</ul>
+</li>
+<li>Superblock(#0): Track where i/d blocks and inode table are; Indicate type of FS &amp; inumber of its root dir; Will be read first when file system is mounted</li>
+</ol>
+<p><img src="/image/block_info_fs.png"></p>
+<h4 id="Inumber"><a href="#Inumber" class="headerlink" title="Inumber"></a>Inumber</h4><p>Each inode is identified by a number: Low-level number of file name<br>Can figure out location of inode from inumber 通过inumber可以寻址到其代表的inode所在的sector<br>Location:  ⌊(inodeStartAddress + inumber ∗ inode size)/sector size⌋</p>
+<p>example: inumber = 32<br>Address:12K+32*256=20K<br>Sector #: 20K/512 = 40<br><img src="/image/inumber.png"></p>
+<p>总结inumber,inode,data一句话来说就是inumber =&gt; inode =&gt; data</p>
+<h3 id="Detail-about-directory"><a href="#Detail-about-directory" class="headerlink" title="Detail about directory"></a>Detail about directory</h3><h4 id="Basic-1"><a href="#Basic-1" class="headerlink" title="Basic"></a>Basic</h4><ul>
+<li>Directory itself stored as a file</li>
+<li>For each file in the directory, it stores:<ul>
+<li>name, inumber, record length, string length</li>
+</ul>
+</li>
+<li>If file is deleted (using rm command) or a name is unlinked (using unlink command),then inumber in its directory entry set to 0 (reserved for empty entry)<ul>
+<li>File is finally deleted when its last (hard) link is removed<br><img src="/image/directory.png"></li>
+</ul>
+</li>
+</ul>
+<h4 id="Storing-a-directory"><a href="#Storing-a-directory" class="headerlink" title="Storing a directory"></a>Storing a directory</h4><ul>
+<li>Also as a file with its own inode + data block</li>
+<li>inode:<ul>
+<li>file type: directory (instead of regular file)</li>
+<li>pointer to block(s) in data region storing directory entries</li>
+</ul>
+</li>
+</ul>
+<h3 id="Operations-on-file"><a href="#Operations-on-file" class="headerlink" title="Operations on file"></a>Operations on file</h3><ul>
+<li>Create: open(), write()</li>
+<li>Read:  open(),read(), lseek()</li>
+<li>Update: write(), lseek()</li>
+<li>Delete: unlink()</li>
+</ul>
+<p>Note: 这些函数都是操作系统自带提供的系统调用函数</p>
+<h4 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h4><ul>
+<li>User interface via GUI or touch command in Linux</li>
+<li>Implementation, e.g., via a C program with a system call: open()</li>
+<li>open() returns a file descriptor. Reserved fds: stdin 0, stdout, 1, stderr 2</li>
+<li>After getting the file descriptor of file, start read() <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fd &#x3D; open(&quot;&#x2F;foo&#x2F;bar&quot;, O_RDONLY)</span><br><span class="line">- Need to locate inode of the file &quot;&#x2F;foo&#x2F;bar&quot;</span><br><span class="line">- Assume inumber of root, say 2, is known (e.g., when the file system is mounted)</span><br><span class="line"></span><br><span class="line">step1: read inode and content of &#x2F;  (2 reads)</span><br><span class="line">- Look for &quot;foo&quot; in &#x2F; -&gt; foo&#39;s inumber</span><br><span class="line"></span><br><span class="line">step2: read inode and content of &#x2F;foo (2 reads)</span><br><span class="line">- Look for &quot;bar&quot; in &#x2F;foo -&gt; bar&#39;s inumber</span><br><span class="line"></span><br><span class="line">step3: read inode of &#x2F;foo&#x2F;bar (1 read)</span><br><span class="line">– Permission check + allocate file descriptor</span><br><span class="line"></span><br><span class="line">open-file table per process(维护这些进程，系统有一个 open-file table)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">read(fd, buffer, size)</span><br><span class="line">– Note fd is maintained in per-process open-file table</span><br><span class="line">– Table translates fd -&gt; inumber of file</span><br><span class="line"></span><br><span class="line">step1: consult bar&#39;s inode to locate a block</span><br><span class="line">step2: read the block</span><br><span class="line">step3: update inode with newest file access time</span><br><span class="line">step4: update open-file table with new offset</span><br><span class="line">step5: repeat above steps until done(with reading data of given size)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<img src="/image/read.png"></li>
+</ul>
+<p>I/O cost for open(): 5 reads<br>I/O cost for reading a block: 2 reads + 1 write</p>
+<h4 id="Write"><a href="#Write" class="headerlink" title="Write"></a>Write</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int fd &#x3D; open(&quot;&#x2F;foo&#x2F;bar&quot;, O_WRONLY)</span><br><span class="line">– Or int fd &#x3D; create((&quot;&#x2F;foo&#x2F;bar&quot;)</span><br><span class="line">– Assume bar is a new file under foo</span><br><span class="line"></span><br><span class="line">step1: read&#39;&#x2F;&#39;inode &amp; content -&gt; obtain foo&#39;s inumber</span><br><span class="line">step2: read&#39;&#x2F;foo&#39;inode &amp; content -&gt; check if bar exists</span><br><span class="line">step3: read imap,to find a free inode for bar</span><br><span class="line">step4: update imap,setting 1 for allocated inode</span><br><span class="line">step5: write bar&#39;s inode</span><br><span class="line">step6: update foo&#39;s content block  - adding an entry for bar</span><br><span class="line">step7: update foo&#39;s inode  -update its modification time</span><br><span class="line"></span><br><span class="line">write(fd, buffer, size)</span><br><span class="line">step1: read inode of bar(by looking up its inumber in the open-file table)</span><br><span class="line">step2: allocate new data block – read and write bmap</span><br><span class="line">step3: write to data block of bar</span><br><span class="line">step4: update bar node - new modification time, add pointer to block</span><br></pre></td></tr></table></figure>
+<p><img src="/image/write.png"></p>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
       </tags>
   </entry>
   <entry>
@@ -226,6 +365,89 @@
       <tags>
         <tag>Python</tag>
         <tag>File Format</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Network File System</title>
+    <url>/2020/09/11/NFS/</url>
+    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><p>The Network File System (NFS) is a client/server application that lets a computer user view and optionally store and update files on a remote computer as though they were on the user’s own computer. NFS is a distributed file system(DFS).</p>
+<h4 id="Client-server-architecture"><a href="#Client-server-architecture" class="headerlink" title="Client/server architecture"></a>Client/server architecture</h4><p><img src="/image/C-S.png"></p>
+<p>Advantage</p>
+<ul>
+<li>Easy sharing of data across clients</li>
+<li>Centralized administration</li>
+<li>Security</li>
+</ul>
+<p>Disadvantage:</p>
+<ul>
+<li>Network overhead</li>
+<li>More components to fail</li>
+</ul>
+<h3 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h3><h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><p><img src="/image/DFS.png"></p>
+<h4 id="Stateless-无状态协议"><a href="#Stateless-无状态协议" class="headerlink" title="Stateless  - 无状态协议"></a>Stateless  - 无状态协议</h4><ul>
+<li>Server does not keep track of states of clients<ul>
+<li>Which files are currently open at which clients</li>
+<li>Current position/offset of file</li>
+<li>Which clients have read/cached which blocks</li>
+</ul>
+</li>
+<li>Requests from clients must make sure:<ul>
+<li>the server can deliver all the information needed to complete the requests</li>
+<li>do not rely on previous requests</li>
+</ul>
+</li>
+</ul>
+<h4 id="file-handle"><a href="#file-handle" class="headerlink" title="file handle"></a>file handle</h4><ul>
+<li>Volume (file system) identifier<ul>
+<li>Which volume? (e.g. partition C or D if NTFS)</li>
+</ul>
+</li>
+<li>Inode number<ul>
+<li>Which file in the volume?</li>
+</ul>
+</li>
+<li>Generation number<ul>
+<li>Needed since inode number may be reused at the server (e.g., after file has been deleted by other clients)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Client uses file handle to communication with server</strong><br><img src="/image/file-handle.png"></p>
+<h4 id="RPC-Remote-procedure-call"><a href="#RPC-Remote-procedure-call" class="headerlink" title="RPC - Remote procedure call"></a>RPC - Remote procedure call</h4><ul>
+<li>Remote server publishes a set of procedures, for example f(args)<ul>
+<li>example: NFSPROC_LOOKUP for lookup file handle ,read, write, create, remove, etc.</li>
+</ul>
+</li>
+<li>In making RPC calls,(客户端调用)<ul>
+<li>Client notifies remote server of executing f &amp; sends over arguments args for f</li>
+<li>Server executes f(args) =&gt; results </li>
+<li>Server sends back results</li>
+</ul>
+</li>
+</ul>
+<h3 id="Operations-on-remote-file"><a href="#Operations-on-remote-file" class="headerlink" title="Operations on remote file"></a>Operations on remote file</h3><p>All CRUD operations use <u>file handle</u></p>
+<h4 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h4><p><u>First obtain file handle via lookup</u></p>
+<ul>
+<li>File handle for the root directory may be obtained via the mount protocol</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Look up &quot;&#x2F;foo&#x2F;more&#x2F;bar.txt&quot;</span><br><span class="line">– First, use &#x2F; file handle to obtain foo&#39;s handle  </span><br><span class="line">	File handle for the root directory may be obtained via the mount protocol</span><br><span class="line">– Next, use foo&#39;s handle to obtain more&#39;s handle</span><br><span class="line">– Finally, use more&#39;s handle to obtain bar.txt handle</span><br></pre></td></tr></table></figure>
+
+<p><u>Then use file handle to read data</u></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NFSPROC_READ(file handle, offset, count)</span><br><span class="line">- offset here is explicit</span><br><span class="line">– Return: data + file attributes</span><br><span class="line">– File attributes include modification time, useful for client-size cache validation</span><br><span class="line"></span><br><span class="line">Compared to local file system</span><br><span class="line">- n &#x3D; read(fd, buffer, size)</span><br><span class="line">– n is the number of bytes actually read</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Write"><a href="#Write" class="headerlink" title="Write"></a>Write</h4><p><u>First obtain file handle via lookup</u></p>
+<p><u>Then use file handle to write data</u></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NFSPROC_WRITE(file handle, offset, count, data)</span><br><span class="line">– Return: file attributes</span><br><span class="line">– Note again explicit offset is specified in the call</span><br><span class="line"></span><br><span class="line">Compared to local file system</span><br><span class="line">– n &#x3D; write(fd, buffer, size)</span><br><span class="line">– Offset is again implicit (current position)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NFSPROC_CREATE(directory file handle, name of file in the directory, attributes)</span><br><span class="line">– Return: file handle</span><br></pre></td></tr></table></figure>
+
+<h4 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a>Remove</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NFSPROC_REMOVE(directory file handle, name of file to be removed)</span><br><span class="line">– Return: Nothing</span><br></pre></td></tr></table></figure>
+
+<h3 id="Failures"><a href="#Failures" class="headerlink" title="Failures"></a>Failures</h3><h4 id="Cases"><a href="#Cases" class="headerlink" title="Cases"></a>Cases</h4><p>Case1: request lost<br>Case2: Server down<br>Case3: Reply lost on way back from Sever</p>
+<h3 id="More-details"><a href="#More-details" class="headerlink" title="More details"></a>More details</h3><p>学习资源: <a href="https://tools.ietf.org/html/rfc1094">https://tools.ietf.org/html/rfc1094</a></p>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
       </tags>
   </entry>
   <entry>
@@ -373,226 +595,6 @@
 <li>Page is the smallest unit for read and write (write is also called program, 1-&gt;0)</li>
 <li>Block is the smallest unit for erase (0-&gt;1) – i.e., make cells “empty” (i.e., no electrons)  (关于为什么使用block作为最小擦除单元：SSD的物理结构导致，擦除过程会作用到整个block施加高电压，将电子吸引出来)</li>
 </ul>
-]]></content>
-      <tags>
-        <tag>Operating System</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSCI570-outline</title>
-    <url>/2020/09/08/CSCI570-outline/</url>
-    <content><![CDATA[<p>hello world!</p>
-]]></content>
-      <tags>
-        <tag>Course</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Leetcode-滑动窗口</title>
-    <url>/2020/09/09/Algorithm-sliding-window/</url>
-    <content><![CDATA[<h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p><u>连续</u>子数组</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ul>
-<li>根据要求，找到第一个满足条件的窗口</li>
-<li>调整窗口(右移/左移)使其继续满足要求，并进行重复</li>
-<li>得到最合适的窗口即为答案</li>
-</ul>
-<h3 id="Leetcode例题"><a href="#Leetcode例题" class="headerlink" title="Leetcode例题"></a>Leetcode例题</h3><h5 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">if</span> len(s) == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_start,res = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(s)):</span><br><span class="line">        char = s[window_end]</span><br><span class="line">        <span class="keyword">if</span> char <span class="keyword">in</span> dic <span class="keyword">and</span> dic[char]&gt;=window_start: <span class="comment"># 注意这里的第二个条件dic[char]&gt;=window_start！！ 起到一个覆盖的作用</span></span><br><span class="line">            window_start = dic[char] +<span class="number">1</span></span><br><span class="line">        dic[char] = window_end</span><br><span class="line">        width = window_end-window_start+<span class="number">1</span></span><br><span class="line">        res = max(width,res)</span><br><span class="line">    <span class="keyword">return</span> res  </span><br></pre></td></tr></table></figure>
-
-<h5 id="大小为-K-且平均值大于等于阈值的子数组数目"><a href="#大小为-K-且平均值大于等于阈值的子数组数目" class="headerlink" title="大小为 K 且平均值大于等于阈值的子数组数目"></a><a href="https://leetcode-cn.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/">大小为 K 且平均值大于等于阈值的子数组数目</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numOfSubarrays</span>(<span class="params">arr,k,threshold</span>):</span></span><br><span class="line">    <span class="keyword">if</span> arr == [] <span class="keyword">or</span> len(arr)&lt;k:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_sum,window_start,res = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    temp = threshold*k</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">        window_sum+=arr[window_end]</span><br><span class="line">        <span class="keyword">if</span> window_end&gt;=k<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> window_sum &gt;=temp:</span><br><span class="line">                res+=<span class="number">1</span></span><br><span class="line">            window_sum-=arr[window_start]</span><br><span class="line">            window_start+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<h5 id="替换后的最长重复字符"><a href="#替换后的最长重复字符" class="headerlink" title="替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h5 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/">最小覆盖子串</a></h5><h5 id="滑动窗口中位数"><a href="#滑动窗口中位数" class="headerlink" title="滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></h5><h5 id="滑动窗口最大值"><a href="#滑动窗口最大值" class="headerlink" title="滑动窗口最大值"></a><a href="https://leetcode-cn.com/problems/sliding-window-maximum/">滑动窗口最大值</a></h5>]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Network File System</title>
-    <url>/2020/09/11/NFS/</url>
-    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><p>The Network File System (NFS) is a client/server application that lets a computer user view and optionally store and update files on a remote computer as though they were on the user’s own computer. NFS is a distributed file system(DFS).</p>
-<h4 id="Client-server-architecture"><a href="#Client-server-architecture" class="headerlink" title="Client/server architecture"></a>Client/server architecture</h4><p><img src="/image/C-S.png"></p>
-<p>Advantage</p>
-<ul>
-<li>Easy sharing of data across clients</li>
-<li>Centralized administration</li>
-<li>Security</li>
-</ul>
-<p>Disadvantage:</p>
-<ul>
-<li>Network overhead</li>
-<li>More components to fail</li>
-</ul>
-<h3 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h3><h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><p><img src="/image/DFS.png"></p>
-<h4 id="Stateless-无状态协议"><a href="#Stateless-无状态协议" class="headerlink" title="Stateless  - 无状态协议"></a>Stateless  - 无状态协议</h4><ul>
-<li>Server does not keep track of states of clients<ul>
-<li>Which files are currently open at which clients</li>
-<li>Current position/offset of file</li>
-<li>Which clients have read/cached which blocks</li>
-</ul>
-</li>
-<li>Requests from clients must make sure:<ul>
-<li>the server can deliver all the information needed to complete the requests</li>
-<li>do not rely on previous requests</li>
-</ul>
-</li>
-</ul>
-<h4 id="file-handle"><a href="#file-handle" class="headerlink" title="file handle"></a>file handle</h4><ul>
-<li>Volume (file system) identifier<ul>
-<li>Which volume? (e.g. partition C or D if NTFS)</li>
-</ul>
-</li>
-<li>Inode number<ul>
-<li>Which file in the volume?</li>
-</ul>
-</li>
-<li>Generation number<ul>
-<li>Needed since inode number may be reused at the server (e.g., after file has been deleted by other clients)</li>
-</ul>
-</li>
-</ul>
-<p><strong>Client uses file handle to communication with server</strong><br><img src="/image/file-handle.png"></p>
-<h4 id="RPC-Remote-procedure-call"><a href="#RPC-Remote-procedure-call" class="headerlink" title="RPC - Remote procedure call"></a>RPC - Remote procedure call</h4><ul>
-<li>Remote server publishes a set of procedures, for example f(args)<ul>
-<li>example: NFSPROC_LOOKUP for lookup file handle ,read, write, create, remove, etc.</li>
-</ul>
-</li>
-<li>In making RPC calls,(客户端调用)<ul>
-<li>Client notifies remote server of executing f &amp; sends over arguments args for f</li>
-<li>Server executes f(args) =&gt; results </li>
-<li>Server sends back results</li>
-</ul>
-</li>
-</ul>
-<h3 id="Operations-on-remote-file"><a href="#Operations-on-remote-file" class="headerlink" title="Operations on remote file"></a>Operations on remote file</h3><p>All CRUD operations use <u>file handle</u></p>
-<h4 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h4><p><u>First obtain file handle via lookup</u></p>
-<ul>
-<li>File handle for the root directory may be obtained via the mount protocol</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Look up &quot;&#x2F;foo&#x2F;more&#x2F;bar.txt&quot;</span><br><span class="line">– First, use &#x2F; file handle to obtain foo&#39;s handle  </span><br><span class="line">	File handle for the root directory may be obtained via the mount protocol</span><br><span class="line">– Next, use foo&#39;s handle to obtain more&#39;s handle</span><br><span class="line">– Finally, use more&#39;s handle to obtain bar.txt handle</span><br></pre></td></tr></table></figure>
-
-<p><u>Then use file handle to read data</u></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NFSPROC_READ(file handle, offset, count)</span><br><span class="line">- offset here is explicit</span><br><span class="line">– Return: data + file attributes</span><br><span class="line">– File attributes include modification time, useful for client-size cache validation</span><br><span class="line"></span><br><span class="line">Compared to local file system</span><br><span class="line">- n &#x3D; read(fd, buffer, size)</span><br><span class="line">– n is the number of bytes actually read</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="Write"><a href="#Write" class="headerlink" title="Write"></a>Write</h4><p><u>First obtain file handle via lookup</u></p>
-<p><u>Then use file handle to write data</u></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NFSPROC_WRITE(file handle, offset, count, data)</span><br><span class="line">– Return: file attributes</span><br><span class="line">– Note again explicit offset is specified in the call</span><br><span class="line"></span><br><span class="line">Compared to local file system</span><br><span class="line">– n &#x3D; write(fd, buffer, size)</span><br><span class="line">– Offset is again implicit (current position)</span><br></pre></td></tr></table></figure>
-
-<h4 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NFSPROC_CREATE(directory file handle, name of file in the directory, attributes)</span><br><span class="line">– Return: file handle</span><br></pre></td></tr></table></figure>
-
-<h4 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a>Remove</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NFSPROC_REMOVE(directory file handle, name of file to be removed)</span><br><span class="line">– Return: Nothing</span><br></pre></td></tr></table></figure>
-
-<h3 id="Failures"><a href="#Failures" class="headerlink" title="Failures"></a>Failures</h3><h4 id="Cases"><a href="#Cases" class="headerlink" title="Cases"></a>Cases</h4><p>Case1: request lost<br>Case2: Server down<br>Case3: Reply lost on way back from Sever</p>
-<h3 id="More-details"><a href="#More-details" class="headerlink" title="More details"></a>More details</h3><p>学习资源: <a href="https://tools.ietf.org/html/rfc1094">https://tools.ietf.org/html/rfc1094</a></p>
-]]></content>
-      <tags>
-        <tag>Operating System</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>File systems</title>
-    <url>/2020/09/10/File-Systems/</url>
-    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><blockquote>
-<p>A filesystem is the methods and data structures that an operating system uses to keep track of files on a disk or partition; that is, the way the files are organized on the disk.</p>
-</blockquote>
-<ul>
-<li>File content stored in blocks on storage device</li>
-<li>Files are organized into directories (folders)<br><img src="/image/file-system.png"></li>
-</ul>
-<h3 id="Detail-about-file"><a href="#Detail-about-file" class="headerlink" title="Detail about file"></a>Detail about file</h3><h4 id="File-descriptor"><a href="#File-descriptor" class="headerlink" title="File descriptor"></a>File descriptor</h4><p>A file descriptor is a number that uniquely identifies an open file in a computer’s operating system. It describes a data resource, and how that resource may be accessed.<br>简单的说，根据Linux一切皆文件的概念来看，当进程打开或者创建文件的时候，内核会向进程返回一个数字，这个数字就是文件描述符，所有执行I/O操作的系统调用都通过文件描述符来进行。</p>
-<h4 id="Hard-link-and-symbolic-link-soft-link"><a href="#Hard-link-and-symbolic-link-soft-link" class="headerlink" title="Hard link and symbolic link/soft link"></a>Hard link and symbolic link/soft link</h4><p>A hard link is essentially a synced carbon copy of a file that refers directly to the inode of a file. Symbolic links on the other hand refer directly to the file which refers to the inode, a shortcut.</p>
-<p><img src="/image/hard-soft-link.png"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ln a.txt b.txt    <span class="comment"># 创建硬链接 - 副本</span></span><br><span class="line">$ ln -s a.txt c.txt <span class="comment"># 创建软链接 - 替身（快捷方式）</span></span><br><span class="line">$ unlink c.txt      <span class="comment"># 取消链接</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="File-permission-mode"><a href="#File-permission-mode" class="headerlink" title="File permission mode"></a>File permission mode</h4><p>3种模式  r:read w:write x:execute<br>3种身份: user group others<br>3*3 = 27 种访问权限<br>rw-r–r– =&gt; 110 (owner permission) 100 (group) 100 (others)<br>可以使用<code>chomod</code> 来进行权限的修改</p>
-<h4 id="Inode"><a href="#Inode" class="headerlink" title="Inode"></a>Inode</h4><p>The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. <a href="http://www.ruanyifeng.com/blog/2011/12/inode.html">更多inode细节</a> </p>
-<ul>
-<li>Stores metadata/attributes about the file ( use <code>stat file</code> to check the metadata )</li>
-<li>Also stores locations of blocks holding the content of the file</li>
-</ul>
-<h5 id="metadata"><a href="#metadata" class="headerlink" title="metadata"></a>metadata</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">More details about the file metadata</span><br><span class="line"></span><br><span class="line">struct stat &#123;</span><br><span class="line">dev_t st_dev; &#x2F;* ID of device containing file *&#x2F;</span><br><span class="line">ino_t st_ino; &#x2F;* inode number *&#x2F;</span><br><span class="line">mode_t st_mode; &#x2F;* protection *&#x2F;</span><br><span class="line">nlink_t st_nlink; &#x2F;* number of (hard) links *&#x2F;</span><br><span class="line">uid_t st_uid; &#x2F;* user ID of owner *&#x2F;</span><br><span class="line">gid_t st_gid; &#x2F;* group ID of owner *&#x2F;</span><br><span class="line">dev_t st_rdev; &#x2F;* device ID (if special device file, e.g., &#x2F;etc&#x2F;tty) *&#x2F; </span><br><span class="line">off_t st_size; &#x2F;* total size, in bytes *&#x2F;</span><br><span class="line">blksize_t st_blksize; &#x2F;* blocksize for filesystem I&#x2F;O *&#x2F;</span><br><span class="line">blkcnt_t st_blocks; &#x2F;* number of blocks allocated *&#x2F;</span><br><span class="line">time_t st_atime; &#x2F;* last time file content was accessed *&#x2F;</span><br><span class="line">time_t st_mtime; &#x2F;* last time file content was modified *&#x2F; </span><br><span class="line">time_t st_ctime; &#x2F;* last time inode was changed *&#x2F;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">time_t st_atime; &#x2F;* last time file content was accessed *&#x2F; 关于这一项的思考：</span><br><span class="line">这一项表明了不论对文件是什么操作，都会进行inode的修改，有的时候为了提升I&#x2F;O性能，会在挂载文件系统的时候指定“noatime,nodiratime”参数，意味着当访问一个文件和目录的时候，access time都不会更新</span><br><span class="line">可以通过 cat &#x2F;etc&#x2F;fstab 查看具体信息</span><br></pre></td></tr></table></figure>
-<p><img src="/image/inode.png"></p>
-<h5 id="locations-of-data"><a href="#locations-of-data" class="headerlink" title="locations of data"></a>locations of data</h5><p>An inode has:</p>
-<ul>
-<li>A number of direct pointers,each points to a data block<br>example: a inode has 8 pointers, each pointer points to a 4K block, then this inode is enogh for 8*4K = 32KB size of file</li>
-<li>Also has a slot for indirect pointer : a pointer points to a data block storing direct pointers<br>example: 1 block’s size: 4KB, pointer size: 4 bytes, then a block can hold 1024 pointers =&gt; Now file can have (8 + 1024) blocks , enough for 4MB size of file</li>
-</ul>
-<p>How to store larger files? - Multi-level index</p>
-<ul>
-<li>Pointers may be organized into multiple levels (double,triple,…n times) </li>
-</ul>
-<p><img src="/image/double-indirect-pointers.png"><br>1 direct pointer =&gt; 1 block (4KB)<br>1 indirect pointer =&gt; 2^10 direct pointer  =  2^10*4KB  = 4MB<br>1 double indirect pointer =&gt; 2^10 indirect pointers =&gt; 2^20 direct pointers  =&gt; 2^20*4KB = 4GB</p>
-<h4 id="Organization-of-blocks"><a href="#Organization-of-blocks" class="headerlink" title="Organization of blocks"></a>Organization of blocks</h4><p>Assumption:(便于理解，做些假设)</p>
-<ol>
-<li>Disk consists of a list of blocks and they are array-based.(other forms:Tree-based, e.g., SGI XFS -Blocks are organized into variable-length extents)</li>
-<li>a disk with 64 blocks<ul>
-<li>4KB/block   =&gt;文件系统的最小单元</li>
-<li>512B/sector =&gt;存储系统的最小单元 </li>
-<li>so there are 2^12/2^9 = 2^3 = 8 sectors/block and capacity of disk = 64 * 4KB = 256KB</li>
-</ul>
-</li>
-</ol>
-<p>Structure about these blocks: </p>
-<ol>
-<li>Data region (56 blocks (#8-63))</li>
-<li>Inode table (5 blocks #3 – #7) 元数据+文件内容地址<ul>
-<li>assume 256 bytes/inode 5 blocks, 4KB/block</li>
-<li>=&gt; 80 inodes total  (4KB/256B * 5)</li>
-<li>=&gt; File system can store at most 80 files</li>
-</ul>
-</li>
-<li>Bitmaps (#1, #2)  a vector of bits, 0 for free (inode/block), 1 for in-use<ul>
-<li>Inode bitmap (imap):keep track of which inodes in the inode table are available  (这里4KB一个block 1byte=8bit，所以一个block的话最多以存储80K个inode的状态)</li>
-<li>Data bitmap (dmap):keep track of which blocks in data region are available</li>
-</ul>
-</li>
-<li>Superblock(#0): Track where i/d blocks and inode table are; Indicate type of FS &amp; inumber of its root dir; Will be read first when file system is mounted</li>
-</ol>
-<p><img src="/image/block_info_fs.png"></p>
-<h4 id="Inumber"><a href="#Inumber" class="headerlink" title="Inumber"></a>Inumber</h4><p>Each inode is identified by a number: Low-level number of file name<br>Can figure out location of inode from inumber 通过inumber可以寻址到其代表的inode所在的sector<br>Location:  ⌊(inodeStartAddress + inumber ∗ inode size)/sector size⌋</p>
-<p>example: inumber = 32<br>Address:12K+32*256=20K<br>Sector #: 20K/512 = 40<br><img src="/image/inumber.png"></p>
-<p>总结inumber,inode,data一句话来说就是inumber =&gt; inode =&gt; data</p>
-<h3 id="Detail-about-directory"><a href="#Detail-about-directory" class="headerlink" title="Detail about directory"></a>Detail about directory</h3><h4 id="Basic-1"><a href="#Basic-1" class="headerlink" title="Basic"></a>Basic</h4><ul>
-<li>Directory itself stored as a file</li>
-<li>For each file in the directory, it stores:<ul>
-<li>name, inumber, record length, string length</li>
-</ul>
-</li>
-<li>If file is deleted (using rm command) or a name is unlinked (using unlink command),then inumber in its directory entry set to 0 (reserved for empty entry)<ul>
-<li>File is finally deleted when its last (hard) link is removed<br><img src="/image/directory.png"></li>
-</ul>
-</li>
-</ul>
-<h4 id="Storing-a-directory"><a href="#Storing-a-directory" class="headerlink" title="Storing a directory"></a>Storing a directory</h4><ul>
-<li>Also as a file with its own inode + data block</li>
-<li>inode:<ul>
-<li>file type: directory (instead of regular file)</li>
-<li>pointer to block(s) in data region storing directory entries</li>
-</ul>
-</li>
-</ul>
-<h3 id="Operations-on-file"><a href="#Operations-on-file" class="headerlink" title="Operations on file"></a>Operations on file</h3><ul>
-<li>Create: open(), write()</li>
-<li>Read:  open(),read(), lseek()</li>
-<li>Update: write(), lseek()</li>
-<li>Delete: unlink()</li>
-</ul>
-<p>Note: 这些函数都是操作系统自带提供的系统调用函数</p>
-<h4 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h4><ul>
-<li>User interface via GUI or touch command in Linux</li>
-<li>Implementation, e.g., via a C program with a system call: open()</li>
-<li>open() returns a file descriptor. Reserved fds: stdin 0, stdout, 1, stderr 2</li>
-<li>After getting the file descriptor of file, start read() <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fd &#x3D; open(&quot;&#x2F;foo&#x2F;bar&quot;, O_RDONLY)</span><br><span class="line">- Need to locate inode of the file &quot;&#x2F;foo&#x2F;bar&quot;</span><br><span class="line">- Assume inumber of root, say 2, is known (e.g., when the file system is mounted)</span><br><span class="line"></span><br><span class="line">step1: read inode and content of &#x2F;  (2 reads)</span><br><span class="line">- Look for &quot;foo&quot; in &#x2F; -&gt; foo&#39;s inumber</span><br><span class="line"></span><br><span class="line">step2: read inode and content of &#x2F;foo (2 reads)</span><br><span class="line">- Look for &quot;bar&quot; in &#x2F;foo -&gt; bar&#39;s inumber</span><br><span class="line"></span><br><span class="line">step3: read inode of &#x2F;foo&#x2F;bar (1 read)</span><br><span class="line">– Permission check + allocate file descriptor</span><br><span class="line"></span><br><span class="line">open-file table per process(维护这些进程，系统有一个 open-file table)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">read(fd, buffer, size)</span><br><span class="line">– Note fd is maintained in per-process open-file table</span><br><span class="line">– Table translates fd -&gt; inumber of file</span><br><span class="line"></span><br><span class="line">step1: consult bar&#39;s inode to locate a block</span><br><span class="line">step2: read the block</span><br><span class="line">step3: update inode with newest file access time</span><br><span class="line">step4: update open-file table with new offset</span><br><span class="line">step5: repeat above steps until done(with reading data of given size)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<img src="/image/read.png"></li>
-</ul>
-<p>I/O cost for open(): 5 reads<br>I/O cost for reading a block: 2 reads + 1 write</p>
-<h4 id="Write"><a href="#Write" class="headerlink" title="Write"></a>Write</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int fd &#x3D; open(&quot;&#x2F;foo&#x2F;bar&quot;, O_WRONLY)</span><br><span class="line">– Or int fd &#x3D; create((&quot;&#x2F;foo&#x2F;bar&quot;)</span><br><span class="line">– Assume bar is a new file under foo</span><br><span class="line"></span><br><span class="line">step1: read&#39;&#x2F;&#39;inode &amp; content -&gt; obtain foo&#39;s inumber</span><br><span class="line">step2: read&#39;&#x2F;foo&#39;inode &amp; content -&gt; check if bar exists</span><br><span class="line">step3: read imap,to find a free inode for bar</span><br><span class="line">step4: update imap,setting 1 for allocated inode</span><br><span class="line">step5: write bar&#39;s inode</span><br><span class="line">step6: update foo&#39;s content block  - adding an entry for bar</span><br><span class="line">step7: update foo&#39;s inode  -update its modification time</span><br><span class="line"></span><br><span class="line">write(fd, buffer, size)</span><br><span class="line">step1: read inode of bar(by looking up its inumber in the open-file table)</span><br><span class="line">step2: allocate new data block – read and write bmap</span><br><span class="line">step3: write to data block of bar</span><br><span class="line">step4: update bar node - new modification time, add pointer to block</span><br></pre></td></tr></table></figure>
-<p><img src="/image/write.png"></p>
 ]]></content>
       <tags>
         <tag>Operating System</tag>
