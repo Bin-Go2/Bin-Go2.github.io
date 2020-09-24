@@ -18,21 +18,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="JSON概述JSON（JavaScript Object Notation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来传输由属性值或者序列性的值组成的数据对象。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。  Light-weight data exchange formatMuch simpler than">
+  <meta name="description" content="Basic XML：eXtensible Markup Language XML is a syntax (serialization format) for data sharing and exchange on the Web Can translate any data to XML Can ship XML over the Web (HTTP) Can input XML into a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JSON-review">
-<meta property="og:url" content="http://example.com/2020/09/07/JSON-review/index.html">
+<meta property="og:title" content="XML">
+<meta property="og:url" content="http://example.com/2020/09/18/File-Format/index.html">
 <meta property="og:site_name" content="Bin&#39;s blog">
-<meta property="og:description" content="JSON概述JSON（JavaScript Object Notation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来传输由属性值或者序列性的值组成的数据对象。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。  Light-weight data exchange formatMuch simpler than">
+<meta property="og:description" content="Basic XML：eXtensible Markup Language XML is a syntax (serialization format) for data sharing and exchange on the Web Can translate any data to XML Can ship XML over the Web (HTTP) Can input XML into a">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-07T21:19:00.000Z">
-<meta property="article:modified_time" content="2020-09-07T21:59:19.737Z">
+<meta property="og:image" content="http://example.com/image/XML.png">
+<meta property="og:image" content="http://example.com/image/xpath.png">
+<meta property="article:published_time" content="2020-09-19T05:08:08.000Z">
+<meta property="article:modified_time" content="2020-09-19T06:05:05.904Z">
 <meta property="article:author" content="Bin">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="File Format">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/XML.png">
 
-<link rel="canonical" href="http://example.com/2020/09/07/JSON-review/">
+<link rel="canonical" href="http://example.com/2020/09/18/File-Format/">
 
 
 <script id="page-configurations">
@@ -45,7 +48,7 @@
   };
 </script>
 
-  <title>JSON-review | Bin's blog</title>
+  <title>XML | Bin's blog</title>
   
 
 
@@ -194,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/07/JSON-review/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/18/File-Format/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -207,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JSON-review
+          XML
         </h1>
 
         <div class="post-meta">
@@ -218,7 +221,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-09-07 14:19:00 / Modified: 14:59:19" itemprop="dateCreated datePublished" datetime="2020-09-07T14:19:00-07:00">2020-09-07</time>
+              <time title="Created: 2020-09-18 22:08:08 / Modified: 23:05:05" itemprop="dateCreated datePublished" datetime="2020-09-18T22:08:08-07:00">2020-09-18</time>
             </span>
 
           
@@ -234,72 +237,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="JSON概述"><a href="#JSON概述" class="headerlink" title="JSON概述"></a>JSON概述</h2><p><strong>JSON</strong>（<strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来<strong>传输由属性值或者序列性的值组成的数据对象</strong>。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。</p>
-<ul>
-<li>Light-weight data exchange format<br>Much simpler than XML; Language-independent; Inspired by the syntax of JavaScript object literals</li>
-<li>Some differences from JavaScript objects<br><strong>String in JSON must be double-quoted</strong>; Okay to single-quote in JavaScript (&amp; Python)</li>
-<li>JSON is case-sensitive</li>
-</ul>
-<p>一句话表达就是，JSON是一种格式，基于文本，优于轻量，用于交换数据，由于其用文本格式的保存方式，所以一般也叫JSON字符串。</p>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
-<li>value = string | number | object | array | true | false | null</li>
-<li>object = {} | { members }<ul>
-<li>members = pair | pair, members </li>
-<li>pair = string : value</li>
-</ul>
-</li>
-<li>array = [] | [ elements ]<ul>
-<li>elements = value | value, elements</li>
+        <h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li>XML：eXtensible Markup Language</li>
+<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
+<li>Can translate <em>any</em> data to XML</li>
+<li>Can ship XML over the Web (HTTP)</li>
+<li>Can input XML into any application</li>
 </ul>
 </li>
 </ul>
-<p>一般情况下，JSON大多为一个array，array里的每一个元素为一个object，object可以理解为字典<br>JSON 在线检查器:   <a target="_blank" rel="noopener" href="https://www.json.cn/">https://www.json.cn/</a></p>
-<h2 id="Python中使用JSON"><a href="#Python中使用JSON" class="headerlink" title="Python中使用JSON"></a>Python中使用JSON</h2><h3 id="encode-decode"><a href="#encode-decode" class="headerlink" title="encode/decode"></a>encode/decode</h3><p>JSON操作主要分为两个：</p>
-<ol>
-<li>encode，将Python对象转化为JSON文本，主要函数 dump( ) dumps( )</li>
-<li>decode，将JSON文本转化为Python对象，主要函数 load( ) loads( )</li>
-</ol>
-<h3 id="转化规则"><a href="#转化规则" class="headerlink" title="转化规则"></a>转化规则</h3><table>
-<thead>
-<tr>
-<th align="center">Python</th>
-<th align="center">JSON</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">list/tuple</td>
-<td align="center">array</td>
-</tr>
-<tr>
-<td align="center">dict</td>
-<td align="center">object</td>
-</tr>
-<tr>
-<td align="center">None</td>
-<td align="center">null</td>
-</tr>
-<tr>
-<td align="center">True</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">False</td>
-<td align="center">false</td>
-</tr>
-<tr>
-<td align="center">‘abc’</td>
-<td align="center">“abc”</td>
-</tr>
-</tbody></table>
-<p>关于Python字典转JSON文本的说明：</p>
+<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
 <ul>
-<li>Keys in Python can be number, string, or tuple. </li>
-<li>Number is also converted to string.</li>
-<li>But tuple (with two or more components) is not acceptable by dumps()/dump()</li>
+<li>XML is self-describing</li>
+<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
+<li>XML is semi-structured <ul>
+<li>missing attributes  (could be represented as null in table)</li>
+<li>repeated attributes (impossible in table)</li>
+<li>Attributes with different types in different objects</li>
+<li>Nested structures</li>
+<li>Heterogeneous contents</li>
 </ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json <span class="comment"># json库为Python自带的标准库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON encoder Python object =&gt; JSON document   </span></span><br><span class="line">json.dumps([<span class="number">3</span>, <span class="string">&#x27;abc&#x27;</span>, <span class="literal">True</span>, <span class="literal">None</span>])  <span class="comment"># &#x27;[3, &quot;abc&quot;, true, null]&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python object =&gt; JSON file</span></span><br><span class="line">data = &#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;Sam&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">23</span>&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">&#x27;user_info.json&#x27;</span>,<span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> out_file:</span><br><span class="line">    json.dump(data,out_file)</span><br><span class="line"></span><br><span class="line"><span class="comment">## JSON decoder </span></span><br><span class="line">json.loads(<span class="string">&#x27;[&quot;foo&quot;, &#123;&quot;bar&quot;:[&quot;baz&quot;, null, 1.0, 2]&#125;]&#x27;</span>) <span class="comment"># [&#x27;foo&#x27;, &#123;&#x27;bar&#x27;: [&#x27;baz&#x27;, None, 1.0, 2]&#125;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON file =&gt; Python object</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">&#x27;user_info.json&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> in_file:</span><br><span class="line">    data = json.load(in_file)</span><br></pre></td></tr></table></figure>
+</li>
+<li>an XML document has a single root element</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">example:</span><br><span class="line"><span class="tag">&lt;<span class="name">bib</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">  <span class="tag">&lt;<span class="name">book</span> <span class="attr">price</span>=<span class="string">&quot;35&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publisher</span>&gt;</span>Addison-Wesley<span class="tag">&lt;/<span class="name">publisher</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span>Serge Abiteboul<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">first-name</span>&gt;</span>Rick<span class="tag">&lt;/<span class="name">first-name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">last-name</span>&gt;</span>Hull<span class="tag">&lt;/<span class="name">last-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span> <span class="attr">age</span>=<span class="string">&quot;20&quot;</span>&gt;</span>Victor Vianu<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Foundations of Databases<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">year</span>&gt;</span>1995<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">price</span>&gt;</span>38.8<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">book</span> <span class="attr">price</span>=<span class="string">&quot;55&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publisher</span>&gt;</span>Freeman<span class="tag">&lt;/<span class="name">publisher</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span>Jeffrey D. Ullman<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Principles of Database and Knowledge Base Systems<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">year</span>&gt;</span>1998<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">book</span>&gt;</span> </span><br><span class="line">... </span><br><span class="line"><span class="tag">&lt;/<span class="name">bib</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-
+<h3 id="Querying-XML-Data"><a href="#Querying-XML-Data" class="headerlink" title="Querying XML Data"></a>Querying XML Data</h3><h4 id="XPath-simple-navigation-through-the-tree"><a href="#XPath-simple-navigation-through-the-tree" class="headerlink" title="XPath: simple navigation through the tree"></a>XPath: simple navigation through the tree</h4><p><img src="/image/xpath.png"></p>
+<h3 id="lxml"><a href="#lxml" class="headerlink" title="lxml"></a>lxml</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ pip install lxml</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">f = open(<span class="string">&#x27;bibs.xml&#x27;</span>)</span><br><span class="line">tree = etree.parse(f)</span><br><span class="line">print(etree.tostring(tree, pretty_print=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> tree.xpath(<span class="string">&quot;//author&quot;</span>): </span><br><span class="line">    print(etree.tostring(element))</span><br><span class="line">    print(element.tag, element.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
 
@@ -319,12 +283,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/09/06/Firebase-rest-web-api/" rel="prev" title="Firebase rest & web api">
-      <i class="fa fa-chevron-left"></i> Firebase rest & web api
+    <a href="/2020/09/17/Algorithm-binarytree/" rel="prev" title="Leetcode-二叉树">
+      <i class="fa fa-chevron-left"></i> Leetcode-二叉树
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/09/08/Storage-systems/" rel="next" title="Storage systems">
-      Storage systems <i class="fa fa-chevron-right"></i>
+    <a href="/2020/09/22/Scrapy-learning/" rel="next" title="Scrapy学习">
+      Scrapy学习 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -384,7 +348,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">JSON概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python%E4%B8%AD%E4%BD%BF%E7%94%A8JSON"><span class="nav-number">3.</span> <span class="nav-text">Python中使用JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#encode-decode"><span class="nav-number">3.1.</span> <span class="nav-text">encode&#x2F;decode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96%E8%A7%84%E5%88%99"><span class="nav-number">3.2.</span> <span class="nav-text">转化规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic"><span class="nav-number">1.</span> <span class="nav-text">Basic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XML-Structure"><span class="nav-number">2.</span> <span class="nav-text">XML Structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Querying-XML-Data"><span class="nav-number">3.</span> <span class="nav-text">Querying XML Data</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#XPath-simple-navigation-through-the-tree"><span class="nav-number">3.1.</span> <span class="nav-text">XPath: simple navigation through the tree</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lxml"><span class="nav-number">4.</span> <span class="nav-text">lxml</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

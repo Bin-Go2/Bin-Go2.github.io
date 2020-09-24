@@ -27,7 +27,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/image/dependency_scapy.png">
 <meta property="article:published_time" content="2020-09-10T21:34:24.000Z">
-<meta property="article:modified_time" content="2020-09-11T03:19:15.598Z">
+<meta property="article:modified_time" content="2020-09-24T00:25:59.840Z">
 <meta property="article:author" content="Bin">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="NLP">
@@ -218,10 +218,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-09-10 14:34:24 / Modified: 20:19:15" itemprop="dateCreated datePublished" datetime="2020-09-10T14:34:24-07:00">2020-09-10</time>
+              <time title="Created: 2020-09-10 14:34:24" itemprop="dateCreated datePublished" datetime="2020-09-10T14:34:24-07:00">2020-09-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-23 17:25:59" itemprop="dateModified" datetime="2020-09-23T17:25:59-07:00">2020-09-23</time>
+              </span>
 
           
 
@@ -272,6 +278,8 @@
 <li>如果A成分直接依存于B成分，而C成分在句中位于A和B之间，那么C或者直接依存于B，或者直接依存于A和B之间的某一成分；</li>
 </ul>
 <p>依存结构是加标签的有向图，箭头从中心词指向从属，具体来说，箭头是从head指向child,举个例子： I love you,中 I 依存于 love,所以会有一条有向边从love指向I<br><img src="/image/dependency_scapy.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可视化依存关系图</span></span><br><span class="line"><span class="keyword">from</span> spacy <span class="keyword">import</span> displacy</span><br><span class="line">options = &#123;<span class="string">&quot;distance&quot;</span>: <span class="number">120</span>&#125;</span><br><span class="line">displacy.render(doc, style=<span class="string">&quot;dep&quot;</span>, options=options)</span><br></pre></td></tr></table></figure>
+
 <p>常用的依存标签：<br>root:  中心词,一般为动词<br>nsubj: nominal subject,名词性主语<br>dobj:  direct object, 直接宾语<br>prep: 介词<br>pobj: 介词宾语<br>cc: 连词<br>compound: 复合词<br>advmod: 状语<br>det: 限定词<br>amod: 形容词修饰语</p>
 <h4 id="命名实体识别-Named-entities"><a href="#命名实体识别-Named-entities" class="headerlink" title="命名实体识别 (Named entities)"></a>命名实体识别 (Named entities)</h4><p><code>doc.ents</code>读取模型预测出的所有命名实体,例如Bill Gates,使用<code>.label_</code>属性打印出实体标签，例如Person</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">$ python -m spacy download zh_core_web_sm </span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line">nlp = spacy.load(<span class="string">&quot;en_core_web_md&quot;</span>)  <span class="comment"># load a model package by name and returns an nlp object.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Process a text</span></span><br><span class="line">doc = nlp(<span class="string">&quot;I love you!&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Iterate over the tokens</span></span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:</span><br><span class="line">    <span class="comment"># Print the text and the predicted part-of-speech tag</span></span><br><span class="line">    print(token.text, token.pos_)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">I PRON</span></span><br><span class="line"><span class="string">love VERB</span></span><br><span class="line"><span class="string">you PRON</span></span><br><span class="line"><span class="string">! PUNCT</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:</span><br><span class="line">    print(token.text, token.pos_, token.dep_, token.head.text)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">I PRON nsubj love</span></span><br><span class="line"><span class="string">love VERB ROOT love</span></span><br><span class="line"><span class="string">you PRON dobj love</span></span><br><span class="line"><span class="string">! PUNCT punct love</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Process a text</span></span><br><span class="line">doc = nlp(<span class="string">&quot;Apple is looking at buying U.K. startup for $1 billion&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Iterate over the predicted entities</span></span><br><span class="line"><span class="keyword">for</span> ent <span class="keyword">in</span> doc.ents:</span><br><span class="line">    <span class="comment"># Print the entity text and its label</span></span><br><span class="line">    print(ent.text, ent.label_)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Process a text</span></span><br><span class="line">doc = nlp(<span class="string">&quot;Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Iterate over the predicted entities</span></span><br><span class="line"><span class="keyword">for</span> ent <span class="keyword">in</span> doc.ents:</span><br><span class="line">    <span class="comment"># Print the entity text and its label</span></span><br><span class="line">    print(ent.text, ent.label_)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Microsoft Corporation ORG</span></span><br><span class="line"><span class="string">American NORP</span></span><br><span class="line"><span class="string">Redmond GPE</span></span><br><span class="line"><span class="string">Washington GPE</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get quick definitions of the most common tags and labels.</span></span><br><span class="line">spacy.explain(<span class="string">&#x27;NORP&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;Nationalities or religious or political groups&#x27;</span></span><br></pre></td></tr></table></figure>
@@ -400,7 +408,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -413,7 +421,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -462,7 +470,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共9.1k字</span>
+    <span class="post-count">共10.8k字</span>
 </div>
 
         
