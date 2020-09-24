@@ -26,7 +26,7 @@
 <meta property="og:description" content="1. hexo12345$ hexo new &amp;#x27;post&amp;#x27; # Create a new post$ hexo g  # Generate static files  $ hexo s  # Run server$ hexo d  # Deploy to remote sites$ hexo clean # Remove cache file (db.json) and sta">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-06T00:00:22.000Z">
-<meta property="article:modified_time" content="2020-09-16T14:29:00.094Z">
+<meta property="article:modified_time" content="2020-09-16T18:33:47.414Z">
 <meta property="article:author" content="Bin">
 <meta property="article:tag" content="Commands">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-16 07:29:00" itemprop="dateModified" datetime="2020-09-16T07:29:00-07:00">2020-09-16</time>
+                <time title="Modified: 2020-09-16 11:33:47" itemprop="dateModified" datetime="2020-09-16T11:33:47-07:00">2020-09-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -251,7 +251,7 @@
         <h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
 
 
-<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line">切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line">修改环境名称（无法修改，只能复制+删除）</span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -351,7 +351,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -413,7 +413,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共9k字</span>
+    <span class="post-count">共9.1k字</span>
 </div>
 
         
