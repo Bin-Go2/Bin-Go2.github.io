@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PBG 批准备This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。 Training proceeds b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch-BigGraph  批准备">
+<meta property="og:url" content="http://example.com/2020/10/27/PBG-Batch-preparation/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="PBG 批准备This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。 Training proceeds b">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-28T06:05:23.000Z">
+<meta property="article:modified_time" content="2020-10-28T08:19:01.598Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="PyTorch-BigGraph">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/10/27/PBG-Batch-preparation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>PyTorch-BigGraph  批准备 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/27/PBG-Batch-preparation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PyTorch-BigGraph  批准备
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-27 23:05:23" itemprop="dateCreated datePublished" datetime="2020-10-27T23:05:23-07:00">2020-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-28 01:19:01" itemprop="dateModified" datetime="2020-10-28T01:19:01-07:00">2020-10-28</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="PBG-批准备"><a href="#PBG-批准备" class="headerlink" title="PBG 批准备"></a>PBG 批准备</h1><p>This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.<br>本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。</p>
+<p>Training proceeds by iterating over the edges, through various nested loops. The outermost one walks through so-called epochs. Each epoch is independent and essentially equivalent to every other one. Their goal is to repeat the inner loop until convergence. Each epoch visits all the edges exactly once. The number of epochs is specified in the num_epochs configuration parameter.<br>训练过程通过不断嵌套循环各条边来进行。所有边都被训练过一次叫做一个epoch，每一个epoch都是互相独立且平等的。他们的目标都是为了重复训练边最终达到收敛的效果。每一个epoch只访问每一条一次。在配置文件中的num_epochs指定epoch数目。</p>
+<p>The edges are partitioned into edge sets (one for each directory of the edge_paths configuration key) and, within each epoch, the edge sets are traversed in order.<br>图中的边被划分为边集合的形式（edge_paths目录下的每个文件表示一个边集合），在每一个epoch下，这些边集合按照顺序访问遍历。</p>
+<p>When iterating over an edge set, each of its buckets is first divided into equally sized chunks: each chunk spans a contiguous interval of edges (in the order they are stored in the files) and the number of chunks can be tweaked using the num_edge_chunks configuration key. The training first operates on the all the first chunks of all buckets, then on all of their second chunks, and so on.<br>当在某一个边集合上进行迭代训练的时候，每一个桶（一个边集合）首先被划分成相同大小的chunks，每一个chunk跨度连续的边间隔（按它们存储在文件中的顺序），可以在配置文件中使用num_edge_chunks来设置chunk的大小。训练首先对桶中的第一个chunk进行训练，然后对第二个，以此类推。</p>
+<p>Next, the algorithm iterates over the buckets. The order in which buckets are processed depends on the value of the bucket_order configuration key. In addition to a random permutation, there are methods that try to have successive buckets share a common partition: this allows for that partition to be reused, thus allowing it to be kept in memory rather than being unloaded and another one getting loaded in its place. (In distributed mode, the various trainer processes operate on the buckets at the same time, thus the iteration is managed differently).<br>接下来，该算法迭代训练每一个桶。桶训练顺序取决于配置文件中的bucket_order。除了随机排列之外，还有一些方法尝试使连续的存储桶共享一个公共分区，也就是说允许这个共享分区被重用。通过这样其允许这这些边数据保存在内存中而不是被卸载然后被其他的边数据取代。（在分布式模式下，各种训练器进程同时在存储桶上运行训练，因此对迭代的管理不同）。</p>
+<p>Once the trainer has fixed a given chunk and a certain bucket, its edges are finally loaded from disk. When evaluating during training, a subset of these edges is withheld (such subset is the same for all epochs). The remaining edges are immediately uniformly shuffled and then split into equal parts. These parts are distributed among a pool of processes, so that the training can proceed in parallel on all of them at the same time. These subprocesses are “Hogwild!” workers, which do not synchronize their computations or memory accesses. The number of such workers is determined by the workers parameter.<br>一旦训练器获得了一个给定的chunk和bucket，其chuck的边最终从磁盘上加载到内存。在训练之前，边的一部分被保留下载作为之后的评估使用。（对于所有的epoch而言，这些边是一样的），其余的边都作为训练数据，他们被均匀地混洗，然后分成相等的部分分发到进程池里进行训练。因此训练是可以在所有进程上并行运行的。这些子进程被称为“Hogwild!” worker，他们的计算和内存使用并不同步进行。worker的数目在配置文件中的worfers参数指定。</p>
+<blockquote>
+<p>key point: 这里worker就可以当成是进程数目，几个worker表示可以同时几个进程并行训练数据。</p>
+</blockquote>
+<p>The way each worker trains on its set of edges depends on whether dynamic relations are in use. The simplest scenario is if they are, in which case the edges are split into contiguous batches (each one having the size specified in the batch_size configuration key, except possibly the last one which could be smaller). Training is then performed on that batch before moving on to the next one.<br>worker训练边集合的方式取决于是否使用动态关系。最简单的情况是，如果边被分成连续的批次，（每个批次具有一样的大小，并且其在配置文件的batch_size中指定，最后一个批次可能会小些。）训练分批次依次进行训练。</p>
+<p>When dynamic relations are not in use, however, the loss can only be computed on a set of edges that are all of the same type. Thus the worker first randomly samples a relation type, with probability proportional to the number of edges of that type that are left in the pool. It then takes the first batch_size relations of that type (or fewer, if not enough of them are left), removes them from the pool and performs training on them.<br>当不使用动态关系的时候，损失函数将只能用于同种关系类型的边计算。因此worker首先需要随机的选出某一种关系类型的样本，（挑选概率和池子残留的边成正比）。随后，其采用该类型的第一个batch_size（如果剩余的不多的话，数目可能会很少）,从池子中移除然后进行训练。</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PyTorch-BigGraph/" rel="tag"># PyTorch-BigGraph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/27/PBG-I-O-format/" rel="prev" title="PyTorch-BigGraph I/O 格式">
+      <i class="fa fa-chevron-left"></i> PyTorch-BigGraph I/O 格式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PBG-%E6%89%B9%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">PBG 批准备</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共26.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

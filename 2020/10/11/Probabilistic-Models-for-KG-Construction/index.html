@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前情提要在知识图谱中，主要需要解决的有三个问题:  (节点，属性，关系)  Who are the entities (nodes) in the graph? What are their attributes and types (labels)? How are they related (edges)?  知识图谱的构建主要就是通过IE将互联网上各式各样的资源进行提取，整合得到结构化的数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PSL">
+<meta property="og:url" content="http://example.com/2020/10/11/Probabilistic-Models-for-KG-Construction/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="前情提要在知识图谱中，主要需要解决的有三个问题:  (节点，属性，关系)  Who are the entities (nodes) in the graph? What are their attributes and types (labels)? How are they related (edges)?  知识图谱的构建主要就是通过IE将互联网上各式各样的资源进行提取，整合得到结构化的数据">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/KG-problem.png">
+<meta property="og:image" content="http://example.com/image/build-KG.png">
+<meta property="og:image" content="http://example.com/image/vote-classification.png">
+<meta property="og:image" content="http://example.com/image/voter_attitude.png">
+<meta property="og:image" content="http://example.com/image/vote_opinion.png">
+<meta property="article:published_time" content="2020-10-11T23:42:01.000Z">
+<meta property="article:modified_time" content="2020-10-12T01:43:27.302Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/KG-problem.png">
+
+<link rel="canonical" href="http://example.com/2020/10/11/Probabilistic-Models-for-KG-Construction/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>PSL | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/11/Probabilistic-Models-for-KG-Construction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PSL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-11 16:42:01 / Modified: 18:43:27" itemprop="dateCreated datePublished" datetime="2020-10-11T16:42:01-07:00">2020-10-11</time>
+            </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>在知识图谱中，主要需要解决的有三个问题:  (节点，属性，关系)</p>
+<ol>
+<li>Who are the entities (nodes) in the graph?</li>
+<li>What are their attributes and types (labels)?</li>
+<li>How are they related (edges)?<br><img src="/image/KG-problem.png"></li>
+</ol>
+<p>知识图谱的构建主要就是通过IE将互联网上各式各样的资源进行提取，整合得到结构化的数据(说起来容易，做起来难！)</p>
+<p><img src="/image/build-KG.png"></p>
+<p>提取到的知识可能存在的一些问题:</p>
+<ol>
+<li>ambiguous (一般我们说ambiguous 指的是多个名字指向一个entity， variant指的是一个entity有多个名字)<ul>
+<li>Beetles, beetles, Beatles 这三个name可能都是指向一个实体甲壳虫，但是名字不同</li>
+<li>citizenOf, livedIn, bornIn 这三个property可能都是指向一个实体，表达的意思为该实体住在某一个地方</li>
+</ul>
+</li>
+<li>incomplete<ul>
+<li>missing relationship; missing labels; missing entities</li>
+</ul>
+</li>
+<li>inconsistent<ul>
+<li>exclusive labels (alive, dead), 提取到的知识表明一个人既已经去世又还在人世</li>
+<li>domain-range constraints，提取到一个relationship例如人的年龄为一朵花的名字(age属性一般为int)</li>
+<li>一个人的配偶有多个存在(common sense: 一般认为配偶为一对)</li>
+</ul>
+</li>
+</ol>
+<p>例子: NELL在知识提取中存在的问题:<br>NELL: Never-Ending Language Learner CMU研究的一个人工智能语言学习程序,从Web文本中获取知识，并将其添加到内部知识库内 ,使用机器学习算法学习新入库的知识，巩固对知识的理解。<br>特点: Large-scale IE project; Lifelong learning: aims to “read the web”; Ontology of known labels and relations; Knowledge base contains millions of facts</p>
+<p>存在问题:</p>
+<ol>
+<li>Entity co-reference errors, 例如对于Kyrgyzstan(吉尔吉斯斯坦,中亚的一个国家)这样一个实体，他具有许多的variants(Kyrgystan, Kyrgistan, Kyrghyzstan, Kyrgzstan, Kyrgyz Republic), NELL不能很好将这些variant完全映射到同一个实体上。</li>
+<li>Missing and spurious labels, 例如Kyrgyzstan被标注为鸟或者国家</li>
+<li>Missing and spurious relations, 例如Kyrgyzstan的位置，通过IE可能得到不同的地区归属。</li>
+<li>Violations of ontological knowledge </li>
+</ol>
+<blockquote>
+<p>由于知识提取过程中的诸多问题，想要很好的解决这些问题需要jointly considering multiple extractions.</p>
+</blockquote>
+<p>图谱构建方法:</p>
+<ol>
+<li>Clean and complete extraction graph</li>
+<li>Incorporate ontological constraints and relational patterns</li>
+<li>Discover statistical relationships within knowledge graph</li>
+</ol>
+<h1 id="PSL-Probabilistic-soft-logic-概率软逻辑"><a href="#PSL-Probabilistic-soft-logic-概率软逻辑" class="headerlink" title="PSL (Probabilistic soft logic) 概率软逻辑"></a>PSL (Probabilistic soft logic) 概率软逻辑</h1><blockquote>
+<p>It’s not a black-and-white issue.</p>
+</blockquote>
+<h2 id="从一个例子说起-美国选民派别分类-Voter-Party-Classification"><a href="#从一个例子说起-美国选民派别分类-Voter-Party-Classification" class="headerlink" title="从一个例子说起, 美国选民派别分类 (Voter Party Classification)"></a>从一个例子说起, 美国选民派别分类 (Voter Party Classification)</h2><p><img src="/image/vote-classification.png"></p>
+<p>各个角度的信息来分析一名美国选民的政治态度:</p>
+<p><img src="/image/voter_attitude.png"></p>
+<p>IDEA: <strong>Collective Classification</strong></p>
+<p>假设分析A的政治态度，可以通过其配偶的政治态度，其tweet粉丝的观点，个人的行为来进行分析，通过制定一些规则来确定这个人是支持共和党还是民主党。<br><img src="/image/vote_opinion.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Collective Classification with PSL</span><br><span class="line">规则: 如果A -&gt; 那么B </span><br><span class="line"></span><br><span class="line">&#x2F;* Local rules *&#x2F;</span><br><span class="line">5.0: Donates(A, P) -&gt; Votes(A, P)</span><br><span class="line">0.3: Mentions(A, “Affordable Health”) -&gt; Votes(A, “Democrat”)</span><br><span class="line">0.3: Mentions(A, “Tax Cuts”) -&gt; Votes(A, “Republican”)</span><br><span class="line"></span><br><span class="line">&#x2F;* Relational rules *&#x2F;</span><br><span class="line">1.0: Votes(A,P) &amp; Spouse(B,A) -&gt; Votes(B,P)</span><br><span class="line">0.3: Votes(A,P) &amp; Friend(B,A) -&gt; Votes(B,P)</span><br><span class="line">0.1: Votes(A,P) &amp; Colleague(B,A) -&gt; Votes(B,P)</span><br><span class="line"></span><br><span class="line">&#x2F;* Range constraint *&#x2F;</span><br><span class="line">Votes(A, “Republican”) + Votes(A, “Democrat”) &#x3D; 1.0 .</span><br></pre></td></tr></table></figure>
+
+<h2 id="为什么需要PSL"><a href="#为什么需要PSL" class="headerlink" title="为什么需要PSL"></a>为什么需要PSL</h2><p>通过上面的例子，可以发现，通过制定一些比较好的规则，可以为提取的信息进行一些比较高质量的标注。</p>
+<p>存在问题: </p>
+<ol>
+<li><p>规则的制定依赖于提取到的信息，如果提取到的知识存在问题，那么一定是garbage in - garbage out.<br> 例子:<br> Lbl(Socrates, Man) &amp; Sub(Man, Mortal) -&gt; Lbl(Socrates, Mortal)<br> 假如提取到的知识没有正确的将Socrates标注为男性，那么永远也得不到Lbl(Socrates, Mortal)这样的知识。</p>
+<p> 解决措施: probabilistic models  =&gt; P(new facts|extraction infos)<br> P(Lbl(Socrates, Mortal)|Lbl(Socrates,Man)=0.9)</p>
+</li>
+<li><p>多条规则之间可能产生冲突<br> 例子:<br> B的正确性无法确定:<br> A -&gt; B 符合<br> C -&gt; B 不符合<br> D -&gt; B 符合</p>
+<p> 解决措施: Soft Logic<br> A -&gt; B 符合 0.7<br> C -&gt; B 不符合 0.2<br> D -&gt; B 符合 0.9</p>
+</li>
+</ol>
+<h2 id="Soft-Probability"><a href="#Soft-Probability" class="headerlink" title="Soft Probability"></a>Soft Probability</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">P -&gt; Q</span><br><span class="line">&#x2F;* Soft Logic Penalty *&#x2F;</span><br><span class="line">if P &lt; Q</span><br><span class="line">	return satisfication</span><br><span class="line">else:</span><br><span class="line">	return P-Q</span><br><span class="line"></span><br><span class="line">Closed Form 封闭世界原则</span><br><span class="line">!Q &#x3D; 1-Q</span><br><span class="line">P -&gt; Q &#x3D; max(0, P-Q)</span><br><span class="line">P &amp;  Q &#x3D; max(0, P+Q-1)</span><br><span class="line">P |  Q &#x3D; min(1, P+Q)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="PSL-model"><a href="#PSL-model" class="headerlink" title="PSL model"></a>PSL model</h2><ul>
+<li>PSL finds optimal assignment for all unknowns</li>
+<li>Optimal = minimizes the soft-logic penalty</li>
+<li>Fast, joint convex optimization using ADMM</li>
+<li>Supports learning rule weights and latent variables</li>
+</ul>
+<h1 id="图谱模型的建立"><a href="#图谱模型的建立" class="headerlink" title="图谱模型的建立"></a>图谱模型的建立</h1><p>步骤:<br>Define joint probability distribution on knowledge graphs<br>Each candidate fact in the knowledge graph is a variable<br>Statistical signals, ontological knowledge and rules parameterize the dependencies between variables<br>Find most likely knowledge graph by optimization/sampling</p>
+<h2 id="Knowledge-Graph-Identification-KGI"><a href="#Knowledge-Graph-Identification-KGI" class="headerlink" title="Knowledge Graph Identification (KGI)"></a>Knowledge Graph Identification (KGI)</h2><p>Knowledge Graph Identification (KGI): 解决图谱中存在的一系列问题的方案</p>
+<ul>
+<li>Performs graph identification:<ul>
+<li>entity resolution</li>
+<li>collective classification</li>
+<li>link prediction</li>
+</ul>
+</li>
+<li>Enforces ontological constraints</li>
+<li>Incorporates multiple uncertain sources</li>
+</ul>
+<p>P(Who, What, How | Extractions)</p>
+<h2 id="图谱中probability的获得"><a href="#图谱中probability的获得" class="headerlink" title="图谱中probability的获得"></a>图谱中probability的获得</h2><p>Statistical signals from text extractors and classifiers<br>    ex:<br>    P(R(John,Spouse,Yoko))=0.75; P(R(John,Spouse,Cynthia))=0.25<br>    LevenshteinSimilarity(Beatles, Beetles) = 0.9</p>
+<p>Ontological knowledge about domain<br>    ex:<br>    Functional(Spouse) &amp; R(A,Spouse,B) -&gt; !R(A,Spouse,C)<br>    Range(Spouse, Person) &amp; R(A,Spouse,B) -&gt; Type(B, Person)</p>
+<p>Rules and patterns mined from data<br>    ex:<br>    R(A, Spouse, B) &amp; R(A, Lives, L) -&gt; R(B, Lives, L)<br>    R(A, Spouse, B) &amp; R(A, Child, C) -&gt; R(B, Child, C)</p>
+<h2 id="定义一个graphical-models"><a href="#定义一个graphical-models" class="headerlink" title="定义一个graphical models"></a>定义一个graphical models</h2><p>有许多种方式去定一个图模型，这里使用PSL(使用规则)<br>PSL infers a “truth value” for each fact via optimization</p>
+<h3 id="Rules-for-KG-Model"><a href="#Rules-for-KG-Model" class="headerlink" title="Rules for KG Model"></a>Rules for KG Model</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">100: 	Subsumes(L1,L2)   &amp; Label(E,L1)      -&gt;  Label(E,L2)</span><br><span class="line">100:	Exclusive(L1,L2)  &amp; Label(E,L1)      -&gt; !Label(E,L2)</span><br><span class="line"></span><br><span class="line">100:	Inverse(R1,R2)    &amp; Relation(R1,E,O) -&gt;  Relation(R2,O,E)</span><br><span class="line">100:	Subsumes(R1,R2)   &amp; Relation(R1,E,O) -&gt;  Relation(R2,E,O)</span><br><span class="line">100:	Exclusive(R1,R2)  &amp; Relation(R1,E,O) -&gt; !Relation(R2,E,O)</span><br><span class="line"></span><br><span class="line">100:	Domain(R,L)       &amp; Relation(R,E,O)  -&gt;  Label(E,L)</span><br><span class="line">100:	Range(R,L)        &amp; Relation(R,E,O)  -&gt;  Label(O,L)</span><br><span class="line"></span><br><span class="line">10:	SameEntity(E1,E2) &amp; Label(E1,L)      -&gt;  Label(E2,L)</span><br><span class="line">10: 	SameEntity(E1,E2) &amp; Relation(R,E1,O) -&gt;  Relation(R,E2,O)</span><br><span class="line"></span><br><span class="line">1:	Label_OBIE(E,L)                      -&gt;  Label(E,L)</span><br><span class="line">1:	Label_OpenIE(E,L)                    -&gt;  Label(E,L)</span><br><span class="line">1:	Relation_Pattern(R,E,O)              -&gt;  Relation(R,E,O)</span><br><span class="line">1:	                                        !Relation(R,E,O)</span><br><span class="line">1:	                                        !Label(E,L)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Rules-to-Distributions"><a href="#Rules-to-Distributions" class="headerlink" title="Rules to Distributions"></a>Rules to Distributions</h3><p>Rules are grounded by substituting literals into formulas<br>Ground rules provide a joint probability distribution over knowledge graph facts, conditioned on the extractions</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/11/DSCI558-outline/" rel="prev" title="DSCI558-outline">
+      <i class="fa fa-chevron-left"></i> DSCI558-outline
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" rel="next" title="Blocking and Relational Entity Resolution">
+      Blocking and Relational Entity Resolution <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PSL-Probabilistic-soft-logic-%E6%A6%82%E7%8E%87%E8%BD%AF%E9%80%BB%E8%BE%91"><span class="nav-number">2.</span> <span class="nav-text">PSL (Probabilistic soft logic) 概率软逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E8%AF%B4%E8%B5%B7-%E7%BE%8E%E5%9B%BD%E9%80%89%E6%B0%91%E6%B4%BE%E5%88%AB%E5%88%86%E7%B1%BB-Voter-Party-Classification"><span class="nav-number">2.1.</span> <span class="nav-text">从一个例子说起, 美国选民派别分类 (Voter Party Classification)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81PSL"><span class="nav-number">2.2.</span> <span class="nav-text">为什么需要PSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Soft-Probability"><span class="nav-number">2.3.</span> <span class="nav-text">Soft Probability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PSL-model"><span class="nav-number">2.4.</span> <span class="nav-text">PSL model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E8%B0%B1%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-number">3.</span> <span class="nav-text">图谱模型的建立</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Knowledge-Graph-Identification-KGI"><span class="nav-number">3.1.</span> <span class="nav-text">Knowledge Graph Identification (KGI)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E8%B0%B1%E4%B8%ADprobability%E7%9A%84%E8%8E%B7%E5%BE%97"><span class="nav-number">3.2.</span> <span class="nav-text">图谱中probability的获得</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAgraphical-models"><span class="nav-number">3.3.</span> <span class="nav-text">定义一个graphical models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Rules-for-KG-Model"><span class="nav-number">3.3.1.</span> <span class="nav-text">Rules for KG Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rules-to-Distributions"><span class="nav-number">3.3.2.</span> <span class="nav-text">Rules to Distributions</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共26.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -189,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/Scrapy-learning/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/27/PBG-Batch-preparation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -203,7 +203,85 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/22/Scrapy-learning/" class="post-title-link" itemprop="url">Scrapy学习</a>
+            <a href="/2020/10/27/PBG-Batch-preparation/" class="post-title-link" itemprop="url">PyTorch-BigGraph  批准备</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-27 23:05:23" itemprop="dateCreated datePublished" datetime="2020-10-27T23:05:23-07:00">2020-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-28 01:19:01" itemprop="dateModified" datetime="2020-10-28T01:19:01-07:00">2020-10-28</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="PBG-批准备"><a href="#PBG-批准备" class="headerlink" title="PBG 批准备"></a>PBG 批准备</h1><p>This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.<br>本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。</p>
+<p>Training proceeds by iterating over the edges, through various nested loops. The outermost one walks through so-called epochs. Each epoch is independent and essentially equivalent to every other one. Their goal is to repeat the inner loop until convergence. Each epoch visits all the edges exactly once. The number of epochs is specified in the num_epochs configuration parameter.<br>训练过程通过不断嵌套循环各条边来进行。所有边都被训练过一次叫做一个epoch，每一个epoch都是互相独立且平等的。他们的目标都是为了重复训练边最终达到收敛的效果。每一个epoch只访问每一条一次。在配置文件中的num_epochs指定epoch数目。</p>
+<p>The edges are partitioned into edge sets (one for each directory of the edge_paths configuration key) and, within each epoch, the edge sets are traversed in order.<br>图中的边被划分为边集合的形式（edge_paths目录下的每个文件表示一个边集合），在每一个epoch下，这些边集合按照顺序访问遍历。</p>
+<p>When iterating over an edge set, each of its buckets is first divided into equally sized chunks: each chunk spans a contiguous interval of edges (in the order they are stored in the files) and the number of chunks can be tweaked using the num_edge_chunks configuration key. The training first operates on the all the first chunks of all buckets, then on all of their second chunks, and so on.<br>当在某一个边集合上进行迭代训练的时候，每一个桶（一个边集合）首先被划分成相同大小的chunks，每一个chunk跨度连续的边间隔（按它们存储在文件中的顺序），可以在配置文件中使用num_edge_chunks来设置chunk的大小。训练首先对桶中的第一个chunk进行训练，然后对第二个，以此类推。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/27/PBG-Batch-preparation/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/27/PBG-I-O-format/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/27/PBG-I-O-format/" class="post-title-link" itemprop="url">PyTorch-BigGraph I/O 格式</a>
         </h2>
 
         <div class="post-meta">
@@ -214,7 +292,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-09-22 16:33:53 / Modified: 17:11:51" itemprop="dateCreated datePublished" datetime="2020-09-22T16:33:53-07:00">2020-09-22</time>
+              <time title="Created: 2020-10-27 00:23:33 / Modified: 01:20:01" itemprop="dateCreated datePublished" datetime="2020-10-27T00:23:33-07:00">2020-10-27</time>
             </span>
 
           
@@ -230,761 +308,642 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Scrapy-架构"><a href="#Scrapy-架构" class="headerlink" title="Scrapy 架构"></a>Scrapy 架构</h3><p><img src="/image/scrapy.png"></p>
+          <h1 id="PBG-I-O格式"><a href="#PBG-I-O格式" class="headerlink" title="PBG I/O格式"></a>PBG I/O格式</h1><h2 id="Entity-and-relation-types"><a href="#Entity-and-relation-types" class="headerlink" title="Entity and relation types"></a>Entity and relation types</h2><p>The list of entity types (each identified by a string), plus some information about each of them, is given in the <code>entities</code> dictionary in the configuration file. The list of relation types (each identified by its index in that list), plus some data like what their left- and right-hand side entity types are, is in the <code>relations</code> key of the configuration file.<br>实体类型的列表(每个实体类型由一个字符串标识)以及有关于他们的一些信息由配置文件中的实体字典提供。关系类型的列表（每个都由该列表中的索引标识）以及一些数据（如其左侧和右侧实体类型）在配置文件的relation key中指示。</p>
+<h2 id="Entities"><a href="#Entities" class="headerlink" title="Entities"></a>Entities</h2><p>The only information that needs to be provided about entities is how many there are in each entity type’s partition. This is done by putting a file named <code>entity_count_type_part.txt</code> for each entity type identified by <code>type</code> and each partition <code>part</code> in the directory specified by the <code>entity_path</code> config parameter. These files must contain a single integer (as text), which is the number of entities in that partition. The directory where all these files reside must be specified as the <code>entity_path</code> key of the configuration file.<br>对于实体而言，其只需要提供每种实体类型的分区中有多少个实体这样一个信息即可。他通过将文件名称为<code>entity_count_type_part.txt</code>(<code>type</code>表示实体类型，<code>part</code>表示分区id)放到配置文件指定的文件夹来实现，这个文件夹在配置文件中的key为<code>entity_path</code>。 这些文件(entity_count_type1_part1.txt, entity_count_type2_part2.txt…)必须包含一个整数（作为文本），该整数表示在该分区中实体的数量。这些文件所在的目录名称必须指定为在配置文件下的<code>entity_path</code>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/27/PBG-I-O-format/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/23/From-embedding-to-scores/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/23/From-embedding-to-scores/" class="post-title-link" itemprop="url">PyTorch-BigGraph 从实体嵌入到边得分</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-23 21:31:39 / Modified: 23:21:59" itemprop="dateCreated datePublished" datetime="2020-10-23T21:31:39-07:00">2020-10-23</time>
+            </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="From-entity-embeddings-to-edge-scores"><a href="#From-entity-embeddings-to-edge-scores" class="headerlink" title="From entity embeddings to edge scores"></a>From entity embeddings to edge scores</h1><p>The goal of training is to embed each entity in ℝ^D so that the embeddings of two entities are a good proxy to predict whether there is a relation of a certain type between them.<br>训练的目的是将每个实体嵌入到D维的向量空间中，以便两个实体的嵌入可以很好地预测它们之间是否存在某种类型的关系。</p>
+<p>To be more precise, the goal is to learn an embedding for each entity and a function for each relation type that takes two entity embeddings and assigns them a score, with the goal of having positive relations achieve higher scores than negative ones.<br>更确切地说，PBG的目标是学习每个实体的嵌入和每种关系类型的函数，该函数接受两个实体嵌入并为其分配一个分数，目的是使正面关系比负面关系获得更高的分数。</p>
+<blockquote>
+<p>key point: 实体-&gt;D维向量 关系-&gt;函数</p>
+</blockquote>
+<p>All the edges provided in the training set are considered positive instances. In order to perform training, a set of negative edges is needed as well. These are not provided by the user but instead generated by the system during training (Negative sampling), usually by fixing the left-hand side entity and the relation type and sampling a new right-hand side entity, or vice versa. This sampling scheme makes sense for large sparse graphs, where there is a low probability that edges generated this way are true positives edges in the graph.<br>训练集中提供的所有边被视为正例。为了执行训练，还需要一些负边（负样本）。 这些不是由用户提供的，而是由系统在训练过程中生成的（负采样），通常是通过固定左侧实体和关系类型并采样新的右侧实体，反之亦然。 对于大的稀疏图，这种采样方案是有意义的，因为在这样的情况下，以这种方式生成的边为图中的正例的可能性很小。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/23/From-embedding-to-scores/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/23/Social-network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/23/Social-network/" class="post-title-link" itemprop="url">社交网络</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-23 16:02:16" itemprop="dateCreated datePublished" datetime="2020-10-23T16:02:16-07:00">2020-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-25 19:23:28" itemprop="dateModified" datetime="2020-10-25T19:23:28-07:00">2020-10-25</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>社交网络与图, 社交网络的聚类, 社区发现</p>
+<h2 id="社交网络与图"><a href="#社交网络与图" class="headerlink" title="社交网络与图"></a>社交网络与图</h2><p>1.What is a network? a network can be defined as a graph in which nodes and/or edges have attributes (e.g. names). 带有属性信息的图</p>
+<p>2.Network’s properties:</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/23/Social-network/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/23/DSCI-553-outline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/23/DSCI-553-outline/" class="post-title-link" itemprop="url">DSCI-553-outline</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-23 15:59:03 / Modified: 16:03:19" itemprop="dateCreated datePublished" datetime="2020-10-23T15:59:03-07:00">2020-10-23</time>
+            </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="DSCI551-Foundations-and-Applications-of-Data-Mining"><a href="#DSCI551-Foundations-and-Applications-of-Data-Mining" class="headerlink" title="DSCI551 - Foundations and Applications of Data Mining"></a>DSCI551 - Foundations and Applications of Data Mining</h2><h3 id="Part1"><a href="#Part1" class="headerlink" title="Part1:"></a>Part1:</h3><!-- <a href="/2020/09/06/Firebase-rest-web-api/" title="Firebase rest &amp; web api">Firebase rest &amp; web api</a>  -->
+
+<h3 id="Part2"><a href="#Part2" class="headerlink" title="Part2:"></a>Part2:</h3><!-- <a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a>  -->
+
+
+<h3 id="Part3"><a href="#Part3" class="headerlink" title="Part3: "></a>Part3: <a href="/2020/10/23/Social-network/" title="社交网络">社交网络</a></h3><!-- <a href="/2020/09/10/File-Systems/" title="File systems">File systems</a>  -->
+
+
+
+
+
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/23/Linux-screen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/23/Linux-screen/" class="post-title-link" itemprop="url">ssh连接远程服务器中途断开</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-23 12:34:11" itemprop="dateCreated datePublished" datetime="2020-10-23T12:34:11-07:00">2020-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-25 16:39:37" itemprop="dateModified" datetime="2020-10-25T16:39:37-07:00">2020-10-25</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
+<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/23/Linux-screen/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/22/PBG-Data-model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/22/PBG-Data-model/" class="post-title-link" itemprop="url">PyTorch-BigGraph 数据模型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-22 23:47:46" itemprop="dateCreated datePublished" datetime="2020-10-22T23:47:46-07:00">2020-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-23 21:38:51" itemprop="dateModified" datetime="2020-10-23T21:38:51-07:00">2020-10-23</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="PBG模型"><a href="#PBG模型" class="headerlink" title="PBG模型"></a>PBG模型</h1><p>PBG operates on directed multi-relation multigraphs, whose vertices are called entities. Each edge connects a source to a destination entity, which are respectively called its left- and right-hand side (shortened to LHS and RHS). Multiple edges between the same pair of entities are allowed. Loops, i.e., edges whose left- and right- hand sides are the same, are allowed as well.<br>PBG作用在有向多关系多图上，其中，图的顶点称为实体。每一条边将源实体连接到目标实体，源实体称为左侧，目标实体称为右侧(缩写为LHS和RHS)同一对实体之间可以有多个边。循环也是允许的，例如，LHS和RHS是相同的边.(A-&gt;B B-&gt;A)</p>
+<blockquote>
+<p>key point: directed, multi-relation, multigraph </p>
+</blockquote>
+<p>Each entity is of a certain entity type (one and only one type per entity). Thus, the types partition all the entities into disjoint groups. Similarly, each edge also belongs to exactly one relation type. All edges of a given relation type must have all their left-hand side entities of the same entity type and, similarly, all their right-hand side entities of the same entity type (possibly a different entity type than the left-hand side one). This property means that each relation type has a left-hand side entity type and a right-hand side entity type.<br>每一个实体都具有某种实体类型(每个实体都只有一种类型)。因此，实体的类型将所有的实体划分成不相交的组。类似的，每一条边也只属于个唯一的关系类型。给定关系类型的边的LHS/RHS实体都只属于一个实体类型（左右两侧的实体类型可以不同）。此属性意味着每种关系类型都具有左侧实体类型和右侧实体类型。</p>
+<blockquote>
+<p>key point: entity, relation, entity type, relation type</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/22/PBG-Data-model/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/22/PBG-overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/22/PBG-overview/" class="post-title-link" itemprop="url">PyTorch-BigGraph 概要</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-22 23:16:40" itemprop="dateCreated datePublished" datetime="2020-10-22T23:16:40-07:00">2020-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-23 21:38:55" itemprop="dateModified" datetime="2020-10-23T21:38:55-07:00">2020-10-23</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="PBG概要"><a href="#PBG概要" class="headerlink" title="PBG概要"></a>PBG概要</h1><p>PyTorch-BigGraph (PBG) is a distributed system for learning graph embeddings for large graphs, particularly big web interaction graphs with up to billions of entities and trillions of edges.PBG now supports GPU training.<br>PyTorch-BigGraph（PBG）是一个用于学习学习大图（节点、关系众多），特别是那些具有多达数十亿个实体和数万亿条边的大型Web交互图嵌入的分布式系统。如今PBG也支持了GPU训练的过程。</p>
+<blockquote>
+<p>key point: PBG, distributed, big graph, embedding, GPU</p>
+</blockquote>
+<p>PBG was introduced in the PyTorch-BigGraph: A Large-scale Graph Embedding Framework paper, presented at the SysML conference in 2019.<br>PBG是于2019年发表在SysML会议上的一篇论文 PYTORCH-BIGGRAPH: A LARGE-SCALE GRAPH EMBEDDING SYSTEM被首次提出<br>论文地址: <a target="_blank" rel="noopener" href="https://mlsys.org/Conferences/2019/doc/2019/71.pdf">https://mlsys.org/Conferences/2019/doc/2019/71.pdf</a></p>
+<p>PBG trains on an input graph by ingesting its list of edges, each identified by its source and target entities and, possibly, a relation type. It outputs a feature vector (embedding) for each entity, trying to place adjacent entities close to each other in the vector space, while pushing unconnected entities apart. Therefore, entities that have a similar distribution of neighbors will end up being nearby.<br>PBG通过提取图的边列表来进行embedding训练，每条边由其源实体,目标实体以及一个可能的关系类型作为标识。PBG对每个实体输出一个特征向量（嵌入）。它通过将相邻的实体在向量空间中彼此靠近放置，不相邻的实体彼此远离放置。通过这样的手段，相似的实体最终的嵌入互相靠近。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/22/PBG-overview/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/15/scrapy-example/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/15/scrapy-example/" class="post-title-link" itemprop="url">Scrapy 实例 - TripAdvisor信息抓取</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-15 19:55:41" itemprop="dateCreated datePublished" datetime="2020-10-15T19:55:41-07:00">2020-10-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-16 01:31:18" itemprop="dateModified" datetime="2020-10-16T01:31:18-07:00">2020-10-16</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
+<p>餐厅信息包括:</p>
+<ul>
+<li>餐厅名称</li>
+<li>餐厅评星（几颗星）</li>
+<li>餐厅排名（针对洛杉矶而言）</li>
+<li>餐厅价格区间</li>
+<li>餐厅菜品种类</li>
+<li>餐厅地点</li>
+<li>附近旅馆</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/15/scrapy-example/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/11/Blocking-and-Relational-Entity-Resolution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" class="post-title-link" itemprop="url">Blocking and Relational Entity Resolution</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-11 19:12:39" itemprop="dateCreated datePublished" datetime="2020-10-11T19:12:39-07:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-12 00:21:19" itemprop="dateModified" datetime="2020-10-12T00:21:19-07:00">2020-10-12</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>Entity Resolution 主要分成如下四个</p>
 <ol>
-<li>The Engine gets the initial Requests to crawl from the Spider.(获取要爬的url)</li>
-<li>The Engine schedules the Requests in the Scheduler and asks for the next Requests to crawl.（调度request到调度器中，形成一些列的url调度队列）</li>
-<li>The Scheduler returns the next Requests to the Engine.（调度器调度完成，发送第一个request给引擎）</li>
-<li>The Engine sends the Requests to the Downloader, passing through the Downloader Middlewares (see process_request()). （引擎发送第一个request给下载器）</li>
-<li>Once the page finishes downloading the Downloader generates a Response (with that page) and sends it to the Engine, passing through the Downloader Middlewares (see process_response()).（下载器得到该request的response，返回给引擎）</li>
-<li>The Engine receives the Response from the Downloader and sends it to the Spider for processing, passing through the Spider Middleware (see process_spider_input()).（引擎将response发给spider进行解析）</li>
-<li>The Spider processes the Response and returns scraped items and new Requests (to follow) to the Engine, passing through the Spider Middleware (see process_spider_output()).（spider解析好需要的数据：包括：提取需要的内容+提取新的url请求，将处理好的数据发给引擎）</li>
-<li>The Engine sends processed items to Item Pipelines, then send processed Requests to the Scheduler and asks for possible next Requests to crawl.（一方面引擎将得到的内容发给item，将得到的url请求发给调度器）</li>
-<li>The process repeats (from step 1) until there are no more requests from the Scheduler.</li>
+<li>Coreference     文本与文本之间找同一个entity</li>
+<li>Entity linking  文本与KG中找对应entity     -&gt; Integrating New Candidates </li>
+<li>Deduplication   一个KG之间的聚类              -&gt; Merging  Ambiguous Entities</li>
+<li>Record linkage  两个不同KG之间entity的对应  -&gt; Combining KGs</li>
 </ol>
-<p>摘自:<a target="_blank" rel="noopener" href="https://docs.scrapy.org/en/latest/topics/architecture.html">https://docs.scrapy.org/en/latest/topics/architecture.html</a></p>
-<h3 id="Scrapy-使用"><a href="#Scrapy-使用" class="headerlink" title="Scrapy 使用"></a>Scrapy 使用</h3>
+<h1 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h1><h2 id="为什么需要Blocking-gt-reduce-the-number-of-comparisons"><a href="#为什么需要Blocking-gt-reduce-the-number-of-comparisons" class="headerlink" title="为什么需要Blocking -&gt; reduce the number of comparisons"></a>为什么需要Blocking -&gt; reduce the number of comparisons</h2>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/22/Scrapy-learning/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/18/File-Format/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/18/File-Format/" class="post-title-link" itemprop="url">XML</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-09-18 22:08:08 / Modified: 23:05:05" itemprop="dateCreated datePublished" datetime="2020-09-18T22:08:08-07:00">2020-09-18</time>
-            </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
-<li>XML：eXtensible Markup Language</li>
-<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
-<li>Can translate <em>any</em> data to XML</li>
-<li>Can ship XML over the Web (HTTP)</li>
-<li>Can input XML into any application</li>
-</ul>
-</li>
-</ul>
-<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
-<ul>
-<li>XML is self-describing</li>
-<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
-<li>XML is semi-structured <ul>
-<li>missing attributes  (could be represented as null in table)</li>
-<li>repeated attributes (impossible in table)</li>
-<li>Attributes with different types in different objects</li>
-<li>Nested structures</li>
-<li>Heterogeneous contents</li>
-</ul>
-</li>
-<li>an XML document has a single root element</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/18/File-Format/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/17/Algorithm-binarytree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/17/Algorithm-binarytree/" class="post-title-link" itemprop="url">Leetcode-二叉树</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-17 16:29:43" itemprop="dateCreated datePublished" datetime="2020-09-17T16:29:43-07:00">2020-09-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 22:07:43" itemprop="dateModified" datetime="2020-09-18T22:07:43-07:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="二叉树的一些思想"><a href="#二叉树的一些思想" class="headerlink" title="二叉树的一些思想"></a>二叉树的一些思想</h2><ul>
-<li>前序遍历(preOrder)  root-&gt;left-&gt;right </li>
-<li>中序遍历(inOrder)    left-&gt; root-&gt;right 二叉搜索树中，其遍历结果为有序数组</li>
-<li>后序遍历(postOrder) left-&gt;right-&gt;root </li>
-<li>广度优先搜索(BFS)</li>
-<li>深度优先搜索(DFS)</li>
-<li>递归(Recursion)，根据要求选择使用前序，中序，后序的递归框架来解决问题</li>
-</ul>
-<h4 id="897-递增顺序查找树"><a href="#897-递增顺序查找树" class="headerlink" title="897. 递增顺序查找树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/increasing-order-search-tree/">897. 递增顺序查找树</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 思路1: 中序遍历形成有序列表 + 重新生成树</span></span><br><span class="line"><span class="comment"># 思路2: 使用递归,改变树形状，不生成新的树</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">increasingBST</span>(<span class="params">self, root: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        dfs(root.left)</span><br><span class="line">        <span class="comment">### 对根节点的操作 ###</span></span><br><span class="line">        root.left = <span class="literal">None</span></span><br><span class="line">        self.cur.right = root</span><br><span class="line">        self.cur = root</span><br><span class="line">        <span class="comment">###################</span></span><br><span class="line">        dfs(root.right)</span><br><span class="line">    res = self.cur = TreeNode(<span class="literal">None</span>)</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> res.right</span><br></pre></td></tr></table></figure>
-
-<h4 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/invert-binary-tree/">226. 翻转二叉树</a></h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/17/Algorithm-binarytree/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/11/NFS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/11/NFS/" class="post-title-link" itemprop="url">Network File System</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-11 15:32:42" itemprop="dateCreated datePublished" datetime="2020-09-11T15:32:42-07:00">2020-09-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-16 02:32:04" itemprop="dateModified" datetime="2020-09-16T02:32:04-07:00">2020-09-16</time>
-              </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><p>The Network File System (NFS) is a client/server application that lets a computer user view and optionally store and update files on a remote computer as though they were on the user’s own computer. NFS is a distributed file system(DFS).</p>
-<h4 id="Client-server-architecture"><a href="#Client-server-architecture" class="headerlink" title="Client/server architecture"></a>Client/server architecture</h4><p><img src="/image/C-S.png"></p>
-<p>Advantage</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/11/NFS/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/10/File-Systems/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/10/File-Systems/" class="post-title-link" itemprop="url">File systems</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-10 23:13:56" itemprop="dateCreated datePublished" datetime="2020-09-10T23:13:56-07:00">2020-09-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-11 15:17:31" itemprop="dateModified" datetime="2020-09-11T15:17:31-07:00">2020-09-11</time>
-              </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><blockquote>
-<p>A filesystem is the methods and data structures that an operating system uses to keep track of files on a disk or partition; that is, the way the files are organized on the disk.</p>
-</blockquote>
-<ul>
-<li>File content stored in blocks on storage device</li>
-<li>Files are organized into directories (folders)<br><img src="/image/file-system.png"></li>
-</ul>
-<h3 id="Detail-about-file"><a href="#Detail-about-file" class="headerlink" title="Detail about file"></a>Detail about file</h3><h4 id="File-descriptor"><a href="#File-descriptor" class="headerlink" title="File descriptor"></a>File descriptor</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/10/File-Systems/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/10/spacy-learning/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/10/spacy-learning/" class="post-title-link" itemprop="url">spaCy学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-10 14:34:24" itemprop="dateCreated datePublished" datetime="2020-09-10T14:34:24-07:00">2020-09-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-24 03:30:21" itemprop="dateModified" datetime="2020-09-24T03:30:21-07:00">2020-09-24</time>
-              </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
-<p>spaCy (/speɪˈsiː/) is an open-source software library for advanced natural language processing written in the programming languages Python and Cython.</p>
-</blockquote>
-<p>学习资源: <a target="_blank" rel="noopener" href="https://spacy.io/">https://spacy.io/</a>  <a target="_blank" rel="noopener" href="https://course.spacy.io/en">https://course.spacy.io/en</a></p>
-<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ul>
-<li>nlp   : contains the processing pipeline; includes language-specific rules for tokenization etc.</li>
-<li>doc   : access information about the text in a structured way, and no information is lost.</li>
-<li>token : tokens in a document – for example, a word or a punctuation character.</li>
-<li>span  : a slice of the document consisting of one or more tokens</li>
-<li>lexical attributes : <code>token.i</code>, <code>token.text</code>, <code>token.is_alpha</code>, <code>token.is_punct</code>, <code>token.like_num</code>… They refer to the entry in the vocabulary and don’t depend on the token’s context.</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/10/spacy-learning/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/09/Algorithm-sliding-window/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/09/Algorithm-sliding-window/" class="post-title-link" itemprop="url">Leetcode-滑动窗口</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-09-09 14:44:13 / Modified: 23:10:24" itemprop="dateCreated datePublished" datetime="2020-09-09T14:44:13-07:00">2020-09-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p><u>连续</u>子数组</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ul>
-<li>根据要求，找到第一个满足条件的窗口</li>
-<li>调整窗口(右移/左移)使其继续满足要求，并进行重复</li>
-<li>得到最合适的窗口即为答案</li>
-</ul>
-<h3 id="Leetcode例题"><a href="#Leetcode例题" class="headerlink" title="Leetcode例题"></a>Leetcode例题</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/09/Algorithm-sliding-window/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/08/CSCI570-outline/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/08/CSCI570-outline/" class="post-title-link" itemprop="url">CSCI570-outline</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-08 16:32:29" itemprop="dateCreated datePublished" datetime="2020-09-08T16:32:29-07:00">2020-09-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-10 14:30:54" itemprop="dateModified" datetime="2020-09-10T14:30:54-07:00">2020-09-10</time>
-              </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>hello world!</p>
-
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/08/Storage-systems/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/08/Storage-systems/" class="post-title-link" itemprop="url">Storage systems</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-08 15:19:06" itemprop="dateCreated datePublished" datetime="2020-09-08T15:19:06-07:00">2020-09-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-09 14:36:29" itemprop="dateModified" datetime="2020-09-09T14:36:29-07:00">2020-09-09</time>
-              </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Storage-Device"><a href="#Storage-Device" class="headerlink" title="Storage Device"></a>Storage Device</h2><h3 id="Hierarchy"><a href="#Hierarchy" class="headerlink" title="Hierarchy"></a>Hierarchy</h3><p><img src="/image/storage_hierarchy.png"></p>
-<h3 id="Characters"><a href="#Characters" class="headerlink" title="Characters"></a>Characters</h3><ul>
-<li>Capacity(bytes) - How much data it can hold</li>
-<li>Cost($) -  Price per byte of storage</li>
-<li>Bandwidth(bytes/sec) - Number of bytes that can be transferred per second;  read and write bandwidth may be different</li>
-<li>Latency(sec) - Time elapsed, waiting for response/delivery of data</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/08/Storage-systems/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/07/JSON-review/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/07/JSON-review/" class="post-title-link" itemprop="url">JSON-review</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-09-07 14:19:00 / Modified: 14:59:19" itemprop="dateCreated datePublished" datetime="2020-09-07T14:19:00-07:00">2020-09-07</time>
-            </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="JSON概述"><a href="#JSON概述" class="headerlink" title="JSON概述"></a>JSON概述</h2><p><strong>JSON</strong>（<strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来<strong>传输由属性值或者序列性的值组成的数据对象</strong>。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。</p>
-<ul>
-<li>Light-weight data exchange format<br>Much simpler than XML; Language-independent; Inspired by the syntax of JavaScript object literals</li>
-<li>Some differences from JavaScript objects<br><strong>String in JSON must be double-quoted</strong>; Okay to single-quote in JavaScript (&amp; Python)</li>
-<li>JSON is case-sensitive</li>
-</ul>
-<p>一句话表达就是，JSON是一种格式，基于文本，优于轻量，用于交换数据，由于其用文本格式的保存方式，所以一般也叫JSON字符串。</p>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/07/JSON-review/#more" rel="contents">
+              <a class="btn" href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1008,7 +967,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1076,7 +1035,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1089,7 +1048,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1138,7 +1097,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共12.2k字</span>
+    <span class="post-count">共26.5k字</span>
 </div>
 
         

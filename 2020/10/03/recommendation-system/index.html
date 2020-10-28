@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="效用矩阵 (utility matrix)一般的推荐系统中有两类元素，一类是user，一类是item(例如电影、音乐…)，可以用一个矩阵表示这些数据每一行表示每一个user，每一列表示一个item, M[i][j]表示第i个用户对第j项的评分。 一般效用矩阵都是稀疏的，需要做的就是填充这些缺失值  Gathering known ratings for matrix Extrapolate unk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统总览">
+<meta property="og:url" content="http://example.com/2020/10/03/recommendation-system/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="效用矩阵 (utility matrix)一般的推荐系统中有两类元素，一类是user，一类是item(例如电影、音乐…)，可以用一个矩阵表示这些数据每一行表示每一个user，每一列表示一个item, M[i][j]表示第i个用户对第j项的评分。 一般效用矩阵都是稀疏的，需要做的就是填充这些缺失值  Gathering known ratings for matrix Extrapolate unk">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/content-based.png">
+<meta property="og:image" content="http://example.com/image/CF.png">
+<meta property="og:image" content="http://example.com/image/CF-2.png">
+<meta property="og:image" content="http://example.com/image/model-based-CF.png">
+<meta property="og:image" content="http://example.com/image/MF.png">
+<meta property="article:published_time" content="2020-10-03T22:03:27.000Z">
+<meta property="article:modified_time" content="2020-10-03T23:56:11.772Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="推荐系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/content-based.png">
+
+<link rel="canonical" href="http://example.com/2020/10/03/recommendation-system/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>推荐系统总览 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/03/recommendation-system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          推荐系统总览
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-03 15:03:27 / Modified: 16:56:11" itemprop="dateCreated datePublished" datetime="2020-10-03T15:03:27-07:00">2020-10-03</time>
+            </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="效用矩阵-utility-matrix"><a href="#效用矩阵-utility-matrix" class="headerlink" title="效用矩阵 (utility matrix)"></a>效用矩阵 (utility matrix)</h1><p>一般的推荐系统中有两类元素，一类是user，一类是item(例如电影、音乐…)，可以用一个矩阵表示这些数据<br>每一行表示每一个user，每一列表示一个item, <code>M[i][j]</code>表示第i个用户对第j项的评分。</p>
+<p>一般效用矩阵都是稀疏的，需要做的就是填充这些缺失值</p>
+<ul>
+<li>Gathering known ratings for matrix</li>
+<li>Extrapolate unknown ratings from the known ones</li>
+<li>Evaluating extrapolation methods</li>
+</ul>
+<h1 id="长尾效应-The-Long-tail"><a href="#长尾效应-The-Long-tail" class="headerlink" title="长尾效应 (The Long tail)"></a>长尾效应 (The Long tail)</h1><p>物理世界和在线世界的差别称为长尾现象，长尾现象要求互联网必须对每个用户进行推荐。</p>
+<ul>
+<li>实际的物理实体店中受限于空间，只能推荐畅销项目。</li>
+<li>互联网推荐系统不受空间限制，可以推荐所有项目。</li>
+</ul>
+<p>关于在线世界与物理世界差异的例子:<br>What percentage of the top 10,000 titles in any online media store (Netflix, iTunes, Amazon, or any other) will rent or sell at least once a month?<br>Most people guess 20 percent.(80-20 rule, also known as Pareto’s principle (1896))<br>The right answer: 99 percent.(Demand for nearly every one of those top 10,000 titles.)</p>
+<h1 id="推荐算法分类"><a href="#推荐算法分类" class="headerlink" title="推荐算法分类"></a>推荐算法分类</h1><h2 id="基于内容-Content-based"><a href="#基于内容-Content-based" class="headerlink" title="基于内容(Content based)"></a>基于内容(Content based)</h2><blockquote>
+<p>思想:关注item的属性，计算各个item之间的相似度来进行推荐。 Recommend items to customer x that are similar to previous items rated highly by x.</p>
+</blockquote>
+<p><img src="/image/content-based.png"></p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>基于内容的推荐系统是建立在用户给出的数据之上的，用户给出的数据要么是对物品的直接评分或者是点击或者浏览物品，通过这些数据可以建立出基于这个用户的基本信息(user profile),后续对该用户物品推荐是基于其user profile，user profile越完善，推荐系统的效果越好。</p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ul>
+<li>Construct item profiles  (构建描述item的向量)<ul>
+<li>特征可以是明确的属性值，也可以是从文档中提取出来的特征</li>
+</ul>
+</li>
+<li>Construct user profiles （构建描述user喜好的向量）<ul>
+<li>将user的偏好也表示成同一空间下的向量</li>
+</ul>
+</li>
+<li>Recommend items to users based on content</li>
+</ul>
+<h3 id="优劣"><a href="#优劣" class="headerlink" title="优劣"></a>优劣</h3><p>优点：</p>
+<ol>
+<li>不需要其他user的数据</li>
+<li>可以根据user的独特喜好来推荐item，也就是说可以推荐一些小众的item</li>
+<li>推荐的原因可以很容易被解释<br>缺点：</li>
+<li>内容的特征提取的问题，如何才能提取出最有用的特征（requires a lot of domain knowledge.）</li>
+<li>只能推荐与用户历史数据中相似的item（model has limited ability to expand on the users’ existing interests）</li>
+<li>无法利用其他用户的数据</li>
+</ol>
+<h2 id="协同过滤-Collaborative-filtering"><a href="#协同过滤-Collaborative-filtering" class="headerlink" title="协同过滤(Collaborative filtering)"></a>协同过滤(Collaborative filtering)</h2><blockquote>
+<p>思想:关注item与user之间的关系，先识别相似用户，然后基于相似用户进行相似项目进行推荐。 Suggestions made to a user utilizing information across the entire user base</p>
+</blockquote>
+<p><img src="/image/CF.png"></p>
+<h3 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h3><p>基于协同过滤的推荐系统是建立在许多用户的数据之上的，通过分析这些用户之间的相似度，发掘相似的用户,（假设用户A和B相似），推荐A一些B买过的东西。其主要精髓在于:物以类聚(item-based)，人以群分(user-based)。<br>It’s based on the idea that people who agree in their evaluations of certain items in the past are likely to agree again in the future.</p>
+<p>关于一点思考：Users only see what they are expected to like.</p>
+<h3 id="协同过滤的两类算法"><a href="#协同过滤的两类算法" class="headerlink" title="协同过滤的两类算法"></a>协同过滤的两类算法</h3><h4 id="Memory-based-approach"><a href="#Memory-based-approach" class="headerlink" title="Memory-based approach"></a>Memory-based approach</h4><p><img src="/image/CF-2.png"></p>
+<h5 id="User-based-CF-k-nearest-neighbor-collaborative-filtering"><a href="#User-based-CF-k-nearest-neighbor-collaborative-filtering" class="headerlink" title="User-based CF (k-nearest neighbor collaborative filtering)"></a>User-based CF (k-nearest neighbor collaborative filtering)</h5><ul>
+<li>思想: 为用户A找到相似用户，然后基于相似用户进行相似项目推荐</li>
+<li>步骤:<ul>
+<li>根据与A的相似度来为A的相似用户分配权重 </li>
+<li>选择topk相似用户 </li>
+<li>基于topk相似用户对于item的评分去预测A对item的评分 </li>
+</ul>
+</li>
+<li>例子: 假设A有3个相似用户，B(sim=0.8, rating(h)=5),C(sim=0.3,rating(h)=4),D(sim=0.5,rating(h)=3) 预测A对于h的评分<ul>
+<li>r_a(h) = 0.8x5+0.3x4+0.5x3 / (0.8+0.3+0.5) = 4.2</li>
+</ul>
+</li>
+</ul>
+<h5 id="Item-based-CF"><a href="#Item-based-CF" class="headerlink" title="Item-based CF"></a>Item-based CF</h5><ul>
+<li>思想: 为物品x找相似物品，然后基于用户之前喜欢/买过的物品为其推荐最相似的物品</li>
+<li>例子: 为电影进行评分时, similar items will be rated similarly by the same user</li>
+</ul>
+<h4 id="Model-based-approaches"><a href="#Model-based-approaches" class="headerlink" title="Model-based approaches"></a>Model-based approaches</h4><p><img src="/image/model-based-CF.png"></p>
+<h5 id="矩阵分解"><a href="#矩阵分解" class="headerlink" title="矩阵分解"></a>矩阵分解</h5><p><img src="/image/MF.png"></p>
+<h3 id="CF优劣"><a href="#CF优劣" class="headerlink" title="CF优劣"></a>CF优劣</h3><p>优点：</p>
+<ol>
+<li>利用了别的user的数据</li>
+<li>不需要特征选择（不需要domain knowledge）</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>需要足够的数据支持</li>
+<li>稀疏，构建出的utility matrix稀疏且庞大</li>
+<li>无法推荐从未被评级的item</li>
+<li>不能根据某个用户的特有品位进行推荐</li>
+</ol>
+<h2 id="混合方法-Hybrid"><a href="#混合方法-Hybrid" class="headerlink" title="混合方法(Hybrid)"></a>混合方法(Hybrid)</h2>
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag"># 推荐系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/22/Scrapy-learning/" rel="prev" title="Scrapy学习">
+      <i class="fa fa-chevron-left"></i> Scrapy学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/11/DSCI558-outline/" rel="next" title="DSCI558-outline">
+      DSCI558-outline <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%88%E7%94%A8%E7%9F%A9%E9%98%B5-utility-matrix"><span class="nav-number">1.</span> <span class="nav-text">效用矩阵 (utility matrix)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%95%BF%E5%B0%BE%E6%95%88%E5%BA%94-The-Long-tail"><span class="nav-number">2.</span> <span class="nav-text">长尾效应 (The Long tail)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">推荐算法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AE%B9-Content-based"><span class="nav-number">3.1.</span> <span class="nav-text">基于内容(Content based)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.1.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">3.1.2.</span> <span class="nav-text">工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%A3"><span class="nav-number">3.1.3.</span> <span class="nav-text">优劣</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4-Collaborative-filtering"><span class="nav-number">3.2.</span> <span class="nav-text">协同过滤(Collaborative filtering)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%9A%84%E4%B8%A4%E7%B1%BB%E7%AE%97%E6%B3%95"><span class="nav-number">3.2.2.</span> <span class="nav-text">协同过滤的两类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Memory-based-approach"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">Memory-based approach</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#User-based-CF-k-nearest-neighbor-collaborative-filtering"><span class="nav-number">3.2.2.1.1.</span> <span class="nav-text">User-based CF (k-nearest neighbor collaborative filtering)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Item-based-CF"><span class="nav-number">3.2.2.1.2.</span> <span class="nav-text">Item-based CF</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Model-based-approaches"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">Model-based approaches</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="nav-number">3.2.2.2.1.</span> <span class="nav-text">矩阵分解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CF%E4%BC%98%E5%8A%A3"><span class="nav-number">3.2.3.</span> <span class="nav-text">CF优劣</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E6%96%B9%E6%B3%95-Hybrid"><span class="nav-number">3.3.</span> <span class="nav-text">混合方法(Hybrid)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共26.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PBG I&#x2F;O格式Entity and relation typesThe list of entity types (each identified by a string), plus some information about each of them, is given in the entities dictionary in the configuration file. The l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch-BigGraph I&#x2F;O 格式">
+<meta property="og:url" content="http://example.com/2020/10/27/PBG-I-O-format/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="PBG I&#x2F;O格式Entity and relation typesThe list of entity types (each identified by a string), plus some information about each of them, is given in the entities dictionary in the configuration file. The l">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-27T07:23:33.000Z">
+<meta property="article:modified_time" content="2020-10-27T08:20:01.360Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="PyTorch-BigGraph">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/10/27/PBG-I-O-format/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>PyTorch-BigGraph I/O 格式 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/27/PBG-I-O-format/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PyTorch-BigGraph I/O 格式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-27 00:23:33 / Modified: 01:20:01" itemprop="dateCreated datePublished" datetime="2020-10-27T00:23:33-07:00">2020-10-27</time>
+            </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="PBG-I-O格式"><a href="#PBG-I-O格式" class="headerlink" title="PBG I/O格式"></a>PBG I/O格式</h1><h2 id="Entity-and-relation-types"><a href="#Entity-and-relation-types" class="headerlink" title="Entity and relation types"></a>Entity and relation types</h2><p>The list of entity types (each identified by a string), plus some information about each of them, is given in the <code>entities</code> dictionary in the configuration file. The list of relation types (each identified by its index in that list), plus some data like what their left- and right-hand side entity types are, is in the <code>relations</code> key of the configuration file.<br>实体类型的列表(每个实体类型由一个字符串标识)以及有关于他们的一些信息由配置文件中的实体字典提供。关系类型的列表（每个都由该列表中的索引标识）以及一些数据（如其左侧和右侧实体类型）在配置文件的relation key中指示。</p>
+<h2 id="Entities"><a href="#Entities" class="headerlink" title="Entities"></a>Entities</h2><p>The only information that needs to be provided about entities is how many there are in each entity type’s partition. This is done by putting a file named <code>entity_count_type_part.txt</code> for each entity type identified by <code>type</code> and each partition <code>part</code> in the directory specified by the <code>entity_path</code> config parameter. These files must contain a single integer (as text), which is the number of entities in that partition. The directory where all these files reside must be specified as the <code>entity_path</code> key of the configuration file.<br>对于实体而言，其只需要提供每种实体类型的分区中有多少个实体这样一个信息即可。他通过将文件名称为<code>entity_count_type_part.txt</code>(<code>type</code>表示实体类型，<code>part</code>表示分区id)放到配置文件指定的文件夹来实现，这个文件夹在配置文件中的key为<code>entity_path</code>。 这些文件(entity_count_type1_part1.txt, entity_count_type2_part2.txt…)必须包含一个整数（作为文本），该整数表示在该分区中实体的数量。这些文件所在的目录名称必须指定为在配置文件下的<code>entity_path</code>。</p>
+<p>It is possible to provide an initial value for the embeddings, by specifying a value for the <code>init_path</code> configuration key, which is the name of a directory that contains files in a format similar to the output format detailed in Checkpoint (possibly without the optimizer state dicts).<br>通过为<code>init_path</code>配置键指定一个值，可以为嵌入提供一个初始值。<code>init_path</code>值的目录下包含和Checkpoint类似的文件格式。（详情见checkpoint）</p>
+<p>If no initial value is provided, it will be auto-generated, with each dimension sampled from the centered normal distribution whose standard deviation can be configured using the <code>init_scale</code> configuration key. For performance reasons the samples of all the entities of a certain type will not be independent.<br>如果为嵌入提供初始值，它将会自动生成，其每个维的值都是从正态分布中采样得到。可以通过配置文件中的init_scale来调整方差范围。出于性能原因，对于同一个类型下的所有实体的样本将不是独立的。</p>
+<h2 id="Edges"><a href="#Edges" class="headerlink" title="Edges"></a>Edges</h2><p>For each bucket there must be a file that stores all the edges that fall in that bucket, of all relation types. This means that such a file is only identified by two integers, the partitions of its left- and right-hand side entities. It must be named <code>edges_lhs_rhs.h5</code> (where lhs and rhs are the above integers), it must be a HDF5 file containing three one-dimensional datasets of the same length, called rel, lhs and rhs. The elements in the 𝑖-th positions in each of them define the 𝑖-th edge: rel identifies the relation type (and thus the left- and right-hand side entity types), lhs and rhs given the indices of the left- and right-hand side entities within their respective partitions.<br>对于每一个桶，必须要有一个文件来存储该桶下的所有关系类型的所有边信息。这意味这样的一个文件仅由两个整数来进行标识，即它的左侧和右侧实体的分区id。 必须将其命名为edges_lhs_rhs.h5（其中lhs和rhs是左侧分区id和右侧分区id），它必须是HDF5文件，其中包含三个相同长度的一维数据集，分别称为rel，lhs和rhs。<br>在这三个一维数据集中，第𝑖个位置的元素定义了第i条边: rel定义了关系类型（并因此指定左侧和右侧实体类型），lhs和rhs定义了左右侧的实体在其各自分区下的索引。</p>
+<p>To ease future updates to this format, each file must contain the format version in the format_version attribute of the top-level group. The current version is 1.<br>为了简化以后对该格式的更新，每个文件都必须在顶级组的format_version属性中包含格式版本。 当前版本是1。（这个是H5的格式问题）</p>
+<p>If an entity type is unpartitioned (that is, all its entities belong to the same partition), then the edges incident to these entities must still be uniformly spread across all buckets.<br>如果某一个实体类型是未分区的（即，其所有实体都属于同一分区），则这些实体连接的的边必须仍然均匀地分布在所有存储桶中。</p>
+<p>These files, for all buckets, must be stored in the same directory, which must be passed as the edge_paths configuration key. That key can actually contain a list of paths, each pointing to a directory of the format described above: in that case the graph will contain the union of all their edges.<br>对于所有桶对应的文件都必须存储在同一个目录下。该目录将会被配置到配置文件的<code>edge_paths</code>key下，该key实际上可以包含一个路径列表，每个路径都指向上述格式的目录：在这种情况下，图将包含其所有边的并集。</p>
+<h2 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h2><p>The training’s checkpoints are also its output, and they are written to the directory given as the checkpoint_path parameter in the configuration. Checkpoints are identified by successive positive integers, starting from 1, and all the files belonging to a certain checkpoint have an extra component .vversion between their name and extension (e.g., something.v42.h5 for version 42).<br>训练的检查点也是其输出，它们被写入配置中指定为checkpoint_path参数的目录中。检查点由从1开始的连续正整数标识，并且属于某个检查点的所有文件的名称和扩展名之间都有一个额外的组件.vversion（例如，版本42的something.v42.h5）。</p>
+<p>The latest complete checkpoint version is stored in an additional file in the same directory, called <code>checkpoint_version.txt</code>, which contains a single integer number, the current version.<br>最新的完整检查点版本存储在同一目录中的另一个文件中，该文件称为checkpoint_version.txt，其中包含一个整数，即当前版本。</p>
+<p>Each checkpoint contains a JSON dump of the config that was used to produce it stored in the config.json file.<br>每一个检查点都为配置文件生成了对应json文件，并将其存储在config.json文件中。</p>
+<p>After a new checkpoint version is saved, the previous one will automatically be deleted. In order to periodically preserve some of these versions, set the <code>checkpoint_preservation_interval</code> config flag to the desired period (expressed in number of epochs).<br>当一个新的检查点版本被保存时，上一个将会自动被删除。如果想要周期性的保存一些检查点，可以在配置文件中设置checkpoint_preservation_interval（以训练轮次数的形式）</p>
+<h2 id="Model-parameters"><a href="#Model-parameters" class="headerlink" title="Model parameters"></a>Model parameters</h2><p>The model parameters are stored in a file named model.h5, which is a HDF5 file containing one dataset for each parameter, all of which are located within the model group. Currently, the parameters that are provided are:<br>• model/relations/idx/operator/side/param with the parameters of each relation’s operator.<br>• model/entities/type/global_embedding with the per-entity type global embedding.<br>模型参数存储在名为model.h5的文件中，该文件是一个HDF5文件，其中包含每个参数的一个数据集，所有数据集都位于模型组下。 当前，提供的参数有：<br>• model/relations/idx/operator/side/param -&gt; 对应每个算子的参数<br>• model/entities/type/global_embedding -&gt;带有每个实体类型全局嵌入</p>
+<blockquote>
+<p>🤔 这里好像和实际有点出入</p>
+</blockquote>
+<p>Each of these datasets also contains, in the state_dict_key attribute, the key it was stored inside the model state dict. An additional dataset may exist, optimizer/state_dict, which contains the binary blob (obtained through torch.save()) of the state dict of the model’s optimizer.</p>
+<blockquote>
+<p>🤔 H5格式</p>
+</blockquote>
+<p>Finally, the top-level group of the file contains a few attributes with additional metadata. This mainly includes the format version, a JSON-dump of the config and some information about the iteration that produced the checkpoint.<br>最后，文件的顶级组包含一些带有其他元数据的属性。 主要包括格式版本，配置的JSON转储以及有关生成检查点的迭代的一些信息。</p>
+<h2 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h2><p>Then, for each entity type and each of its partitions, there is a file embeddings_type_part.h5 (where type is the type’s name and part is the 0-based index of the partition), which is a HDF5 file with two datasets. One two-dimensional dataset, called embeddings, contains the embeddings of the entities, with the first dimension being the number of entities and the second being the dimension of the embedding.<br>对于每种实体类型及其每个分区，都有一个embeddings_type_part.h5文件（其中type是类型的名称，part是分区的从0开始的索引），它是一个包含两个数据集的HDF5文件。 一个称为嵌入的二维数据集包含实体的嵌入，第一个维度是实体的数量，第二个维度是嵌入的维度。（其实就是实体嵌入的矩阵）（数据集1）</p>
+<p>Just like for the model parameters file, the optimizer state dict and additional metadata is also included.<br>就像model.h5一样，embeedings.h5中还包含了一些关于优化状态等额外的元数据。（数据集2）</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PyTorch-BigGraph/" rel="tag"># PyTorch-BigGraph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/23/From-embedding-to-scores/" rel="prev" title="PyTorch-BigGraph 从实体嵌入到边得分">
+      <i class="fa fa-chevron-left"></i> PyTorch-BigGraph 从实体嵌入到边得分
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/27/PBG-Batch-preparation/" rel="next" title="PyTorch-BigGraph  批准备">
+      PyTorch-BigGraph  批准备 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PBG-I-O%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">PBG I&#x2F;O格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Entity-and-relation-types"><span class="nav-number">1.1.</span> <span class="nav-text">Entity and relation types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Entities"><span class="nav-number">1.2.</span> <span class="nav-text">Entities</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Edges"><span class="nav-number">1.3.</span> <span class="nav-text">Edges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Checkpoint"><span class="nav-number">1.4.</span> <span class="nav-text">Checkpoint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-parameters"><span class="nav-number">1.5.</span> <span class="nav-text">Model parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Embeddings"><span class="nav-number">1.6.</span> <span class="nav-text">Embeddings</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共26.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

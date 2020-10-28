@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前情提要Entity Resolution 主要分成如下四个  Coreference     文本与文本之间找同一个entity Entity linking  文本与KG中找对应entity     -&gt; Integrating New Candidates  Deduplication   一个KG之间的聚类              -&gt; Merging  Ambiguous">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blocking and Relational Entity Resolution">
+<meta property="og:url" content="http://example.com/2020/10/11/Blocking-and-Relational-Entity-Resolution/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="前情提要Entity Resolution 主要分成如下四个  Coreference     文本与文本之间找同一个entity Entity linking  文本与KG中找对应entity     -&gt; Integrating New Candidates  Deduplication   一个KG之间的聚类              -&gt; Merging  Ambiguous">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/blocking_scenario.png">
+<meta property="og:image" content="http://example.com/image/canopy_cluster.png">
+<meta property="article:published_time" content="2020-10-12T02:12:39.000Z">
+<meta property="article:modified_time" content="2020-10-12T07:21:19.460Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/blocking_scenario.png">
+
+<link rel="canonical" href="http://example.com/2020/10/11/Blocking-and-Relational-Entity-Resolution/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Blocking and Relational Entity Resolution | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/11/Blocking-and-Relational-Entity-Resolution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Blocking and Relational Entity Resolution
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-11 19:12:39" itemprop="dateCreated datePublished" datetime="2020-10-11T19:12:39-07:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-12 00:21:19" itemprop="dateModified" datetime="2020-10-12T00:21:19-07:00">2020-10-12</time>
+              </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>Entity Resolution 主要分成如下四个</p>
+<ol>
+<li>Coreference     文本与文本之间找同一个entity</li>
+<li>Entity linking  文本与KG中找对应entity     -&gt; Integrating New Candidates </li>
+<li>Deduplication   一个KG之间的聚类              -&gt; Merging  Ambiguous Entities</li>
+<li>Record linkage  两个不同KG之间entity的对应  -&gt; Combining KGs</li>
+</ol>
+<h1 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h1><h2 id="为什么需要Blocking-gt-reduce-the-number-of-comparisons"><a href="#为什么需要Blocking-gt-reduce-the-number-of-comparisons" class="headerlink" title="为什么需要Blocking -&gt; reduce the number of comparisons"></a>为什么需要Blocking -&gt; reduce the number of comparisons</h2><ul>
+<li>Comparing each entity with all other entities is too computationally demanding –&gt; O(N^2)</li>
+<li>If partition entities into N ”blocks”– O(N)</li>
+<li>Make only within block comparisons, so if largest block is log N in size –&gt; O(NlogN^2)</li>
+</ul>
+<h2 id="Blocking-分类"><a href="#Blocking-分类" class="headerlink" title="Blocking 分类"></a>Blocking 分类</h2><p>Disjoint Blocking: Each mention appears in one block.(=Set Partition)<br>Non-disjoint Blocking: Mentions can appear in more than one block. </p>
+<h2 id="Blocking一般的情形"><a href="#Blocking一般的情形" class="headerlink" title="Blocking一般的情形"></a>Blocking一般的情形</h2><p><img src="/image/blocking_scenario.png"></p>
+<h2 id="Blocking衡量指标"><a href="#Blocking衡量指标" class="headerlink" title="Blocking衡量指标"></a>Blocking衡量指标</h2><ul>
+<li>Efficiency: Blue/Grey</li>
+<li>Recall:     Green/Yellow</li>
+<li>Precision:  Green/Blue</li>
+<li>Max Canopy Size: 包含mentions个数最多的block的mentions个数</li>
+</ul>
+<h2 id="Blocking方式"><a href="#Blocking方式" class="headerlink" title="Blocking方式"></a>Blocking方式</h2><h3 id="Feature-based-blocking-keys"><a href="#Feature-based-blocking-keys" class="headerlink" title="Feature-based blocking keys"></a>Feature-based blocking keys</h3><p>思想: 通过选择实体的某一个或者多个属性作为key，将包含该key的实体放在同一个block下，对每个block再进行entity resolution</p>
+<p>例子:<br>First three characters of last name<br>City + State + Zip<br>Character or Token n-grams<br>Minimum infrequent n-grams</p>
+<h3 id="Clustering-or-sorting"><a href="#Clustering-or-sorting" class="headerlink" title="Clustering or sorting"></a>Clustering or sorting</h3><ol>
+<li><p>Sorted Neighborhood Blocking<br>思想: 通过选择实体的某一个属性,根据该属性对实体进行排序，使用一个窗格，窗格内的实体划分到一个block中去</p>
+</li>
+<li><p>Canopy Clustering<br>Input: Mentions M, x is an entity<br>d(x,y), a distance metric<br>thresholds T1 &gt; T2</p>
+</li>
+</ol>
+<p>思想:</p>
+<ol>
+<li>Pick a random element x from M</li>
+<li>Create new canopy Cx using mentions y s.t. d(x,y) &lt; T1</li>
+<li>Delete all mentions y from M s.t. d(x,y) &lt; T2 </li>
+<li>Return to Step 1 if M is not empty</li>
+</ol>
+<p><img src="/image/canopy_cluster.png"></p>
+<h3 id="Hashing"><a href="#Hashing" class="headerlink" title="Hashing"></a>Hashing</h3><p>思想:</p>
+<ol>
+<li>Each block Ci is associated with a hash key hi.</li>
+<li>Mention x is hashed to Ci if hash(x) = hi.</li>
+<li>Within a block, all pairs are compared.</li>
+<li>Each hash function results in disjoint blocks.</li>
+</ol>
+<h2 id="Blocking选择考虑因素"><a href="#Blocking选择考虑因素" class="headerlink" title="Blocking选择考虑因素"></a>Blocking选择考虑因素</h2><ul>
+<li>key的选择:learn the keys, or use expert knowledge/heuristics?</li>
+<li>Schema awareness: what do we know about the attributes?</li>
+<li>Key type: exact equality, similarity-based, or hybrid 相同的key放到一个block还是相似放一个block</li>
+<li>Redundancy: entity in one or multiple blocks? Does matching in multiple blocks increase the match probability</li>
+<li>Frequency limits</li>
+<li>Adaptive keys based on frequency</li>
+<li>Learning keys based on data </li>
+</ul>
+<h2 id="Learning-to-block"><a href="#Learning-to-block" class="headerlink" title="Learning to block"></a>Learning to block</h2><p>Using one or more blocking predicates may be insufficient =&gt; Construct blocking predicates by combining simple predicates</p>
+<h1 id="Collective-Relational-Entity-Resolution"><a href="#Collective-Relational-Entity-Resolution" class="headerlink" title="Collective Relational Entity Resolution"></a>Collective Relational Entity Resolution</h1><h2 id="策略-Using-PSL-for-collective-KG-ER"><a href="#策略-Using-PSL-for-collective-KG-ER" class="headerlink" title="策略: Using PSL for collective KG ER"></a>策略: Using PSL for collective KG ER</h2><ol>
+<li>Encode ER dependencies in a set of rules</li>
+<li>Use soft-logic values to capture similarities</li>
+<li>Use logic to capture the constraints</li>
+</ol>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/11/Probabilistic-Models-for-KG-Construction/" rel="prev" title="PSL">
+      <i class="fa fa-chevron-left"></i> PSL
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/15/scrapy-example/" rel="next" title="Scrapy 实例 - TripAdvisor信息抓取">
+      Scrapy 实例 - TripAdvisor信息抓取 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Blocking"><span class="nav-number">2.</span> <span class="nav-text">Blocking</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Blocking-gt-reduce-the-number-of-comparisons"><span class="nav-number">2.1.</span> <span class="nav-text">为什么需要Blocking -&gt; reduce the number of comparisons</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocking-%E5%88%86%E7%B1%BB"><span class="nav-number">2.2.</span> <span class="nav-text">Blocking 分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocking%E4%B8%80%E8%88%AC%E7%9A%84%E6%83%85%E5%BD%A2"><span class="nav-number">2.3.</span> <span class="nav-text">Blocking一般的情形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocking%E8%A1%A1%E9%87%8F%E6%8C%87%E6%A0%87"><span class="nav-number">2.4.</span> <span class="nav-text">Blocking衡量指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocking%E6%96%B9%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">Blocking方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Feature-based-blocking-keys"><span class="nav-number">2.5.1.</span> <span class="nav-text">Feature-based blocking keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clustering-or-sorting"><span class="nav-number">2.5.2.</span> <span class="nav-text">Clustering or sorting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hashing"><span class="nav-number">2.5.3.</span> <span class="nav-text">Hashing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocking%E9%80%89%E6%8B%A9%E8%80%83%E8%99%91%E5%9B%A0%E7%B4%A0"><span class="nav-number">2.6.</span> <span class="nav-text">Blocking选择考虑因素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learning-to-block"><span class="nav-number">2.7.</span> <span class="nav-text">Learning to block</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Collective-Relational-Entity-Resolution"><span class="nav-number">3.</span> <span class="nav-text">Collective Relational Entity Resolution</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5-Using-PSL-for-collective-KG-ER"><span class="nav-number">3.1.</span> <span class="nav-text">策略: Using PSL for collective KG ER</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共26.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

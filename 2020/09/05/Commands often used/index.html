@@ -26,7 +26,7 @@
 <meta property="og:description" content="1. hexo12345$ hexo new &amp;#x27;post&amp;#x27; # Create a new post$ hexo g  # Generate static files  $ hexo s  # Run server$ hexo d  # Deploy to remote sites$ hexo clean # Remove cache file (db.json) and sta">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-06T00:00:22.000Z">
-<meta property="article:modified_time" content="2020-09-18T08:59:20.940Z">
+<meta property="article:modified_time" content="2020-10-25T10:38:18.930Z">
 <meta property="article:author" content="Bin">
 <meta property="article:tag" content="Commands">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 01:59:20" itemprop="dateModified" datetime="2020-09-18T01:59:20-07:00">2020-09-18</time>
+                <time title="Modified: 2020-10-25 03:38:18" itemprop="dateModified" datetime="2020-10-25T03:38:18-07:00">2020-10-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,8 +253,10 @@
 
 <h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
+<h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Mac:</span><br><span class="line">$ sysctl machdep.cpu #所有信息</span><br><span class="line">$ sysctl -n machdep.cpu.brand_string    # CPU型号</span><br><span class="line">$ sysctl -n machdep.cpu.core_count      # CPU核心数</span><br><span class="line">$ sysctl -n machdep.cpu.thread_count    # 线程数</span><br><span class="line"></span><br><span class="line">Linux</span><br><span class="line">$ grep &#39;physical id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u  # 查看物理cpu个数</span><br><span class="line">$ grep &#39;core id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 核心数量</span><br><span class="line">$ grep &#39;processor&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 线程数</span><br></pre></td></tr></table></figure>
     </div>
 
 
@@ -335,7 +337,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-hexo"><span class="nav-number">1.</span> <span class="nav-text">1. hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Conda"><span class="nav-number">2.</span> <span class="nav-text">2. Conda</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-hexo"><span class="nav-number">1.</span> <span class="nav-text">1. hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Conda"><span class="nav-number">2.</span> <span class="nav-text">2. Conda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Linux"><span class="nav-number">3.</span> <span class="nav-text">3. Linux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CPU%E4%BF%A1%E6%81%AF"><span class="nav-number">4.</span> <span class="nav-text">4. CPU信息</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -351,7 +353,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -364,7 +366,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -413,7 +415,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共12.2k字</span>
+    <span class="post-count">共26.5k字</span>
 </div>
 
         
