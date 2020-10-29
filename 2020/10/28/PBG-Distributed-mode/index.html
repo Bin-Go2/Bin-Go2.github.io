@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PyTorch-BigGraph 分布式PBG can perform training across multiple machines which communicate over a network, in order to reduce training time on large graphs. Distributed training is able to concurrently u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch-BigGraph 分布式">
+<meta property="og:url" content="http://example.com/2020/10/28/PBG-Distributed-mode/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="PyTorch-BigGraph 分布式PBG can perform training across multiple machines which communicate over a network, in order to reduce training time on large graphs. Distributed training is able to concurrently u">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-29T02:13:43.000Z">
+<meta property="article:modified_time" content="2020-10-29T03:15:43.843Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="PyTorch-BigGraph">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/10/28/PBG-Distributed-mode/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>PyTorch-BigGraph 分布式 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/28/PBG-Distributed-mode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PyTorch-BigGraph 分布式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-28 19:13:43 / Modified: 20:15:43" itemprop="dateCreated datePublished" datetime="2020-10-28T19:13:43-07:00">2020-10-28</time>
+            </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="PyTorch-BigGraph-分布式"><a href="#PyTorch-BigGraph-分布式" class="headerlink" title="PyTorch-BigGraph 分布式"></a>PyTorch-BigGraph 分布式</h1><p>PBG can perform training across multiple machines which communicate over a network, in order to reduce training time on large graphs. Distributed training is able to concurrently utilize larger computing resources, as well as to keep the entire model stored in memory across all machines, avoiding the need to swap it to disk. On each machine, the training is further parallelized across multiple subprocesses.<br>PBG可以在通过网络进行通信的多台机器上执行训练，以减少大图上的训练时间。分布式训练能够利用巨大的计算资源，同时其可以将整个模型存储在所有机器的内存中而不需要进行磁盘交换。在每一台机器上，训练通过多个子进程进行。</p>
+<h2 id="Set-up"><a href="#Set-up" class="headerlink" title="Set up"></a>Set up</h2><p>In order to perform distributed training, the configuration file must first be updated to contain the specification of the desired distributed setup. If training should be carried out on 𝑁 machines, then the num_machines key in the config must be set to that value. In addition, the distributed_init_method must describe a way for the trainers to discover each other and set up their communication. All valid values for the init_method argument of torch.distributed.init_process_group() are accepted here. Usually this will be a path to a shared network filesystem or the network address of one of the machines. See the PyTorch docs for more information and a complete reference.<br>为了执行分布式训练，配置文件必须首先进行相应配置，其需要包括分布式部署的相关配置。如果训练在N台机器上运行，num_machines必须要要配置成N。另外，distributed_init_method必须描述各个机器之间的通信方式。这里能够接受所有torch.distributed.init_process_group()里面的参数。通常来说，分布式训练将一台计算机的网络地址设置为文件共享系统的地址。 有关更多信息和完整参考，请参见PyTorch文档。</p>
+<p>To launch distributed training, call torchbiggraph_train –rank rank config.py on each machine, with rank replaced by an integer between 0 and 𝑁−1 (inclusive), different for each machine. Each machine must have PBG installed and have a copy of the config file.<br>要启动分布式训练，首先在每台机器上调用torchbiggraph_train –rank rank config.py， 其中每台机器有各自的rank值（从1到N-1）。每台机器必须安装了PBG，并且具有配置文件的副本。</p>
+<p>In some uncommon circumstances, one may want to store the embeddings on different machines than the ones that are performing training. In that case, one would set num_partition_servers to a positive value and manually launch some instances of torchbiggraph_partitionserver as well. See below for more information on this.<br>特定情况下，可能有将嵌入存储在不同机器而不是一台机器上的需求。在这种情况下，需要在配置文件中设置num_partition_servers为一个正数并且手动使用torchbiggraph_partitionserver来启动一些实例。详情见下文</p>
+<blockquote>
+<p>Tip<br> A good default setting is to set num_machines to half the number of partitions (see below why) and leave num_partition_servers unset.<br> 一个好的默认设置是将num_machines设置为分区数的一半（请参阅下面的原因），并保持num_partition_servers为未设置状态。</p>
+</blockquote>
+<blockquote>
+<p>Warning<br> Unpartitioned entity types should not be used with distributed training. While the embeddings of partitioned entity types are only in use on one machine at a time and are swapped between machines as needed, the embeddings of unpartitioned entity types are communicated asynchronously through a poorly-optimized parameter server which was designed for sharing relation parameters, which are small. It cannot support synchronizing large amounts of parameters, e.g. an unpartitioned entity type with more than 1000 entities. In that case, the quality of the unpartitioned embeddings will likely be very poor.<br> 未分区的实体不应该进行分布式训练。实体类型的分区仅在同一时刻在某一台机器上进行训练，并且根据需要在不同机器间进行交换。未分区的实体类型的嵌入计算是通过欠优化的参数服务在机器之间进行异步交换的，这个服务只是设计成用来进行关系参数的共享并且很小。其不能支持大量参数的同步。例如：对于一个未分区的超过1000个实体的实体类型，在这种情况下，未分区的得到的嵌入质量会很差。</p>
+</blockquote>
+<h2 id="Communication-protocols"><a href="#Communication-protocols" class="headerlink" title="Communication protocols"></a>Communication protocols</h2><p> Distributed training requires the machines to coordinate and communicate in various ways for different purposes. These tasks are:<br> 分布式训练求机器以各种方式针对不同目的进行协调和通信。 这些任务是：</p>
+<p> • synchronizing which trainer is operating on which bucket, assigning them so that there are no conflicts<br> • passing the embeddings of an entity partition from one trainer to the next one when needed (as this is data that is only accessed by one trainer at a time)<br> • sharing parameters that all trainers need access to simultaneously, by collecting and redistributing the updates to them.</p>
+<p> • 同步哪个训练器在训练哪个桶，分配好任务以防产生冲突<br> • 将一个实体分区的嵌入从一个训练器传入到另一个训练器 （因为一个训练器只使用一次在一个epoch中）<br> • 通过收集和重新分发参数来实现各个训练器间的参数共享</p>
+<p> Each of these is implemented by a separate “protocol”, and each trainer takes part in some or all of them by launching subprocesses that act as clients or servers for the different protocols. These protocols are explained below to provide insight into the system.</p>
+<p> 这些中的每一个任务都由单独的“协议”实现，并且每个训练器都通过启动充当针对不同协议的客户端或服务器的子进程来参与整个过程的一部分或全部。下面说明这些协议以提供对系统的了解。</p>
+<h3 id="Synchronizing-bucket-access"><a href="#Synchronizing-bucket-access" class="headerlink" title="Synchronizing bucket access"></a>Synchronizing bucket access</h3><p>PBG parallelizes training across multiple machines by having them all operate simultaneously on disjoint buckets (i.e., buckets that don’t have any partition in common). Therefore, each partition is in use by up to one machine at a time, and each machine uses up to two partitions (the only exception is for buckets “on the diagonal”, that have the same left- and right-hand side partition). This means that the number of buckets one can simultaneously train on is about half the total number of partitions.<br>PBG通过使它们同时在不相交的存储桶（即没有共同分区的存储桶）上同时运行来并行化多台机器的培训。（也就是所谓的数据分区）。因此，每个分区一次最多在一台机器上被使用，并且被个机器一次训练最多用两个分区（唯一的例外是“对角线”上的存储桶，它们具有相同的左侧和右侧分区））。这意味同时可以训练的桶的数量大概是一般的分区数量。</p>
+<p>The way the machines agree on which one gets to operate on what bucket is through a “lock server”. The server is implicitly started by the trainer of rank 0. All other machines connect to it as clients, ask for a new bucket to operate on (when they need one), get a bucket assigned from the server (or none, if all buckets have already been trained on or are “locked” because their partitions are in use by another trainer), train on it, then report it as done and repeat. The lock server tries to optimize I/O by preferring, when a trainer asks for a bucket, to assign one that has as many partitions in common with the previous bucket that the trainer trained on, so that these partitions can be kept in memory rather than having to be unloaded and reloaded.<br>机器间通过“锁服务”的形式来表明哪个桶正在被操作。服务器由级别0（master）的训练器隐式启动，所有其他机器作为客户端连接到服务器，当它们需要新的桶的时候，他们向master请求并且得到一个新的桶数据（可能没拿到，因为可能存在所有的桶都被训练完一次了或者桶是锁住的状态）来进行训练、报告然后重复执行。当一个训练器请求新桶的时候，锁定服务器通过优先分配与该训练器上一次训练的数据有较多相同分区的桶来优化I/O，通过这样那些分区就可以被保留在内存上而不是被卸载然后又加载。</p>
+<h3 id="Exchanging-partition-embeddings"><a href="#Exchanging-partition-embeddings" class="headerlink" title="Exchanging partition embeddings"></a>Exchanging partition embeddings</h3><p>When a trainer starts operating on a bucket it needs access to the embeddings of all entities (of all types) that belong to either the left- or the right-hand side partition of the bucket. The “locking” mechanism of the lock server ensures that at most one trainer is operating on a partition at any given time. This doesn’t hold for unpartitioned entity types, which are shared among all trainers; see below. Thus each trainer has exclusive hold of the partitions it’s training on.<br>当一个训练器开始在一个桶上执行训练的时候，他需要获取首先获取属于桶的左侧或右侧分区的所有实体（所有类型）的嵌入。 锁定服务器的“锁定”机制确保在任何给定时间最多有一个训练器在一个分区上运行。这个机制不适用于未分区的实体，因为他们被所有的训练器共享。见下文。 因此，每个训练器在训练时可以独占其训练的分区。</p>
+<p>Once a trainer starts working on a new bucket it needs to acquire the embeddings of its partitions, and once it’s done it needs to release them and make them available, in their updated version, to the next trainer that needs them. In order to do this, there’s a system of so-called “partition servers” that store the embeddings, provide them upon request to the trainers who need them, receive back the updated embedding and store it.<br>当一个训练器开始在新的桶上上工作后，需要获取其分区的嵌入内容，完成后，需要释放它们并以更新版本将其提供给需要该训练的下一个训练器。 为此，有一个所谓的“分区服务器”系统，用于存储嵌入内容，并根据需要将其提供给需要它们的训练器，并接收更新的嵌入内容并进行存储。</p>
+<p>This service is optional, and is disabled when num_partition_servers is set to zero. In that case the trainers “send” each other the embeddings simply by writing them to the checkpoint directory (which should reside on a shared disk) and then fetching them back from there.<br>此服务是可选的，并且在num_partition_servers设置为零时被禁用。 在这种情况下，训练器只需将嵌入内容写入“检查点”目录（应位于共享磁盘上），然后从那里取回它们，即可相互“发送”嵌入内容。</p>
+<p>When this system is enabled, it can operate in two modes. The simplest mode is triggered when num_partition_servers is -1 (the default): in that case all trainers spawn a local process that acts as a partition server. If, on the other hand, num_partition_servers is a positive value then the trainers will not spawn any process, but will instead connect to the partition servers that the user must have provisioned manually by launching the torchbiggraph_partitionserver command on the appropriate number of machines.<br>启用此系统后，它可以在两种模式下运行。 当num_partition_servers为-1（默认值）时，将触发最简单的模式：在这种情况下，所有训练器都会生成一个充当分区服务器的本地进程。 另一方面，如果num_partition_servers为正值，那么训练器将不会产生任何进程，而是将会连接到用户手动设置的提供的分区服务器上，用户通过在适当数量的机器上运行torchbiggraph_partitionserver来实现预先供给。</p>
+<h3 id="Updating-shared-parameters"><a href="#Updating-shared-parameters" class="headerlink" title="Updating shared parameters"></a>Updating shared parameters</h3><p>Some parameters of the model need to be used by all trainers at the same time (this includes the operator weights, the global embeddings of each entity type, the embeddings of the unpartitioned entities). These are parameters that don’t depend on what bucket the trainer is operating on, and therefore are always present on all trainers (as opposed to the entity embeddings, which are loaded and unloaded as needed). These parameters are synchronized using a series of “parameter servers”. Each trainer starts a local parameter server (in a separate subprocess) and connects to all other parameter servers. Each parameter that is shared between trainers is then stored in a parameter server (possibly sharded across several of them, if too large). Each trainer also has a loop (also in a separate subprocess) which, at regular intervals, goes over each shared parameter, computes the difference between its current local value and the value it had when it was last synced with the server where the parameter is hosted and sends that delta to that server. The server, in turn, accumulates all the deltas it receives from all trainers, updates the value of the parameter and sends this new value back to the trainers. The parameter server performs throttling to 100 updates/s or 1GB/s, in order to prevent the parameter server from starving the other communication.<br>所有训练器必须同时使用模型的某些参数（这包括操作员权重，每种实体类型的全局嵌入，未分区实体的嵌入）。这些参数并不取决于那些训练器正在操作的桶，因此其始终存在于所有训练器上（与实体嵌入情况相仿，实体嵌入根据需要进行加载和卸载）这些参数使用一系列“参数服务器”进行同步。每一个训练器开启一个本地的参数服务器（以一个独自的子进程）并且和其他所有的参数服务器进行连接。每一个被训练器共享的参数被存储在参数服务器中（如果参数太大的话，则可能将其分散在其中的几个服务器中）。每一个训练器还有一个loop（同样也在一个子进程中），该循环以固定的时间间隔遍历每个共享参数，计算其当前本地值与上次与该服务器上次与服务器同步时所具有的值之间的差，那些服务器的参数值是被托管并且发送到本地的子进程中。反过来，服务器会累积从所有训练器那里收到的所有差，更新参数的值，然后将此新值发送回训练器。参数服务器执行限制至100个更新每秒或者1GB每秒，以防止参数服务器使其他通信中断。</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PyTorch-BigGraph/" rel="tag"># PyTorch-BigGraph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/27/PBG-Batch-preparation/" rel="prev" title="PyTorch-BigGraph  批准备">
+      <i class="fa fa-chevron-left"></i> PyTorch-BigGraph  批准备
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PyTorch-BigGraph-%E5%88%86%E5%B8%83%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">PyTorch-BigGraph 分布式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set-up"><span class="nav-number">1.1.</span> <span class="nav-text">Set up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Communication-protocols"><span class="nav-number">1.2.</span> <span class="nav-text">Communication protocols</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Synchronizing-bucket-access"><span class="nav-number">1.2.1.</span> <span class="nav-text">Synchronizing bucket access</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exchanging-partition-embeddings"><span class="nav-number">1.2.2.</span> <span class="nav-text">Exchanging partition embeddings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Updating-shared-parameters"><span class="nav-number">1.2.3.</span> <span class="nav-text">Updating shared parameters</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共29.7k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

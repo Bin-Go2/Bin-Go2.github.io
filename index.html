@@ -189,6 +189,77 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/28/PBG-Distributed-mode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/28/PBG-Distributed-mode/" class="post-title-link" itemprop="url">PyTorch-BigGraph 分布式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-28 19:13:43 / Modified: 20:15:43" itemprop="dateCreated datePublished" datetime="2020-10-28T19:13:43-07:00">2020-10-28</time>
+            </span>
+
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="PyTorch-BigGraph-分布式"><a href="#PyTorch-BigGraph-分布式" class="headerlink" title="PyTorch-BigGraph 分布式"></a>PyTorch-BigGraph 分布式</h1><p>PBG can perform training across multiple machines which communicate over a network, in order to reduce training time on large graphs. Distributed training is able to concurrently utilize larger computing resources, as well as to keep the entire model stored in memory across all machines, avoiding the need to swap it to disk. On each machine, the training is further parallelized across multiple subprocesses.<br>PBG可以在通过网络进行通信的多台机器上执行训练，以减少大图上的训练时间。分布式训练能够利用巨大的计算资源，同时其可以将整个模型存储在所有机器的内存中而不需要进行磁盘交换。在每一台机器上，训练通过多个子进程进行。</p>
+<h2 id="Set-up"><a href="#Set-up" class="headerlink" title="Set up"></a>Set up</h2><p>In order to perform distributed training, the configuration file must first be updated to contain the specification of the desired distributed setup. If training should be carried out on 𝑁 machines, then the num_machines key in the config must be set to that value. In addition, the distributed_init_method must describe a way for the trainers to discover each other and set up their communication. All valid values for the init_method argument of torch.distributed.init_process_group() are accepted here. Usually this will be a path to a shared network filesystem or the network address of one of the machines. See the PyTorch docs for more information and a complete reference.<br>为了执行分布式训练，配置文件必须首先进行相应配置，其需要包括分布式部署的相关配置。如果训练在N台机器上运行，num_machines必须要要配置成N。另外，distributed_init_method必须描述各个机器之间的通信方式。这里能够接受所有torch.distributed.init_process_group()里面的参数。通常来说，分布式训练将一台计算机的网络地址设置为文件共享系统的地址。 有关更多信息和完整参考，请参见PyTorch文档。</p>
+<p>To launch distributed training, call torchbiggraph_train –rank rank config.py on each machine, with rank replaced by an integer between 0 and 𝑁−1 (inclusive), different for each machine. Each machine must have PBG installed and have a copy of the config file.<br>要启动分布式训练，首先在每台机器上调用torchbiggraph_train –rank rank config.py， 其中每台机器有各自的rank值（从1到N-1）。每台机器必须安装了PBG，并且具有配置文件的副本。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/28/PBG-Distributed-mode/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/27/PBG-Batch-preparation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -882,88 +953,6 @@
   
   
   
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/11/Blocking-and-Relational-Entity-Resolution/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" class="post-title-link" itemprop="url">Blocking and Relational Entity Resolution</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-11 19:12:39" itemprop="dateCreated datePublished" datetime="2020-10-11T19:12:39-07:00">2020-10-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-12 00:21:19" itemprop="dateModified" datetime="2020-10-12T00:21:19-07:00">2020-10-12</time>
-              </span>
-
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>Entity Resolution 主要分成如下四个</p>
-<ol>
-<li>Coreference     文本与文本之间找同一个entity</li>
-<li>Entity linking  文本与KG中找对应entity     -&gt; Integrating New Candidates </li>
-<li>Deduplication   一个KG之间的聚类              -&gt; Merging  Ambiguous Entities</li>
-<li>Record linkage  两个不同KG之间entity的对应  -&gt; Combining KGs</li>
-</ol>
-<h1 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h1><h2 id="为什么需要Blocking-gt-reduce-the-number-of-comparisons"><a href="#为什么需要Blocking-gt-reduce-the-number-of-comparisons" class="headerlink" title="为什么需要Blocking -&gt; reduce the number of comparisons"></a>为什么需要Blocking -&gt; reduce the number of comparisons</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-  
 
   
   <nav class="pagination">
@@ -1035,7 +1024,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1097,7 +1086,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共26.5k字</span>
+    <span class="post-count">共29.7k字</span>
 </div>
 
         
