@@ -43,30 +43,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Leetcode-滑动窗口</title>
-    <url>/2020/09/09/Algorithm-sliding-window/</url>
-    <content><![CDATA[<h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p><u>连续</u>子数组</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ul>
-<li>根据要求，找到第一个满足条件的窗口</li>
-<li>调整窗口(右移/左移)使其继续满足要求，并进行重复</li>
-<li>得到最合适的窗口即为答案</li>
-</ul>
-<h3 id="Leetcode例题"><a href="#Leetcode例题" class="headerlink" title="Leetcode例题"></a>Leetcode例题</h3><h5 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">if</span> len(s) == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_start,res = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(s)):</span><br><span class="line">        char = s[window_end]</span><br><span class="line">        <span class="keyword">if</span> char <span class="keyword">in</span> dic <span class="keyword">and</span> dic[char]&gt;=window_start: <span class="comment"># 注意这里的第二个条件dic[char]&gt;=window_start！！ 起到一个覆盖的作用</span></span><br><span class="line">            window_start = dic[char] +<span class="number">1</span></span><br><span class="line">        dic[char] = window_end</span><br><span class="line">        width = window_end-window_start+<span class="number">1</span></span><br><span class="line">        res = max(width,res)</span><br><span class="line">    <span class="keyword">return</span> res  </span><br></pre></td></tr></table></figure>
-
-<h5 id="大小为-K-且平均值大于等于阈值的子数组数目"><a href="#大小为-K-且平均值大于等于阈值的子数组数目" class="headerlink" title="大小为 K 且平均值大于等于阈值的子数组数目"></a><a href="https://leetcode-cn.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/">大小为 K 且平均值大于等于阈值的子数组数目</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numOfSubarrays</span>(<span class="params">arr,k,threshold</span>):</span></span><br><span class="line">    <span class="keyword">if</span> arr == [] <span class="keyword">or</span> len(arr)&lt;k:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_sum,window_start,res = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    temp = threshold*k</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">        window_sum+=arr[window_end]</span><br><span class="line">        <span class="keyword">if</span> window_end&gt;=k<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> window_sum &gt;=temp:</span><br><span class="line">                res+=<span class="number">1</span></span><br><span class="line">            window_sum-=arr[window_start]</span><br><span class="line">            window_start+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<h5 id="替换后的最长重复字符"><a href="#替换后的最长重复字符" class="headerlink" title="替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h5 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/">最小覆盖子串</a></h5><h5 id="滑动窗口中位数"><a href="#滑动窗口中位数" class="headerlink" title="滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></h5><h5 id="滑动窗口最大值"><a href="#滑动窗口最大值" class="headerlink" title="滑动窗口最大值"></a><a href="https://leetcode-cn.com/problems/sliding-window-maximum/">滑动窗口最大值</a></h5>]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Leetcode-剑指Offer</title>
     <url>/2020/09/05/Algorithm-jianzhioffer/</url>
     <content><![CDATA[<h4 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a><a href="https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/">左旋转字符串</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseLeftWords</span>(<span class="params">s,n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> s[n:] + s[:n]</span><br></pre></td></tr></table></figure>
@@ -132,6 +108,30 @@
 
 <h4 id="数字序列中某一位的数字"><a href="#数字序列中某一位的数字" class="headerlink" title="数字序列中某一位的数字"></a><a href="https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/">数字序列中某一位的数字</a></h4><h4 id="0～n-1中缺失的数字"><a href="#0～n-1中缺失的数字" class="headerlink" title="0～n-1中缺失的数字"></a><a href="https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/">0～n-1中缺失的数字</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">missingNumber</span>(<span class="params">self, nums: List[int]</span>) -&gt; int:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] != i:</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">    <span class="keyword">return</span> len(nums) <span class="comment"># 类似 [0]这样的情况，缺失的为1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 思路2: 排序数组中的搜索问题，首先想到&quot;二分&quot;解决。</span></span><br><span class="line">    xxx</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Leetcode-滑动窗口</title>
+    <url>/2020/09/09/Algorithm-sliding-window/</url>
+    <content><![CDATA[<h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p><u>连续</u>子数组</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ul>
+<li>根据要求，找到第一个满足条件的窗口</li>
+<li>调整窗口(右移/左移)使其继续满足要求，并进行重复</li>
+<li>得到最合适的窗口即为答案</li>
+</ul>
+<h3 id="Leetcode例题"><a href="#Leetcode例题" class="headerlink" title="Leetcode例题"></a>Leetcode例题</h3><h5 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">if</span> len(s) == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_start,res = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(s)):</span><br><span class="line">        char = s[window_end]</span><br><span class="line">        <span class="keyword">if</span> char <span class="keyword">in</span> dic <span class="keyword">and</span> dic[char]&gt;=window_start: <span class="comment"># 注意这里的第二个条件dic[char]&gt;=window_start！！ 起到一个覆盖的作用</span></span><br><span class="line">            window_start = dic[char] +<span class="number">1</span></span><br><span class="line">        dic[char] = window_end</span><br><span class="line">        width = window_end-window_start+<span class="number">1</span></span><br><span class="line">        res = max(width,res)</span><br><span class="line">    <span class="keyword">return</span> res  </span><br></pre></td></tr></table></figure>
+
+<h5 id="大小为-K-且平均值大于等于阈值的子数组数目"><a href="#大小为-K-且平均值大于等于阈值的子数组数目" class="headerlink" title="大小为 K 且平均值大于等于阈值的子数组数目"></a><a href="https://leetcode-cn.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/">大小为 K 且平均值大于等于阈值的子数组数目</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numOfSubarrays</span>(<span class="params">arr,k,threshold</span>):</span></span><br><span class="line">    <span class="keyword">if</span> arr == [] <span class="keyword">or</span> len(arr)&lt;k:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_sum,window_start,res = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    temp = threshold*k</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">        window_sum+=arr[window_end]</span><br><span class="line">        <span class="keyword">if</span> window_end&gt;=k<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> window_sum &gt;=temp:</span><br><span class="line">                res+=<span class="number">1</span></span><br><span class="line">            window_sum-=arr[window_start]</span><br><span class="line">            window_start+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h5 id="替换后的最长重复字符"><a href="#替换后的最长重复字符" class="headerlink" title="替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/">最小覆盖子串</a></h5><h5 id="滑动窗口中位数"><a href="#滑动窗口中位数" class="headerlink" title="滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></h5><h5 id="滑动窗口最大值"><a href="#滑动窗口最大值" class="headerlink" title="滑动窗口最大值"></a><a href="https://leetcode-cn.com/problems/sliding-window-maximum/">滑动窗口最大值</a></h5>]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
@@ -241,7 +241,7 @@
 
 <h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br><span class="line">$ ls -l | grep &quot;^-&quot; | wc -l   # 统计当前文件夹下文件的个数（不包括目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下文件的个数（包括子目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下目录的个数（包括子目录）</span><br><span class="line"></span><br><span class="line">$ gzip –c filename &gt; filename.gz  	# 压缩文件成gz文件（保留原文件）</span><br><span class="line">$ gunzip –c filename.gz &gt; filename  # 解压gz文件（保留gz文件）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Mac:</span><br><span class="line">$ sysctl machdep.cpu #所有信息</span><br><span class="line">$ sysctl -n machdep.cpu.brand_string    # CPU型号</span><br><span class="line">$ sysctl -n machdep.cpu.core_count      # CPU核心数</span><br><span class="line">$ sysctl -n machdep.cpu.thread_count    # 线程数</span><br><span class="line"></span><br><span class="line">Linux</span><br><span class="line">$ grep &#39;physical id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u  # 查看物理cpu个数</span><br><span class="line">$ grep &#39;core id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 核心数量</span><br><span class="line">$ grep &#39;processor&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 线程数</span><br></pre></td></tr></table></figure>]]></content>
@@ -798,6 +798,14 @@
       </tags>
   </entry>
   <entry>
+    <title>PyTorch-BigGraph 损失函数</title>
+    <url>/2020/10/30/PBG-Loss-calculation/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>PyTorch-BigGraph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PyTorch-BigGraph 概要</title>
     <url>/2020/10/22/PBG-overview/</url>
     <content><![CDATA[<h1 id="PBG概要"><a href="#PBG概要" class="headerlink" title="PBG概要"></a>PBG概要</h1><p>PyTorch-BigGraph (PBG) is a distributed system for learning graph embeddings for large graphs, particularly big web interaction graphs with up to billions of entities and trillions of edges.PBG now supports GPU training.<br>PyTorch-BigGraph（PBG）是一个用于学习学习大图（节点、关系众多），特别是那些具有多达数十亿个实体和数万亿条边的大型Web交互图嵌入的分布式系统。如今PBG也支持了GPU训练的过程。</p>
@@ -1193,6 +1201,52 @@
       </tags>
   </entry>
   <entry>
+    <title>Scrapy 实例 - TripAdvisor信息抓取</title>
+    <url>/2020/10/15/scrapy-example/</url>
+    <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
+<p>餐厅信息包括:</p>
+<ul>
+<li>餐厅名称</li>
+<li>餐厅评星（几颗星）</li>
+<li>餐厅排名（针对洛杉矶而言）</li>
+<li>餐厅价格区间</li>
+<li>餐厅菜品种类</li>
+<li>餐厅地点</li>
+<li>附近旅馆</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+<p>酒店信息包括：</p>
+<ul>
+<li>酒店名称</li>
+<li>酒店价格区间</li>
+<li>酒店房间数</li>
+<li>酒店评星</li>
+<li>酒店设施</li>
+<li>酒店特色</li>
+<li>酒店星级</li>
+<li>酒店房间类型</li>
+<li>酒店风格</li>
+<li>酒店地点</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Scrapy + MongoDB<br>代码: xxxx</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>使用scrapd + spiderkeeper 进行可视化部署</li>
+<li>log文件保存(settings.py中设置LOG_FILE  = “debug.log”)</li>
+<li>使用 scrapy shell 进行xpath语法规则的调试以确保得到想要的结果</li>
+</ol>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>10522 条餐厅数据 (50M)<br>1000 条酒店数据  (100M)</p>
+]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>Web Crawler</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>推荐系统总览</title>
     <url>/2020/10/03/recommendation-system/</url>
     <content><![CDATA[<h1 id="效用矩阵-utility-matrix"><a href="#效用矩阵-utility-matrix" class="headerlink" title="效用矩阵 (utility matrix)"></a>效用矩阵 (utility matrix)</h1><p>一般的推荐系统中有两类元素，一类是user，一类是item(例如电影、音乐…)，可以用一个矩阵表示这些数据<br>每一行表示每一个user，每一列表示一个item, <code>M[i][j]</code>表示第i个用户对第j项的评分。</p>
@@ -1274,52 +1328,6 @@
 <h2 id="混合方法-Hybrid"><a href="#混合方法-Hybrid" class="headerlink" title="混合方法(Hybrid)"></a>混合方法(Hybrid)</h2>]]></content>
       <tags>
         <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Scrapy 实例 - TripAdvisor信息抓取</title>
-    <url>/2020/10/15/scrapy-example/</url>
-    <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
-<p>餐厅信息包括:</p>
-<ul>
-<li>餐厅名称</li>
-<li>餐厅评星（几颗星）</li>
-<li>餐厅排名（针对洛杉矶而言）</li>
-<li>餐厅价格区间</li>
-<li>餐厅菜品种类</li>
-<li>餐厅地点</li>
-<li>附近旅馆</li>
-<li>附近餐厅</li>
-<li>附近景点</li>
-<li>用户评价</li>
-</ul>
-<p>酒店信息包括：</p>
-<ul>
-<li>酒店名称</li>
-<li>酒店价格区间</li>
-<li>酒店房间数</li>
-<li>酒店评星</li>
-<li>酒店设施</li>
-<li>酒店特色</li>
-<li>酒店星级</li>
-<li>酒店房间类型</li>
-<li>酒店风格</li>
-<li>酒店地点</li>
-<li>附近餐厅</li>
-<li>附近景点</li>
-<li>用户评价</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Scrapy + MongoDB<br>代码: xxxx</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
-<li>使用scrapd + spiderkeeper 进行可视化部署</li>
-<li>log文件保存(settings.py中设置LOG_FILE  = “debug.log”)</li>
-<li>使用 scrapy shell 进行xpath语法规则的调试以确保得到想要的结果</li>
-</ol>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>10522 条餐厅数据 (50M)<br>1000 条酒店数据  (100M)</p>
-]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>Web Crawler</tag>
       </tags>
   </entry>
   <entry>
