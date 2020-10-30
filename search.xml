@@ -141,6 +141,15 @@
       </tags>
   </entry>
   <entry>
+    <title>CSCI570-outline</title>
+    <url>/2020/09/08/CSCI570-outline/</url>
+    <content><![CDATA[<p>hello world!</p>
+]]></content>
+      <tags>
+        <tag>Course</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Blocking and Relational Entity Resolution</title>
     <url>/2020/10/11/Blocking-and-Relational-Entity-Resolution/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>Entity Resolution 主要分成如下四个</p>
@@ -207,12 +216,22 @@
       </tags>
   </entry>
   <entry>
-    <title>CSCI570-outline</title>
-    <url>/2020/09/08/CSCI570-outline/</url>
-    <content><![CDATA[<p>hello world!</p>
-]]></content>
+    <title>Commands Often Used</title>
+    <url>/2020/09/05/Commands%20Often%20Used/</url>
+    <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br><span class="line">$ ls -l | grep &quot;^-&quot; | wc -l   # 统计当前文件夹下文件的个数（不包括目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下文件的个数（包括子目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下目录的个数（包括子目录）</span><br><span class="line"></span><br><span class="line">$ gzip –c filename &gt; filename.gz  	# 压缩文件成gz文件（保留原文件）</span><br><span class="line">$ gunzip –c filename.gz &gt; filename  # 解压gz文件（保留gz文件）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Mac:</span><br><span class="line">$ sysctl machdep.cpu #所有信息</span><br><span class="line">$ sysctl -n machdep.cpu.brand_string    # CPU型号</span><br><span class="line">$ sysctl -n machdep.cpu.core_count      # CPU核心数</span><br><span class="line">$ sysctl -n machdep.cpu.thread_count    # 线程数</span><br><span class="line"></span><br><span class="line">Linux</span><br><span class="line">$ grep &#39;physical id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u  # 查看物理cpu个数</span><br><span class="line">$ grep &#39;core id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 核心数量</span><br><span class="line">$ grep &#39;processor&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 线程数</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Efficiency</category>
+      </categories>
       <tags>
-        <tag>Course</tag>
+        <tag>Commands</tag>
       </tags>
   </entry>
   <entry>
@@ -231,25 +250,6 @@
 ]]></content>
       <tags>
         <tag>Course</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Commands Often Used</title>
-    <url>/2020/09/05/Commands%20Often%20Used/</url>
-    <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br><span class="line">$ ls -l | grep &quot;^-&quot; | wc -l   # 统计当前文件夹下文件的个数（不包括目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下文件的个数（包括子目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下目录的个数（包括子目录）</span><br><span class="line"></span><br><span class="line">$ gzip –c filename &gt; filename.gz  	# 压缩文件成gz文件（保留原文件）</span><br><span class="line">$ gunzip –c filename.gz &gt; filename  # 解压gz文件（保留gz文件）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Mac:</span><br><span class="line">$ sysctl machdep.cpu #所有信息</span><br><span class="line">$ sysctl -n machdep.cpu.brand_string    # CPU型号</span><br><span class="line">$ sysctl -n machdep.cpu.core_count      # CPU核心数</span><br><span class="line">$ sysctl -n machdep.cpu.thread_count    # 线程数</span><br><span class="line"></span><br><span class="line">Linux</span><br><span class="line">$ grep &#39;physical id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u  # 查看物理cpu个数</span><br><span class="line">$ grep &#39;core id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 核心数量</span><br><span class="line">$ grep &#39;processor&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 线程数</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Efficiency</category>
-      </categories>
-      <tags>
-        <tag>Commands</tag>
       </tags>
   </entry>
   <entry>
@@ -465,6 +465,52 @@
       </tags>
   </entry>
   <entry>
+    <title>PyTorch-BigGraph 从实体嵌入到边得分</title>
+    <url>/2020/10/23/From-embedding-to-scores/</url>
+    <content><![CDATA[<h1 id="From-entity-embeddings-to-edge-scores"><a href="#From-entity-embeddings-to-edge-scores" class="headerlink" title="From entity embeddings to edge scores"></a>From entity embeddings to edge scores</h1><p>The goal of training is to embed each entity in ℝ^D so that the embeddings of two entities are a good proxy to predict whether there is a relation of a certain type between them.<br>训练的目的是将每个实体嵌入到D维的向量空间中，以便两个实体的嵌入可以很好地预测它们之间是否存在某种类型的关系。</p>
+<p>To be more precise, the goal is to learn an embedding for each entity and a function for each relation type that takes two entity embeddings and assigns them a score, with the goal of having positive relations achieve higher scores than negative ones.<br>更确切地说，PBG的目标是学习每个实体的嵌入和每种关系类型的函数，该函数接受两个实体嵌入并为其分配一个分数，目的是使正面关系比负面关系获得更高的分数。</p>
+<blockquote>
+<p>key point: 实体-&gt;D维向量 关系-&gt;函数</p>
+</blockquote>
+<p>All the edges provided in the training set are considered positive instances. In order to perform training, a set of negative edges is needed as well. These are not provided by the user but instead generated by the system during training (Negative sampling), usually by fixing the left-hand side entity and the relation type and sampling a new right-hand side entity, or vice versa. This sampling scheme makes sense for large sparse graphs, where there is a low probability that edges generated this way are true positives edges in the graph.<br>训练集中提供的所有边被视为正例。为了执行训练，还需要一些负边（负样本）。 这些不是由用户提供的，而是由系统在训练过程中生成的（负采样），通常是通过固定左侧实体和关系类型并采样新的右侧实体，反之亦然。 对于大的稀疏图，这种采样方案是有意义的，因为在这样的情况下，以这种方式生成的边为图中的正例的可能性很小。</p>
+<p>A priori, entity embeddings could take any value in ℝ^D. Although, in some cases (for example when restricting them to be within a certain ball, or when comparing them using cosine distance), their “angle” will have greater importance than their norm.<br>先验实体嵌入可以在D维空间中取任何值。但是在某些情况下（例如，当将它们限制在某个球内或使用余弦距离进行比较时），它们的“角度”比范数更具有意义。</p>
+<p>Per-relation scoring functions, however, must be expressible in a specific form (the most common functions in the literature can be converted to such a representation). In the current implementation, they are only allowed to transform the embedding of one of the two sides, which is then compared to the un-transformed embedding of the other side using a generic symmetric comparator function, which is the same for all relations. Formally, for left- and right-hand side entities 𝑥 and 𝑦 respectively, and for a relation type 𝑟, the score is:<center>𝑓𝑟(𝜃𝑥,𝜃𝑦)=𝑐(𝜃𝑥,𝑔𝑟(𝜃𝑦))</center><br>where 𝜃𝑥 and 𝜃𝑦 are the embeddings of 𝑥 and 𝑦 respectively, 𝑓𝑟 is the scoring function for 𝑟, 𝑔𝑟 is the operator for 𝑟 and 𝑐 is the comparator.</p>
+<!-- $$f_{r}\left(\theta_{x}, \theta_{y}\right)=c\left(\theta_{x}, g_{r}\left(\theta_{y}\right)\right) -->
+<p>然而，对于每个关系的得分计算函数，必须以特定的形式表现出来（文献中最常见的函数可以转换为这种表示形式）。在目前的实现中，只允许对一侧的实体进行嵌入转换，通过使用通用的对称比较器将其与另一侧未转换的实体嵌入进行比较，这样的操作对于所有的关系类型都是一样的。形式上，分别对于左侧和右侧实体𝑥和,，以及对于关系类型𝑟，得分为：𝑓𝑟(𝜃𝑥,𝜃𝑦)=𝑐(𝜃𝑥,𝑔𝑟(𝜃𝑦)), 其中，𝜃𝑥和𝜃𝑦分别是𝑥和𝑦的嵌入，𝑓𝑟是关系𝑟的评分函数，𝑔𝑟是关系r的算子，𝑐是比较器。</p>
+<p>Under “normal” circumstances (the so-called “standard” relations mode) the operator is solely applied to the right-hand side entities. This is not the case when using dynamic relations. Applying the operator to both sides would oftentimes be redundant. Also, preferring one side over the other allows to break the symmetry and capture the direction of the edge.<br>在通常情况下(或者说是标准的关系模式中)，算子仅仅是适用于右侧实体。但是在PBG的动态关系中则不是这样。通常，将算子运用在两侧的实体嵌入上是多余的，并且倾向于选择某一侧的举动可以很好的打破对称性并且捕捉到边的方向。</p>
+<h2 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h2><p>Embeddings live in a 𝐷-dimensional real space, where 𝐷 is determined by the dimension configuration parameter.<br>嵌入是一个𝐷维实空间的向量，其中𝐷的大小由配置参数确定。</p>
+<p>Normally, each entity has its own embedding, which is entirely independent from any other entity’s embedding. When using featurized entities however this works differently, and an entity’s embedding will be the average of the embeddings of its features.<br>通常的，每一个实体都有属于自己的完全和其他实体嵌入独立的嵌入。然而，当使用特征化的实体时，情况有所不同。此时实体的嵌入为其特征嵌入的平均值。</p>
+<p>If the max_norm configuration parameter is set, embeddings will be projected onto the unit ball with radius max_norm after each parameter update.<br>如果设置了max_norm配置参数，则在每次更新参数后，嵌入将会被投影到半径为max_norm的单位球上。</p>
+<blockquote>
+<p>🤔️ 暂时没看懂。</p>
+</blockquote>
+<p>To add a new type of embedding, one needs to subclass the torchbiggraph.model.AbstractEmbedding class.<br>要添加一种新型的嵌入，需要将torchbiggraph.model.AbstractEmbedding类作为子类。</p>
+<blockquote>
+<p>🤔️ 暂时没看懂。</p>
+</blockquote>
+<h2 id="Global-embeddings"><a href="#Global-embeddings" class="headerlink" title="Global embeddings"></a>Global embeddings</h2><p>When the global_emb configuration option is active, each entity’s embedding will be translated by a vector that is specific to each entity type (and that is learned at the same time as the embeddings).<br>当global_emb配置参数设置为True的时候，每个实体的嵌入将会被表示成一个向量，该向量对于每种实体类型都是特定的。（并且该向量是与嵌入同时学习得到的）</p>
+<blockquote>
+<p>🤔️ 暂时没看懂。</p>
+</blockquote>
+<h2 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h2><p>The operators that are currently provided are:<br>• none, no-op, which leaves the embeddings unchanged;<br>• translation, which adds to the embedding a vector of the same dimension;<br>• diagonal, which multiplies each dimension by a different coefficient (equivalent to multiplying by a diagonal matrix);<br>• linear, which applies a linear map, i.e., multiplies by a full square matrix<br>• affine, which applies a affine transformation, i.e., linear followed by translation.<br>• complex_diagonal, which interprets the 𝐷-dimensional real vector as a 𝐷/2-dimensional complex vector (𝐷 must be even; the first half of the vector are the real parts, the second half the imaginary parts) and then multiplies each entry by a different complex parameter, just like diagonal.<br>当前提供的算子有:<br>• 无，无操作，使嵌入保持不变；<br>• 平移算子，将相同尺寸的向量添加到嵌入中；<br>• 对角算子，将每个维度乘以不同的系数（相当于乘以对角矩阵）；<br>• 线性算子，运用一个线性映射，例如，讲嵌入和一个全方阵点乘；<br>• 仿射算子，应用仿射变换，即线性变换后再进行平移；<br>• 复对角算子，将D维实向量转化为D/2维复矢量（𝐷必须是偶数；矢量的前半部分是实数部分，后半部分是虚数部分），然后将每个项乘以不同的复数参数，就像对角算子一样。</p>
+<p>All the operators’ parameters are learned during training.<br>训练过程中将学习所有算子的参数。</p>
+<p>To define an additional operator, one must subclass the torchbiggraph.model.AbstractOperator class (or the torchbiggraph.model.AbstractDynamicOperator one when using dynamic relations; their docstrings explain what must be implemented) and decorate it with the torchbiggraph.model.OPERATORS.register_as() decorator (respectively the torchbiggraph.model.DYNAMIC_OPERATORS.register_as() one), specifying a new name that can then be used in the config to select that comparator. All of the above can be done inside the config file itself.<br>如果要自定义新的算子，需要实现torchbiggraph.model.AbstractOperator的子类（动态关系情况下实现torchbiggraph.model.AbstractDynamicOperator子类，docstrings解释了必须实现什么）并且在torchbiggraph.model.OPERATORS.register_as()装饰器中注册（或者torchbiggraph.model.DYNAMIC_OPERATORS.register_as() ）指定一个新名称，然后在配置中使用该名称来选择比较器。上述所有操作都可以在配置文件内部完成。</p>
+<blockquote>
+<p>🤔️ 暂时没看懂。</p>
+</blockquote>
+<h2 id="Comparators"><a href="#Comparators" class="headerlink" title="Comparators"></a>Comparators</h2><p>The available comparators are:<br>• dot, the dot-product, which computes the scalar or inner product of the two embedding vectors;<br>• cos, the cos distance, which is the cosine of the angle between the two vectors or, equivalently, the dot product divided by the product of the vectors’ norms.<br>• l2, the negative L2 distance, a.k.a. the Euclidean distance (negative because smaller distances should get higher scores).<br>• squared_l2, the negative squared L2 distance.<br>当前提供的比较器有：<br>• 点乘，计算两个实体嵌入向量的标量或内积；<br>• 余弦距离，两个实体嵌入向量的余弦夹角，或者等效的说是 dot(a,b)/(sqrt(a^2)*sqrt(a^2))<br>• 负L2距离，又称欧几里得距离（使用负的二范数是因为真正比较的是两者的相似度，较小的距离应获得更高的分数，这里的分数其实就类似于相似度)<br>• L2的负平方距离。</p>
+<p>Custom comparators need to extend the torchbiggraph.model.AbstractComparator class (its docstring explains how) and decorate it with the torchbiggraph.model.COMPARATORS.register_as() decorator, specifying a new name that can then be used in the config to select that comparator. All of the above can be done inside the config file itself.<br>自定义比较器需要扩展torchbiggraph.model.AbstractComparator类（其文档字符串说明方式），并使用torchbiggraph.model.COMPARATORS.register_as（）装饰器对其进行修饰，并指定一个新名称，该名称随后可在配置中用于选择该比较器。以上所有操作均可在配置文件本身中完成。</p>
+<h2 id="Bias"><a href="#Bias" class="headerlink" title="Bias"></a>Bias</h2><p>If the bias configuration key is in use, then the first coordinate of the embeddings will act as a bias in the comparator computation. This means that the comparator will be computed on the last 𝐷−1 entries of the vectors only, and then both the first entries of the two vectors will be added to the result.<br>如果bias参数在配置文件中设置为True，那么嵌入的第一个坐标将充当比较器计算中的偏置。这意味着比较器将仅在向量得第二维到第D维上进行计算，然后将两个向量的第一维都直接被添加到结果中。</p>
+<h2 id="Coherent-sets-of-configuration-parameters"><a href="#Coherent-sets-of-configuration-parameters" class="headerlink" title="Coherent sets of configuration parameters"></a>Coherent sets of configuration parameters</h2><p>While the parameters described in this chapter are exposed as uncoupled knobs in the configuration file (to more closely match the implementation, and to allow for more flexible tuning), some combinations of them are more sensible than others.<br>尽管本章中描述的参数在配置文件中显示为未耦合的旋钮（为了更近似匹配实现效果，并允许更灵活的调优），但它们中的某些组合比其他组合更合理。</p>
+<p>Apart from the default one, the following configuration has been found to work well: init_scale = 0.1, comparator = dot, bias = true, loss_fn = logistic, lr = 0.1.<br>除默认配置外，还发现以下配置可以正常运行：init_scale = 0.1，comparator = dot, bias = true, loss_fn = logistic, lr = 0.1。</p>
+<h2 id="Interpreting-the-scores"><a href="#Interpreting-the-scores" class="headerlink" title="Interpreting the scores"></a>Interpreting the scores</h2><p>The scores will be tuned to have different meaning and become more suitable for certain applications based on the loss function used during training. Common options include ranking what other entities may be related to a given entity, determining the probability that a certain relation exists between two given entities, etc.<br>根据训练过程中使用的损失函数，得分将被调整为具有不同的含义，并且变得更适合某些特定的应用。常见选项包括对其他实体可能与给定实体相关的等级进行排名、确定两个给定实体之间存在某种关系的可能性等指标。</p>
+<p>源地址：<br><a href="https://torchbiggraph.readthedocs.io/en/latest/scoring.html">https://torchbiggraph.readthedocs.io/en/latest/scoring.html</a></p>
+]]></content>
+      <tags>
+        <tag>PyTorch-BigGraph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JSON-review</title>
     <url>/2020/09/07/JSON-review/</url>
     <content><![CDATA[<h2 id="JSON概述"><a href="#JSON概述" class="headerlink" title="JSON概述"></a>JSON概述</h2><p><strong>JSON</strong>（<strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来<strong>传输由属性值或者序列性的值组成的数据对象</strong>。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。</p>
@@ -536,52 +582,6 @@
       <tags>
         <tag>Python</tag>
         <tag>File Format</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PyTorch-BigGraph 从实体嵌入到边得分</title>
-    <url>/2020/10/23/From-embedding-to-scores/</url>
-    <content><![CDATA[<h1 id="From-entity-embeddings-to-edge-scores"><a href="#From-entity-embeddings-to-edge-scores" class="headerlink" title="From entity embeddings to edge scores"></a>From entity embeddings to edge scores</h1><p>The goal of training is to embed each entity in ℝ^D so that the embeddings of two entities are a good proxy to predict whether there is a relation of a certain type between them.<br>训练的目的是将每个实体嵌入到D维的向量空间中，以便两个实体的嵌入可以很好地预测它们之间是否存在某种类型的关系。</p>
-<p>To be more precise, the goal is to learn an embedding for each entity and a function for each relation type that takes two entity embeddings and assigns them a score, with the goal of having positive relations achieve higher scores than negative ones.<br>更确切地说，PBG的目标是学习每个实体的嵌入和每种关系类型的函数，该函数接受两个实体嵌入并为其分配一个分数，目的是使正面关系比负面关系获得更高的分数。</p>
-<blockquote>
-<p>key point: 实体-&gt;D维向量 关系-&gt;函数</p>
-</blockquote>
-<p>All the edges provided in the training set are considered positive instances. In order to perform training, a set of negative edges is needed as well. These are not provided by the user but instead generated by the system during training (Negative sampling), usually by fixing the left-hand side entity and the relation type and sampling a new right-hand side entity, or vice versa. This sampling scheme makes sense for large sparse graphs, where there is a low probability that edges generated this way are true positives edges in the graph.<br>训练集中提供的所有边被视为正例。为了执行训练，还需要一些负边（负样本）。 这些不是由用户提供的，而是由系统在训练过程中生成的（负采样），通常是通过固定左侧实体和关系类型并采样新的右侧实体，反之亦然。 对于大的稀疏图，这种采样方案是有意义的，因为在这样的情况下，以这种方式生成的边为图中的正例的可能性很小。</p>
-<p>A priori, entity embeddings could take any value in ℝ^D. Although, in some cases (for example when restricting them to be within a certain ball, or when comparing them using cosine distance), their “angle” will have greater importance than their norm.<br>先验实体嵌入可以在D维空间中取任何值。但是在某些情况下（例如，当将它们限制在某个球内或使用余弦距离进行比较时），它们的“角度”比范数更具有意义。</p>
-<p>Per-relation scoring functions, however, must be expressible in a specific form (the most common functions in the literature can be converted to such a representation). In the current implementation, they are only allowed to transform the embedding of one of the two sides, which is then compared to the un-transformed embedding of the other side using a generic symmetric comparator function, which is the same for all relations. Formally, for left- and right-hand side entities 𝑥 and 𝑦 respectively, and for a relation type 𝑟, the score is:<center>𝑓𝑟(𝜃𝑥,𝜃𝑦)=𝑐(𝜃𝑥,𝑔𝑟(𝜃𝑦))</center><br>where 𝜃𝑥 and 𝜃𝑦 are the embeddings of 𝑥 and 𝑦 respectively, 𝑓𝑟 is the scoring function for 𝑟, 𝑔𝑟 is the operator for 𝑟 and 𝑐 is the comparator.</p>
-<!-- $$f_{r}\left(\theta_{x}, \theta_{y}\right)=c\left(\theta_{x}, g_{r}\left(\theta_{y}\right)\right) -->
-<p>然而，对于每个关系的得分计算函数，必须以特定的形式表现出来（文献中最常见的函数可以转换为这种表示形式）。在目前的实现中，只允许对一侧的实体进行嵌入转换，通过使用通用的对称比较器将其与另一侧未转换的实体嵌入进行比较，这样的操作对于所有的关系类型都是一样的。形式上，分别对于左侧和右侧实体𝑥和,，以及对于关系类型𝑟，得分为：𝑓𝑟(𝜃𝑥,𝜃𝑦)=𝑐(𝜃𝑥,𝑔𝑟(𝜃𝑦)), 其中，𝜃𝑥和𝜃𝑦分别是𝑥和𝑦的嵌入，𝑓𝑟是关系𝑟的评分函数，𝑔𝑟是关系r的算子，𝑐是比较器。</p>
-<p>Under “normal” circumstances (the so-called “standard” relations mode) the operator is solely applied to the right-hand side entities. This is not the case when using dynamic relations. Applying the operator to both sides would oftentimes be redundant. Also, preferring one side over the other allows to break the symmetry and capture the direction of the edge.<br>在通常情况下(或者说是标准的关系模式中)，算子仅仅是适用于右侧实体。但是在PBG的动态关系中则不是这样。通常，将算子运用在两侧的实体嵌入上是多余的，并且倾向于选择某一侧的举动可以很好的打破对称性并且捕捉到边的方向。</p>
-<h2 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h2><p>Embeddings live in a 𝐷-dimensional real space, where 𝐷 is determined by the dimension configuration parameter.<br>嵌入是一个𝐷维实空间的向量，其中𝐷的大小由配置参数确定。</p>
-<p>Normally, each entity has its own embedding, which is entirely independent from any other entity’s embedding. When using featurized entities however this works differently, and an entity’s embedding will be the average of the embeddings of its features.<br>通常的，每一个实体都有属于自己的完全和其他实体嵌入独立的嵌入。然而，当使用特征化的实体时，情况有所不同。此时实体的嵌入为其特征嵌入的平均值。</p>
-<p>If the max_norm configuration parameter is set, embeddings will be projected onto the unit ball with radius max_norm after each parameter update.<br>如果设置了max_norm配置参数，则在每次更新参数后，嵌入将会被投影到半径为max_norm的单位球上。</p>
-<blockquote>
-<p>🤔️ 暂时没看懂。</p>
-</blockquote>
-<p>To add a new type of embedding, one needs to subclass the torchbiggraph.model.AbstractEmbedding class.<br>要添加一种新型的嵌入，需要将torchbiggraph.model.AbstractEmbedding类作为子类。</p>
-<blockquote>
-<p>🤔️ 暂时没看懂。</p>
-</blockquote>
-<h2 id="Global-embeddings"><a href="#Global-embeddings" class="headerlink" title="Global embeddings"></a>Global embeddings</h2><p>When the global_emb configuration option is active, each entity’s embedding will be translated by a vector that is specific to each entity type (and that is learned at the same time as the embeddings).<br>当global_emb配置参数设置为True的时候，每个实体的嵌入将会被表示成一个向量，该向量对于每种实体类型都是特定的。（并且该向量是与嵌入同时学习得到的）</p>
-<blockquote>
-<p>🤔️ 暂时没看懂。</p>
-</blockquote>
-<h2 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h2><p>The operators that are currently provided are:<br>• none, no-op, which leaves the embeddings unchanged;<br>• translation, which adds to the embedding a vector of the same dimension;<br>• diagonal, which multiplies each dimension by a different coefficient (equivalent to multiplying by a diagonal matrix);<br>• linear, which applies a linear map, i.e., multiplies by a full square matrix<br>• affine, which applies a affine transformation, i.e., linear followed by translation.<br>• complex_diagonal, which interprets the 𝐷-dimensional real vector as a 𝐷/2-dimensional complex vector (𝐷 must be even; the first half of the vector are the real parts, the second half the imaginary parts) and then multiplies each entry by a different complex parameter, just like diagonal.<br>当前提供的算子有:<br>• 无，无操作，使嵌入保持不变；<br>• 平移算子，将相同尺寸的向量添加到嵌入中；<br>• 对角算子，将每个维度乘以不同的系数（相当于乘以对角矩阵）；<br>• 线性算子，运用一个线性映射，例如，讲嵌入和一个全方阵点乘；<br>• 仿射算子，应用仿射变换，即线性变换后再进行平移；<br>• 复对角算子，将D维实向量转化为D/2维复矢量（𝐷必须是偶数；矢量的前半部分是实数部分，后半部分是虚数部分），然后将每个项乘以不同的复数参数，就像对角算子一样。</p>
-<p>All the operators’ parameters are learned during training.<br>训练过程中将学习所有算子的参数。</p>
-<p>To define an additional operator, one must subclass the torchbiggraph.model.AbstractOperator class (or the torchbiggraph.model.AbstractDynamicOperator one when using dynamic relations; their docstrings explain what must be implemented) and decorate it with the torchbiggraph.model.OPERATORS.register_as() decorator (respectively the torchbiggraph.model.DYNAMIC_OPERATORS.register_as() one), specifying a new name that can then be used in the config to select that comparator. All of the above can be done inside the config file itself.<br>如果要自定义新的算子，需要实现torchbiggraph.model.AbstractOperator的子类（动态关系情况下实现torchbiggraph.model.AbstractDynamicOperator子类，docstrings解释了必须实现什么）并且在torchbiggraph.model.OPERATORS.register_as()装饰器中注册（或者torchbiggraph.model.DYNAMIC_OPERATORS.register_as() ）指定一个新名称，然后在配置中使用该名称来选择比较器。上述所有操作都可以在配置文件内部完成。</p>
-<blockquote>
-<p>🤔️ 暂时没看懂。</p>
-</blockquote>
-<h2 id="Comparators"><a href="#Comparators" class="headerlink" title="Comparators"></a>Comparators</h2><p>The available comparators are:<br>• dot, the dot-product, which computes the scalar or inner product of the two embedding vectors;<br>• cos, the cos distance, which is the cosine of the angle between the two vectors or, equivalently, the dot product divided by the product of the vectors’ norms.<br>• l2, the negative L2 distance, a.k.a. the Euclidean distance (negative because smaller distances should get higher scores).<br>• squared_l2, the negative squared L2 distance.<br>当前提供的比较器有：<br>• 点乘，计算两个实体嵌入向量的标量或内积；<br>• 余弦距离，两个实体嵌入向量的余弦夹角，或者等效的说是 dot(a,b)/(sqrt(a^2)*sqrt(a^2))<br>• 负L2距离，又称欧几里得距离（使用负的二范数是因为真正比较的是两者的相似度，较小的距离应获得更高的分数，这里的分数其实就类似于相似度)<br>• L2的负平方距离。</p>
-<p>Custom comparators need to extend the torchbiggraph.model.AbstractComparator class (its docstring explains how) and decorate it with the torchbiggraph.model.COMPARATORS.register_as() decorator, specifying a new name that can then be used in the config to select that comparator. All of the above can be done inside the config file itself.<br>自定义比较器需要扩展torchbiggraph.model.AbstractComparator类（其文档字符串说明方式），并使用torchbiggraph.model.COMPARATORS.register_as（）装饰器对其进行修饰，并指定一个新名称，该名称随后可在配置中用于选择该比较器。以上所有操作均可在配置文件本身中完成。</p>
-<h2 id="Bias"><a href="#Bias" class="headerlink" title="Bias"></a>Bias</h2><p>If the bias configuration key is in use, then the first coordinate of the embeddings will act as a bias in the comparator computation. This means that the comparator will be computed on the last 𝐷−1 entries of the vectors only, and then both the first entries of the two vectors will be added to the result.<br>如果bias参数在配置文件中设置为True，那么嵌入的第一个坐标将充当比较器计算中的偏置。这意味着比较器将仅在向量得第二维到第D维上进行计算，然后将两个向量的第一维都直接被添加到结果中。</p>
-<h2 id="Coherent-sets-of-configuration-parameters"><a href="#Coherent-sets-of-configuration-parameters" class="headerlink" title="Coherent sets of configuration parameters"></a>Coherent sets of configuration parameters</h2><p>While the parameters described in this chapter are exposed as uncoupled knobs in the configuration file (to more closely match the implementation, and to allow for more flexible tuning), some combinations of them are more sensible than others.<br>尽管本章中描述的参数在配置文件中显示为未耦合的旋钮（为了更近似匹配实现效果，并允许更灵活的调优），但它们中的某些组合比其他组合更合理。</p>
-<p>Apart from the default one, the following configuration has been found to work well: init_scale = 0.1, comparator = dot, bias = true, loss_fn = logistic, lr = 0.1.<br>除默认配置外，还发现以下配置可以正常运行：init_scale = 0.1，comparator = dot, bias = true, loss_fn = logistic, lr = 0.1。</p>
-<h2 id="Interpreting-the-scores"><a href="#Interpreting-the-scores" class="headerlink" title="Interpreting the scores"></a>Interpreting the scores</h2><p>The scores will be tuned to have different meaning and become more suitable for certain applications based on the loss function used during training. Common options include ranking what other entities may be related to a given entity, determining the probability that a certain relation exists between two given entities, etc.<br>根据训练过程中使用的损失函数，得分将被调整为具有不同的含义，并且变得更适合某些特定的应用。常见选项包括对其他实体可能与给定实体相关的等级进行排名、确定两个给定实体之间存在某种关系的可能性等指标。</p>
-<p>源地址：<br><a href="https://torchbiggraph.readthedocs.io/en/latest/scoring.html">https://torchbiggraph.readthedocs.io/en/latest/scoring.html</a></p>
-]]></content>
-      <tags>
-        <tag>PyTorch-BigGraph</tag>
       </tags>
   </entry>
   <entry>
@@ -1201,52 +1201,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Scrapy 实例 - TripAdvisor信息抓取</title>
-    <url>/2020/10/15/scrapy-example/</url>
-    <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
-<p>餐厅信息包括:</p>
-<ul>
-<li>餐厅名称</li>
-<li>餐厅评星（几颗星）</li>
-<li>餐厅排名（针对洛杉矶而言）</li>
-<li>餐厅价格区间</li>
-<li>餐厅菜品种类</li>
-<li>餐厅地点</li>
-<li>附近旅馆</li>
-<li>附近餐厅</li>
-<li>附近景点</li>
-<li>用户评价</li>
-</ul>
-<p>酒店信息包括：</p>
-<ul>
-<li>酒店名称</li>
-<li>酒店价格区间</li>
-<li>酒店房间数</li>
-<li>酒店评星</li>
-<li>酒店设施</li>
-<li>酒店特色</li>
-<li>酒店星级</li>
-<li>酒店房间类型</li>
-<li>酒店风格</li>
-<li>酒店地点</li>
-<li>附近餐厅</li>
-<li>附近景点</li>
-<li>用户评价</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Scrapy + MongoDB<br>代码: xxxx</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
-<li>使用scrapd + spiderkeeper 进行可视化部署</li>
-<li>log文件保存(settings.py中设置LOG_FILE  = “debug.log”)</li>
-<li>使用 scrapy shell 进行xpath语法规则的调试以确保得到想要的结果</li>
-</ol>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>10522 条餐厅数据 (50M)<br>1000 条酒店数据  (100M)</p>
-]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>Web Crawler</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>推荐系统总览</title>
     <url>/2020/10/03/recommendation-system/</url>
     <content><![CDATA[<h1 id="效用矩阵-utility-matrix"><a href="#效用矩阵-utility-matrix" class="headerlink" title="效用矩阵 (utility matrix)"></a>效用矩阵 (utility matrix)</h1><p>一般的推荐系统中有两类元素，一类是user，一类是item(例如电影、音乐…)，可以用一个矩阵表示这些数据<br>每一行表示每一个user，每一列表示一个item, <code>M[i][j]</code>表示第i个用户对第j项的评分。</p>
@@ -1328,6 +1282,52 @@
 <h2 id="混合方法-Hybrid"><a href="#混合方法-Hybrid" class="headerlink" title="混合方法(Hybrid)"></a>混合方法(Hybrid)</h2>]]></content>
       <tags>
         <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scrapy 实例 - TripAdvisor信息抓取</title>
+    <url>/2020/10/15/scrapy-example/</url>
+    <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
+<p>餐厅信息包括:</p>
+<ul>
+<li>餐厅名称</li>
+<li>餐厅评星（几颗星）</li>
+<li>餐厅排名（针对洛杉矶而言）</li>
+<li>餐厅价格区间</li>
+<li>餐厅菜品种类</li>
+<li>餐厅地点</li>
+<li>附近旅馆</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+<p>酒店信息包括：</p>
+<ul>
+<li>酒店名称</li>
+<li>酒店价格区间</li>
+<li>酒店房间数</li>
+<li>酒店评星</li>
+<li>酒店设施</li>
+<li>酒店特色</li>
+<li>酒店星级</li>
+<li>酒店房间类型</li>
+<li>酒店风格</li>
+<li>酒店地点</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Scrapy + MongoDB<br>代码: xxxx</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>使用scrapd + spiderkeeper 进行可视化部署</li>
+<li>log文件保存(settings.py中设置LOG_FILE  = “debug.log”)</li>
+<li>使用 scrapy shell 进行xpath语法规则的调试以确保得到想要的结果</li>
+</ol>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>10522 条餐厅数据 (50M)<br>1000 条酒店数据  (100M)</p>
+]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>Web Crawler</tag>
       </tags>
   </entry>
   <entry>
