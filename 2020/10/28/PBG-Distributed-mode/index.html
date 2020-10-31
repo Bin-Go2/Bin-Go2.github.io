@@ -26,7 +26,7 @@
 <meta property="og:description" content="PyTorch-BigGraph 分布式PBG can perform training across multiple machines which communicate over a network, in order to reduce training time on large graphs. Distributed training is able to concurrently u">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-29T02:13:43.000Z">
-<meta property="article:modified_time" content="2020-10-29T08:44:43.402Z">
+<meta property="article:modified_time" content="2020-10-31T01:23:40.141Z">
 <meta property="article:author" content="Bin">
 <meta property="article:tag" content="PyTorch-BigGraph">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-29 01:44:43" itemprop="dateModified" datetime="2020-10-29T01:44:43-07:00">2020-10-29</time>
+                <time title="Modified: 2020-10-30 18:23:40" itemprop="dateModified" datetime="2020-10-30T18:23:40-07:00">2020-10-30</time>
               </span>
 
           
@@ -275,6 +275,7 @@
 <p>This service is optional, and is disabled when num_partition_servers is set to zero. In that case the trainers “send” each other the embeddings simply by writing them to the checkpoint directory (which should reside on a shared disk) and then fetching them back from there.<br>此服务是可选的，并且在num_partition_servers设置为零时被禁用。 在这种情况下，训练器只需将嵌入内容写入“检查点”目录（应位于共享磁盘上），然后从那里取回它们，即可相互“发送”嵌入内容。</p>
 <p>When this system is enabled, it can operate in two modes. The simplest mode is triggered when num_partition_servers is -1 (the default): in that case all trainers spawn a local process that acts as a partition server. If, on the other hand, num_partition_servers is a positive value then the trainers will not spawn any process, but will instead connect to the partition servers that the user must have provisioned manually by launching the torchbiggraph_partitionserver command on the appropriate number of machines.<br>启用此系统后，它可以在两种模式下运行。 当num_partition_servers为-1（默认值）时，将触发最简单的模式：在这种情况下，所有训练器都会生成一个充当分区服务器的本地进程。 另一方面，如果num_partition_servers为正值，那么训练器将不会产生任何进程，而是将会连接到用户手动设置的提供的分区服务器上，用户通过在适当数量的机器上运行torchbiggraph_partitionserver来实现预先供给。</p>
 <h3 id="Updating-shared-parameters"><a href="#Updating-shared-parameters" class="headerlink" title="Updating shared parameters"></a>Updating shared parameters</h3><p>Some parameters of the model need to be used by all trainers at the same time (this includes the operator weights, the global embeddings of each entity type, the embeddings of the unpartitioned entities). These are parameters that don’t depend on what bucket the trainer is operating on, and therefore are always present on all trainers (as opposed to the entity embeddings, which are loaded and unloaded as needed). These parameters are synchronized using a series of “parameter servers”. Each trainer starts a local parameter server (in a separate subprocess) and connects to all other parameter servers. Each parameter that is shared between trainers is then stored in a parameter server (possibly sharded across several of them, if too large). Each trainer also has a loop (also in a separate subprocess) which, at regular intervals, goes over each shared parameter, computes the difference between its current local value and the value it had when it was last synced with the server where the parameter is hosted and sends that delta to that server. The server, in turn, accumulates all the deltas it receives from all trainers, updates the value of the parameter and sends this new value back to the trainers. The parameter server performs throttling to 100 updates/s or 1GB/s, in order to prevent the parameter server from starving the other communication.<br>所有训练器必须同时使用模型的某些参数（这包括操作员权重，每种实体类型的全局嵌入，未分区实体的嵌入）。这些参数并不取决于那些训练器正在操作的桶，因此其始终存在于所有训练器上（与实体嵌入情况相仿，实体嵌入根据需要进行加载和卸载）这些参数使用一系列“参数服务器”进行同步。每一个训练器开启一个本地的参数服务器（以一个独自的子进程）并且和其他所有的参数服务器进行连接。每一个被训练器共享的参数被存储在参数服务器中（如果参数太大的话，则可能将其分散在其中的几个服务器中）。每一个训练器还有一个loop（同样也在一个子进程中），该循环以固定的时间间隔遍历每个共享参数，计算其当前本地值与上次与该服务器上次与服务器同步时所具有的值之间的差，那些服务器的参数值是被托管并且发送到本地的子进程中。反过来，服务器会累积从所有训练器那里收到的所有差，更新参数的值，然后将此新值发送回训练器。参数服务器执行限制至100个更新每秒或者1GB每秒，以防止参数服务器使其他通信中断。</p>
+<p>源地址：<a target="_blank" rel="noopener" href="https://torchbiggraph.readthedocs.io/en/latest/distributed_training.html">https://torchbiggraph.readthedocs.io/en/latest/distributed_training.html</a></p>
 
     </div>
 
@@ -298,8 +299,8 @@
       <i class="fa fa-chevron-left"></i> PyTorch-BigGraph  批准备
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/10/30/PBG-Loss-calculation/" rel="next" title="PyTorch-BigGraph 损失函数">
-      PyTorch-BigGraph 损失函数 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/10/30/PBG-Loss-calculation/" rel="next" title="PyTorch-BigGraph 损失计算">
+      PyTorch-BigGraph 损失计算 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -444,7 +445,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共29.8k字</span>
+    <span class="post-count">共33.8k字</span>
 </div>
 
         

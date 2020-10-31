@@ -203,7 +203,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/30/PBG-Loss-calculation/" class="post-title-link" itemprop="url">PyTorch-BigGraph 损失函数</a>
+            <a href="/2020/10/30/PBG-Loss-calculation/" class="post-title-link" itemprop="url">PyTorch-BigGraph 损失计算</a>
         </h2>
 
         <div class="post-meta">
@@ -214,7 +214,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-10-30 16:05:30 / Modified: 16:05:49" itemprop="dateCreated datePublished" datetime="2020-10-30T16:05:30-07:00">2020-10-30</time>
+              <time title="Created: 2020-10-30 16:05:30 / Modified: 18:23:13" itemprop="dateCreated datePublished" datetime="2020-10-30T16:05:30-07:00">2020-10-30</time>
             </span>
 
           
@@ -244,7 +244,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="PyTorch-BigGraph-损失计算"><a href="#PyTorch-BigGraph-损失计算" class="headerlink" title="PyTorch-BigGraph 损失计算"></a>PyTorch-BigGraph 损失计算</h1><p>The training process aims at finding the embeddings for the entities so that the scores of the positive edges are higher than the scores of the negative edges. When unpacking what this means, three different aspects come into play:<br>训练过程旨在找到实体的嵌入，使得正边实例的得分高于负边实例的得分。 具体的说，分为以下三个部分：</p>
+<p>• One must first determine which edges are to be considered as positive and negative samples.<br>• Then, once the scores of all the samples have been determined, one must decide how to aggregate them in a single loss value.<br>• Finally, one must decide how to go about optimizing that loss.</p>
+<p>• 首先必须确定哪些边被视为正样本和负样本。<br>• 然后，一旦确定了所有样本的得分，就必须决定如何将它们汇总为一个损失值。<br>• 最后，必须决定如何优化这一损失。</p>
+<p>This chapter will dive into each of these issues.<br>本章将深入探讨这些问题。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/30/PBG-Loss-calculation/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -295,7 +306,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-29 01:44:43" itemprop="dateModified" datetime="2020-10-29T01:44:43-07:00">2020-10-29</time>
+                <time title="Modified: 2020-10-30 18:23:40" itemprop="dateModified" datetime="2020-10-30T18:23:40-07:00">2020-10-30</time>
               </span>
 
           
@@ -386,7 +397,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-28 01:19:01" itemprop="dateModified" datetime="2020-10-28T01:19:01-07:00">2020-10-28</time>
+                <time title="Modified: 2020-10-30 18:23:53" itemprop="dateModified" datetime="2020-10-30T18:23:53-07:00">2020-10-30</time>
               </span>
 
           
@@ -470,10 +481,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-10-27 00:23:33 / Modified: 01:20:01" itemprop="dateCreated datePublished" datetime="2020-10-27T00:23:33-07:00">2020-10-27</time>
+              <time title="Created: 2020-10-27 00:23:33" itemprop="dateCreated datePublished" datetime="2020-10-27T00:23:33-07:00">2020-10-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-30 18:23:28" itemprop="dateModified" datetime="2020-10-30T18:23:28-07:00">2020-10-30</time>
+              </span>
 
           
   
@@ -554,10 +571,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-10-23 21:31:39 / Modified: 23:21:59" itemprop="dateCreated datePublished" datetime="2020-10-23T21:31:39-07:00">2020-10-23</time>
+              <time title="Created: 2020-10-23 21:31:39" itemprop="dateCreated datePublished" datetime="2020-10-23T21:31:39-07:00">2020-10-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-30 18:24:00" itemprop="dateModified" datetime="2020-10-30T18:24:00-07:00">2020-10-30</time>
+              </span>
 
           
   
@@ -1205,7 +1228,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共29.8k字</span>
+    <span class="post-count">共33.8k字</span>
 </div>
 
         

@@ -26,7 +26,7 @@
 <meta property="og:description" content="PBG 批准备This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。 Training proceeds b">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-28T06:05:23.000Z">
-<meta property="article:modified_time" content="2020-10-28T08:19:01.598Z">
+<meta property="article:modified_time" content="2020-10-31T01:23:53.191Z">
 <meta property="article:author" content="Bin">
 <meta property="article:tag" content="PyTorch-BigGraph">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-28 01:19:01" itemprop="dateModified" datetime="2020-10-28T01:19:01-07:00">2020-10-28</time>
+                <time title="Modified: 2020-10-30 18:23:53" itemprop="dateModified" datetime="2020-10-30T18:23:53-07:00">2020-10-30</time>
               </span>
 
           
@@ -264,6 +264,7 @@
 </blockquote>
 <p>The way each worker trains on its set of edges depends on whether dynamic relations are in use. The simplest scenario is if they are, in which case the edges are split into contiguous batches (each one having the size specified in the batch_size configuration key, except possibly the last one which could be smaller). Training is then performed on that batch before moving on to the next one.<br>worker训练边集合的方式取决于是否使用动态关系。最简单的情况是，如果边被分成连续的批次，（每个批次具有一样的大小，并且其在配置文件的batch_size中指定，最后一个批次可能会小些。）训练分批次依次进行训练。</p>
 <p>When dynamic relations are not in use, however, the loss can only be computed on a set of edges that are all of the same type. Thus the worker first randomly samples a relation type, with probability proportional to the number of edges of that type that are left in the pool. It then takes the first batch_size relations of that type (or fewer, if not enough of them are left), removes them from the pool and performs training on them.<br>当不使用动态关系的时候，损失函数将只能用于同种关系类型的边计算。因此worker首先需要随机的选出某一种关系类型的样本，（挑选概率和池子残留的边成正比）。随后，其采用该类型的第一个batch_size（如果剩余的不多的话，数目可能会很少）,从池子中移除然后进行训练。</p>
+<p>源地址：<a target="_blank" rel="noopener" href="https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html">https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html</a></p>
 
     </div>
 
@@ -433,7 +434,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共29.8k字</span>
+    <span class="post-count">共33.8k字</span>
 </div>
 
         
