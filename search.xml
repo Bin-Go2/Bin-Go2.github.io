@@ -75,6 +75,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Leetcode-滑动窗口</title>
+    <url>/2020/09/09/Algorithm-sliding-window/</url>
+    <content><![CDATA[<h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p><u>连续</u>子数组</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ul>
+<li>根据要求，找到第一个满足条件的窗口</li>
+<li>调整窗口(右移/左移)使其继续满足要求，并进行重复</li>
+<li>得到最合适的窗口即为答案</li>
+</ul>
+<h3 id="Leetcode例题"><a href="#Leetcode例题" class="headerlink" title="Leetcode例题"></a>Leetcode例题</h3><h5 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">if</span> len(s) == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_start,res = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(s)):</span><br><span class="line">        char = s[window_end]</span><br><span class="line">        <span class="keyword">if</span> char <span class="keyword">in</span> dic <span class="keyword">and</span> dic[char]&gt;=window_start: <span class="comment"># 注意这里的第二个条件dic[char]&gt;=window_start！！ 起到一个覆盖的作用</span></span><br><span class="line">            window_start = dic[char] +<span class="number">1</span></span><br><span class="line">        dic[char] = window_end</span><br><span class="line">        width = window_end-window_start+<span class="number">1</span></span><br><span class="line">        res = max(width,res)</span><br><span class="line">    <span class="keyword">return</span> res  </span><br></pre></td></tr></table></figure>
+
+<h5 id="大小为-K-且平均值大于等于阈值的子数组数目"><a href="#大小为-K-且平均值大于等于阈值的子数组数目" class="headerlink" title="大小为 K 且平均值大于等于阈值的子数组数目"></a><a href="https://leetcode-cn.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/">大小为 K 且平均值大于等于阈值的子数组数目</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numOfSubarrays</span>(<span class="params">arr,k,threshold</span>):</span></span><br><span class="line">    <span class="keyword">if</span> arr == [] <span class="keyword">or</span> len(arr)&lt;k:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_sum,window_start,res = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    temp = threshold*k</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">        window_sum+=arr[window_end]</span><br><span class="line">        <span class="keyword">if</span> window_end&gt;=k<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> window_sum &gt;=temp:</span><br><span class="line">                res+=<span class="number">1</span></span><br><span class="line">            window_sum-=arr[window_start]</span><br><span class="line">            window_start+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h5 id="替换后的最长重复字符"><a href="#替换后的最长重复字符" class="headerlink" title="替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/">最小覆盖子串</a></h5><h5 id="滑动窗口中位数"><a href="#滑动窗口中位数" class="headerlink" title="滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></h5><h5 id="滑动窗口最大值"><a href="#滑动窗口最大值" class="headerlink" title="滑动窗口最大值"></a><a href="https://leetcode-cn.com/problems/sliding-window-maximum/">滑动窗口最大值</a></h5>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode-二叉树</title>
     <url>/2020/09/17/Algorithm-binarytree/</url>
     <content><![CDATA[<h2 id="二叉树的一些思想"><a href="#二叉树的一些思想" class="headerlink" title="二叉树的一些思想"></a>二叉树的一些思想</h2><ul>
@@ -108,30 +132,6 @@
 <h4 id="剑指-Offer-68-II-二叉树的最近公共祖先"><a href="#剑指-Offer-68-II-二叉树的最近公共祖先" class="headerlink" title="剑指 Offer 68 - II. 二叉树的最近公共祖先"></a><a href="https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/">剑指 Offer 68 - II. 二叉树的最近公共祖先</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self, root: TreeNode, p: TreeNode, q: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root <span class="keyword">or</span> p == root <span class="keyword">or</span> q == root: <span class="keyword">return</span> root</span><br><span class="line"></span><br><span class="line">    left = self.lowestCommonAncestor(root.left,p,q)</span><br><span class="line">    right = self.lowestCommonAncestor(root.right,p,q)</span><br><span class="line">    <span class="comment">### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> left <span class="keyword">and</span> <span class="keyword">not</span> right: <span class="keyword">return</span>  <span class="comment"># 左右子树均为空</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> left: <span class="keyword">return</span> right        <span class="comment"># 右空，左不空</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> right:<span class="keyword">return</span> left         <span class="comment"># 左空，右不空</span></span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> root                  <span class="comment"># 左右均不空</span></span><br><span class="line">    <span class="comment">### 对根节点的操作 #####</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="637-二叉树的层平均值"><a href="#637-二叉树的层平均值" class="headerlink" title="637. 二叉树的层平均值"></a><a href="https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/">637. 二叉树的层平均值</a></h4>]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Leetcode-滑动窗口</title>
-    <url>/2020/09/09/Algorithm-sliding-window/</url>
-    <content><![CDATA[<h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p><u>连续</u>子数组</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ul>
-<li>根据要求，找到第一个满足条件的窗口</li>
-<li>调整窗口(右移/左移)使其继续满足要求，并进行重复</li>
-<li>得到最合适的窗口即为答案</li>
-</ul>
-<h3 id="Leetcode例题"><a href="#Leetcode例题" class="headerlink" title="Leetcode例题"></a>Leetcode例题</h3><h5 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">if</span> len(s) == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_start,res = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(s)):</span><br><span class="line">        char = s[window_end]</span><br><span class="line">        <span class="keyword">if</span> char <span class="keyword">in</span> dic <span class="keyword">and</span> dic[char]&gt;=window_start: <span class="comment"># 注意这里的第二个条件dic[char]&gt;=window_start！！ 起到一个覆盖的作用</span></span><br><span class="line">            window_start = dic[char] +<span class="number">1</span></span><br><span class="line">        dic[char] = window_end</span><br><span class="line">        width = window_end-window_start+<span class="number">1</span></span><br><span class="line">        res = max(width,res)</span><br><span class="line">    <span class="keyword">return</span> res  </span><br></pre></td></tr></table></figure>
-
-<h5 id="大小为-K-且平均值大于等于阈值的子数组数目"><a href="#大小为-K-且平均值大于等于阈值的子数组数目" class="headerlink" title="大小为 K 且平均值大于等于阈值的子数组数目"></a><a href="https://leetcode-cn.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/">大小为 K 且平均值大于等于阈值的子数组数目</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numOfSubarrays</span>(<span class="params">arr,k,threshold</span>):</span></span><br><span class="line">    <span class="keyword">if</span> arr == [] <span class="keyword">or</span> len(arr)&lt;k:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    window_sum,window_start,res = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    temp = threshold*k</span><br><span class="line">    <span class="keyword">for</span> window_end <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">        window_sum+=arr[window_end]</span><br><span class="line">        <span class="keyword">if</span> window_end&gt;=k<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> window_sum &gt;=temp:</span><br><span class="line">                res+=<span class="number">1</span></span><br><span class="line">            window_sum-=arr[window_start]</span><br><span class="line">            window_start+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<h5 id="替换后的最长重复字符"><a href="#替换后的最长重复字符" class="headerlink" title="替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/">替换后的最长重复字符</a></h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h5 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/">最小覆盖子串</a></h5><h5 id="滑动窗口中位数"><a href="#滑动窗口中位数" class="headerlink" title="滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/">滑动窗口中位数</a></h5><h5 id="滑动窗口最大值"><a href="#滑动窗口最大值" class="headerlink" title="滑动窗口最大值"></a><a href="https://leetcode-cn.com/problems/sliding-window-maximum/">滑动窗口最大值</a></h5>]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
@@ -216,30 +216,9 @@
       </tags>
   </entry>
   <entry>
-    <title>Commands Often Used</title>
-    <url>/2020/09/05/Commands%20Often%20Used/</url>
-    <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br><span class="line">$ ls -l | grep &quot;^-&quot; | wc -l   # 统计当前文件夹下文件的个数（不包括目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下文件的个数（包括子目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下目录的个数（包括子目录）</span><br><span class="line"></span><br><span class="line">$ gzip –c filename &gt; filename.gz  	# 压缩文件成gz文件（保留原文件）</span><br><span class="line">$ gunzip –c filename.gz &gt; filename  # 解压gz文件（保留gz文件）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Mac:</span><br><span class="line">$ sysctl machdep.cpu #所有信息</span><br><span class="line">$ sysctl -n machdep.cpu.brand_string    # CPU型号</span><br><span class="line">$ sysctl -n machdep.cpu.core_count      # CPU核心数</span><br><span class="line">$ sysctl -n machdep.cpu.thread_count    # 线程数</span><br><span class="line"></span><br><span class="line">Linux</span><br><span class="line">$ grep &#39;physical id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u  # 查看物理cpu个数</span><br><span class="line">$ grep &#39;core id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 核心数量</span><br><span class="line">$ grep &#39;processor&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 线程数</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Efficiency</category>
-      </categories>
-      <tags>
-        <tag>Commands</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DSCI-553-outline</title>
     <url>/2020/10/23/DSCI-553-outline/</url>
-    <content><![CDATA[<h2 id="DSCI551-Foundations-and-Applications-of-Data-Mining"><a href="#DSCI551-Foundations-and-Applications-of-Data-Mining" class="headerlink" title="DSCI551 - Foundations and Applications of Data Mining"></a>DSCI551 - Foundations and Applications of Data Mining</h2><h3 id="Part1"><a href="#Part1" class="headerlink" title="Part1:"></a>Part1:</h3><!-- <a href="/2020/09/06/Firebase-rest-web-api/" title="Firebase rest &amp; web api">Firebase rest &amp; web api</a>  -->
-
-<h3 id="Part2"><a href="#Part2" class="headerlink" title="Part2:"></a>Part2:</h3><!-- <a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a>  -->
+    <content><![CDATA[<h2 id="DSCI551-Foundations-and-Applications-of-Data-Mining"><a href="#DSCI551-Foundations-and-Applications-of-Data-Mining" class="headerlink" title="DSCI551 - Foundations and Applications of Data Mining"></a>DSCI551 - Foundations and Applications of Data Mining</h2><h3 id="Week1"><a href="#Week1" class="headerlink" title="Week1:  "></a>Week1:  <a href="/2020/11/10/553week1/" title="数据挖掘, MapReduce 介绍">数据挖掘, MapReduce 介绍</a></h3><h3 id="Part2"><a href="#Part2" class="headerlink" title="Part2:"></a>Part2:</h3><!-- <a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a>  -->
 
 
 <h3 id="Part3"><a href="#Part3" class="headerlink" title="Part3: "></a>Part3: <a href="/2020/10/23/Social-network/" title="社交网络">社交网络</a></h3><!-- <a href="/2020/09/10/File-Systems/" title="File systems">File systems</a>  -->
@@ -261,11 +240,389 @@
       </tags>
   </entry>
   <entry>
+    <title>数据挖掘, MapReduce 介绍</title>
+    <url>/2020/11/10/553week1/</url>
+    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Terms"><a href="#Terms" class="headerlink" title="Terms"></a>Terms</h2><ul>
+<li><p>Data mining: Discover patterns and models that are:</p>
+<ul>
+<li>Valid:  hold on new data with some certainty</li>
+<li>Useful:  should be possible to act on the item </li>
+<li>Unexpected:  non-obvious to the system</li>
+<li>Understandable: humans should be able to interpret the pattern</li>
+</ul>
+</li>
+<li><p>DIKW Pyramid: Data, Information, Knowledge and wisdom<br>  <img src="/image/DIKW.png"></p>
+</li>
+<li><p>Data mining task: </p>
+<ul>
+<li>Descriptive Models: Find human-interpretable patterns that describe the data</li>
+<li>Predictive Models: Use some variables to predict unknown or future values of other variables</li>
+</ul>
+</li>
+<li><p>Data science pipeline<br><img src="/image/ds_pro.png"></p>
+</li>
+<li><p>Bonferroni’s principle:(roughly) if you look in more places for interesting patterns than your amount of data will support, you are bound to find crap.(数据支撑的前提是数据) </p>
+</li>
+</ul>
+<h2 id="Descriptive-Models"><a href="#Descriptive-Models" class="headerlink" title="Descriptive Models"></a>Descriptive Models</h2><p>Often, especially for ML-type algorithms, the result is a model = a simple representation of the data, typically used for prediction.<br>example: PageRank : representing the “importance” of the page.</p>
+<h2 id="Predictive-Models"><a href="#Predictive-Models" class="headerlink" title="Predictive Models"></a>Predictive Models</h2><p>In many applications, all we want is an algorithm that will say “yes” or “no”<br>example: spam email detection</p>
+<h2 id="Thing-will-be-convered"><a href="#Thing-will-be-convered" class="headerlink" title="Thing will be convered"></a>Thing will be convered</h2><p>Data: high dimensional｜graph｜infinite/never-ending ｜ labeled<br>Model: MapReduce ｜Streams and online algorithms ｜Single machine in-memory<br>Real-world problems:  Recommender systems| Market Basket Analysis| Spam detection| Duplicate document detection<br>Theory:</p>
+<ul>
+<li>Linear algebra (SVD, Rec. Sys., Communities)</li>
+<li>Optimization (stochastic gradient descent)</li>
+<li>Dynamic programming (frequent itemsets)</li>
+<li>Hashing (LSH, Bloom filters)</li>
+</ul>
+<p><img src="/image/553overview.png"></p>
+<h2 id="Bonferroni’s-Principle"><a href="#Bonferroni’s-Principle" class="headerlink" title="Bonferroni’s Principle"></a>Bonferroni’s Principle</h2><p>an informal presentation of a statistical theorem:</p>
+<ul>
+<li>that states if your method of finding significant items returns significantly more items that you would expect in the actual population, </li>
+<li>you can assume most of the items you find with it are bogus.</li>
+</ul>
+<p>简单的说就是FP过多，误诊率太高。</p>
+<p>example:</p>
+<ol>
+<li>Rhine’s Paradox(莱茵悖论), 猜卡片红蓝</li>
+<li>Total Information Awareness (TIA)，根据信息预测犯罪, 这个挺有意思。</li>
+</ol>
+<p>TIA:<br>问题定义: “evil-doers” periodically gather at a hotel to plot their evil.<br>假设: One billion people might be evil-doers; Everyone goes to a hotel one day in 100; A hotel holds 100 people; Examine hotel records for 1000 days;100,000 hotels<br>策略: look for people who, on two different days, were both at the same hotel.<br>真实情况: no evil-doers or few evil-doers(let’s say 10), everyone behaves randomly </p>
+<p>根据假设得到的结果:<br>Probability that given persons p  and q  will be at the same hotel on given day d :<br>1/100 x 1/100 x 1/100,000 = 10^-9<br>Probability that p  and q  will be at the same hotel on given days d1 and d2:<br>10^-9 * 10^-9 = 10^-18<br>Pairs of days:<br>1000 x 999/2 = 5x10^5(roughly)<br>Probability that p and q will be at the same hotel on some two days:<br>10^-18 x 5x10^5 = = 5 x 10^-13<br>Pairs of people:<br>10^9 x 10^9 /2 = 5 x 10^17 (roughly)<br>Expected number of “suspicious” pairs of people(根据策略得到的可疑犯罪):<br>5 x 10^-13  x 5 x 10^17 = 250,000 &gt;&gt; 10</p>
+<h2 id="Moral-DS道义"><a href="#Moral-DS道义" class="headerlink" title="Moral (DS道义)"></a>Moral (DS道义)</h2><p>When looking for a property (e.g., “two people stayed at the same hotel twice”), make sure that the property does not allow so many possibilities that random data will surely produce facts “of interest.”<br>简单的说，就是需要发现的规则不要受到太多因素的影响。</p>
+<h1 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h1><h2 id="Work-flow-of-MapReduce"><a href="#Work-flow-of-MapReduce" class="headerlink" title="Work flow of MapReduce"></a>Work flow of MapReduce</h2><ul>
+<li>Read inputs as a set of key-value-pairs</li>
+<li>Map transforms input kv-pairs into a new set of k’v’-pairs</li>
+<li>Sorts &amp; Shuffles the k’v’-pairs to output nodes</li>
+<li>All k’v’-pairs with a given k’ are sent to the same reduce</li>
+<li>Reduce processes all k’v’-pairs grouped by key into new k’’v’’-pairs</li>
+<li>Write the resulting pairs to files</li>
+</ul>
+<p>example: documents word count</p>
+<p>Problem: Counting the number of occurrences for each word in a collection of documents<br>Input: A repository of documents, and each document is an element</p>
+<p>Map function:<br>The Map task reads a document and breaks it into its sequence of words w1, w2, . . . , wn.<br>It then emits a sequence of key-value pairs where the value is always 1.   (w1, 1), (w2, 1), . . . ,(wn, 1)<br>When the Reduce function is associative and commutative, we can push some of what the reducers do to the Map tasks:<br>An option, is to combine m key-value pairs (w, 1) into a single pair (w, m).</p>
+<p>Reduce function:<br>The output of a reducer consists of the word and the sum (w, m), where w is a word that appears at least once among.<br>Collects all values and aggregates by key.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">input format</span><br><span class="line"></span><br><span class="line">Input: a set of key-value pairs</span><br><span class="line">Programmer specifies two methods:</span><br><span class="line">Map(k, v)  -&gt;  &lt;k’, v’&gt;*</span><br><span class="line">Takes a key-value pair and outputs a set of key-value pairs</span><br><span class="line">E.g., key is the filename, value is a single line in the file</span><br><span class="line">There is one Map call for every (k,v) pair</span><br><span class="line"></span><br><span class="line">Reduce(k’, &lt;v’&gt;*) -&gt; &lt;k’, v’’&gt;*</span><br><span class="line">All values v’ with same key k’ are reduced together and processed in v’ order</span><br><span class="line">There is one Reduce function call per unique key k’</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="MapReduce-Environment"><a href="#MapReduce-Environment" class="headerlink" title="MapReduce Environment"></a>MapReduce Environment</h2><ol>
+<li><code>Partitioning</code> the input data</li>
+<li><code>Scheduling</code> the program’s execution across a set of machines</li>
+<li>Performing the <code>group by key</code> step : In practice this is the bottleneck</li>
+<li>Handling machine <code>failures</code></li>
+<li>Managing required inter-machine: <code>Communication</code></li>
+</ol>
+<h2 id="Dataflow"><a href="#Dataflow" class="headerlink" title="Dataflow"></a>Dataflow</h2><ul>
+<li>Input and final output are stored on a distributed file system (HDFS): Scheduler tries to schedule map tasks “close” to physical storage location of input data</li>
+<li>Intermediate results are stored on local FS of Map and Reduce workers</li>
+<li>Output is often input to another MapReduce task.</li>
+</ul>
+<h2 id="Grouping-by-Key"><a href="#Grouping-by-Key" class="headerlink" title="Grouping by Key"></a>Grouping by Key</h2><ul>
+<li><p>After all Map tasks have all completed successfully:Key-value pairs are grouped by key(Values associated with each key are formed into a list of values)</p>
+</li>
+<li><p>Grouping is performed by the system, regardless of what the Map and Reduce tasks do</p>
+</li>
+<li><p>The master controller typically applies a hash function to keys and produces a bucket number from 0 to r-1</p>
+</li>
+<li><p>Each key that is output by a Map task is hashed and its key-value pair is put in one of r local files</p>
+</li>
+<li><p>Each file is sent to one of the Reduce tasks.</p>
+</li>
+</ul>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><p>Why perform task in the Map task rather than the Reduce task? Reduce communication: send less data over network; Perform logic in the Map where possible without introducing errors.</p>
+<h1 id="Reference-book"><a href="#Reference-book" class="headerlink" title="Reference book"></a>Reference book</h1><p>Mining of Massive Datasets: <a href="http://infolab.stanford.edu/~ullman/mmds/book.pdf">http://infolab.stanford.edu/~ullman/mmds/book.pdf</a></p>
+]]></content>
+      <tags>
+        <tag>Data Mining</tag>
+        <tag>Big Data</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DSCI558-outline</title>
     <url>/2020/10/11/DSCI558-outline/</url>
     <content><![CDATA[<h2 id="DSCI558-Building-Knowledge-Graphs"><a href="#DSCI558-Building-Knowledge-Graphs" class="headerlink" title="DSCI558 - Building Knowledge Graphs"></a>DSCI558 - Building Knowledge Graphs</h2><h3 id="待续"><a href="#待续" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-1"><a href="#待续-1" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-2"><a href="#待续-2" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-3"><a href="#待续-3" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-4"><a href="#待续-4" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-5"><a href="#待续-5" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-6"><a href="#待续-6" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-7"><a href="#待续-7" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-8"><a href="#待续-8" class="headerlink" title="待续"></a>待续</h3><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/10/11/Probabilistic-Models-for-KG-Construction/" title="PSL">PSL</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" title="Blocking and Relational Entity Resolution">Blocking and Relational Entity Resolution</a></h3>]]></content>
       <tags>
         <tag>Course</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XML</title>
+    <url>/2020/09/18/File-Format/</url>
+    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li>XML：eXtensible Markup Language</li>
+<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
+<li>Can translate <em>any</em> data to XML</li>
+<li>Can ship XML over the Web (HTTP)</li>
+<li>Can input XML into any application</li>
+</ul>
+</li>
+</ul>
+<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
+<ul>
+<li>XML is self-describing</li>
+<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
+<li>XML is semi-structured <ul>
+<li>missing attributes  (could be represented as null in table)</li>
+<li>repeated attributes (impossible in table)</li>
+<li>Attributes with different types in different objects</li>
+<li>Nested structures</li>
+<li>Heterogeneous contents</li>
+</ul>
+</li>
+<li>an XML document has a single root element</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">example:</span><br><span class="line"><span class="tag">&lt;<span class="name">bib</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">  <span class="tag">&lt;<span class="name">book</span> <span class="attr">price</span>=<span class="string">&quot;35&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publisher</span>&gt;</span>Addison-Wesley<span class="tag">&lt;/<span class="name">publisher</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span>Serge Abiteboul<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">first-name</span>&gt;</span>Rick<span class="tag">&lt;/<span class="name">first-name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">last-name</span>&gt;</span>Hull<span class="tag">&lt;/<span class="name">last-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span> <span class="attr">age</span>=<span class="string">&quot;20&quot;</span>&gt;</span>Victor Vianu<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Foundations of Databases<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">year</span>&gt;</span>1995<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">price</span>&gt;</span>38.8<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">book</span> <span class="attr">price</span>=<span class="string">&quot;55&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publisher</span>&gt;</span>Freeman<span class="tag">&lt;/<span class="name">publisher</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span>Jeffrey D. Ullman<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Principles of Database and Knowledge Base Systems<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">year</span>&gt;</span>1998<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">book</span>&gt;</span> </span><br><span class="line">... </span><br><span class="line"><span class="tag">&lt;/<span class="name">bib</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Querying-XML-Data"><a href="#Querying-XML-Data" class="headerlink" title="Querying XML Data"></a>Querying XML Data</h3><h4 id="XPath-simple-navigation-through-the-tree"><a href="#XPath-simple-navigation-through-the-tree" class="headerlink" title="XPath: simple navigation through the tree"></a>XPath: simple navigation through the tree</h4><p><img src="/image/xpath.png"></p>
+<h3 id="lxml"><a href="#lxml" class="headerlink" title="lxml"></a>lxml</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ pip install lxml</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">f = open(<span class="string">&#x27;bibs.xml&#x27;</span>)</span><br><span class="line">tree = etree.parse(f)</span><br><span class="line">print(etree.tostring(tree, pretty_print=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> tree.xpath(<span class="string">&quot;//author&quot;</span>): </span><br><span class="line">    print(etree.tostring(element))</span><br><span class="line">    print(element.tag, element.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>File Format</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Commands Often Used</title>
+    <url>/2020/09/05/Commands%20Often%20Used/</url>
+    <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br><span class="line">$ ls -l | grep &quot;^-&quot; | wc -l   # 统计当前文件夹下文件的个数（不包括目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下文件的个数（包括子目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下目录的个数（包括子目录）</span><br><span class="line"></span><br><span class="line">$ gzip –c filename &gt; filename.gz  	# 压缩文件成gz文件（保留原文件）</span><br><span class="line">$ gunzip –c filename.gz &gt; filename  # 解压gz文件（保留gz文件）</span><br><span class="line"></span><br><span class="line">$ head -n 10 filename  # 查看文件前十行内容</span><br><span class="line">$ tail -n 10 filename  # 查看文件后十行内容</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Mac:</span><br><span class="line">$ sysctl machdep.cpu #所有信息</span><br><span class="line">$ sysctl -n machdep.cpu.brand_string    # CPU型号</span><br><span class="line">$ sysctl -n machdep.cpu.core_count      # CPU核心数</span><br><span class="line">$ sysctl -n machdep.cpu.thread_count    # 线程数</span><br><span class="line"></span><br><span class="line">Linux</span><br><span class="line">$ grep &#39;physical id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u  # 查看物理cpu个数</span><br><span class="line">$ grep &#39;core id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 核心数量</span><br><span class="line">$ grep &#39;processor&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 线程数</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Efficiency</category>
+      </categories>
+      <tags>
+        <tag>Commands</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Firebase rest &amp; web api</title>
+    <url>/2020/09/06/Firebase-rest-web-api/</url>
+    <content><![CDATA[<h2 id="Firebase-概述（BaaS）"><a href="#Firebase-概述（BaaS）" class="headerlink" title="Firebase 概述（BaaS）"></a>Firebase 概述（BaaS）</h2><p>Firebase谷歌的一款应用后台服务。借助Firebase，应用开发者们可以快速搭建应用后台。</p>
+<h3 id="产品"><a href="#产品" class="headerlink" title="产品"></a>产品</h3><ol>
+<li>Firebase (realtime) database: Manage <strong>JSON</strong> documents + Real-time <strong>syncing</strong> data between users and devices</li>
+<li>Firebase (cloud) storage: Store images, photos, videos</li>
+<li>Firebase (user) authentication: Support sign in using Google, Facebook</li>
+</ol>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>Create a Firebase account: first use Google account,then go to Firebase console: <a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a></li>
+<li>Click on “Add project”  to create a Firebase project</li>
+<li>Add Firebase to your web app</li>
+<li>any other interesting operation …</li>
+</ol>
+<h3 id="关于-Realtime-database"><a href="#关于-Realtime-database" class="headerlink" title="关于 Realtime database"></a>关于 Realtime database</h3><ul>
+<li>Data in JSON(Javascript Object Notation) format  <a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a> </li>
+<li>When creating a real-time database, we should open up the access to allow us to read and write the data.</li>
+<li>There are some difference between storing style from JSON file and Firebase real-time database<ol>
+<li>JSON文件中的array元素在Realtime database下以object的形式存在，object对应的key为数组元素的索引</li>
+<li>JSON文件可以保存value为null的键值对，Realtime database则会忽略这一对键值对<br><img src="/image/firebase1.png"></li>
+</ol>
+</li>
+</ul>
+<h2 id="Firebase-REST-API"><a href="#Firebase-REST-API" class="headerlink" title="Firebase REST API"></a>Firebase REST API</h2><h3 id="关于RESTful-API"><a href="#关于RESTful-API" class="headerlink" title="关于RESTful API"></a>关于RESTful API</h3><p> REST：Representation State Transfer，表现层状态转移<br> 一句话解释的话就是:通过URL定位资源，用HTTP动词（GET, POST, PUT, DELETE)描述操作从而用来实现前后端数据传输的协议。</p>
+<h3 id="命令行进行http数据传输：curl"><a href="#命令行进行http数据传输：curl" class="headerlink" title="命令行进行http数据传输：curl"></a>命令行进行http数据传输：curl</h3><p>  For command operation, it’s convenient to use <strong>curl</strong> (Command line tool for data transfer)<br>  curl详细使用：<a href="https://itbilu.com/linux/man/4yZ9qH_7X.html">https://itbilu.com/linux/man/4yZ9qH_7X.html</a><br>  注意，curl大小写敏感，请求的命令参数均为大写字符</p>
+<h3 id="curl例子-CRUD"><a href="#curl例子-CRUD" class="headerlink" title="curl例子 - CRUD"></a>curl例子 - CRUD</h3><p>  PUT &amp; POST (C), GET (R), PATCH (U) ,DELETE (D)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">JSON tree:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">  <span class="string">&quot;lastName&quot;</span>: <span class="string">&quot;Smith&quot;</span>,</span><br><span class="line">  <span class="string">&quot;isMarried&quot;</span>: false,</span><br><span class="line">  <span class="string">&quot;age&quot;</span>: <span class="number">25</span>,</span><br><span class="line">  <span class="string">&quot;height_cm&quot;</span>: <span class="number">167.6</span>,</span><br><span class="line">  <span class="string">&quot;address&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;streetAddress&quot;</span>: <span class="string">&quot;22nd Street&quot;</span>,</span><br><span class="line">    <span class="string">&quot;city&quot;</span>: <span class="string">&quot;New York&quot;</span>,</span><br><span class="line">    <span class="string">&quot;state&quot;</span>: <span class="string">&quot;NY&quot;</span>,</span><br><span class="line">    <span class="string">&quot;postalCode&quot;</span>: <span class="string">&quot;10021-3100&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;phoneNumbers&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;type&quot;</span>: <span class="string">&quot;home&quot;</span>,</span><br><span class="line">      <span class="string">&quot;number&quot;</span>: <span class="string">&quot;212 555-1234&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;type&quot;</span>: <span class="string">&quot;office&quot;</span>,</span><br><span class="line">      <span class="string">&quot;number&quot;</span>: <span class="string">&quot;646 555-4567&quot;</span>,</span><br><span class="line">      <span class="string">&quot;xyz&quot;</span>: null</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;children&quot;</span>: [],</span><br><span class="line">  <span class="string">&quot;spouse&quot;</span>: null,</span><br><span class="line">  <span class="string">&quot;scores&quot;</span>: [<span class="number">8.5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">10</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="GET-get-the-specific-resource"><a href="#GET-get-the-specific-resource" class="headerlink" title="GET: get the specific resource"></a>GET: get the specific resource</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ curl -X GET &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;address&#x2F;city.json&#39;   return: &quot;New York&quot;%  </span><br><span class="line">-X   可以省略 直接 curl GET url; GET  可以省略 直接 curl url</span><br><span class="line"></span><br><span class="line">$ curl &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;phoneNumbers&#x2F;0.json&#39; #refer to arr element by index</span><br><span class="line">return:&#123;&quot;number&quot;:&quot;212 555-1234&quot;,&quot;type&quot;:&quot;home&quot;&#125;%  </span><br></pre></td></tr></table></figure>
+
+<h4 id="PUT-write-a-given-value-e-g-“Mary”-to-a-specify-node-e-g-“spouse”"><a href="#PUT-write-a-given-value-e-g-“Mary”-to-a-specify-node-e-g-“spouse”" class="headerlink" title="PUT: write a given value (e.g., “Mary”) to a specify node (e.g., “spouse”)"></a>PUT: write a given value (e.g., “Mary”) to a specify node (e.g., “spouse”)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Add if node not exists (could add embedded nodes) - 添加数据</span><br><span class="line">Overwrite if node already has value               - 重写数据</span><br><span class="line"></span><br><span class="line">$ curl -X PUT &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;spouse.json&#39; -d &#39;&quot;Mary&quot;&#39;  # 注意引号</span><br><span class="line"></span><br><span class="line">#This will add a new node &quot;country&quot; (assuming it does not exist yet) </span><br><span class="line">#and a child of this node with key &quot;province&quot; and content: &#123;&quot;name&quot;: &quot;Anhui&quot;&#125;</span><br><span class="line">$ curl -X PUT &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country&#x2F;province.json&#39; -d &#39;&#123;&quot;name&quot;: &quot;Anhui&quot;&#125;&#39; </span><br><span class="line">$ curl -X PUT &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country.json&#39; -d &#39;&#123;&quot;province&quot;: &#123;&quot;name&quot;: &quot;Anhui&quot;&#125;&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="POST-add-new-value-to-a-given-node"><a href="#POST-add-new-value-to-a-given-node" class="headerlink" title="POST: add new value to a given node"></a>POST: add new value to a given node</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Automatically generates a new key &amp; then stores the value for the new key</span><br><span class="line">由于对于添加的数据，其自动生成一个key，所以保证不会重写数据(In contrast, PUT will simply overwrite the key)</span><br><span class="line"> </span><br><span class="line">$ curl -X POST &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country.json&#39; -d &#39;&#123;&quot;province&quot;: &#123;&quot;name&quot;: &quot;Anhui&quot;&#125;&#125;&#39;</span><br><span class="line">$ curl -X POST &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country.json&#39; -d  &#39;&quot;Anhui&quot;&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="PATCH-upsert-a-value-to-a-given-node"><a href="#PATCH-upsert-a-value-to-a-given-node" class="headerlink" title="PATCH:  upsert a value to a given node"></a>PATCH:  upsert a value to a given node</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Performs the update if value already exists  -更新节点</span><br><span class="line">Otherwise, it inserts the new value          -插入新节点</span><br><span class="line">PATCH本质上是一个深度搜索符合节点的条件进行更新或者添加)</span><br><span class="line"></span><br><span class="line">curl -X PATCH &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country.json&#39; -d &#39;&#123;&quot;province&quot;: &#123;&quot;name&quot;: &quot;Hubei&quot;&#125;&#125;&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">好处:相比于PUT（对于已经存在的节点进行全局的修改），本质上来说PATCH实现的是对该节点的局部更新</span><br><span class="line">注意:当需要更新的节点没有子节点（仅仅是一个key-value格式），无法使用PATCH，因为 -d 参数后需要传入键值对的格式</span><br><span class="line">curl -X PATCH &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;spouse.json&#39; -d &#39;&quot;Sam&quot;&#39; # fail</span><br><span class="line">&#123;</span><br><span class="line">  &quot;error&quot; : &quot;Invalid data; couldn&#39;t parse JSON object. Are you sending a JSON object with valid key names?&quot;</span><br><span class="line">&#125;</span><br><span class="line">curl -X PUT &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;spouse.json&#39; -d &#39;&quot;Sam&quot;&#39; # success</span><br></pre></td></tr></table></figure>
+<h4 id="DELETE-delete-a-node"><a href="#DELETE-delete-a-node" class="headerlink" title="DELETE:  delete a node"></a>DELETE:  delete a node</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X DELETE &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;spouse.json&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="从数据增加、减少上对PUT、PATCH和POST进行比较"><a href="#从数据增加、减少上对PUT、PATCH和POST进行比较" class="headerlink" title="从数据增加、减少上对PUT、PATCH和POST进行比较"></a>从数据增加、减少上对PUT、PATCH和POST进行比较</h4><p>PUT可能造成数据的增加（添加新节点下的value）和减少（overwrite整个节点导致其内嵌的节点被删除）；<br>PATCH可能造成数据的增加（添加新节点下的value)和减少（update节点的用更少的数据去取代原先的数据）<br>POST一定会造成数据的增加（因为会自动加上key）；</p>
+<h4 id="data-querying-by-RESful-API"><a href="#data-querying-by-RESful-API" class="headerlink" title="data querying by RESful API"></a>data querying by RESful API</h4><ul>
+<li>orderBy=”$key”  </li>
+<li>orderBy=”<path-to-child-key>“</li>
+<li>orderBy=”$value”  需要在Realtime database的Rules先声明</li>
+<li>startAt/endAt</li>
+<li>equalTo</li>
+<li>limitToFirst/limitToLast </li>
+</ul>
+<p>Specified in database rules:<br><a href="https://firebase.google.com/docs/database/security/indexing-data">https://firebase.google.com/docs/database/security/indexing-data</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X GET &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;scores.json?orderBy&#x3D;&quot;$key&quot;&amp;equalTo&#x3D;&quot;1&quot;&#39;</span><br><span class="line">curl -X GET &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;scores.json?orderBy&#x3D;&quot;$key&quot;&amp;startAt&#x3D;&quot;1&quot;&#39;</span><br><span class="line">curl -X GET &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;scores.json?orderBy&#x3D;&quot;$value&quot;&#39;</span><br><span class="line"></span><br><span class="line">Orders ascendingly:</span><br><span class="line">null -&gt; false -&gt;true -&gt; number -&gt; string -&gt; object</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="REST-API-in-Python"><a href="#REST-API-in-Python" class="headerlink" title="REST API in Python"></a>REST API in Python</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;xxxx&#39;</span><br><span class="line">data &#x3D; &#39;xxx&#39;</span><br><span class="line"></span><br><span class="line">requests.get(url) </span><br><span class="line">requests.put(url, data)</span><br><span class="line">requests.patch(url, data)</span><br><span class="line">requests.delete(url)</span><br><span class="line">requests.post(url, data)</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Commands</tag>
+        <tag>Tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分类问题中的评估指标</title>
+    <url>/2020/11/04/Eva-Classification-Problem/</url>
+    <content><![CDATA[<h2 id="Term"><a href="#Term" class="headerlink" title="Term"></a>Term</h2><ul>
+<li>True Positives (TP): should be TRUE, you predicted TRUE</li>
+<li>False Positives (FP): should be FALSE, you predicted TRUE</li>
+<li>True Negative (TN): should be FALSE, you predicted FALSE</li>
+<li>False Negatives (FN): should be TRUE, you predicted FALSE</li>
+</ul>
+<p>个人看来，TP和TN都很好理解，二者反映了模型对于预测的准确性。FP和FN有点容易记不太顺，所以使用一个例子就很好去区分：<br>张三去看病，是否得了癌症, FP=&gt;误诊, FN=&gt;没查出来。</p>
+<h2 id="Accuracy-准确率"><a href="#Accuracy-准确率" class="headerlink" title="Accuracy - 准确率"></a>Accuracy - 准确率</h2><blockquote>
+<p>What percentage of my predictions are correct? 模型预测的正确性</p>
+</blockquote>
+<p><img src="/image/acc.png"></p>
+<ul>
+<li>Good for single label, binary classifcation.</li>
+<li>Not good for imbalanced datasets. 受数据不均衡影响很大<br>  If, in the dataset, 99% of samples are TRUE and you blindly predict TRUE for everything, you’ll have 0.99 accuracy, but you haven’t actually learned anything.</li>
+</ul>
+<h2 id="Precision-查准率"><a href="#Precision-查准率" class="headerlink" title="Precision - 查准率"></a>Precision - 查准率</h2><blockquote>
+<p>Of the points that I predicted TRUE, how many are actually TRUE? 模型预测的正例中。真实正例的比例</p>
+</blockquote>
+<p><img src="/image/pre.png"></p>
+<ul>
+<li>Good for multi-label / multi-class classification and information retrieval</li>
+<li>Good for unbalanced datasets</li>
+</ul>
+<h2 id="Recall-查全率"><a href="#Recall-查全率" class="headerlink" title="Recall - 查全率"></a>Recall - 查全率</h2><blockquote>
+<p>Of all the points that are actually TRUE, how many did I correctly predict 真实正例中，模型预测为正的比例</p>
+</blockquote>
+<p><img src="/image/recall.png"></p>
+<ul>
+<li>Good for multi-label / multi-class classification and information retrieval</li>
+<li>Good for unbalanced datasets</li>
+</ul>
+<h2 id="F1"><a href="#F1" class="headerlink" title="F1"></a>F1</h2><blockquote>
+<p>Can you give me a single metric that balances precision and recall?  F1-score (alternatively, F1-Measure), is a mixed metric that takes into account both Precision and Recall. 将查全与查准都考虑进去的F1</p>
+</blockquote>
+<p><img src="/image/f1.png"></p>
+<ul>
+<li>Gives equal weight to precision and recall</li>
+<li>Good for unbalanced datasets</li>
+</ul>
+<h2 id="AUC-Area-under-ROC-Curve"><a href="#AUC-Area-under-ROC-Curve" class="headerlink" title="AUC (Area under ROC Curve)"></a>AUC (Area under ROC Curve)</h2><blockquote>
+<p>Is my model better than just random guessing?<br>…待定。。。</p>
+</blockquote>
+<p>源地址： <a href="https://queirozf.com/entries/evaluation-metrics-for-classification-quick-examples-references#precision">https://queirozf.com/entries/evaluation-metrics-for-classification-quick-examples-references#precision</a></p>
+]]></content>
+      <tags>
+        <tag>Evaluation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>排名问题中的评估指标</title>
+    <url>/2020/11/04/Eva-Ranking-Problem/</url>
+    <content><![CDATA[<h2 id="Ranking-Problems"><a href="#Ranking-Problems" class="headerlink" title="Ranking Problems"></a>Ranking Problems</h2><p>In many domains, data scientists are asked to not just predict what class/classes an example belongs to, but to rank classes according to how likely they are for a particular example.<br>在许多领域，数据科学家不仅被要求预测一个示例属于哪个类别，还应根据特定示例对它们进行分类的可能性来对类别进行排名。</p>
+<table>
+<thead>
+<tr>
+<th>Classification</th>
+<th>Ranking</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Order of predictions doesn’t matter</td>
+<td>Order of predictions does matter</td>
+</tr>
+</tbody></table>
+<p>This is often the case because, in the real world, resources are limited.<br>这是经常发生的情况，因为在现实世界中，资源是有限的。</p>
+<p>This means that whoever will use the predictions your model makes has limited time, limited space. So they will likely prioritize.Some domains where this effect is particularly noticeable:<br>这意味着对于预测出的结果，任何人只能有限的空间以及时间，所以他们更倾向于优先级高的。在一些特定领域尤其明显:</p>
+<p>• Search engines: Predict which documents match a query on a search engine.<br>• Tag suggestion for Tweets: Predict which tags should be assigned to a tweet.<br>• Image label prediction: Predict what labels should be suggested for an uploaded picture.<br>• 搜索引擎：预测哪些文档匹配搜索引擎上的查询。<br>• 推文标签建议：预测应将哪些标签分配给推文。<br>• 图像标签预测：预测应该为上传的图片建议哪些标签。</p>
+<p>If your machine learning model produces a real-value for each of the possible classes, you can turn a classification problem into a ranking problem.<br>如果机器学习模型为每一个类生成一个可能的实数，那么就可以将一个分类问题转化为排名问题。（个人感觉有一种硬分类和软分类的意味。）</p>
+<p>In other words, if you predict scores for a set of examples and you have a ground truth, you can order your predictions from highest to lowest and compare them with the ground truth:<br>换句话说，如果预测一组示例的得分并且有基本事实，则可以将预测从最高到最低排序，并将它们与基本事实进行比较</p>
+<p>• Search engines: Do relevant documents appear up on the list or down at the bottom?<br>• Tag suggestion for Tweets: Are the correct tags predicted with higher score or not?<br>• Image label prediction: Does your system correctly give more weight to correct labels?<br>• 搜索引擎：相关文档是否出现在列表的顶部或底部？<br>• 推特的标签建议：是否以较高的分数预测了正确的标签?<br>• 图像标签预测：系统是否正确地赋予了正确标签更多的权重？</p>
+<p>In the following sections, we will go over many ways to evaluate ranked predictions with respect to actual values, or ground truth.<br>在以下各节中，我们将介绍许多方法来评估关于实际值或基本事实的排名预测。</p>
+<h2 id="Sample-dataset-Ground-Truth"><a href="#Sample-dataset-Ground-Truth" class="headerlink" title="Sample dataset (Ground Truth)"></a>Sample dataset (Ground Truth)</h2><p>We will use the following dummy dataset to illustrate examples in this post:<br>使用以下虚拟数据集来说明本文中的示例:<br><img src="/image/sample-data.png"></p>
+<h2 id="Precision-k"><a href="#Precision-k" class="headerlink" title="Precision @k"></a>Precision @k</h2><p>Precision @k is simply precision evaluated only up to the k-th prediction, i.e.:<br>Prec@K表示设定一个阈值K，在检索结果到第K个预测例子为止，排序结果的查准率<br><img src="/image/pred_k.png"> <img src="/image/pred_sample.png"></p>
+<p>例子: Precision @1 = 1/1 =1 ,  Precision @4 = 3/4 =0.75,  Precision @8  = Precision = 4/8 = 0.5</p>
+<h2 id="Recall-k"><a href="#Recall-k" class="headerlink" title="Recall @k"></a>Recall @k</h2><p>Recall @k is simply Recall evaluated only up to the -th prediction, i.e.:<br>Recall@K表示设定一个阈值K，在检索结果到第K个预测例子为止，排序结果的查全率</p>
+<p><img src="/image/recall_k.png"> <img src="/image/rec_sample.png"></p>
+<p>例子: Recall @1 = 1/4 =0.25 ,  Recall @4 = 3/4 =0.75,  Recall @8  = Recall = 4/4 = 1</p>
+<h2 id="F1-k"><a href="#F1-k" class="headerlink" title="F1 @k"></a>F1 @k</h2><p>F1 @k is a rank-based metric that can be summarized as follows: “What F1-score do I get if I only consider the top k predictions my model outputs?<br>F1@K表示设定一个阈值K，在检索结果到第K个预测例子为止，排序结果的F1-score</p>
+<p><img src="/image/f1_k.png"><img src="/image/sample_f1_k.png"></p>
+<p>例子: F1 @1 = 2x (1/1 * 1/4 )/(1/1+1/4) = 0.4 </p>
+<h2 id="AP-Average-Precision"><a href="#AP-Average-Precision" class="headerlink" title="AP (Average Precision)"></a>AP (Average Precision)</h2><p>AP is a metric that tells you how much of the relevant documents are concentrated in the highest ranked predictions.<br>AP是一种指标，它告诉您有多少相关文档集中在排名最高的预测中。</p>
+<p>So for each threshold level (k) you take the difference between the Recall at the current level and the Recall at the previous threshold and multiply by the Precision at that level. Then sum the contributions of each.<br>因此，对于每个阈值级别（k），需要取当前级别的Recall和前一个阈值的Recall之间的差，然后乘以该级别的Precision，最后求和。</p>
+<p>为什么会有AP？<br>precison只是考虑了返回结果中相关文档的个数，没有考虑文档之间的序。对一个搜索引擎或推荐系统而言返回的结果必然是有序的，而且越相关的文档排的越靠前越好，于是有了AP的概念。</p>
+<p><img src="/image/AP.png"></p>
+<h2 id="MAP-Mean-Average-Precision"><a href="#MAP-Mean-Average-Precision" class="headerlink" title="MAP (Mean Average Precision)"></a>MAP (Mean Average Precision)</h2><p>AP (Average Precision) is a metric that tells you how a single sorted prediction compares with the ground truth. E.g. AP would tell you how correct a single ranking of documents is, with respect to a single query.<br>AP可以得到单个排序的预测与基本事实进行比较。例如，对于单次查询得到的排序结果的文档到底有多正确。所以可以对所有的AP取平均得到MAP</p>
+<blockquote>
+<p>AP: Informs you how correct a model’s ranked predictions are for a single example<br> MAP: Informs you how correct a model’s ranked predictions are, on average, over a whole validation dataset.</p>
+</blockquote>
+<p>源地址: <a href="https://queirozf.com/entries/evaluation-metrics-for-ranking-problems-introduction-and-examples#ranking-problems">https://queirozf.com/entries/evaluation-metrics-for-ranking-problems-introduction-and-examples#ranking-problems</a></p>
+]]></content>
+      <tags>
+        <tag>Evaluation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JSON-review</title>
+    <url>/2020/09/07/JSON-review/</url>
+    <content><![CDATA[<h2 id="JSON概述"><a href="#JSON概述" class="headerlink" title="JSON概述"></a>JSON概述</h2><p><strong>JSON</strong>（<strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来<strong>传输由属性值或者序列性的值组成的数据对象</strong>。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。</p>
+<ul>
+<li>Light-weight data exchange format<br>Much simpler than XML; Language-independent; Inspired by the syntax of JavaScript object literals</li>
+<li>Some differences from JavaScript objects<br><strong>String in JSON must be double-quoted</strong>; Okay to single-quote in JavaScript (&amp; Python)</li>
+<li>JSON is case-sensitive</li>
+</ul>
+<p>一句话表达就是，JSON是一种格式，基于文本，优于轻量，用于交换数据，由于其用文本格式的保存方式，所以一般也叫JSON字符串。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li>value = string | number | object | array | true | false | null</li>
+<li>object = {} | { members }<ul>
+<li>members = pair | pair, members </li>
+<li>pair = string : value</li>
+</ul>
+</li>
+<li>array = [] | [ elements ]<ul>
+<li>elements = value | value, elements</li>
+</ul>
+</li>
+</ul>
+<p>一般情况下，JSON大多为一个array，array里的每一个元素为一个object，object可以理解为字典<br>JSON 在线检查器:   <a href="https://www.json.cn/">https://www.json.cn/</a></p>
+<h2 id="Python中使用JSON"><a href="#Python中使用JSON" class="headerlink" title="Python中使用JSON"></a>Python中使用JSON</h2><h3 id="encode-decode"><a href="#encode-decode" class="headerlink" title="encode/decode"></a>encode/decode</h3><p>JSON操作主要分为两个：</p>
+<ol>
+<li>encode，将Python对象转化为JSON文本，主要函数 dump( ) dumps( )</li>
+<li>decode，将JSON文本转化为Python对象，主要函数 load( ) loads( )</li>
+</ol>
+<h3 id="转化规则"><a href="#转化规则" class="headerlink" title="转化规则"></a>转化规则</h3><table>
+<thead>
+<tr>
+<th align="center">Python</th>
+<th align="center">JSON</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">list/tuple</td>
+<td align="center">array</td>
+</tr>
+<tr>
+<td align="center">dict</td>
+<td align="center">object</td>
+</tr>
+<tr>
+<td align="center">None</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center">True</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">False</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">‘abc’</td>
+<td align="center">“abc”</td>
+</tr>
+</tbody></table>
+<p>关于Python字典转JSON文本的说明：</p>
+<ul>
+<li>Keys in Python can be number, string, or tuple. </li>
+<li>Number is also converted to string.</li>
+<li>But tuple (with two or more components) is not acceptable by dumps()/dump()</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> json <span class="comment"># json库为Python自带的标准库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON encoder Python object =&gt; JSON document   </span></span><br><span class="line">json.dumps([<span class="number">3</span>, <span class="string">&#x27;abc&#x27;</span>, <span class="literal">True</span>, <span class="literal">None</span>])  <span class="comment"># &#x27;[3, &quot;abc&quot;, true, null]&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python object =&gt; JSON file</span></span><br><span class="line">data = &#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;Sam&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">23</span>&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">&#x27;user_info.json&#x27;</span>,<span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> out_file:</span><br><span class="line">    json.dump(data,out_file)</span><br><span class="line"></span><br><span class="line"><span class="comment">## JSON decoder </span></span><br><span class="line">json.loads(<span class="string">&#x27;[&quot;foo&quot;, &#123;&quot;bar&quot;:[&quot;baz&quot;, null, 1.0, 2]&#125;]&#x27;</span>) <span class="comment"># [&#x27;foo&#x27;, &#123;&#x27;bar&#x27;: [&#x27;baz&#x27;, None, 1.0, 2]&#125;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON file =&gt; Python object</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">&#x27;user_info.json&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> in_file:</span><br><span class="line">    data = json.load(in_file)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>File Format</tag>
       </tags>
   </entry>
   <entry>
@@ -373,41 +730,6 @@
       </tags>
   </entry>
   <entry>
-    <title>XML</title>
-    <url>/2020/09/18/File-Format/</url>
-    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
-<li>XML：eXtensible Markup Language</li>
-<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
-<li>Can translate <em>any</em> data to XML</li>
-<li>Can ship XML over the Web (HTTP)</li>
-<li>Can input XML into any application</li>
-</ul>
-</li>
-</ul>
-<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
-<ul>
-<li>XML is self-describing</li>
-<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
-<li>XML is semi-structured <ul>
-<li>missing attributes  (could be represented as null in table)</li>
-<li>repeated attributes (impossible in table)</li>
-<li>Attributes with different types in different objects</li>
-<li>Nested structures</li>
-<li>Heterogeneous contents</li>
-</ul>
-</li>
-<li>an XML document has a single root element</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">example:</span><br><span class="line"><span class="tag">&lt;<span class="name">bib</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">  <span class="tag">&lt;<span class="name">book</span> <span class="attr">price</span>=<span class="string">&quot;35&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publisher</span>&gt;</span>Addison-Wesley<span class="tag">&lt;/<span class="name">publisher</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span>Serge Abiteboul<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">first-name</span>&gt;</span>Rick<span class="tag">&lt;/<span class="name">first-name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">last-name</span>&gt;</span>Hull<span class="tag">&lt;/<span class="name">last-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span> <span class="attr">age</span>=<span class="string">&quot;20&quot;</span>&gt;</span>Victor Vianu<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Foundations of Databases<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">year</span>&gt;</span>1995<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">price</span>&gt;</span>38.8<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">book</span> <span class="attr">price</span>=<span class="string">&quot;55&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publisher</span>&gt;</span>Freeman<span class="tag">&lt;/<span class="name">publisher</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span>Jeffrey D. Ullman<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Principles of Database and Knowledge Base Systems<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">year</span>&gt;</span>1998<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">book</span>&gt;</span> </span><br><span class="line">... </span><br><span class="line"><span class="tag">&lt;/<span class="name">bib</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Querying-XML-Data"><a href="#Querying-XML-Data" class="headerlink" title="Querying XML Data"></a>Querying XML Data</h3><h4 id="XPath-simple-navigation-through-the-tree"><a href="#XPath-simple-navigation-through-the-tree" class="headerlink" title="XPath: simple navigation through the tree"></a>XPath: simple navigation through the tree</h4><p><img src="/image/xpath.png"></p>
-<h3 id="lxml"><a href="#lxml" class="headerlink" title="lxml"></a>lxml</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ pip install lxml</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">f = open(<span class="string">&#x27;bibs.xml&#x27;</span>)</span><br><span class="line">tree = etree.parse(f)</span><br><span class="line">print(etree.tostring(tree, pretty_print=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> tree.xpath(<span class="string">&quot;//author&quot;</span>): </span><br><span class="line">    print(etree.tostring(element))</span><br><span class="line">    print(element.tag, element.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>File Format</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PyTorch-BigGraph 从实体嵌入到边得分</title>
     <url>/2020/10/23/From-embedding-to-scores/</url>
     <content><![CDATA[<h1 id="From-entity-embeddings-to-edge-scores"><a href="#From-entity-embeddings-to-edge-scores" class="headerlink" title="From entity embeddings to edge scores"></a>From entity embeddings to edge scores</h1><p>The goal of training is to embed each entity in ℝ^D so that the embeddings of two entities are a good proxy to predict whether there is a relation of a certain type between them.<br>训练的目的是将每个实体嵌入到D维的向量空间中，以便两个实体的嵌入可以很好地预测它们之间是否存在某种类型的关系。</p>
@@ -454,134 +776,25 @@
       </tags>
   </entry>
   <entry>
-    <title>Firebase rest &amp; web api</title>
-    <url>/2020/09/06/Firebase-rest-web-api/</url>
-    <content><![CDATA[<h2 id="Firebase-概述（BaaS）"><a href="#Firebase-概述（BaaS）" class="headerlink" title="Firebase 概述（BaaS）"></a>Firebase 概述（BaaS）</h2><p>Firebase谷歌的一款应用后台服务。借助Firebase，应用开发者们可以快速搭建应用后台。</p>
-<h3 id="产品"><a href="#产品" class="headerlink" title="产品"></a>产品</h3><ol>
-<li>Firebase (realtime) database: Manage <strong>JSON</strong> documents + Real-time <strong>syncing</strong> data between users and devices</li>
-<li>Firebase (cloud) storage: Store images, photos, videos</li>
-<li>Firebase (user) authentication: Support sign in using Google, Facebook</li>
-</ol>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
-<li>Create a Firebase account: first use Google account,then go to Firebase console: <a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a></li>
-<li>Click on “Add project”  to create a Firebase project</li>
-<li>Add Firebase to your web app</li>
-<li>any other interesting operation …</li>
-</ol>
-<h3 id="关于-Realtime-database"><a href="#关于-Realtime-database" class="headerlink" title="关于 Realtime database"></a>关于 Realtime database</h3><ul>
-<li>Data in JSON(Javascript Object Notation) format  <a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a> </li>
-<li>When creating a real-time database, we should open up the access to allow us to read and write the data.</li>
-<li>There are some difference between storing style from JSON file and Firebase real-time database<ol>
-<li>JSON文件中的array元素在Realtime database下以object的形式存在，object对应的key为数组元素的索引</li>
-<li>JSON文件可以保存value为null的键值对，Realtime database则会忽略这一对键值对<br><img src="/image/firebase1.png"></li>
-</ol>
+    <title>ssh连接远程服务器中途断开</title>
+    <url>/2020/10/23/Linux-screen/</url>
+    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
+<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2><ol>
+<li><p>连接远程服务器<br><code>binzhang@MacBin ~$  ssh username@servername</code></p>
 </li>
-</ul>
-<h2 id="Firebase-REST-API"><a href="#Firebase-REST-API" class="headerlink" title="Firebase REST API"></a>Firebase REST API</h2><h3 id="关于RESTful-API"><a href="#关于RESTful-API" class="headerlink" title="关于RESTful API"></a>关于RESTful API</h3><p> REST：Representation State Transfer，表现层状态转移<br> 一句话解释的话就是:通过URL定位资源，用HTTP动词（GET, POST, PUT, DELETE)描述操作从而用来实现前后端数据传输的协议。</p>
-<h3 id="命令行进行http数据传输：curl"><a href="#命令行进行http数据传输：curl" class="headerlink" title="命令行进行http数据传输：curl"></a>命令行进行http数据传输：curl</h3><p>  For command operation, it’s convenient to use <strong>curl</strong> (Command line tool for data transfer)<br>  curl详细使用：<a href="https://itbilu.com/linux/man/4yZ9qH_7X.html">https://itbilu.com/linux/man/4yZ9qH_7X.html</a><br>  注意，curl大小写敏感，请求的命令参数均为大写字符</p>
-<h3 id="curl例子-CRUD"><a href="#curl例子-CRUD" class="headerlink" title="curl例子 - CRUD"></a>curl例子 - CRUD</h3><p>  PUT &amp; POST (C), GET (R), PATCH (U) ,DELETE (D)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">JSON tree:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">  <span class="string">&quot;lastName&quot;</span>: <span class="string">&quot;Smith&quot;</span>,</span><br><span class="line">  <span class="string">&quot;isMarried&quot;</span>: false,</span><br><span class="line">  <span class="string">&quot;age&quot;</span>: <span class="number">25</span>,</span><br><span class="line">  <span class="string">&quot;height_cm&quot;</span>: <span class="number">167.6</span>,</span><br><span class="line">  <span class="string">&quot;address&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;streetAddress&quot;</span>: <span class="string">&quot;22nd Street&quot;</span>,</span><br><span class="line">    <span class="string">&quot;city&quot;</span>: <span class="string">&quot;New York&quot;</span>,</span><br><span class="line">    <span class="string">&quot;state&quot;</span>: <span class="string">&quot;NY&quot;</span>,</span><br><span class="line">    <span class="string">&quot;postalCode&quot;</span>: <span class="string">&quot;10021-3100&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;phoneNumbers&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;type&quot;</span>: <span class="string">&quot;home&quot;</span>,</span><br><span class="line">      <span class="string">&quot;number&quot;</span>: <span class="string">&quot;212 555-1234&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;type&quot;</span>: <span class="string">&quot;office&quot;</span>,</span><br><span class="line">      <span class="string">&quot;number&quot;</span>: <span class="string">&quot;646 555-4567&quot;</span>,</span><br><span class="line">      <span class="string">&quot;xyz&quot;</span>: null</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;children&quot;</span>: [],</span><br><span class="line">  <span class="string">&quot;spouse&quot;</span>: null,</span><br><span class="line">  <span class="string">&quot;scores&quot;</span>: [<span class="number">8.5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">10</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="GET-get-the-specific-resource"><a href="#GET-get-the-specific-resource" class="headerlink" title="GET: get the specific resource"></a>GET: get the specific resource</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ curl -X GET &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;address&#x2F;city.json&#39;   return: &quot;New York&quot;%  </span><br><span class="line">-X   可以省略 直接 curl GET url; GET  可以省略 直接 curl url</span><br><span class="line"></span><br><span class="line">$ curl &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;phoneNumbers&#x2F;0.json&#39; #refer to arr element by index</span><br><span class="line">return:&#123;&quot;number&quot;:&quot;212 555-1234&quot;,&quot;type&quot;:&quot;home&quot;&#125;%  </span><br></pre></td></tr></table></figure>
-
-<h4 id="PUT-write-a-given-value-e-g-“Mary”-to-a-specify-node-e-g-“spouse”"><a href="#PUT-write-a-given-value-e-g-“Mary”-to-a-specify-node-e-g-“spouse”" class="headerlink" title="PUT: write a given value (e.g., “Mary”) to a specify node (e.g., “spouse”)"></a>PUT: write a given value (e.g., “Mary”) to a specify node (e.g., “spouse”)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Add if node not exists (could add embedded nodes) - 添加数据</span><br><span class="line">Overwrite if node already has value               - 重写数据</span><br><span class="line"></span><br><span class="line">$ curl -X PUT &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;spouse.json&#39; -d &#39;&quot;Mary&quot;&#39;  # 注意引号</span><br><span class="line"></span><br><span class="line">#This will add a new node &quot;country&quot; (assuming it does not exist yet) </span><br><span class="line">#and a child of this node with key &quot;province&quot; and content: &#123;&quot;name&quot;: &quot;Anhui&quot;&#125;</span><br><span class="line">$ curl -X PUT &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country&#x2F;province.json&#39; -d &#39;&#123;&quot;name&quot;: &quot;Anhui&quot;&#125;&#39; </span><br><span class="line">$ curl -X PUT &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country.json&#39; -d &#39;&#123;&quot;province&quot;: &#123;&quot;name&quot;: &quot;Anhui&quot;&#125;&#125;&#39;</span><br></pre></td></tr></table></figure>
-
-<h4 id="POST-add-new-value-to-a-given-node"><a href="#POST-add-new-value-to-a-given-node" class="headerlink" title="POST: add new value to a given node"></a>POST: add new value to a given node</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Automatically generates a new key &amp; then stores the value for the new key</span><br><span class="line">由于对于添加的数据，其自动生成一个key，所以保证不会重写数据(In contrast, PUT will simply overwrite the key)</span><br><span class="line"> </span><br><span class="line">$ curl -X POST &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country.json&#39; -d &#39;&#123;&quot;province&quot;: &#123;&quot;name&quot;: &quot;Anhui&quot;&#125;&#125;&#39;</span><br><span class="line">$ curl -X POST &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country.json&#39; -d  &#39;&quot;Anhui&quot;&#39;</span><br></pre></td></tr></table></figure>
-
-<h4 id="PATCH-upsert-a-value-to-a-given-node"><a href="#PATCH-upsert-a-value-to-a-given-node" class="headerlink" title="PATCH:  upsert a value to a given node"></a>PATCH:  upsert a value to a given node</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Performs the update if value already exists  -更新节点</span><br><span class="line">Otherwise, it inserts the new value          -插入新节点</span><br><span class="line">PATCH本质上是一个深度搜索符合节点的条件进行更新或者添加)</span><br><span class="line"></span><br><span class="line">curl -X PATCH &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;country.json&#39; -d &#39;&#123;&quot;province&quot;: &#123;&quot;name&quot;: &quot;Hubei&quot;&#125;&#125;&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">好处:相比于PUT（对于已经存在的节点进行全局的修改），本质上来说PATCH实现的是对该节点的局部更新</span><br><span class="line">注意:当需要更新的节点没有子节点（仅仅是一个key-value格式），无法使用PATCH，因为 -d 参数后需要传入键值对的格式</span><br><span class="line">curl -X PATCH &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;spouse.json&#39; -d &#39;&quot;Sam&quot;&#39; # fail</span><br><span class="line">&#123;</span><br><span class="line">  &quot;error&quot; : &quot;Invalid data; couldn&#39;t parse JSON object. Are you sending a JSON object with valid key names?&quot;</span><br><span class="line">&#125;</span><br><span class="line">curl -X PUT &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;spouse.json&#39; -d &#39;&quot;Sam&quot;&#39; # success</span><br></pre></td></tr></table></figure>
-<h4 id="DELETE-delete-a-node"><a href="#DELETE-delete-a-node" class="headerlink" title="DELETE:  delete a node"></a>DELETE:  delete a node</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X DELETE &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;spouse.json&#39;</span><br></pre></td></tr></table></figure>
-
-<h4 id="从数据增加、减少上对PUT、PATCH和POST进行比较"><a href="#从数据增加、减少上对PUT、PATCH和POST进行比较" class="headerlink" title="从数据增加、减少上对PUT、PATCH和POST进行比较"></a>从数据增加、减少上对PUT、PATCH和POST进行比较</h4><p>PUT可能造成数据的增加（添加新节点下的value）和减少（overwrite整个节点导致其内嵌的节点被删除）；<br>PATCH可能造成数据的增加（添加新节点下的value)和减少（update节点的用更少的数据去取代原先的数据）<br>POST一定会造成数据的增加（因为会自动加上key）；</p>
-<h4 id="data-querying-by-RESful-API"><a href="#data-querying-by-RESful-API" class="headerlink" title="data querying by RESful API"></a>data querying by RESful API</h4><ul>
-<li>orderBy=”$key”  </li>
-<li>orderBy=”<path-to-child-key>“</li>
-<li>orderBy=”$value”  需要在Realtime database的Rules先声明</li>
-<li>startAt/endAt</li>
-<li>equalTo</li>
-<li>limitToFirst/limitToLast </li>
-</ul>
-<p>Specified in database rules:<br><a href="https://firebase.google.com/docs/database/security/indexing-data">https://firebase.google.com/docs/database/security/indexing-data</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X GET &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;scores.json?orderBy&#x3D;&quot;$key&quot;&amp;equalTo&#x3D;&quot;1&quot;&#39;</span><br><span class="line">curl -X GET &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;scores.json?orderBy&#x3D;&quot;$key&quot;&amp;startAt&#x3D;&quot;1&quot;&#39;</span><br><span class="line">curl -X GET &#39;https:&#x2F;&#x2F;rest-apidemo.firebaseio.com&#x2F;scores.json?orderBy&#x3D;&quot;$value&quot;&#39;</span><br><span class="line"></span><br><span class="line">Orders ascendingly:</span><br><span class="line">null -&gt; false -&gt;true -&gt; number -&gt; string -&gt; object</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="REST-API-in-Python"><a href="#REST-API-in-Python" class="headerlink" title="REST API in Python"></a>REST API in Python</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;xxxx&#39;</span><br><span class="line">data &#x3D; &#39;xxx&#39;</span><br><span class="line"></span><br><span class="line">requests.get(url) </span><br><span class="line">requests.put(url, data)</span><br><span class="line">requests.patch(url, data)</span><br><span class="line">requests.delete(url)</span><br><span class="line">requests.post(url, data)</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Commands</tag>
-        <tag>Tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JSON-review</title>
-    <url>/2020/09/07/JSON-review/</url>
-    <content><![CDATA[<h2 id="JSON概述"><a href="#JSON概述" class="headerlink" title="JSON概述"></a>JSON概述</h2><p><strong>JSON</strong>（<strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来<strong>传输由属性值或者序列性的值组成的数据对象</strong>。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。</p>
-<ul>
-<li>Light-weight data exchange format<br>Much simpler than XML; Language-independent; Inspired by the syntax of JavaScript object literals</li>
-<li>Some differences from JavaScript objects<br><strong>String in JSON must be double-quoted</strong>; Okay to single-quote in JavaScript (&amp; Python)</li>
-<li>JSON is case-sensitive</li>
-</ul>
-<p>一句话表达就是，JSON是一种格式，基于文本，优于轻量，用于交换数据，由于其用文本格式的保存方式，所以一般也叫JSON字符串。</p>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
-<li>value = string | number | object | array | true | false | null</li>
-<li>object = {} | { members }<ul>
-<li>members = pair | pair, members </li>
-<li>pair = string : value</li>
-</ul>
+<li><p>创建名为cskg的screen,  此时screen被创建，之后的代码或者各种工作在该screen下操作<br><code>[servername ~]$ screen -S cskg </code></p>
 </li>
-<li>array = [] | [ elements ]<ul>
-<li>elements = value | value, elements</li>
-</ul>
+<li><p>万一本地机器掉线，重新连接远程服务器，随后使用screen -ls 查看之前创建的screen信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[servername ~]$ screen -ls  </span><br><span class="line">显示信息：</span><br><span class="line">There is a screen on:</span><br><span class="line">        157586.cskg  (Attached)</span><br><span class="line">1 Socket in &#x2F;var&#x2F;run&#x2F;screen&#x2F;xx</span><br></pre></td></tr></table></figure></li>
+<li><p>使用-r回到之前服务器工作的screen<br><code>screen -r 157586</code></p>
 </li>
-</ul>
-<p>一般情况下，JSON大多为一个array，array里的每一个元素为一个object，object可以理解为字典<br>JSON 在线检查器:   <a href="https://www.json.cn/">https://www.json.cn/</a></p>
-<h2 id="Python中使用JSON"><a href="#Python中使用JSON" class="headerlink" title="Python中使用JSON"></a>Python中使用JSON</h2><h3 id="encode-decode"><a href="#encode-decode" class="headerlink" title="encode/decode"></a>encode/decode</h3><p>JSON操作主要分为两个：</p>
-<ol>
-<li>encode，将Python对象转化为JSON文本，主要函数 dump( ) dumps( )</li>
-<li>decode，将JSON文本转化为Python对象，主要函数 load( ) loads( )</li>
 </ol>
-<h3 id="转化规则"><a href="#转化规则" class="headerlink" title="转化规则"></a>转化规则</h3><table>
-<thead>
-<tr>
-<th align="center">Python</th>
-<th align="center">JSON</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">list/tuple</td>
-<td align="center">array</td>
-</tr>
-<tr>
-<td align="center">dict</td>
-<td align="center">object</td>
-</tr>
-<tr>
-<td align="center">None</td>
-<td align="center">null</td>
-</tr>
-<tr>
-<td align="center">True</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">False</td>
-<td align="center">false</td>
-</tr>
-<tr>
-<td align="center">‘abc’</td>
-<td align="center">“abc”</td>
-</tr>
-</tbody></table>
-<p>关于Python字典转JSON文本的说明：</p>
-<ul>
-<li>Keys in Python can be number, string, or tuple. </li>
-<li>Number is also converted to string.</li>
-<li>But tuple (with two or more components) is not acceptable by dumps()/dump()</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> json <span class="comment"># json库为Python自带的标准库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON encoder Python object =&gt; JSON document   </span></span><br><span class="line">json.dumps([<span class="number">3</span>, <span class="string">&#x27;abc&#x27;</span>, <span class="literal">True</span>, <span class="literal">None</span>])  <span class="comment"># &#x27;[3, &quot;abc&quot;, true, null]&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python object =&gt; JSON file</span></span><br><span class="line">data = &#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;Sam&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">23</span>&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">&#x27;user_info.json&#x27;</span>,<span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> out_file:</span><br><span class="line">    json.dump(data,out_file)</span><br><span class="line"></span><br><span class="line"><span class="comment">## JSON decoder </span></span><br><span class="line">json.loads(<span class="string">&#x27;[&quot;foo&quot;, &#123;&quot;bar&quot;:[&quot;baz&quot;, null, 1.0, 2]&#125;]&#x27;</span>) <span class="comment"># [&#x27;foo&#x27;, &#123;&#x27;bar&#x27;: [&#x27;baz&#x27;, None, 1.0, 2]&#125;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON file =&gt; Python object</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">&#x27;user_info.json&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> in_file:</span><br><span class="line">    data = json.load(in_file)</span><br></pre></td></tr></table></figure>
-
+<h3 id="Screen常见问题"><a href="#Screen常见问题" class="headerlink" title="Screen常见问题"></a>Screen常见问题</h3><p>使用<code>screen -ls</code>, 显式当前状态为Attached，但并没有没有用户登陆该screen。screen此时正常状态应该为(Detached)使用 <code>screen -r &lt;session-id&gt;</code>无法连接，</p>
+<p>解决方案:<code>screen -D  -r ＜session-id&gt;</code>,-D -r  表示先踢掉前用户，再登陆。</p>
 ]]></content>
       <tags>
-        <tag>Python</tag>
-        <tag>File Format</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -668,25 +881,23 @@
       </tags>
   </entry>
   <entry>
-    <title>ssh连接远程服务器中途断开</title>
-    <url>/2020/10/23/Linux-screen/</url>
-    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
-<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
-<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2><ol>
-<li><p>连接远程服务器<br><code>binzhang@MacBin ~$  ssh username@servername</code></p>
-</li>
-<li><p>创建名为cskg的screen,  此时screen被创建，之后的代码或者各种工作在该screen下操作<br><code>[servername ~]$ screen -S cskg </code></p>
-</li>
-<li><p>万一本地机器掉线，重新连接远程服务器，随后使用screen -ls 查看之前创建的screen信息</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[servername ~]$ screen -ls  </span><br><span class="line">显示信息：</span><br><span class="line">There is a screen on:</span><br><span class="line">        157586.cskg  (Attached)</span><br><span class="line">1 Socket in &#x2F;var&#x2F;run&#x2F;screen&#x2F;xx</span><br></pre></td></tr></table></figure></li>
-<li><p>使用-r回到之前服务器工作的screen<br><code>screen -r 157586</code></p>
-</li>
-</ol>
-<h3 id="Screen常见问题"><a href="#Screen常见问题" class="headerlink" title="Screen常见问题"></a>Screen常见问题</h3><p>使用<code>screen -ls</code>, 显式当前状态为Attached，但并没有没有用户登陆该screen。screen此时正常状态应该为(Detached)使用 <code>screen -r &lt;session-id&gt;</code>无法连接，</p>
-<p>解决方案:<code>screen -D  -r ＜session-id&gt;</code>,-D -r  表示先踢掉前用户，再登陆。</p>
+    <title>PyTorch-BigGraph  批准备</title>
+    <url>/2020/10/27/PBG-Batch-preparation/</url>
+    <content><![CDATA[<h1 id="PBG-批准备"><a href="#PBG-批准备" class="headerlink" title="PBG 批准备"></a>PBG 批准备</h1><p>This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.<br>本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。</p>
+<p>Training proceeds by iterating over the edges, through various nested loops. The outermost one walks through so-called epochs. Each epoch is independent and essentially equivalent to every other one. Their goal is to repeat the inner loop until convergence. Each epoch visits all the edges exactly once. The number of epochs is specified in the num_epochs configuration parameter.<br>训练过程通过不断嵌套循环各条边来进行。所有边都被训练过一次叫做一个epoch，每一个epoch都是互相独立且平等的。他们的目标都是为了重复训练边最终达到收敛的效果。每一个epoch只访问每一条一次。在配置文件中的num_epochs指定epoch数目。</p>
+<p>The edges are partitioned into edge sets (one for each directory of the edge_paths configuration key) and, within each epoch, the edge sets are traversed in order.<br>图中的边被划分为边集合的形式（edge_paths目录下的每个文件表示一个边集合），在每一个epoch下，这些边集合按照顺序访问遍历。</p>
+<p>When iterating over an edge set, each of its buckets is first divided into equally sized chunks: each chunk spans a contiguous interval of edges (in the order they are stored in the files) and the number of chunks can be tweaked using the num_edge_chunks configuration key. The training first operates on the all the first chunks of all buckets, then on all of their second chunks, and so on.<br>当在某一个边集合上进行迭代训练的时候，每一个桶（一个边集合）首先被划分成相同大小的chunks，每一个chunk跨度连续的边间隔（按它们存储在文件中的顺序），可以在配置文件中使用num_edge_chunks来设置chunk的大小。训练首先对桶中的第一个chunk进行训练，然后对第二个，以此类推。</p>
+<p>Next, the algorithm iterates over the buckets. The order in which buckets are processed depends on the value of the bucket_order configuration key. In addition to a random permutation, there are methods that try to have successive buckets share a common partition: this allows for that partition to be reused, thus allowing it to be kept in memory rather than being unloaded and another one getting loaded in its place. (In distributed mode, the various trainer processes operate on the buckets at the same time, thus the iteration is managed differently).<br>接下来，该算法迭代训练每一个桶。桶训练顺序取决于配置文件中的bucket_order。除了随机排列之外，还有一些方法尝试使连续的存储桶共享一个公共分区，也就是说允许这个共享分区被重用。通过这样其允许这这些边数据保存在内存中而不是被卸载然后被其他的边数据取代。（在分布式模式下，各种训练器进程同时在存储桶上运行训练，因此对迭代的管理不同）。</p>
+<p>Once the trainer has fixed a given chunk and a certain bucket, its edges are finally loaded from disk. When evaluating during training, a subset of these edges is withheld (such subset is the same for all epochs). The remaining edges are immediately uniformly shuffled and then split into equal parts. These parts are distributed among a pool of processes, so that the training can proceed in parallel on all of them at the same time. These subprocesses are “Hogwild!” workers, which do not synchronize their computations or memory accesses. The number of such workers is determined by the workers parameter.<br>一旦训练器获得了一个给定的chunk和bucket，其chuck的边最终从磁盘上加载到内存。在训练之前，边的一部分被保留下载作为之后的评估使用。（对于所有的epoch而言，这些边是一样的），其余的边都作为训练数据，他们被均匀地混洗，然后分成相等的部分分发到进程池里进行训练。因此训练是可以在所有进程上并行运行的。这些子进程被称为“Hogwild!” worker，他们的计算和内存使用并不同步进行。worker的数目在配置文件中的worfers参数指定。</p>
+<blockquote>
+<p>key point: 这里worker就可以当成是进程数目，几个worker表示可以同时几个进程并行训练数据。</p>
+</blockquote>
+<p>The way each worker trains on its set of edges depends on whether dynamic relations are in use. The simplest scenario is if they are, in which case the edges are split into contiguous batches (each one having the size specified in the batch_size configuration key, except possibly the last one which could be smaller). Training is then performed on that batch before moving on to the next one.<br>worker训练边集合的方式取决于是否使用动态关系。最简单的情况是，如果边被分成连续的批次，（每个批次具有一样的大小，并且其在配置文件的batch_size中指定，最后一个批次可能会小些。）训练分批次依次进行训练。</p>
+<p>When dynamic relations are not in use, however, the loss can only be computed on a set of edges that are all of the same type. Thus the worker first randomly samples a relation type, with probability proportional to the number of edges of that type that are left in the pool. It then takes the first batch_size relations of that type (or fewer, if not enough of them are left), removes them from the pool and performs training on them.<br>当不使用动态关系的时候，损失函数将只能用于同种关系类型的边计算。因此worker首先需要随机的选出某一种关系类型的样本，（挑选概率和池子残留的边成正比）。随后，其采用该类型的第一个batch_size（如果剩余的不多的话，数目可能会很少）,从池子中移除然后进行训练。</p>
+<p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html">https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html</a></p>
 ]]></content>
       <tags>
-        <tag>Linux</tag>
+        <tag>PyTorch-BigGraph</tag>
       </tags>
   </entry>
   <entry>
@@ -718,20 +929,20 @@
       </tags>
   </entry>
   <entry>
-    <title>PyTorch-BigGraph  批准备</title>
-    <url>/2020/10/27/PBG-Batch-preparation/</url>
-    <content><![CDATA[<h1 id="PBG-批准备"><a href="#PBG-批准备" class="headerlink" title="PBG 批准备"></a>PBG 批准备</h1><p>This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.<br>本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。</p>
-<p>Training proceeds by iterating over the edges, through various nested loops. The outermost one walks through so-called epochs. Each epoch is independent and essentially equivalent to every other one. Their goal is to repeat the inner loop until convergence. Each epoch visits all the edges exactly once. The number of epochs is specified in the num_epochs configuration parameter.<br>训练过程通过不断嵌套循环各条边来进行。所有边都被训练过一次叫做一个epoch，每一个epoch都是互相独立且平等的。他们的目标都是为了重复训练边最终达到收敛的效果。每一个epoch只访问每一条一次。在配置文件中的num_epochs指定epoch数目。</p>
-<p>The edges are partitioned into edge sets (one for each directory of the edge_paths configuration key) and, within each epoch, the edge sets are traversed in order.<br>图中的边被划分为边集合的形式（edge_paths目录下的每个文件表示一个边集合），在每一个epoch下，这些边集合按照顺序访问遍历。</p>
-<p>When iterating over an edge set, each of its buckets is first divided into equally sized chunks: each chunk spans a contiguous interval of edges (in the order they are stored in the files) and the number of chunks can be tweaked using the num_edge_chunks configuration key. The training first operates on the all the first chunks of all buckets, then on all of their second chunks, and so on.<br>当在某一个边集合上进行迭代训练的时候，每一个桶（一个边集合）首先被划分成相同大小的chunks，每一个chunk跨度连续的边间隔（按它们存储在文件中的顺序），可以在配置文件中使用num_edge_chunks来设置chunk的大小。训练首先对桶中的第一个chunk进行训练，然后对第二个，以此类推。</p>
-<p>Next, the algorithm iterates over the buckets. The order in which buckets are processed depends on the value of the bucket_order configuration key. In addition to a random permutation, there are methods that try to have successive buckets share a common partition: this allows for that partition to be reused, thus allowing it to be kept in memory rather than being unloaded and another one getting loaded in its place. (In distributed mode, the various trainer processes operate on the buckets at the same time, thus the iteration is managed differently).<br>接下来，该算法迭代训练每一个桶。桶训练顺序取决于配置文件中的bucket_order。除了随机排列之外，还有一些方法尝试使连续的存储桶共享一个公共分区，也就是说允许这个共享分区被重用。通过这样其允许这这些边数据保存在内存中而不是被卸载然后被其他的边数据取代。（在分布式模式下，各种训练器进程同时在存储桶上运行训练，因此对迭代的管理不同）。</p>
-<p>Once the trainer has fixed a given chunk and a certain bucket, its edges are finally loaded from disk. When evaluating during training, a subset of these edges is withheld (such subset is the same for all epochs). The remaining edges are immediately uniformly shuffled and then split into equal parts. These parts are distributed among a pool of processes, so that the training can proceed in parallel on all of them at the same time. These subprocesses are “Hogwild!” workers, which do not synchronize their computations or memory accesses. The number of such workers is determined by the workers parameter.<br>一旦训练器获得了一个给定的chunk和bucket，其chuck的边最终从磁盘上加载到内存。在训练之前，边的一部分被保留下载作为之后的评估使用。（对于所有的epoch而言，这些边是一样的），其余的边都作为训练数据，他们被均匀地混洗，然后分成相等的部分分发到进程池里进行训练。因此训练是可以在所有进程上并行运行的。这些子进程被称为“Hogwild!” worker，他们的计算和内存使用并不同步进行。worker的数目在配置文件中的worfers参数指定。</p>
-<blockquote>
-<p>key point: 这里worker就可以当成是进程数目，几个worker表示可以同时几个进程并行训练数据。</p>
-</blockquote>
-<p>The way each worker trains on its set of edges depends on whether dynamic relations are in use. The simplest scenario is if they are, in which case the edges are split into contiguous batches (each one having the size specified in the batch_size configuration key, except possibly the last one which could be smaller). Training is then performed on that batch before moving on to the next one.<br>worker训练边集合的方式取决于是否使用动态关系。最简单的情况是，如果边被分成连续的批次，（每个批次具有一样的大小，并且其在配置文件的batch_size中指定，最后一个批次可能会小些。）训练分批次依次进行训练。</p>
-<p>When dynamic relations are not in use, however, the loss can only be computed on a set of edges that are all of the same type. Thus the worker first randomly samples a relation type, with probability proportional to the number of edges of that type that are left in the pool. It then takes the first batch_size relations of that type (or fewer, if not enough of them are left), removes them from the pool and performs training on them.<br>当不使用动态关系的时候，损失函数将只能用于同种关系类型的边计算。因此worker首先需要随机的选出某一种关系类型的样本，（挑选概率和池子残留的边成正比）。随后，其采用该类型的第一个batch_size（如果剩余的不多的话，数目可能会很少）,从池子中移除然后进行训练。</p>
-<p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html">https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html</a></p>
+    <title>PyTorch-BigGraph 评估</title>
+    <url>/2020/11/04/PBG-Evaluation/</url>
+    <content><![CDATA[<h1 id="PyTorch-BigGraph-评估"><a href="#PyTorch-BigGraph-评估" class="headerlink" title="PyTorch-BigGraph 评估"></a>PyTorch-BigGraph 评估</h1><p>During training, the average loss is reported for each edge bucket at each pass. Evaluation metrics can be computed on held-out data during or after training to measure the quality of trained embeddings.<br>在训练过程中，每一次epoch中的每一个桶的的平均损失会被汇报。可以在训练期间或之后根据保留的数据计算评估指标，以测量训练后嵌入的质量。</p>
+<h2 id="Offline-evaluation¶"><a href="#Offline-evaluation¶" class="headerlink" title="Offline evaluation¶"></a>Offline evaluation¶</h2><p>The torchbiggraph_eval command will perform an offline evaluation of trained PBG embeddings on a validation dataset. This dataset should contain held-out data not included in the training dataset. It is invoked in the same way as the training command and takes the same arguments.<br>torchbiggraph_eval命令将会对验证数据集执行训练后嵌入的离线评估。该数据集应包含训练数据集中未包含的保留数据。它以与训练命令相同的方式调用，并采用相同的参数。</p>
+<p>It is generally advisable to have two versions of the config file, one for training and one for evaluation, with the same parameters except for the edge paths, in order to evaluate a separate (and often smaller) set of edges. (It’s also possible to use a single config file and have it produce different output based on environment variables or other context). Training-specific config parameters (e.g., the learning rate, loss function, …) will be ignored during evaluation.<br>通常建议配置文件有两个版本，一个用于训练，一个用于评估，除了edge paths参数外，它们具有相同的参数，以便评估一组单独的（通常是较小的）边。（也可以使用单个配置文件，并根据环境变量或其他上下文产生不同的输出）。 评估过程中将忽略训练专用的配置参数（例如，学习率，损失函数等）。</p>
+<p>The metrics are first reported on each bucket, and a global average is computed at the end. (If multiple edge paths are in use, metrics are computed separately for each of them but still ultimately averaged).<br>首先在每个存储桶上报告指标，最后计算全局平均值。 （如果正在使用多个edge paths ，则将针对每个边缘路径分别计算指标，但最终仍将其平均）。</p>
+<p>Many metrics are statistics based on the “ranks” of the edges of the validation set. The rank of a positive edge is determined by the rank of its score against the scores of a certain number of negative edges. A rank of 1 is the “best” outcome as it means that the positive edge had a higher score than all the negatives. Higher values are “worse” as they indicate that the positive didn’t stand out.<br>许多指标是基于验证集边的“rank”的统计信息。正边的rank由得分相对于一定数量的负边缘的得分的rank确定。rank=1表示“最佳”结果，因为这意味着正边比所有负边的得分都高。较高的rank值表示性能较差，因为其表明正边并没有突出显示出来。</p>
+<p>It may happen that some of the negative samples used in the rank computation are in fact other positive samples, which are expected to have a high score and may thus cause adverse effects on the rank. This effect is especially visible on smaller graphs, in particular when all other entities are used to construct the negatives. To fix it, and to match what is typically done in the literature, a so-called “filtered” rank is used in the FB15k demo script (and there only), where positive samples are filtered out when computing the rank of an edge. It is hard to scale this technique to large graphs, and thus it is not enabled globally. However, filtering is less important on large graphs as it’s less likely to see a training edge among the sampled negatives.<br>在计算rank的过程中，某些负样本实际上可能是其他正样本，这些样本可能会得到较高的得分因此会对rank的结果造成不利影响。在较小的图上，尤其是在使用所有其他实体构造负样本时，这种效果尤其明显。为了解决该问题并使其与文献中通常所做的事情相匹配，FB15k演示脚本（仅在此处）使用了所谓的“过滤后”等级，在计算边rank时会滤除正样本。很难将此技术适用于到大图中，因此无法全局启用。但是，过滤在大型图上的重要性较弱，因为它不太可能在负样本中使用训练的边。</p>
+<p>The metrics are:<br>相关的指标有</p>
+<p>• Mean Rank: the average of the ranks of all positives (lower is better, best is 1).<br>• Mean Reciprocal Rank (MRR): the average of the reciprocal of the ranks of all positives (higher is better, best is 1).<br>• Hits@1: the fraction of positives that rank better than all their negatives, i.e., have a rank of 1 (higher is better, best is 1).<br>• Hits@10: the fraction of positives that rank in the top 10 among their negatives (higher is better, best is 1).<br>• Hits@50: the fraction of positives that rank in the top 50 among their negatives (higher is better, best is 1).<br>• Area Under the Curve (AUC): an estimation of the probability that a randomly chosen positive scores higher than a randomly chosen negative (any negative, not only the negatives constructed by corrupting that positive).</p>
+<h2 id="Evaluation-during-training"><a href="#Evaluation-during-training" class="headerlink" title="Evaluation during training"></a>Evaluation during training</h2><p>Offline evaluation is a slow process that is intended to be run after training is complete to evaluate the final model on a held-out set of edges constructed by the user. However, it’s useful to be able to monitor overfitting as training progresses. PBG offers this functionality, by calculating the same metrics as the offline evaluation before and after each pass on a small set of training edges. These stats are printed to the logs.<br>离线评估是一个缓慢的过程，其目的在于边训练完成后，对保留的边进行评估来评估训练的模型。但是，训练过程中监控过度拟合是很有用的。PBG通过在每次经过一小组训练边之前和之后计算与脱机评估相同的指标来实现训练时评估。 这些统计信息将打印到日志中。</p>
+<p>The metrics are computed on a set of edges that is held out automatically from the training set. To be more explicit: using this feature means that training happens on fewer edges, as some are excluded and reserved for this evaluation. The holdout fraction is controlled by the eval_fraction config parameter (setting it to zero thus disables this feature). The evaluations before and after each training iteration happen on the same set of edges, thus are comparable. Moreover, the evaluations for the same edge chunk, edge path and bucket at different epochs also use the same set of edges.<br>指标是在一组边上计算的，这些边会从训练集中自动保留下来（不被训练，仅作为评估）。更明确地说：使用此功能意味着会训练较少的边，因为某些边被排除并保留用于此评估。保持比例由eval_fraction配置参数控制（将其设置为零将禁用此功能）。每次训练迭代之前和之后的评估都在同一组边上进行，因此具有可比性。此外，在不同时期对相同边缘块，边缘路径和存储桶的评估也使用相同的边缘集。</p>
+<p>Evaluation metrics are computed both before and after training each edge bucket because it provides insight into whether the partitioned training is working. If the partitioned training is converging, then the gap between the “before” and “after” statistics should go to zero over time. On the other hand, if the partitioned training is causing the model to overfit on each edge bucket (thus decreasing performance for other edge buckets) then there will be a persistent gap between the “before” and “after” statistics.<br>评估指标在训练每个边缘存储块之前和之后都会进行计算，因为它可以洞悉分区的训练是否有效。如果分区训练正在收敛，则“之前”和“之后”统计量之间的差距应随时间推移变为零。另一方面，如果分区训练导致模型在每个边缘存储区上过拟合（从而降低了其他边缘存储区的性能），则“之前”和“之后”统计量之间将存在持续的差距。</p>
+<p>It’s possible to use different batch sizes for same-batch and uniform negative sampling by tuning the eval_num_batch_negs and the eval_num_uniform_negs config parameters.<br>通过调整eval_num_batch_negs和eval_num_uniform_negs配置参数，可以对同一批次和统一负采样使用不同的批次大小。</p>
 ]]></content>
       <tags>
         <tag>PyTorch-BigGraph</tag>
@@ -763,86 +974,6 @@
 <p>When this system is enabled, it can operate in two modes. The simplest mode is triggered when num_partition_servers is -1 (the default): in that case all trainers spawn a local process that acts as a partition server. If, on the other hand, num_partition_servers is a positive value then the trainers will not spawn any process, but will instead connect to the partition servers that the user must have provisioned manually by launching the torchbiggraph_partitionserver command on the appropriate number of machines.<br>启用此系统后，它可以在两种模式下运行。 当num_partition_servers为-1（默认值）时，将触发最简单的模式：在这种情况下，所有训练器都会生成一个充当分区服务器的本地进程。 另一方面，如果num_partition_servers为正值，那么训练器将不会产生任何进程，而是将会连接到用户手动设置的提供的分区服务器上，用户通过在适当数量的机器上运行torchbiggraph_partitionserver来实现预先供给。</p>
 <h3 id="Updating-shared-parameters"><a href="#Updating-shared-parameters" class="headerlink" title="Updating shared parameters"></a>Updating shared parameters</h3><p>Some parameters of the model need to be used by all trainers at the same time (this includes the operator weights, the global embeddings of each entity type, the embeddings of the unpartitioned entities). These are parameters that don’t depend on what bucket the trainer is operating on, and therefore are always present on all trainers (as opposed to the entity embeddings, which are loaded and unloaded as needed). These parameters are synchronized using a series of “parameter servers”. Each trainer starts a local parameter server (in a separate subprocess) and connects to all other parameter servers. Each parameter that is shared between trainers is then stored in a parameter server (possibly sharded across several of them, if too large). Each trainer also has a loop (also in a separate subprocess) which, at regular intervals, goes over each shared parameter, computes the difference between its current local value and the value it had when it was last synced with the server where the parameter is hosted and sends that delta to that server. The server, in turn, accumulates all the deltas it receives from all trainers, updates the value of the parameter and sends this new value back to the trainers. The parameter server performs throttling to 100 updates/s or 1GB/s, in order to prevent the parameter server from starving the other communication.<br>所有训练器必须同时使用模型的某些参数（这包括操作员权重，每种实体类型的全局嵌入，未分区实体的嵌入）。这些参数并不取决于那些训练器正在操作的桶，因此其始终存在于所有训练器上（与实体嵌入情况相仿，实体嵌入根据需要进行加载和卸载）这些参数使用一系列“参数服务器”进行同步。每一个训练器开启一个本地的参数服务器（以一个独自的子进程）并且和其他所有的参数服务器进行连接。每一个被训练器共享的参数被存储在参数服务器中（如果参数太大的话，则可能将其分散在其中的几个服务器中）。每一个训练器还有一个loop（同样也在一个子进程中），该循环以固定的时间间隔遍历每个共享参数，计算其当前本地值与上次与该服务器上次与服务器同步时所具有的值之间的差，那些服务器的参数值是被托管并且发送到本地的子进程中。反过来，服务器会累积从所有训练器那里收到的所有差，更新参数的值，然后将此新值发送回训练器。参数服务器执行限制至100个更新每秒或者1GB每秒，以防止参数服务器使其他通信中断。</p>
 <p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/distributed_training.html">https://torchbiggraph.readthedocs.io/en/latest/distributed_training.html</a></p>
-]]></content>
-      <tags>
-        <tag>PyTorch-BigGraph</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PyTorch-BigGraph I/O 格式</title>
-    <url>/2020/10/27/PBG-I-O-format/</url>
-    <content><![CDATA[<h1 id="PBG-I-O格式"><a href="#PBG-I-O格式" class="headerlink" title="PBG I/O格式"></a>PBG I/O格式</h1><h2 id="Entity-and-relation-types"><a href="#Entity-and-relation-types" class="headerlink" title="Entity and relation types"></a>Entity and relation types</h2><p>The list of entity types (each identified by a string), plus some information about each of them, is given in the <code>entities</code> dictionary in the configuration file. The list of relation types (each identified by its index in that list), plus some data like what their left- and right-hand side entity types are, is in the <code>relations</code> key of the configuration file.<br>实体类型的列表(每个实体类型由一个字符串标识)以及有关于他们的一些信息由配置文件中的实体字典提供。关系类型的列表（每个都由该列表中的索引标识）以及一些数据（如其左侧和右侧实体类型）在配置文件的relation key中指示。</p>
-<h2 id="Entities"><a href="#Entities" class="headerlink" title="Entities"></a>Entities</h2><p>The only information that needs to be provided about entities is how many there are in each entity type’s partition. This is done by putting a file named <code>entity_count_type_part.txt</code> for each entity type identified by <code>type</code> and each partition <code>part</code> in the directory specified by the <code>entity_path</code> config parameter. These files must contain a single integer (as text), which is the number of entities in that partition. The directory where all these files reside must be specified as the <code>entity_path</code> key of the configuration file.<br>对于实体而言，其只需要提供每种实体类型的分区中有多少个实体这样一个信息即可。他通过将文件名称为<code>entity_count_type_part.txt</code>(<code>type</code>表示实体类型，<code>part</code>表示分区id)放到配置文件指定的文件夹来实现，这个文件夹在配置文件中的key为<code>entity_path</code>。 这些文件(entity_count_type1_part1.txt, entity_count_type2_part2.txt…)必须包含一个整数（作为文本），该整数表示在该分区中实体的数量。这些文件所在的目录名称必须指定为在配置文件下的<code>entity_path</code>。</p>
-<p>It is possible to provide an initial value for the embeddings, by specifying a value for the <code>init_path</code> configuration key, which is the name of a directory that contains files in a format similar to the output format detailed in Checkpoint (possibly without the optimizer state dicts).<br>通过为<code>init_path</code>配置键指定一个值，可以为嵌入提供一个初始值。<code>init_path</code>值的目录下包含和Checkpoint类似的文件格式。（详情见checkpoint）</p>
-<p>If no initial value is provided, it will be auto-generated, with each dimension sampled from the centered normal distribution whose standard deviation can be configured using the <code>init_scale</code> configuration key. For performance reasons the samples of all the entities of a certain type will not be independent.<br>如果为嵌入提供初始值，它将会自动生成，其每个维的值都是从正态分布中采样得到。可以通过配置文件中的init_scale来调整方差范围。出于性能原因，对于同一个类型下的所有实体的样本将不是独立的。</p>
-<h2 id="Edges"><a href="#Edges" class="headerlink" title="Edges"></a>Edges</h2><p>For each bucket there must be a file that stores all the edges that fall in that bucket, of all relation types. This means that such a file is only identified by two integers, the partitions of its left- and right-hand side entities. It must be named <code>edges_lhs_rhs.h5</code> (where lhs and rhs are the above integers), it must be a HDF5 file containing three one-dimensional datasets of the same length, called rel, lhs and rhs. The elements in the 𝑖-th positions in each of them define the 𝑖-th edge: rel identifies the relation type (and thus the left- and right-hand side entity types), lhs and rhs given the indices of the left- and right-hand side entities within their respective partitions.<br>对于每一个桶，必须要有一个文件来存储该桶下的所有关系类型的所有边信息。这意味这样的一个文件仅由两个整数来进行标识，即它的左侧和右侧实体的分区id。 必须将其命名为edges_lhs_rhs.h5（其中lhs和rhs是左侧分区id和右侧分区id），它必须是HDF5文件，其中包含三个相同长度的一维数据集，分别称为rel，lhs和rhs。<br>在这三个一维数据集中，第𝑖个位置的元素定义了第i条边: rel定义了关系类型（并因此指定左侧和右侧实体类型），lhs和rhs定义了左右侧的实体在其各自分区下的索引。</p>
-<p>To ease future updates to this format, each file must contain the format version in the format_version attribute of the top-level group. The current version is 1.<br>为了简化以后对该格式的更新，每个文件都必须在顶级组的format_version属性中包含格式版本。 当前版本是1。（这个是H5的格式问题）</p>
-<p>If an entity type is unpartitioned (that is, all its entities belong to the same partition), then the edges incident to these entities must still be uniformly spread across all buckets.<br>如果某一个实体类型是未分区的（即，其所有实体都属于同一分区），则这些实体连接的的边必须仍然均匀地分布在所有存储桶中。</p>
-<p>These files, for all buckets, must be stored in the same directory, which must be passed as the edge_paths configuration key. That key can actually contain a list of paths, each pointing to a directory of the format described above: in that case the graph will contain the union of all their edges.<br>对于所有桶对应的文件都必须存储在同一个目录下。该目录将会被配置到配置文件的<code>edge_paths</code>key下，该key实际上可以包含一个路径列表，每个路径都指向上述格式的目录：在这种情况下，图将包含其所有边的并集。</p>
-<h2 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h2><p>The training’s checkpoints are also its output, and they are written to the directory given as the checkpoint_path parameter in the configuration. Checkpoints are identified by successive positive integers, starting from 1, and all the files belonging to a certain checkpoint have an extra component .vversion between their name and extension (e.g., something.v42.h5 for version 42).<br>训练的检查点也是其输出，它们被写入配置中指定为checkpoint_path参数的目录中。检查点由从1开始的连续正整数标识，并且属于某个检查点的所有文件的名称和扩展名之间都有一个额外的组件.vversion（例如，版本42的something.v42.h5）。</p>
-<p>The latest complete checkpoint version is stored in an additional file in the same directory, called <code>checkpoint_version.txt</code>, which contains a single integer number, the current version.<br>最新的完整检查点版本存储在同一目录中的另一个文件中，该文件称为checkpoint_version.txt，其中包含一个整数，即当前版本。</p>
-<p>Each checkpoint contains a JSON dump of the config that was used to produce it stored in the config.json file.<br>每一个检查点都为配置文件生成了对应json文件，并将其存储在config.json文件中。</p>
-<p>After a new checkpoint version is saved, the previous one will automatically be deleted. In order to periodically preserve some of these versions, set the <code>checkpoint_preservation_interval</code> config flag to the desired period (expressed in number of epochs).<br>当一个新的检查点版本被保存时，上一个将会自动被删除。如果想要周期性的保存一些检查点，可以在配置文件中设置checkpoint_preservation_interval（以训练轮次数的形式）</p>
-<h2 id="Model-parameters"><a href="#Model-parameters" class="headerlink" title="Model parameters"></a>Model parameters</h2><p>The model parameters are stored in a file named model.h5, which is a HDF5 file containing one dataset for each parameter, all of which are located within the model group. Currently, the parameters that are provided are:<br>• model/relations/idx/operator/side/param with the parameters of each relation’s operator.<br>• model/entities/type/global_embedding with the per-entity type global embedding.<br>模型参数存储在名为model.h5的文件中，该文件是一个HDF5文件，其中包含每个参数的一个数据集，所有数据集都位于模型组下。 当前，提供的参数有：<br>• model/relations/idx/operator/side/param -&gt; 对应每个算子的参数<br>• model/entities/type/global_embedding -&gt;带有每个实体类型全局嵌入</p>
-<blockquote>
-<p>🤔 这里好像和实际有点出入</p>
-</blockquote>
-<p>Each of these datasets also contains, in the state_dict_key attribute, the key it was stored inside the model state dict. An additional dataset may exist, optimizer/state_dict, which contains the binary blob (obtained through torch.save()) of the state dict of the model’s optimizer.</p>
-<blockquote>
-<p>🤔 H5格式</p>
-</blockquote>
-<p>Finally, the top-level group of the file contains a few attributes with additional metadata. This mainly includes the format version, a JSON-dump of the config and some information about the iteration that produced the checkpoint.<br>最后，文件的顶级组包含一些带有其他元数据的属性。 主要包括格式版本，配置的JSON转储以及有关生成检查点的迭代的一些信息。</p>
-<h2 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h2><p>Then, for each entity type and each of its partitions, there is a file embeddings_type_part.h5 (where type is the type’s name and part is the 0-based index of the partition), which is a HDF5 file with two datasets. One two-dimensional dataset, called embeddings, contains the embeddings of the entities, with the first dimension being the number of entities and the second being the dimension of the embedding.<br>对于每种实体类型及其每个分区，都有一个embeddings_type_part.h5文件（其中type是类型的名称，part是分区的从0开始的索引），它是一个包含两个数据集的HDF5文件。 一个称为嵌入的二维数据集包含实体的嵌入，第一个维度是实体的数量，第二个维度是嵌入的维度。（其实就是实体嵌入的矩阵）（数据集1）</p>
-<p>Just like for the model parameters file, the optimizer state dict and additional metadata is also included.<br>就像model.h5一样，embeedings.h5中还包含了一些关于优化状态等额外的元数据。（数据集2）</p>
-<p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/input_output.html">https://torchbiggraph.readthedocs.io/en/latest/input_output.html</a></p>
-]]></content>
-      <tags>
-        <tag>PyTorch-BigGraph</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PyTorch-BigGraph 损失计算</title>
-    <url>/2020/10/30/PBG-Loss-calculation/</url>
-    <content><![CDATA[<h1 id="PyTorch-BigGraph-损失计算"><a href="#PyTorch-BigGraph-损失计算" class="headerlink" title="PyTorch-BigGraph 损失计算"></a>PyTorch-BigGraph 损失计算</h1><p>The training process aims at finding the embeddings for the entities so that the scores of the positive edges are higher than the scores of the negative edges. When unpacking what this means, three different aspects come into play:<br>训练过程旨在找到实体的嵌入，使得正边实例的得分高于负边实例的得分。 具体的说，分为以下三个部分：</p>
-<p>• One must first determine which edges are to be considered as positive and negative samples.<br>• Then, once the scores of all the samples have been determined, one must decide how to aggregate them in a single loss value.<br>• Finally, one must decide how to go about optimizing that loss.</p>
-<p>• 首先必须确定哪些边被视为正样本和负样本。<br>• 然后，一旦确定了所有样本的得分，就必须决定如何将它们汇总为一个损失值。<br>• 最后，必须决定如何优化这一损失。</p>
-<p>This chapter will dive into each of these issues.<br>本章将深入探讨这些问题。</p>
-<h2 id="Negative-sampling"><a href="#Negative-sampling" class="headerlink" title="Negative sampling"></a>Negative sampling</h2><p>The edges provided in the input data are known to be positives but, as PBG operates under the open-world assumption, the edges that are not in the input are not necessarily negatives. However, as PBG is designed to perform on large sparse graphs, it relies on the approximation that any random edge is a negative with very high probability.<br>已知输入数据中提供的边为正实例，但是，由于PBG是基于开放世界假设的，因此不在输入中的边不一定为负实例。但是，由于PBG设计是在大型稀疏图运行的，因此它依赖于近似值，即任何随机边为负实例的可能性很高。</p>
-<p>The goal of sampling negatives is to produce a set of negative edges for each positive edge of a batch. Usual downstream applications (ranking, classification, …) are interested in comparing the score of an edge (𝑥,𝑟,𝑦1) with the score of an edge (𝑥,𝑟,𝑦2). Therefore, PBG produces negative samples for a given positive edge by corrupting the entity on one of its sides, keeping the other side and the relation type intact. This makes the sampling more suited to the task.<br>负采样的目的是在一个批次上的为每条正边实例子产生一组负边实例。通常的之后的操作（排名，分类等）都希望将边（𝑥，𝑟，𝑦1）的得分与边（𝑥，𝑟，𝑦2）的得分进行比较。因此，PBG通过破坏其一侧的实体，保持另一侧和关联类型的完整性来生成给定正边实例的负样本。这使得采样更加适合任务。</p>
-<p>For performance reasons, the set of entities used to corrupt the positive edges in order to produce the negative samples may be shared across several positive edges. The way this usually happens is that positive edges are split into “chunks”, a single set of entities is sampled for each chunk, and all edges in that chunk are corrupted using that set of entities.<br>出于性能原因，可用于破坏正边以生成负样本的实体集可在多个正边之间共享。这种情况通常发生的方式是，将正边分成“块”，为每个块采样一组实体，然后使用这样一组实体来作用到这个块中的所有边来完成负采样。</p>
-<p>PBG supports several ways of sampling negatives:<br>PBG支持多种负采样：</p>
-<h3 id="All-negatives"><a href="#All-negatives" class="headerlink" title="All negatives"></a>All negatives</h3><p>The most straightforward way is to use, for each positive edge, all its possible negatives. What this means is that for a positive (𝑥,𝑟,𝑦) (where 𝑥 and 𝑦 are the left- and right-hand side negatives respectively and 𝑟 is the relation type), its negatives will be (𝑥′,𝑟,𝑦) for all 𝑥′ of the same entity type as 𝑥 and (𝑥,𝑟,𝑦′) for 𝑦′ of the same entity type as 𝑦. (Due to technical reasons this is in fact restricted to only the 𝑥′ in the same partition as 𝑥, and similarly for 𝑦′, as negative sampling always operates within the current bucket.)<br>最直接的方式是对每个正边得到所有可能的负边。  这意味着对于一个正边（𝑥，𝑟，𝑦），它的负边为（𝑥’，𝑟，𝑦 ）表示与𝑥具有相同实体类型的所有𝑥’以及（𝑥，𝑟，𝑦’）表示与𝑦具有相同实体类型的所有𝑦’。（出于技术原因，一般就一种，要不就x’,要不就y‘）</p>
-<p>As one can imagine, this method generates a lot of negatives and thus doesn’t scale to graphs of any significant size. It should not be used in practice, and is provided in PBG mainly for “academic” reasons. It is mainly useful to get more accurate results during evaluation on small graphs.<br>可以设想，这种方法会产生很多负样本，因此无法适用于任何大小的图形。因此不应在实践中使用它，而在PBG中提供它主要是出于“学术”原因。 起作用主要是在小图上进行评估时获得更准确的结果。</p>
-<p>This method is activated on a per-relation basis, by turning on the all_negs config flag. When it’s enabled, this mode takes precedence and overrides any other mode.<br>通过打开all_negs config标志，将基于每个关系激活此方法。 启用后，此模式将优先并覆盖其他任何模式。</p>
-<h3 id="Same-batch-negatives"><a href="#Same-batch-negatives" class="headerlink" title="Same-batch negatives"></a>Same-batch negatives</h3><p>This negative sampling method produces negatives for a given positive edge of a batch by sampling from the other edges of the same batch. This is done by first splitting the batch into so-called chunks (beware that the name “chunks” is overloaded, and these chunks are different than the edge chunks explained in Batch preparation). Then the set of negatives for a positive edge (𝑥,𝑟,𝑦) contains the edges (𝑥′,𝑟,𝑦) for all entities 𝑥′ that are on left-hand side of another edge in the chunk, and the edges (𝑥,𝑟,𝑦′) with 𝑦′ satisfying the same condition for the right-hand side.<br>通过从同一批次的其他边进行采样，此负采样方法可为批次的给定正边生成负样本。这是通过首先将批处理拆分为所谓的块来完成的（请注意，“块”的名称已超载（有多重意思），并且这些块与“批处理”中介绍的边缘块不同），然后，一个正边（𝑥，𝑟，𝑦）得到的负样本为，这个块中的符合条件的(𝑥′,𝑟,𝑦)以及(𝑥,𝑟,𝑦′)。</p>
-<p>For a single positive edge, this means that the entities used to construct its negatives are sampled from the current partition proportionally to their degree, a.k.a., according to the data distribution. This helps counteract the effects of a very skewed distribution of degrees, which might cause the embeddings to just capture that distribution.<br>对于一个正边来说，根据其生成的负边的实体来源于当前的分区，并根据数据的分布来按比例生成的。这有助于抵消度的非常偏斜的分布的影响，可以实现嵌入恰好捕获该分布。</p>
-<p>The size of the chunks is controlled by the global num_batch_negs parameter. To disable this sampling mode, set that parameter to zero.<br>块的大小由全局num_batch_negs参数控制。 要禁用此采样模式，请将该参数设置为零。</p>
-<h3 id="Uniformly-sampled-negatives"><a href="#Uniformly-sampled-negatives" class="headerlink" title="Uniformly-sampled negatives"></a>Uniformly-sampled negatives</h3><p>This last method is perhaps the most natural approximation of the “all negatives” method that scales to arbitrarily large graphs. Instead of using all the entities on either side to produce negative edges (thus having the number of negatives scale linearly withe the size of the graph), a fixed given number of these entities is sampled uniformly with replacement. Thus the set of negatives remains of constant size no matter how large the graph is. As with the “all negatives” method, the sampling here is restricted to the entities that have the same type and that belong to the same partition as the entity of the positive edge.<br>最后一种方法与“全负样本”的方法类似，但是该方法可适用于到任意大图。该方法对固定数量的这些实体进行均匀采样并替换而不是像“全负样本”一样完全生成负样本（负边的数量与图的大小成线性比例）。因此无论图形有多大，负样本数目保持恒定大小。 与“全负样本”方法一样，此处的采样仅限于具有相同类型且与正边实体属于同一分区的实体。</p>
-<p>This method interacts with the same-batch method, as all the edges in a chunk receive the same set of uniformly sampled negatives. This caveat means that the uniform negatives of two different positives are independent and uncorrelated only if they belong to different chunks.<br>该方法与same-batch方法相互影响，因为块中的所有边都接收同一组均匀采样的负样本。这表明了两个正边生成的负样本只有在其属于不同组块时才是独立且不相关的。</p>
-<p>This method is controlled by the num_uniform_negs parameter, which controls how many negatives are sampled for each chunk. If num_batch_negs is zero, the batches will be split into chunks of size num_uniform_negs.<br>此方法由num_uniform_negs参数控制，该参数控制为每个块采样多少个负边。 如果num_batch_negs为零，则将批次拆分为num_uniform_negs大小的块。</p>
-<blockquote>
-<p>🤔 需要再琢磨琢磨</p>
-</blockquote>
-<h2 id="Loss-functions"><a href="#Loss-functions" class="headerlink" title="Loss functions"></a>Loss functions</h2><p>Once positive and negative samples have been determined and their scores have been computed by the model, the scores’ suitability for a certain application must be assessed, which is done by aggregating them into a single real value, the loss. What loss function is most appropriate depends on what operations the embeddings will be used for.<br>一旦确定了正负样本并通过模型计算了它们的得分，就必须评估得分对特定应用程序的适用性。一般来说，将这些得分汇总为一个实际值即损失。 哪种损失函数最合适取决于嵌入之后的的应用场景。</p>
-<p>In all cases, the loss function’s input will be a series of scores for positive samples and, for each of them, a set of scores for corresponding negative samples. For simplicity, suppose all these sets are of the same size (if they are not, they can be padded with “negative infinity” values, as these are the “ideal” scores for negative edges and should thus induce no loss).<br>在所有情况下，损失函数的输入将是一系列正样本的得分，对于每个正样本，会有一组是其对应负样本的得分。 为简单起见，假设所有这些集合的大小都相同（如果不是，则可以用“负无穷大”值填充，因为这些是负边的“理想”分数，因此不应引起任何损失）。</p>
-<h3 id="Ranking-loss"><a href="#Ranking-loss" class="headerlink" title="Ranking loss"></a>Ranking loss</h3><p>The ranking loss compares each positive score with each of its corresponding negatives. For each such pair, no loss is introduced if the positive score is greater than the negative one by at least a given margin. Otherwise the incurred loss is the amount by which that inequality is violated. This is the hinge loss on the difference between the positive and negative score. Formally, for a margin 𝑚, a positive score 𝑠𝑖 and a negative score 𝑡𝑖,𝑗, the loss is max(0,𝑚−𝑠𝑖+𝑡𝑖,𝑗). The total loss is the sum of the losses over all pairs of positive and negative scores, i.e., over all 𝑖 and 𝑗.<br>排名损失将每个正得分与其对应的负得分进行比较。对于每一个这样的配对，如果正值至少比负值大一个给定的余量，则不会造成任何损失，否则，其贡献的损失为超过的值。这其实是一种正负得分差的hinge loss。形式上，对于余量𝑚，正分数𝑠𝑖和负分数𝑡𝑖𝑗，损失为max（0，𝑚-𝑠𝑖+𝑡𝑖𝑗）。总损失是所有正负分数对（即所有𝑖和𝑗）的损失总和。</p>
-<p>This loss function is chosen by setting the loss_fn parameter to ranking, and the target margin is specified by the margin parameter.<br>通过将loss_fn参数设置为等级来选择此损失函数，并且margin参数指定余量的大小。</p>
-<p>This loss function is suitable when the setting requires to rank some entities by how likely they are to be related to another given entity.<br>当设置需要根据某些实体与另一个给定实体相关的可能性来对某些实体进行排名时，此损失函数适用。</p>
-<h3 id="Logistic-loss"><a href="#Logistic-loss" class="headerlink" title="Logistic loss"></a>Logistic loss</h3><p>The logistic loss instead interprets the scores as the probabilities that the edges exist. It does so by first passing each score (whose domain is the entire real line) through the logistic function (𝑥↦1/(1+𝑒−𝑥), which maps it to a value between 0 and 1). This value is taken as the probability 𝑝 and the loss will be its binary cross entropy with the “target” probability, i.e., 1 for positive edges and 0 for negative ones. In formulas, the loss for positives is −log𝑝 whereas for negatives it’s −log(1−𝑝). The total loss of due to the negatives is renormalized so it compares with the one of the positives.<br>逻辑损失将分数解释为边存在的概率。首先要通过逻辑函数（𝑥↦1/（1 + 𝑒−𝑥），将其映射到0到1之间的值）传递每个得分（其域是整个实线）。 将该值作为概率𝑝，并且损失将是具有“目标”概率的二进制交叉熵。正边为1，负边为0。 在公式中，正值的损失为-log𝑝，负数的损失为-log（1-𝑝)。 由于负数导致的总损失被重新归一化，因此可以与正数之一进行比较。</p>
-<p>One can see this as the cross entropy between two distributions on the values “edge exists” and “edge doesn’t exist”. One is given by the score (passed through the logistic function), the other has all the mass on “exists” for positives or all the mass on “doesn’t exist” for negatives.<br>通过使用交叉熵，可以得到边是否存在的分布。一个由得分（通过逻辑函数传递）给出，另一个由阳性存在的“存在”代表所有否定，或由负存在所有质量的“不存在”代表。</p>
-<p>This loss function is parameterless and is enabled by setting loss_fn to logistic.<br>此损失函数是无参的，可以通过将loss_fn设置为logistic来启用。</p>
-<h3 id="Softmax-loss"><a href="#Softmax-loss" class="headerlink" title="Softmax loss"></a>Softmax loss</h3><p>The last loss function is designed for when one wants a distribution on the probabilities of some entities being related to a given entity (contrary to just wanting a ranking, as with the ranking loss). For a certain positive 𝑖, its score 𝑠𝑖 and the score 𝑡𝑖,𝑗 of all the corresponding negatives 𝑗 are first converted to probabilities by performing a softmax: 𝑝𝑖∝𝑒𝑠𝑖 and 𝑞𝑖,𝑗∝𝑒𝑡𝑖,𝑗, normalized so that they sum up to 1. Then the loss is the cross entropy between this distribution and the “target” one, i.e., the one that puts all the mass on the positive sample. So, in full, the loss for a single 𝑖 is −log𝑝𝑖, i.e., −𝑠𝑖+log∑𝑗𝑒𝑡𝑖,𝑗.<br>最后一个损失函数设计用于当人们希望通过给定一个实体，得到其他实体和其相关性的概率的场景。（与仅需要排名，与排名损失相反）。对于某个正例𝑖，首先通过执行softmax：𝑝𝑖∝𝑒𝑠𝑖和𝑞𝑖，𝑗∝𝑒𝑡𝑖，𝑗进行归一化，使得概率和为1。此时损失就是这种分布与“目标”分布之间的交叉熵。即将所有质量置于正样本上的交叉熵。 因此，总的来说，单个𝑖的损失为-log𝑝𝑖，即-𝑠𝑖+ log∑𝑗𝑒𝑡𝑖，𝑗。</p>
-<p>This loss is activated by setting loss_fn to softmax.<br>通过在配置参数中设置loss_fn=softmax来实现配置。</p>
-<h2 id="Optimizers"><a href="#Optimizers" class="headerlink" title="Optimizers"></a>Optimizers</h2><p>The Adagrad optimization method is used to update all model parameters. Adagrad performs stochastic gradient descent with an adaptive learning rate applied to each parameter inversely proportional to the inverse square magnitude of all previous updates. In practice, Adagrad updates lead to an order of magnitude faster convergence for typical PBG models.</p>
-<p>Adagrad优化方法用于更新所有模型参数。Adagrad使用与所有先前更新的平方反比成反比的自适应学习率，以自适应学习率执行随机梯度下降。 实际上，Adagrad更新使典型PBG模型的收敛速度提高了一个数量级。</p>
-<p>The initial learning rate for Adagrad is specified by the lr config parameter.A separate learning rate can also be set for non-embeddings using the relation_lr parameter.<br>Adagrad的初始学习率由config文件里的lr参数指定。还可以使用related_lr参数为非嵌入设置单独的学习率。</p>
-<p>Standard Adagrad requires an equal amount of memory for optimizer state as the size of the model, which is prohibitive for the large models targeted by PBG. To reduce optimizer memory usage, a modified version of Adagrad is used that uses a common learning rate for each entity embedding. The learning rate is proportional to the inverse sum of the squared gradients from each element of the embedding, divided by the dimension. Non-embedding parameters (e.g. relation operator parameters) use standard Adagrad.<br>标准Adagrad要求优化程序状态的内存量与模型大小相同，这对于PBG定位的大型模型是不允许的。为了减少优化器的内存使用，使用了Adagrad的修改版本，该版本对每个实体嵌入使用通用的学习率。学习率与嵌入元素的梯度平方的倒数之和成比例，再除以尺寸。 非嵌入参数（例如关系运算符参数）使用标准Adagrad。</p>
-<p>Adagrad parameters are updated asynchronously across worker threads with no explicit synchronization. Asynchronous updates to the Adagrad state (the total squared gradient) appear stable, likely because each element of the state tensor only accumulates positives updates. Optimization is further stabilized by performing a short period of training with a single thread before beginning Hogwild! training, which is tuned by the hogwild_delay parameter.<br>Adagrad参数在工作线程之间异步更新，而没有显式同步。异步更新使得Adagrad状态(总平方梯度)的更新显得稳定,这可能是因为状态张量的每个元素仅累积正更新。在开始Hogwild之前，可以通过单线程进行短期培训来进一步优化。 培训，具体取决于hogwild_delay参数。</p>
-<p>In distributed training, the Adagrad state for shared parameters (e.g. relation operator parameters) are shared via the parameter server using the same asynchronous gradient update as the parameters themselves. Similar to inter-thread synchronization, these asynchronous updates are stable after an initial burn-in period because the total squared gradient strictly accumulates positive values.<br>分布式训练中，共享参数（例如关系运算符参数）的Adagrad状态通过参数服务器使用与参数本身相同的异步梯度更新进行共享。与线程间同步类似，这些异步更新在初始阶段会不稳定，之后会保持稳定，因为总平方梯度严格累加正值。</p>
-<blockquote>
-<p>🤔 </p>
-</blockquote>
-<p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/loss_optimization.html">https://torchbiggraph.readthedocs.io/en/latest/loss_optimization.html</a></p>
 ]]></content>
       <tags>
         <tag>PyTorch-BigGraph</tag>
@@ -978,34 +1109,35 @@
       </tags>
   </entry>
   <entry>
-    <title>Scrapy学习</title>
-    <url>/2020/09/22/Scrapy-learning/</url>
-    <content><![CDATA[<h3 id="Scrapy-架构"><a href="#Scrapy-架构" class="headerlink" title="Scrapy 架构"></a>Scrapy 架构</h3><p><img src="/image/scrapy.png"></p>
-<ol>
-<li>The Engine gets the initial Requests to crawl from the Spider.(获取要爬的url)</li>
-<li>The Engine schedules the Requests in the Scheduler and asks for the next Requests to crawl.（调度request到调度器中，形成一些列的url调度队列）</li>
-<li>The Scheduler returns the next Requests to the Engine.（调度器调度完成，发送第一个request给引擎）</li>
-<li>The Engine sends the Requests to the Downloader, passing through the Downloader Middlewares (see process_request()). （引擎发送第一个request给下载器）</li>
-<li>Once the page finishes downloading the Downloader generates a Response (with that page) and sends it to the Engine, passing through the Downloader Middlewares (see process_response()).（下载器得到该request的response，返回给引擎）</li>
-<li>The Engine receives the Response from the Downloader and sends it to the Spider for processing, passing through the Spider Middleware (see process_spider_input()).（引擎将response发给spider进行解析）</li>
-<li>The Spider processes the Response and returns scraped items and new Requests (to follow) to the Engine, passing through the Spider Middleware (see process_spider_output()).（spider解析好需要的数据：包括：提取需要的内容+提取新的url请求，将处理好的数据发给引擎）</li>
-<li>The Engine sends processed items to Item Pipelines, then send processed Requests to the Scheduler and asks for possible next Requests to crawl.（一方面引擎将得到的内容发给item，将得到的url请求发给调度器）</li>
-<li>The process repeats (from step 1) until there are no more requests from the Scheduler.</li>
-</ol>
-<p>摘自:<a href="https://docs.scrapy.org/en/latest/topics/architecture.html">https://docs.scrapy.org/en/latest/topics/architecture.html</a></p>
-<h3 id="Scrapy-使用"><a href="#Scrapy-使用" class="headerlink" title="Scrapy 使用"></a>Scrapy 使用</h3><h4 id="第一步-创建爬虫项目；"><a href="#第一步-创建爬虫项目；" class="headerlink" title="第一步: 创建爬虫项目；"></a>第一步: 创建爬虫项目；</h4><p>$scrapy startproject project_name</p>
-<h4 id="第二步-设置settings"><a href="#第二步-设置settings" class="headerlink" title="第二步: 设置settings"></a>第二步: 设置settings</h4><p>settings关闭robots =》 POBOTSOXT_OBEY = True<br>…</p>
-<h4 id="第三步-定义item信息"><a href="#第三步-定义item信息" class="headerlink" title="第三步: 定义item信息"></a>第三步: 定义item信息</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1Item</span>(<span class="params">scrapy.Item</span>):</span> <span class="comment"># ==&gt;&gt;&gt;修改item名称</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Items clearly define the common output data format in a separate file ,有的时候可能需要对传过来的数据进行进一步处理</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># example:</span></span><br><span class="line">    quote_content = Field(input_processor=MapCompose(remove_quotes),output_processor=TakeFirst())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_quotes</span>(<span class="params">text</span>):</span></span><br><span class="line">	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="第四步-编写代码逻辑"><a href="#第四步-编写代码逻辑" class="headerlink" title="第四步:编写代码逻辑"></a>第四步:编写代码逻辑</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">首先创建爬虫文件</span><br><span class="line">cd project_name</span><br><span class="line">scrapy genspider spider_name url</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">	<span class="comment">## 编写代码逻辑</span></span><br><span class="line">	self.logger.info(<span class="string">&#x27;test...&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">## 一般逻辑:</span></span><br><span class="line">    res = response.xpath(<span class="string">&quot;xxx&quot;</span>).getall() </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> res:</span><br><span class="line">    	<span class="keyword">yield</span>&#123;</span><br><span class="line">    		<span class="comment"># 放入item中，更加复杂的写法见item itemloader</span></span><br><span class="line">    	&#125;</span><br><span class="line">     <span class="comment">##如果需要深度搜索，具有下一页之类的</span></span><br><span class="line">     next_page = response.xpath(xxx).get()</span><br><span class="line">    <span class="keyword">if</span> next_page <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        next_page = response.urljoin(next_page)</span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(next_page, callback=self.parse)  <span class="comment"># 这里的callback 也可以重新写个函数进行回调 crapy.Request(next_page, callback=self.parse2)</span></span><br><span class="line">        <span class="comment"># 如果不进行url拼接的话，也可以直接</span></span><br><span class="line">        <span class="keyword">yield</span> response.follow(a, callback=self.parse)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse2</span>(<span class="params">self,response</span>):</span></span><br><span class="line">	<span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Ite/Itemloader</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> res:</span><br><span class="line">	loader = ItemLoader(item=Test1Item(), selector=i)</span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">	item = loader.load_item() <span class="comment"># 此时item便得到了提取的数据</span></span><br><span class="line">	<span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
-
-<h4 id="第五步-调试-输出"><a href="#第五步-调试-输出" class="headerlink" title="第五步:调试 输出"></a>第五步:调试 输出</h4><p>$ scrapy shell URL<br>response.xpath(xxx).getall()</p>
-<p>$ scrapy crawl quotes -o xx.json</p>
+    <title>PyTorch-BigGraph I/O 格式</title>
+    <url>/2020/10/27/PBG-I-O-format/</url>
+    <content><![CDATA[<h1 id="PBG-I-O格式"><a href="#PBG-I-O格式" class="headerlink" title="PBG I/O格式"></a>PBG I/O格式</h1><h2 id="Entity-and-relation-types"><a href="#Entity-and-relation-types" class="headerlink" title="Entity and relation types"></a>Entity and relation types</h2><p>The list of entity types (each identified by a string), plus some information about each of them, is given in the <code>entities</code> dictionary in the configuration file. The list of relation types (each identified by its index in that list), plus some data like what their left- and right-hand side entity types are, is in the <code>relations</code> key of the configuration file.<br>实体类型的列表(每个实体类型由一个字符串标识)以及有关于他们的一些信息由配置文件中的实体字典提供。关系类型的列表（每个都由该列表中的索引标识）以及一些数据（如其左侧和右侧实体类型）在配置文件的relation key中指示。</p>
+<h2 id="Entities"><a href="#Entities" class="headerlink" title="Entities"></a>Entities</h2><p>The only information that needs to be provided about entities is how many there are in each entity type’s partition. This is done by putting a file named <code>entity_count_type_part.txt</code> for each entity type identified by <code>type</code> and each partition <code>part</code> in the directory specified by the <code>entity_path</code> config parameter. These files must contain a single integer (as text), which is the number of entities in that partition. The directory where all these files reside must be specified as the <code>entity_path</code> key of the configuration file.<br>对于实体而言，其只需要提供每种实体类型的分区中有多少个实体这样一个信息即可。他通过将文件名称为<code>entity_count_type_part.txt</code>(<code>type</code>表示实体类型，<code>part</code>表示分区id)放到配置文件指定的文件夹来实现，这个文件夹在配置文件中的key为<code>entity_path</code>。 这些文件(entity_count_type1_part1.txt, entity_count_type2_part2.txt…)必须包含一个整数（作为文本），该整数表示在该分区中实体的数量。这些文件所在的目录名称必须指定为在配置文件下的<code>entity_path</code>。</p>
+<p>It is possible to provide an initial value for the embeddings, by specifying a value for the <code>init_path</code> configuration key, which is the name of a directory that contains files in a format similar to the output format detailed in Checkpoint (possibly without the optimizer state dicts).<br>通过为<code>init_path</code>配置键指定一个值，可以为嵌入提供一个初始值。<code>init_path</code>值的目录下包含和Checkpoint类似的文件格式。（详情见checkpoint）</p>
+<p>If no initial value is provided, it will be auto-generated, with each dimension sampled from the centered normal distribution whose standard deviation can be configured using the <code>init_scale</code> configuration key. For performance reasons the samples of all the entities of a certain type will not be independent.<br>如果为嵌入提供初始值，它将会自动生成，其每个维的值都是从正态分布中采样得到。可以通过配置文件中的init_scale来调整方差范围。出于性能原因，对于同一个类型下的所有实体的样本将不是独立的。</p>
+<h2 id="Edges"><a href="#Edges" class="headerlink" title="Edges"></a>Edges</h2><p>For each bucket there must be a file that stores all the edges that fall in that bucket, of all relation types. This means that such a file is only identified by two integers, the partitions of its left- and right-hand side entities. It must be named <code>edges_lhs_rhs.h5</code> (where lhs and rhs are the above integers), it must be a HDF5 file containing three one-dimensional datasets of the same length, called rel, lhs and rhs. The elements in the 𝑖-th positions in each of them define the 𝑖-th edge: rel identifies the relation type (and thus the left- and right-hand side entity types), lhs and rhs given the indices of the left- and right-hand side entities within their respective partitions.<br>对于每一个桶，必须要有一个文件来存储该桶下的所有关系类型的所有边信息。这意味这样的一个文件仅由两个整数来进行标识，即它的左侧和右侧实体的分区id。 必须将其命名为edges_lhs_rhs.h5（其中lhs和rhs是左侧分区id和右侧分区id），它必须是HDF5文件，其中包含三个相同长度的一维数据集，分别称为rel，lhs和rhs。<br>在这三个一维数据集中，第𝑖个位置的元素定义了第i条边: rel定义了关系类型（并因此指定左侧和右侧实体类型），lhs和rhs定义了左右侧的实体在其各自分区下的索引。</p>
+<p>To ease future updates to this format, each file must contain the format version in the format_version attribute of the top-level group. The current version is 1.<br>为了简化以后对该格式的更新，每个文件都必须在顶级组的format_version属性中包含格式版本。 当前版本是1。（这个是H5的格式问题）</p>
+<p>If an entity type is unpartitioned (that is, all its entities belong to the same partition), then the edges incident to these entities must still be uniformly spread across all buckets.<br>如果某一个实体类型是未分区的（即，其所有实体都属于同一分区），则这些实体连接的的边必须仍然均匀地分布在所有存储桶中。</p>
+<p>These files, for all buckets, must be stored in the same directory, which must be passed as the edge_paths configuration key. That key can actually contain a list of paths, each pointing to a directory of the format described above: in that case the graph will contain the union of all their edges.<br>对于所有桶对应的文件都必须存储在同一个目录下。该目录将会被配置到配置文件的<code>edge_paths</code>key下，该key实际上可以包含一个路径列表，每个路径都指向上述格式的目录：在这种情况下，图将包含其所有边的并集。</p>
+<h2 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h2><p>The training’s checkpoints are also its output, and they are written to the directory given as the checkpoint_path parameter in the configuration. Checkpoints are identified by successive positive integers, starting from 1, and all the files belonging to a certain checkpoint have an extra component .vversion between their name and extension (e.g., something.v42.h5 for version 42).<br>训练的检查点也是其输出，它们被写入配置中指定为checkpoint_path参数的目录中。检查点由从1开始的连续正整数标识，并且属于某个检查点的所有文件的名称和扩展名之间都有一个额外的组件.vversion（例如，版本42的something.v42.h5）。</p>
+<p>The latest complete checkpoint version is stored in an additional file in the same directory, called <code>checkpoint_version.txt</code>, which contains a single integer number, the current version.<br>最新的完整检查点版本存储在同一目录中的另一个文件中，该文件称为checkpoint_version.txt，其中包含一个整数，即当前版本。</p>
+<p>Each checkpoint contains a JSON dump of the config that was used to produce it stored in the config.json file.<br>每一个检查点都为配置文件生成了对应json文件，并将其存储在config.json文件中。</p>
+<p>After a new checkpoint version is saved, the previous one will automatically be deleted. In order to periodically preserve some of these versions, set the <code>checkpoint_preservation_interval</code> config flag to the desired period (expressed in number of epochs).<br>当一个新的检查点版本被保存时，上一个将会自动被删除。如果想要周期性的保存一些检查点，可以在配置文件中设置checkpoint_preservation_interval（以训练轮次数的形式）</p>
+<h2 id="Model-parameters"><a href="#Model-parameters" class="headerlink" title="Model parameters"></a>Model parameters</h2><p>The model parameters are stored in a file named model.h5, which is a HDF5 file containing one dataset for each parameter, all of which are located within the model group. Currently, the parameters that are provided are:<br>• model/relations/idx/operator/side/param with the parameters of each relation’s operator.<br>• model/entities/type/global_embedding with the per-entity type global embedding.<br>模型参数存储在名为model.h5的文件中，该文件是一个HDF5文件，其中包含每个参数的一个数据集，所有数据集都位于模型组下。 当前，提供的参数有：<br>• model/relations/idx/operator/side/param -&gt; 对应每个算子的参数<br>• model/entities/type/global_embedding -&gt;带有每个实体类型全局嵌入</p>
+<blockquote>
+<p>🤔 这里好像和实际有点出入</p>
+</blockquote>
+<p>Each of these datasets also contains, in the state_dict_key attribute, the key it was stored inside the model state dict. An additional dataset may exist, optimizer/state_dict, which contains the binary blob (obtained through torch.save()) of the state dict of the model’s optimizer.</p>
+<blockquote>
+<p>🤔 H5格式</p>
+</blockquote>
+<p>Finally, the top-level group of the file contains a few attributes with additional metadata. This mainly includes the format version, a JSON-dump of the config and some information about the iteration that produced the checkpoint.<br>最后，文件的顶级组包含一些带有其他元数据的属性。 主要包括格式版本，配置的JSON转储以及有关生成检查点的迭代的一些信息。</p>
+<h2 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h2><p>Then, for each entity type and each of its partitions, there is a file embeddings_type_part.h5 (where type is the type’s name and part is the 0-based index of the partition), which is a HDF5 file with two datasets. One two-dimensional dataset, called embeddings, contains the embeddings of the entities, with the first dimension being the number of entities and the second being the dimension of the embedding.<br>对于每种实体类型及其每个分区，都有一个embeddings_type_part.h5文件（其中type是类型的名称，part是分区的从0开始的索引），它是一个包含两个数据集的HDF5文件。 一个称为嵌入的二维数据集包含实体的嵌入，第一个维度是实体的数量，第二个维度是嵌入的维度。（其实就是实体嵌入的矩阵）（数据集1）</p>
+<p>Just like for the model parameters file, the optimizer state dict and additional metadata is also included.<br>就像model.h5一样，embeedings.h5中还包含了一些关于优化状态等额外的元数据。（数据集2）</p>
+<p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/input_output.html">https://torchbiggraph.readthedocs.io/en/latest/input_output.html</a></p>
 ]]></content>
       <tags>
-        <tag>Python</tag>
-        <tag>Web Crawler</tag>
-        <tag>library</tag>
+        <tag>PyTorch-BigGraph</tag>
       </tags>
   </entry>
   <entry>
@@ -1328,6 +1460,37 @@
       </tags>
   </entry>
   <entry>
+    <title>Scrapy学习</title>
+    <url>/2020/09/22/Scrapy-learning/</url>
+    <content><![CDATA[<h3 id="Scrapy-架构"><a href="#Scrapy-架构" class="headerlink" title="Scrapy 架构"></a>Scrapy 架构</h3><p><img src="/image/scrapy.png"></p>
+<ol>
+<li>The Engine gets the initial Requests to crawl from the Spider.(获取要爬的url)</li>
+<li>The Engine schedules the Requests in the Scheduler and asks for the next Requests to crawl.（调度request到调度器中，形成一些列的url调度队列）</li>
+<li>The Scheduler returns the next Requests to the Engine.（调度器调度完成，发送第一个request给引擎）</li>
+<li>The Engine sends the Requests to the Downloader, passing through the Downloader Middlewares (see process_request()). （引擎发送第一个request给下载器）</li>
+<li>Once the page finishes downloading the Downloader generates a Response (with that page) and sends it to the Engine, passing through the Downloader Middlewares (see process_response()).（下载器得到该request的response，返回给引擎）</li>
+<li>The Engine receives the Response from the Downloader and sends it to the Spider for processing, passing through the Spider Middleware (see process_spider_input()).（引擎将response发给spider进行解析）</li>
+<li>The Spider processes the Response and returns scraped items and new Requests (to follow) to the Engine, passing through the Spider Middleware (see process_spider_output()).（spider解析好需要的数据：包括：提取需要的内容+提取新的url请求，将处理好的数据发给引擎）</li>
+<li>The Engine sends processed items to Item Pipelines, then send processed Requests to the Scheduler and asks for possible next Requests to crawl.（一方面引擎将得到的内容发给item，将得到的url请求发给调度器）</li>
+<li>The process repeats (from step 1) until there are no more requests from the Scheduler.</li>
+</ol>
+<p>摘自:<a href="https://docs.scrapy.org/en/latest/topics/architecture.html">https://docs.scrapy.org/en/latest/topics/architecture.html</a></p>
+<h3 id="Scrapy-使用"><a href="#Scrapy-使用" class="headerlink" title="Scrapy 使用"></a>Scrapy 使用</h3><h4 id="第一步-创建爬虫项目；"><a href="#第一步-创建爬虫项目；" class="headerlink" title="第一步: 创建爬虫项目；"></a>第一步: 创建爬虫项目；</h4><p>$scrapy startproject project_name</p>
+<h4 id="第二步-设置settings"><a href="#第二步-设置settings" class="headerlink" title="第二步: 设置settings"></a>第二步: 设置settings</h4><p>settings关闭robots =》 POBOTSOXT_OBEY = True<br>…</p>
+<h4 id="第三步-定义item信息"><a href="#第三步-定义item信息" class="headerlink" title="第三步: 定义item信息"></a>第三步: 定义item信息</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1Item</span>(<span class="params">scrapy.Item</span>):</span> <span class="comment"># ==&gt;&gt;&gt;修改item名称</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Items clearly define the common output data format in a separate file ,有的时候可能需要对传过来的数据进行进一步处理</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># example:</span></span><br><span class="line">    quote_content = Field(input_processor=MapCompose(remove_quotes),output_processor=TakeFirst())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_quotes</span>(<span class="params">text</span>):</span></span><br><span class="line">	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="第四步-编写代码逻辑"><a href="#第四步-编写代码逻辑" class="headerlink" title="第四步:编写代码逻辑"></a>第四步:编写代码逻辑</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">首先创建爬虫文件</span><br><span class="line">cd project_name</span><br><span class="line">scrapy genspider spider_name url</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">	<span class="comment">## 编写代码逻辑</span></span><br><span class="line">	self.logger.info(<span class="string">&#x27;test...&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">## 一般逻辑:</span></span><br><span class="line">    res = response.xpath(<span class="string">&quot;xxx&quot;</span>).getall() </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> res:</span><br><span class="line">    	<span class="keyword">yield</span>&#123;</span><br><span class="line">    		<span class="comment"># 放入item中，更加复杂的写法见item itemloader</span></span><br><span class="line">    	&#125;</span><br><span class="line">     <span class="comment">##如果需要深度搜索，具有下一页之类的</span></span><br><span class="line">     next_page = response.xpath(xxx).get()</span><br><span class="line">    <span class="keyword">if</span> next_page <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        next_page = response.urljoin(next_page)</span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(next_page, callback=self.parse)  <span class="comment"># 这里的callback 也可以重新写个函数进行回调 crapy.Request(next_page, callback=self.parse2)</span></span><br><span class="line">        <span class="comment"># 如果不进行url拼接的话，也可以直接</span></span><br><span class="line">        <span class="keyword">yield</span> response.follow(a, callback=self.parse)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse2</span>(<span class="params">self,response</span>):</span></span><br><span class="line">	<span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Ite/Itemloader</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> res:</span><br><span class="line">	loader = ItemLoader(item=Test1Item(), selector=i)</span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">	item = loader.load_item() <span class="comment"># 此时item便得到了提取的数据</span></span><br><span class="line">	<span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+
+<h4 id="第五步-调试-输出"><a href="#第五步-调试-输出" class="headerlink" title="第五步:调试 输出"></a>第五步:调试 输出</h4><p>$ scrapy shell URL<br>response.xpath(xxx).getall()</p>
+<p>$ scrapy crawl quotes -o xx.json</p>
+]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>Web Crawler</tag>
+        <tag>library</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Scrapy 实例 - TripAdvisor信息抓取</title>
     <url>/2020/10/15/scrapy-example/</url>
     <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
@@ -1484,6 +1647,54 @@
       <tags>
         <tag>Python</tag>
         <tag>NLP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PyTorch-BigGraph 损失计算</title>
+    <url>/2020/10/30/PBG-Loss-calculation/</url>
+    <content><![CDATA[<h1 id="PyTorch-BigGraph-损失计算"><a href="#PyTorch-BigGraph-损失计算" class="headerlink" title="PyTorch-BigGraph 损失计算"></a>PyTorch-BigGraph 损失计算</h1><p>The training process aims at finding the embeddings for the entities so that the scores of the positive edges are higher than the scores of the negative edges. When unpacking what this means, three different aspects come into play:<br>训练过程旨在找到实体的嵌入，使得正边实例的得分高于负边实例的得分。 具体的说，分为以下三个部分：</p>
+<p>• One must first determine which edges are to be considered as positive and negative samples.<br>• Then, once the scores of all the samples have been determined, one must decide how to aggregate them in a single loss value.<br>• Finally, one must decide how to go about optimizing that loss.</p>
+<p>• 首先必须确定哪些边被视为正样本和负样本。<br>• 然后，一旦确定了所有样本的得分，就必须决定如何将它们汇总为一个损失值。<br>• 最后，必须决定如何优化这一损失。</p>
+<p>This chapter will dive into each of these issues.<br>本章将深入探讨这些问题。</p>
+<h2 id="Negative-sampling"><a href="#Negative-sampling" class="headerlink" title="Negative sampling"></a>Negative sampling</h2><p>The edges provided in the input data are known to be positives but, as PBG operates under the open-world assumption, the edges that are not in the input are not necessarily negatives. However, as PBG is designed to perform on large sparse graphs, it relies on the approximation that any random edge is a negative with very high probability.<br>已知输入数据中提供的边为正实例，但是，由于PBG是基于开放世界假设的，因此不在输入中的边不一定为负实例。但是，由于PBG设计是在大型稀疏图运行的，因此它依赖于近似值，即任何随机边为负实例的可能性很高。</p>
+<p>The goal of sampling negatives is to produce a set of negative edges for each positive edge of a batch. Usual downstream applications (ranking, classification, …) are interested in comparing the score of an edge (𝑥,𝑟,𝑦1) with the score of an edge (𝑥,𝑟,𝑦2). Therefore, PBG produces negative samples for a given positive edge by corrupting the entity on one of its sides, keeping the other side and the relation type intact. This makes the sampling more suited to the task.<br>负采样的目的是在一个批次上的为每条正边实例子产生一组负边实例。通常的之后的操作（排名，分类等）都希望将边（𝑥，𝑟，𝑦1）的得分与边（𝑥，𝑟，𝑦2）的得分进行比较。因此，PBG通过破坏其一侧的实体，保持另一侧和关联类型的完整性来生成给定正边实例的负样本。这使得采样更加适合任务。</p>
+<p>For performance reasons, the set of entities used to corrupt the positive edges in order to produce the negative samples may be shared across several positive edges. The way this usually happens is that positive edges are split into “chunks”, a single set of entities is sampled for each chunk, and all edges in that chunk are corrupted using that set of entities.<br>出于性能原因，可用于破坏正边以生成负样本的实体集可在多个正边之间共享。这种情况通常发生的方式是，将正边分成“块”，为每个块采样一组实体，然后使用这样一组实体来作用到这个块中的所有边来完成负采样。</p>
+<p>PBG supports several ways of sampling negatives:<br>PBG支持多种负采样：</p>
+<h3 id="All-negatives"><a href="#All-negatives" class="headerlink" title="All negatives"></a>All negatives</h3><p>The most straightforward way is to use, for each positive edge, all its possible negatives. What this means is that for a positive (𝑥,𝑟,𝑦) (where 𝑥 and 𝑦 are the left- and right-hand side negatives respectively and 𝑟 is the relation type), its negatives will be (𝑥′,𝑟,𝑦) for all 𝑥′ of the same entity type as 𝑥 and (𝑥,𝑟,𝑦′) for 𝑦′ of the same entity type as 𝑦. (Due to technical reasons this is in fact restricted to only the 𝑥′ in the same partition as 𝑥, and similarly for 𝑦′, as negative sampling always operates within the current bucket.)<br>最直接的方式是对每个正边得到所有可能的负边。  这意味着对于一个正边（𝑥，𝑟，𝑦），它的负边为（𝑥’，𝑟，𝑦 ）表示与𝑥具有相同实体类型的所有𝑥’以及（𝑥，𝑟，𝑦’）表示与𝑦具有相同实体类型的所有𝑦’。（出于技术原因，一般就一种，要不就x’,要不就y‘）</p>
+<p>As one can imagine, this method generates a lot of negatives and thus doesn’t scale to graphs of any significant size. It should not be used in practice, and is provided in PBG mainly for “academic” reasons. It is mainly useful to get more accurate results during evaluation on small graphs.<br>可以设想，这种方法会产生很多负样本，因此无法适用于任何大小的图形。因此不应在实践中使用它，而在PBG中提供它主要是出于“学术”原因。 起作用主要是在小图上进行评估时获得更准确的结果。</p>
+<p>This method is activated on a per-relation basis, by turning on the all_negs config flag. When it’s enabled, this mode takes precedence and overrides any other mode.<br>通过打开all_negs config标志，将基于每个关系激活此方法。 启用后，此模式将优先并覆盖其他任何模式。</p>
+<h3 id="Same-batch-negatives"><a href="#Same-batch-negatives" class="headerlink" title="Same-batch negatives"></a>Same-batch negatives</h3><p>This negative sampling method produces negatives for a given positive edge of a batch by sampling from the other edges of the same batch. This is done by first splitting the batch into so-called chunks (beware that the name “chunks” is overloaded, and these chunks are different than the edge chunks explained in Batch preparation). Then the set of negatives for a positive edge (𝑥,𝑟,𝑦) contains the edges (𝑥′,𝑟,𝑦) for all entities 𝑥′ that are on left-hand side of another edge in the chunk, and the edges (𝑥,𝑟,𝑦′) with 𝑦′ satisfying the same condition for the right-hand side.<br>通过从同一批次的其他边进行采样，此负采样方法可为批次的给定正边生成负样本。这是通过首先将批处理拆分为所谓的块来完成的（请注意，“块”的名称已超载（有多重意思），并且这些块与“批处理”中介绍的边缘块不同），然后，一个正边（𝑥，𝑟，𝑦）得到的负样本为，这个块中的符合条件的(𝑥′,𝑟,𝑦)以及(𝑥,𝑟,𝑦′)。</p>
+<p>For a single positive edge, this means that the entities used to construct its negatives are sampled from the current partition proportionally to their degree, a.k.a., according to the data distribution. This helps counteract the effects of a very skewed distribution of degrees, which might cause the embeddings to just capture that distribution.<br>对于一个正边来说，根据其生成的负边的实体来源于当前的分区，并根据数据的分布来按比例生成的。这有助于抵消度的非常偏斜的分布的影响，可以实现嵌入恰好捕获该分布。</p>
+<p>The size of the chunks is controlled by the global num_batch_negs parameter. To disable this sampling mode, set that parameter to zero.<br>块的大小由全局num_batch_negs参数控制。 要禁用此采样模式，请将该参数设置为零。</p>
+<h3 id="Uniformly-sampled-negatives"><a href="#Uniformly-sampled-negatives" class="headerlink" title="Uniformly-sampled negatives"></a>Uniformly-sampled negatives</h3><p>This last method is perhaps the most natural approximation of the “all negatives” method that scales to arbitrarily large graphs. Instead of using all the entities on either side to produce negative edges (thus having the number of negatives scale linearly withe the size of the graph), a fixed given number of these entities is sampled uniformly with replacement. Thus the set of negatives remains of constant size no matter how large the graph is. As with the “all negatives” method, the sampling here is restricted to the entities that have the same type and that belong to the same partition as the entity of the positive edge.<br>最后一种方法与“全负样本”的方法类似，但是该方法可适用于到任意大图。该方法对固定数量的这些实体进行均匀采样并替换而不是像“全负样本”一样完全生成负样本（负边的数量与图的大小成线性比例）。因此无论图形有多大，负样本数目保持恒定大小。 与“全负样本”方法一样，此处的采样仅限于具有相同类型且与正边实体属于同一分区的实体。</p>
+<p>This method interacts with the same-batch method, as all the edges in a chunk receive the same set of uniformly sampled negatives. This caveat means that the uniform negatives of two different positives are independent and uncorrelated only if they belong to different chunks.<br>该方法与same-batch方法相互影响，因为块中的所有边都接收同一组均匀采样的负样本。这表明了两个正边生成的负样本只有在其属于不同组块时才是独立且不相关的。</p>
+<p>This method is controlled by the num_uniform_negs parameter, which controls how many negatives are sampled for each chunk. If num_batch_negs is zero, the batches will be split into chunks of size num_uniform_negs.<br>此方法由num_uniform_negs参数控制，该参数控制为每个块采样多少个负边。 如果num_batch_negs为零，则将批次拆分为num_uniform_negs大小的块。</p>
+<blockquote>
+<p>🤔 需要再琢磨琢磨</p>
+</blockquote>
+<h2 id="Loss-functions"><a href="#Loss-functions" class="headerlink" title="Loss functions"></a>Loss functions</h2><p>Once positive and negative samples have been determined and their scores have been computed by the model, the scores’ suitability for a certain application must be assessed, which is done by aggregating them into a single real value, the loss. What loss function is most appropriate depends on what operations the embeddings will be used for.<br>一旦确定了正负样本并通过模型计算了它们的得分，就必须评估得分对特定应用程序的适用性。一般来说，将这些得分汇总为一个实际值即损失。 哪种损失函数最合适取决于嵌入之后的的应用场景。</p>
+<p>In all cases, the loss function’s input will be a series of scores for positive samples and, for each of them, a set of scores for corresponding negative samples. For simplicity, suppose all these sets are of the same size (if they are not, they can be padded with “negative infinity” values, as these are the “ideal” scores for negative edges and should thus induce no loss).<br>在所有情况下，损失函数的输入将是一系列正样本的得分，对于每个正样本，会有一组是其对应负样本的得分。 为简单起见，假设所有这些集合的大小都相同（如果不是，则可以用“负无穷大”值填充，因为这些是负边的“理想”分数，因此不应引起任何损失）。</p>
+<h3 id="Ranking-loss"><a href="#Ranking-loss" class="headerlink" title="Ranking loss"></a>Ranking loss</h3><p>The ranking loss compares each positive score with each of its corresponding negatives. For each such pair, no loss is introduced if the positive score is greater than the negative one by at least a given margin. Otherwise the incurred loss is the amount by which that inequality is violated. This is the hinge loss on the difference between the positive and negative score. Formally, for a margin 𝑚, a positive score 𝑠𝑖 and a negative score 𝑡𝑖,𝑗, the loss is max(0,𝑚−𝑠𝑖+𝑡𝑖,𝑗). The total loss is the sum of the losses over all pairs of positive and negative scores, i.e., over all 𝑖 and 𝑗.<br>排名损失将每个正得分与其对应的负得分进行比较。对于每一个这样的配对，如果正值至少比负值大一个给定的余量，则不会造成任何损失，否则，其贡献的损失为超过的值。这其实是一种正负得分差的hinge loss。形式上，对于余量𝑚，正分数𝑠𝑖和负分数𝑡𝑖𝑗，损失为max（0，𝑚-𝑠𝑖+𝑡𝑖𝑗）。总损失是所有正负分数对（即所有𝑖和𝑗）的损失总和。</p>
+<p>This loss function is chosen by setting the loss_fn parameter to ranking, and the target margin is specified by the margin parameter.<br>通过将loss_fn参数设置为等级来选择此损失函数，并且margin参数指定余量的大小。</p>
+<p>This loss function is suitable when the setting requires to rank some entities by how likely they are to be related to another given entity.<br>当设置需要根据某些实体与另一个给定实体相关的可能性来对某些实体进行排名时，此损失函数适用。</p>
+<h3 id="Logistic-loss"><a href="#Logistic-loss" class="headerlink" title="Logistic loss"></a>Logistic loss</h3><p>The logistic loss instead interprets the scores as the probabilities that the edges exist. It does so by first passing each score (whose domain is the entire real line) through the logistic function (𝑥↦1/(1+𝑒−𝑥), which maps it to a value between 0 and 1). This value is taken as the probability 𝑝 and the loss will be its binary cross entropy with the “target” probability, i.e., 1 for positive edges and 0 for negative ones. In formulas, the loss for positives is −log𝑝 whereas for negatives it’s −log(1−𝑝). The total loss of due to the negatives is renormalized so it compares with the one of the positives.<br>逻辑损失将分数解释为边存在的概率。首先要通过逻辑函数（𝑥↦1/（1 + 𝑒−𝑥），将其映射到0到1之间的值）传递每个得分（其域是整个实线）。 将该值作为概率𝑝，并且损失将是具有“目标”概率的二进制交叉熵。正边为1，负边为0。 在公式中，正值的损失为-log𝑝，负数的损失为-log（1-𝑝)。 由于负数导致的总损失被重新归一化，因此可以与正数之一进行比较。</p>
+<p>One can see this as the cross entropy between two distributions on the values “edge exists” and “edge doesn’t exist”. One is given by the score (passed through the logistic function), the other has all the mass on “exists” for positives or all the mass on “doesn’t exist” for negatives.<br>通过使用交叉熵，可以得到边是否存在的分布。一个由得分（通过逻辑函数传递）给出，另一个由阳性存在的“存在”代表所有否定，或由负存在所有质量的“不存在”代表。</p>
+<p>This loss function is parameterless and is enabled by setting loss_fn to logistic.<br>此损失函数是无参的，可以通过将loss_fn设置为logistic来启用。</p>
+<h3 id="Softmax-loss"><a href="#Softmax-loss" class="headerlink" title="Softmax loss"></a>Softmax loss</h3><p>The last loss function is designed for when one wants a distribution on the probabilities of some entities being related to a given entity (contrary to just wanting a ranking, as with the ranking loss). For a certain positive 𝑖, its score 𝑠𝑖 and the score 𝑡𝑖,𝑗 of all the corresponding negatives 𝑗 are first converted to probabilities by performing a softmax: 𝑝𝑖∝𝑒𝑠𝑖 and 𝑞𝑖,𝑗∝𝑒𝑡𝑖,𝑗, normalized so that they sum up to 1. Then the loss is the cross entropy between this distribution and the “target” one, i.e., the one that puts all the mass on the positive sample. So, in full, the loss for a single 𝑖 is −log𝑝𝑖, i.e., −𝑠𝑖+log∑𝑗𝑒𝑡𝑖,𝑗.<br>最后一个损失函数设计用于当人们希望通过给定一个实体，得到其他实体和其相关性的概率的场景。（与仅需要排名，与排名损失相反）。对于某个正例𝑖，首先通过执行softmax：𝑝𝑖∝𝑒𝑠𝑖和𝑞𝑖，𝑗∝𝑒𝑡𝑖，𝑗进行归一化，使得概率和为1。此时损失就是这种分布与“目标”分布之间的交叉熵。即将所有质量置于正样本上的交叉熵。 因此，总的来说，单个𝑖的损失为-log𝑝𝑖，即-𝑠𝑖+ log∑𝑗𝑒𝑡𝑖，𝑗。</p>
+<p>This loss is activated by setting loss_fn to softmax.<br>通过在配置参数中设置loss_fn=softmax来实现配置。</p>
+<h2 id="Optimizers"><a href="#Optimizers" class="headerlink" title="Optimizers"></a>Optimizers</h2><p>The Adagrad optimization method is used to update all model parameters. Adagrad performs stochastic gradient descent with an adaptive learning rate applied to each parameter inversely proportional to the inverse square magnitude of all previous updates. In practice, Adagrad updates lead to an order of magnitude faster convergence for typical PBG models.</p>
+<p>Adagrad优化方法用于更新所有模型参数。Adagrad使用与所有先前更新的平方反比成反比的自适应学习率，以自适应学习率执行随机梯度下降。 实际上，Adagrad更新使典型PBG模型的收敛速度提高了一个数量级。</p>
+<p>The initial learning rate for Adagrad is specified by the lr config parameter.A separate learning rate can also be set for non-embeddings using the relation_lr parameter.<br>Adagrad的初始学习率由config文件里的lr参数指定。还可以使用related_lr参数为非嵌入设置单独的学习率。</p>
+<p>Standard Adagrad requires an equal amount of memory for optimizer state as the size of the model, which is prohibitive for the large models targeted by PBG. To reduce optimizer memory usage, a modified version of Adagrad is used that uses a common learning rate for each entity embedding. The learning rate is proportional to the inverse sum of the squared gradients from each element of the embedding, divided by the dimension. Non-embedding parameters (e.g. relation operator parameters) use standard Adagrad.<br>标准Adagrad要求优化程序状态的内存量与模型大小相同，这对于PBG定位的大型模型是不允许的。为了减少优化器的内存使用，使用了Adagrad的修改版本，该版本对每个实体嵌入使用通用的学习率。学习率与嵌入元素的梯度平方的倒数之和成比例，再除以尺寸。 非嵌入参数（例如关系运算符参数）使用标准Adagrad。</p>
+<p>Adagrad parameters are updated asynchronously across worker threads with no explicit synchronization. Asynchronous updates to the Adagrad state (the total squared gradient) appear stable, likely because each element of the state tensor only accumulates positives updates. Optimization is further stabilized by performing a short period of training with a single thread before beginning Hogwild! training, which is tuned by the hogwild_delay parameter.<br>Adagrad参数在工作线程之间异步更新，而没有显式同步。异步更新使得Adagrad状态(总平方梯度)的更新显得稳定,这可能是因为状态张量的每个元素仅累积正更新。在开始Hogwild之前，可以通过单线程进行短期培训来进一步优化。 培训，具体取决于hogwild_delay参数。</p>
+<p>In distributed training, the Adagrad state for shared parameters (e.g. relation operator parameters) are shared via the parameter server using the same asynchronous gradient update as the parameters themselves. Similar to inter-thread synchronization, these asynchronous updates are stable after an initial burn-in period because the total squared gradient strictly accumulates positive values.<br>分布式训练中，共享参数（例如关系运算符参数）的Adagrad状态通过参数服务器使用与参数本身相同的异步梯度更新进行共享。与线程间同步类似，这些异步更新在初始阶段会不稳定，之后会保持稳定，因为总平方梯度严格累加正值。</p>
+<blockquote>
+<p>🤔 </p>
+</blockquote>
+<p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/loss_optimization.html">https://torchbiggraph.readthedocs.io/en/latest/loss_optimization.html</a></p>
+]]></content>
+      <tags>
+        <tag>PyTorch-BigGraph</tag>
       </tags>
   </entry>
 </search>

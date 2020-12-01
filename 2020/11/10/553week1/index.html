@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="IntroductionTerms Data mining: Discover patterns and models that are:  Valid:  hold on new data with some certainty Useful:  should be possible to act on the item  Unexpected:  non-obvious to the syst">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘, MapReduce 介绍">
+<meta property="og:url" content="http://example.com/2020/11/10/553week1/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="IntroductionTerms Data mining: Discover patterns and models that are:  Valid:  hold on new data with some certainty Useful:  should be possible to act on the item  Unexpected:  non-obvious to the syst">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/DIKW.png">
+<meta property="og:image" content="http://example.com/image/ds_pro.png">
+<meta property="og:image" content="http://example.com/image/553overview.png">
+<meta property="article:published_time" content="2020-11-11T00:08:54.000Z">
+<meta property="article:modified_time" content="2020-11-11T02:38:14.627Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Data Mining">
+<meta property="article:tag" content="Big Data">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/DIKW.png">
+
+<link rel="canonical" href="http://example.com/2020/11/10/553week1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>数据挖掘, MapReduce 介绍 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/10/553week1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据挖掘, MapReduce 介绍
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-10 16:08:54 / Modified: 18:38:14" itemprop="dateCreated datePublished" datetime="2020-11-10T16:08:54-08:00">2020-11-10</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/11/10/553week1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/10/553week1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Terms"><a href="#Terms" class="headerlink" title="Terms"></a>Terms</h2><ul>
+<li><p>Data mining: Discover patterns and models that are:</p>
+<ul>
+<li>Valid:  hold on new data with some certainty</li>
+<li>Useful:  should be possible to act on the item </li>
+<li>Unexpected:  non-obvious to the system</li>
+<li>Understandable: humans should be able to interpret the pattern</li>
+</ul>
+</li>
+<li><p>DIKW Pyramid: Data, Information, Knowledge and wisdom<br>  <img src="/image/DIKW.png"></p>
+</li>
+<li><p>Data mining task: </p>
+<ul>
+<li>Descriptive Models: Find human-interpretable patterns that describe the data</li>
+<li>Predictive Models: Use some variables to predict unknown or future values of other variables</li>
+</ul>
+</li>
+<li><p>Data science pipeline<br><img src="/image/ds_pro.png"></p>
+</li>
+<li><p>Bonferroni’s principle:(roughly) if you look in more places for interesting patterns than your amount of data will support, you are bound to find crap.(数据支撑的前提是数据) </p>
+</li>
+</ul>
+<h2 id="Descriptive-Models"><a href="#Descriptive-Models" class="headerlink" title="Descriptive Models"></a>Descriptive Models</h2><p>Often, especially for ML-type algorithms, the result is a model = a simple representation of the data, typically used for prediction.<br>example: PageRank : representing the “importance” of the page.</p>
+<h2 id="Predictive-Models"><a href="#Predictive-Models" class="headerlink" title="Predictive Models"></a>Predictive Models</h2><p>In many applications, all we want is an algorithm that will say “yes” or “no”<br>example: spam email detection</p>
+<h2 id="Thing-will-be-convered"><a href="#Thing-will-be-convered" class="headerlink" title="Thing will be convered"></a>Thing will be convered</h2><p>Data: high dimensional｜graph｜infinite/never-ending ｜ labeled<br>Model: MapReduce ｜Streams and online algorithms ｜Single machine in-memory<br>Real-world problems:  Recommender systems| Market Basket Analysis| Spam detection| Duplicate document detection<br>Theory:</p>
+<ul>
+<li>Linear algebra (SVD, Rec. Sys., Communities)</li>
+<li>Optimization (stochastic gradient descent)</li>
+<li>Dynamic programming (frequent itemsets)</li>
+<li>Hashing (LSH, Bloom filters)</li>
+</ul>
+<p><img src="/image/553overview.png"></p>
+<h2 id="Bonferroni’s-Principle"><a href="#Bonferroni’s-Principle" class="headerlink" title="Bonferroni’s Principle"></a>Bonferroni’s Principle</h2><p>an informal presentation of a statistical theorem:</p>
+<ul>
+<li>that states if your method of finding significant items returns significantly more items that you would expect in the actual population, </li>
+<li>you can assume most of the items you find with it are bogus.</li>
+</ul>
+<p>简单的说就是FP过多，误诊率太高。</p>
+<p>example:</p>
+<ol>
+<li>Rhine’s Paradox(莱茵悖论), 猜卡片红蓝</li>
+<li>Total Information Awareness (TIA)，根据信息预测犯罪, 这个挺有意思。</li>
+</ol>
+<p>TIA:<br>问题定义: “evil-doers” periodically gather at a hotel to plot their evil.<br>假设: One billion people might be evil-doers; Everyone goes to a hotel one day in 100; A hotel holds 100 people; Examine hotel records for 1000 days;100,000 hotels<br>策略: look for people who, on two different days, were both at the same hotel.<br>真实情况: no evil-doers or few evil-doers(let’s say 10), everyone behaves randomly </p>
+<p>根据假设得到的结果:<br>Probability that given persons p  and q  will be at the same hotel on given day d :<br>1/100 x 1/100 x 1/100,000 = 10^-9<br>Probability that p  and q  will be at the same hotel on given days d1 and d2:<br>10^-9 * 10^-9 = 10^-18<br>Pairs of days:<br>1000 x 999/2 = 5x10^5(roughly)<br>Probability that p and q will be at the same hotel on some two days:<br>10^-18 x 5x10^5 = = 5 x 10^-13<br>Pairs of people:<br>10^9 x 10^9 /2 = 5 x 10^17 (roughly)<br>Expected number of “suspicious” pairs of people(根据策略得到的可疑犯罪):<br>5 x 10^-13  x 5 x 10^17 = 250,000 &gt;&gt; 10</p>
+<h2 id="Moral-DS道义"><a href="#Moral-DS道义" class="headerlink" title="Moral (DS道义)"></a>Moral (DS道义)</h2><p>When looking for a property (e.g., “two people stayed at the same hotel twice”), make sure that the property does not allow so many possibilities that random data will surely produce facts “of interest.”<br>简单的说，就是需要发现的规则不要受到太多因素的影响。</p>
+<h1 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h1><h2 id="Work-flow-of-MapReduce"><a href="#Work-flow-of-MapReduce" class="headerlink" title="Work flow of MapReduce"></a>Work flow of MapReduce</h2><ul>
+<li>Read inputs as a set of key-value-pairs</li>
+<li>Map transforms input kv-pairs into a new set of k’v’-pairs</li>
+<li>Sorts &amp; Shuffles the k’v’-pairs to output nodes</li>
+<li>All k’v’-pairs with a given k’ are sent to the same reduce</li>
+<li>Reduce processes all k’v’-pairs grouped by key into new k’’v’’-pairs</li>
+<li>Write the resulting pairs to files</li>
+</ul>
+<p>example: documents word count</p>
+<p>Problem: Counting the number of occurrences for each word in a collection of documents<br>Input: A repository of documents, and each document is an element</p>
+<p>Map function:<br>The Map task reads a document and breaks it into its sequence of words w1, w2, . . . , wn.<br>It then emits a sequence of key-value pairs where the value is always 1.   (w1, 1), (w2, 1), . . . ,(wn, 1)<br>When the Reduce function is associative and commutative, we can push some of what the reducers do to the Map tasks:<br>An option, is to combine m key-value pairs (w, 1) into a single pair (w, m).</p>
+<p>Reduce function:<br>The output of a reducer consists of the word and the sum (w, m), where w is a word that appears at least once among.<br>Collects all values and aggregates by key.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">input format</span><br><span class="line"></span><br><span class="line">Input: a set of key-value pairs</span><br><span class="line">Programmer specifies two methods:</span><br><span class="line">Map(k, v)  -&gt;  &lt;k’, v’&gt;*</span><br><span class="line">Takes a key-value pair and outputs a set of key-value pairs</span><br><span class="line">E.g., key is the filename, value is a single line in the file</span><br><span class="line">There is one Map call for every (k,v) pair</span><br><span class="line"></span><br><span class="line">Reduce(k’, &lt;v’&gt;*) -&gt; &lt;k’, v’’&gt;*</span><br><span class="line">All values v’ with same key k’ are reduced together and processed in v’ order</span><br><span class="line">There is one Reduce function call per unique key k’</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="MapReduce-Environment"><a href="#MapReduce-Environment" class="headerlink" title="MapReduce Environment"></a>MapReduce Environment</h2><ol>
+<li><code>Partitioning</code> the input data</li>
+<li><code>Scheduling</code> the program’s execution across a set of machines</li>
+<li>Performing the <code>group by key</code> step : In practice this is the bottleneck</li>
+<li>Handling machine <code>failures</code></li>
+<li>Managing required inter-machine: <code>Communication</code></li>
+</ol>
+<h2 id="Dataflow"><a href="#Dataflow" class="headerlink" title="Dataflow"></a>Dataflow</h2><ul>
+<li>Input and final output are stored on a distributed file system (HDFS): Scheduler tries to schedule map tasks “close” to physical storage location of input data</li>
+<li>Intermediate results are stored on local FS of Map and Reduce workers</li>
+<li>Output is often input to another MapReduce task.</li>
+</ul>
+<h2 id="Grouping-by-Key"><a href="#Grouping-by-Key" class="headerlink" title="Grouping by Key"></a>Grouping by Key</h2><ul>
+<li><p>After all Map tasks have all completed successfully:Key-value pairs are grouped by key(Values associated with each key are formed into a list of values)</p>
+</li>
+<li><p>Grouping is performed by the system, regardless of what the Map and Reduce tasks do</p>
+</li>
+<li><p>The master controller typically applies a hash function to keys and produces a bucket number from 0 to r-1</p>
+</li>
+<li><p>Each key that is output by a Map task is hashed and its key-value pair is put in one of r local files</p>
+</li>
+<li><p>Each file is sent to one of the Reduce tasks.</p>
+</li>
+</ul>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><p>Why perform task in the Map task rather than the Reduce task? Reduce communication: send less data over network; Perform logic in the Map where possible without introducing errors.</p>
+<h1 id="Reference-book"><a href="#Reference-book" class="headerlink" title="Reference book"></a>Reference book</h1><p>Mining of Massive Datasets: <a target="_blank" rel="noopener" href="http://infolab.stanford.edu/~ullman/mmds/book.pdf">http://infolab.stanford.edu/~ullman/mmds/book.pdf</a></p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Data-Mining/" rel="tag"># Data Mining</a>
+              <a href="/tags/Big-Data/" rel="tag"># Big Data</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/04/PBG-Evaluation/" rel="prev" title="PyTorch-BigGraph 评估">
+      <i class="fa fa-chevron-left"></i> PyTorch-BigGraph 评估
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Terms"><span class="nav-number">1.1.</span> <span class="nav-text">Terms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Descriptive-Models"><span class="nav-number">1.2.</span> <span class="nav-text">Descriptive Models</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Predictive-Models"><span class="nav-number">1.3.</span> <span class="nav-text">Predictive Models</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thing-will-be-convered"><span class="nav-number">1.4.</span> <span class="nav-text">Thing will be convered</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bonferroni%E2%80%99s-Principle"><span class="nav-number">1.5.</span> <span class="nav-text">Bonferroni’s Principle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Moral-DS%E9%81%93%E4%B9%89"><span class="nav-number">1.6.</span> <span class="nav-text">Moral (DS道义)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MapReduce"><span class="nav-number">2.</span> <span class="nav-text">MapReduce</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Work-flow-of-MapReduce"><span class="nav-number">2.1.</span> <span class="nav-text">Work flow of MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce-Environment"><span class="nav-number">2.2.</span> <span class="nav-text">MapReduce Environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dataflow"><span class="nav-number">2.3.</span> <span class="nav-text">Dataflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grouping-by-Key"><span class="nav-number">2.4.</span> <span class="nav-text">Grouping by Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E5%B7%A7"><span class="nav-number">2.5.</span> <span class="nav-text">技巧</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference-book"><span class="nav-number">3.</span> <span class="nav-text">Reference book</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共38.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/11/10/553week1/";
+    this.page.identifier = "2020/11/10/553week1/";
+    this.page.title = "数据挖掘, MapReduce 介绍";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

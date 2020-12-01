@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Term True Positives (TP): should be TRUE, you predicted TRUE False Positives (FP): should be FALSE, you predicted TRUE True Negative (TN): should be FALSE, you predicted FALSE False Negatives (FN): sh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分类问题中的评估指标">
+<meta property="og:url" content="http://example.com/2020/11/04/Eva-Classification-Problem/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="Term True Positives (TP): should be TRUE, you predicted TRUE False Positives (FP): should be FALSE, you predicted TRUE True Negative (TN): should be FALSE, you predicted FALSE False Negatives (FN): sh">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/acc.png">
+<meta property="og:image" content="http://example.com/image/pre.png">
+<meta property="og:image" content="http://example.com/image/recall.png">
+<meta property="og:image" content="http://example.com/image/f1.png">
+<meta property="article:published_time" content="2020-11-04T23:38:43.000Z">
+<meta property="article:modified_time" content="2020-11-05T04:17:27.022Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Evaluation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/acc.png">
+
+<link rel="canonical" href="http://example.com/2020/11/04/Eva-Classification-Problem/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>分类问题中的评估指标 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/04/Eva-Classification-Problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          分类问题中的评估指标
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-04 15:38:43 / Modified: 20:17:27" itemprop="dateCreated datePublished" datetime="2020-11-04T15:38:43-08:00">2020-11-04</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/11/04/Eva-Classification-Problem/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/04/Eva-Classification-Problem/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Term"><a href="#Term" class="headerlink" title="Term"></a>Term</h2><ul>
+<li>True Positives (TP): should be TRUE, you predicted TRUE</li>
+<li>False Positives (FP): should be FALSE, you predicted TRUE</li>
+<li>True Negative (TN): should be FALSE, you predicted FALSE</li>
+<li>False Negatives (FN): should be TRUE, you predicted FALSE</li>
+</ul>
+<p>个人看来，TP和TN都很好理解，二者反映了模型对于预测的准确性。FP和FN有点容易记不太顺，所以使用一个例子就很好去区分：<br>张三去看病，是否得了癌症, FP=&gt;误诊, FN=&gt;没查出来。</p>
+<h2 id="Accuracy-准确率"><a href="#Accuracy-准确率" class="headerlink" title="Accuracy - 准确率"></a>Accuracy - 准确率</h2><blockquote>
+<p>What percentage of my predictions are correct? 模型预测的正确性</p>
+</blockquote>
+<p><img src="/image/acc.png"></p>
+<ul>
+<li>Good for single label, binary classifcation.</li>
+<li>Not good for imbalanced datasets. 受数据不均衡影响很大<br>  If, in the dataset, 99% of samples are TRUE and you blindly predict TRUE for everything, you’ll have 0.99 accuracy, but you haven’t actually learned anything.</li>
+</ul>
+<h2 id="Precision-查准率"><a href="#Precision-查准率" class="headerlink" title="Precision - 查准率"></a>Precision - 查准率</h2><blockquote>
+<p>Of the points that I predicted TRUE, how many are actually TRUE? 模型预测的正例中。真实正例的比例</p>
+</blockquote>
+<p><img src="/image/pre.png"></p>
+<ul>
+<li>Good for multi-label / multi-class classification and information retrieval</li>
+<li>Good for unbalanced datasets</li>
+</ul>
+<h2 id="Recall-查全率"><a href="#Recall-查全率" class="headerlink" title="Recall - 查全率"></a>Recall - 查全率</h2><blockquote>
+<p>Of all the points that are actually TRUE, how many did I correctly predict 真实正例中，模型预测为正的比例</p>
+</blockquote>
+<p><img src="/image/recall.png"></p>
+<ul>
+<li>Good for multi-label / multi-class classification and information retrieval</li>
+<li>Good for unbalanced datasets</li>
+</ul>
+<h2 id="F1"><a href="#F1" class="headerlink" title="F1"></a>F1</h2><blockquote>
+<p>Can you give me a single metric that balances precision and recall?  F1-score (alternatively, F1-Measure), is a mixed metric that takes into account both Precision and Recall. 将查全与查准都考虑进去的F1</p>
+</blockquote>
+<p><img src="/image/f1.png"></p>
+<ul>
+<li>Gives equal weight to precision and recall</li>
+<li>Good for unbalanced datasets</li>
+</ul>
+<h2 id="AUC-Area-under-ROC-Curve"><a href="#AUC-Area-under-ROC-Curve" class="headerlink" title="AUC (Area under ROC Curve)"></a>AUC (Area under ROC Curve)</h2><blockquote>
+<p>Is my model better than just random guessing?<br>…待定。。。</p>
+</blockquote>
+<p>源地址： <a target="_blank" rel="noopener" href="https://queirozf.com/entries/evaluation-metrics-for-classification-quick-examples-references#precision">https://queirozf.com/entries/evaluation-metrics-for-classification-quick-examples-references#precision</a></p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Evaluation/" rel="tag"># Evaluation</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/30/PBG-Loss-calculation/" rel="prev" title="PyTorch-BigGraph 损失计算">
+      <i class="fa fa-chevron-left"></i> PyTorch-BigGraph 损失计算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/04/Eva-Ranking-Problem/" rel="next" title="排名问题中的评估指标">
+      排名问题中的评估指标 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Term"><span class="nav-number">1.</span> <span class="nav-text">Term</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Accuracy-%E5%87%86%E7%A1%AE%E7%8E%87"><span class="nav-number">2.</span> <span class="nav-text">Accuracy - 准确率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Precision-%E6%9F%A5%E5%87%86%E7%8E%87"><span class="nav-number">3.</span> <span class="nav-text">Precision - 查准率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recall-%E6%9F%A5%E5%85%A8%E7%8E%87"><span class="nav-number">4.</span> <span class="nav-text">Recall - 查全率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F1"><span class="nav-number">5.</span> <span class="nav-text">F1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AUC-Area-under-ROC-Curve"><span class="nav-number">6.</span> <span class="nav-text">AUC (Area under ROC Curve)</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共38.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/11/04/Eva-Classification-Problem/";
+    this.page.identifier = "2020/11/04/Eva-Classification-Problem/";
+    this.page.title = "分类问题中的评估指标";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

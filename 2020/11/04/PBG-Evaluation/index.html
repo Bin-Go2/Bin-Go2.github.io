@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PyTorch-BigGraph 评估During training, the average loss is reported for each edge bucket at each pass. Evaluation metrics can be computed on held-out data during or after training to measure the quality">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch-BigGraph 评估">
+<meta property="og:url" content="http://example.com/2020/11/04/PBG-Evaluation/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="PyTorch-BigGraph 评估During training, the average loss is reported for each edge bucket at each pass. Evaluation metrics can be computed on held-out data during or after training to measure the quality">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-05T05:10:58.000Z">
+<meta property="article:modified_time" content="2020-11-05T05:35:04.880Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="PyTorch-BigGraph">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/11/04/PBG-Evaluation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>PyTorch-BigGraph 评估 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/04/PBG-Evaluation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PyTorch-BigGraph 评估
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-04 21:10:58 / Modified: 21:35:04" itemprop="dateCreated datePublished" datetime="2020-11-04T21:10:58-08:00">2020-11-04</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/11/04/PBG-Evaluation/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/04/PBG-Evaluation/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="PyTorch-BigGraph-评估"><a href="#PyTorch-BigGraph-评估" class="headerlink" title="PyTorch-BigGraph 评估"></a>PyTorch-BigGraph 评估</h1><p>During training, the average loss is reported for each edge bucket at each pass. Evaluation metrics can be computed on held-out data during or after training to measure the quality of trained embeddings.<br>在训练过程中，每一次epoch中的每一个桶的的平均损失会被汇报。可以在训练期间或之后根据保留的数据计算评估指标，以测量训练后嵌入的质量。</p>
+<h2 id="Offline-evaluation¶"><a href="#Offline-evaluation¶" class="headerlink" title="Offline evaluation¶"></a>Offline evaluation¶</h2><p>The torchbiggraph_eval command will perform an offline evaluation of trained PBG embeddings on a validation dataset. This dataset should contain held-out data not included in the training dataset. It is invoked in the same way as the training command and takes the same arguments.<br>torchbiggraph_eval命令将会对验证数据集执行训练后嵌入的离线评估。该数据集应包含训练数据集中未包含的保留数据。它以与训练命令相同的方式调用，并采用相同的参数。</p>
+<p>It is generally advisable to have two versions of the config file, one for training and one for evaluation, with the same parameters except for the edge paths, in order to evaluate a separate (and often smaller) set of edges. (It’s also possible to use a single config file and have it produce different output based on environment variables or other context). Training-specific config parameters (e.g., the learning rate, loss function, …) will be ignored during evaluation.<br>通常建议配置文件有两个版本，一个用于训练，一个用于评估，除了edge paths参数外，它们具有相同的参数，以便评估一组单独的（通常是较小的）边。（也可以使用单个配置文件，并根据环境变量或其他上下文产生不同的输出）。 评估过程中将忽略训练专用的配置参数（例如，学习率，损失函数等）。</p>
+<p>The metrics are first reported on each bucket, and a global average is computed at the end. (If multiple edge paths are in use, metrics are computed separately for each of them but still ultimately averaged).<br>首先在每个存储桶上报告指标，最后计算全局平均值。 （如果正在使用多个edge paths ，则将针对每个边缘路径分别计算指标，但最终仍将其平均）。</p>
+<p>Many metrics are statistics based on the “ranks” of the edges of the validation set. The rank of a positive edge is determined by the rank of its score against the scores of a certain number of negative edges. A rank of 1 is the “best” outcome as it means that the positive edge had a higher score than all the negatives. Higher values are “worse” as they indicate that the positive didn’t stand out.<br>许多指标是基于验证集边的“rank”的统计信息。正边的rank由得分相对于一定数量的负边缘的得分的rank确定。rank=1表示“最佳”结果，因为这意味着正边比所有负边的得分都高。较高的rank值表示性能较差，因为其表明正边并没有突出显示出来。</p>
+<p>It may happen that some of the negative samples used in the rank computation are in fact other positive samples, which are expected to have a high score and may thus cause adverse effects on the rank. This effect is especially visible on smaller graphs, in particular when all other entities are used to construct the negatives. To fix it, and to match what is typically done in the literature, a so-called “filtered” rank is used in the FB15k demo script (and there only), where positive samples are filtered out when computing the rank of an edge. It is hard to scale this technique to large graphs, and thus it is not enabled globally. However, filtering is less important on large graphs as it’s less likely to see a training edge among the sampled negatives.<br>在计算rank的过程中，某些负样本实际上可能是其他正样本，这些样本可能会得到较高的得分因此会对rank的结果造成不利影响。在较小的图上，尤其是在使用所有其他实体构造负样本时，这种效果尤其明显。为了解决该问题并使其与文献中通常所做的事情相匹配，FB15k演示脚本（仅在此处）使用了所谓的“过滤后”等级，在计算边rank时会滤除正样本。很难将此技术适用于到大图中，因此无法全局启用。但是，过滤在大型图上的重要性较弱，因为它不太可能在负样本中使用训练的边。</p>
+<p>The metrics are:<br>相关的指标有</p>
+<p>• Mean Rank: the average of the ranks of all positives (lower is better, best is 1).<br>• Mean Reciprocal Rank (MRR): the average of the reciprocal of the ranks of all positives (higher is better, best is 1).<br>• Hits@1: the fraction of positives that rank better than all their negatives, i.e., have a rank of 1 (higher is better, best is 1).<br>• Hits@10: the fraction of positives that rank in the top 10 among their negatives (higher is better, best is 1).<br>• Hits@50: the fraction of positives that rank in the top 50 among their negatives (higher is better, best is 1).<br>• Area Under the Curve (AUC): an estimation of the probability that a randomly chosen positive scores higher than a randomly chosen negative (any negative, not only the negatives constructed by corrupting that positive).</p>
+<h2 id="Evaluation-during-training"><a href="#Evaluation-during-training" class="headerlink" title="Evaluation during training"></a>Evaluation during training</h2><p>Offline evaluation is a slow process that is intended to be run after training is complete to evaluate the final model on a held-out set of edges constructed by the user. However, it’s useful to be able to monitor overfitting as training progresses. PBG offers this functionality, by calculating the same metrics as the offline evaluation before and after each pass on a small set of training edges. These stats are printed to the logs.<br>离线评估是一个缓慢的过程，其目的在于边训练完成后，对保留的边进行评估来评估训练的模型。但是，训练过程中监控过度拟合是很有用的。PBG通过在每次经过一小组训练边之前和之后计算与脱机评估相同的指标来实现训练时评估。 这些统计信息将打印到日志中。</p>
+<p>The metrics are computed on a set of edges that is held out automatically from the training set. To be more explicit: using this feature means that training happens on fewer edges, as some are excluded and reserved for this evaluation. The holdout fraction is controlled by the eval_fraction config parameter (setting it to zero thus disables this feature). The evaluations before and after each training iteration happen on the same set of edges, thus are comparable. Moreover, the evaluations for the same edge chunk, edge path and bucket at different epochs also use the same set of edges.<br>指标是在一组边上计算的，这些边会从训练集中自动保留下来（不被训练，仅作为评估）。更明确地说：使用此功能意味着会训练较少的边，因为某些边被排除并保留用于此评估。保持比例由eval_fraction配置参数控制（将其设置为零将禁用此功能）。每次训练迭代之前和之后的评估都在同一组边上进行，因此具有可比性。此外，在不同时期对相同边缘块，边缘路径和存储桶的评估也使用相同的边缘集。</p>
+<p>Evaluation metrics are computed both before and after training each edge bucket because it provides insight into whether the partitioned training is working. If the partitioned training is converging, then the gap between the “before” and “after” statistics should go to zero over time. On the other hand, if the partitioned training is causing the model to overfit on each edge bucket (thus decreasing performance for other edge buckets) then there will be a persistent gap between the “before” and “after” statistics.<br>评估指标在训练每个边缘存储块之前和之后都会进行计算，因为它可以洞悉分区的训练是否有效。如果分区训练正在收敛，则“之前”和“之后”统计量之间的差距应随时间推移变为零。另一方面，如果分区训练导致模型在每个边缘存储区上过拟合（从而降低了其他边缘存储区的性能），则“之前”和“之后”统计量之间将存在持续的差距。</p>
+<p>It’s possible to use different batch sizes for same-batch and uniform negative sampling by tuning the eval_num_batch_negs and the eval_num_uniform_negs config parameters.<br>通过调整eval_num_batch_negs和eval_num_uniform_negs配置参数，可以对同一批次和统一负采样使用不同的批次大小。</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PyTorch-BigGraph/" rel="tag"># PyTorch-BigGraph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/04/Eva-Ranking-Problem/" rel="prev" title="排名问题中的评估指标">
+      <i class="fa fa-chevron-left"></i> 排名问题中的评估指标
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/10/553week1/" rel="next" title="数据挖掘, MapReduce 介绍">
+      数据挖掘, MapReduce 介绍 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PyTorch-BigGraph-%E8%AF%84%E4%BC%B0"><span class="nav-number">1.</span> <span class="nav-text">PyTorch-BigGraph 评估</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Offline-evaluation%C2%B6"><span class="nav-number">1.1.</span> <span class="nav-text">Offline evaluation¶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation-during-training"><span class="nav-number">1.2.</span> <span class="nav-text">Evaluation during training</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共38.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/11/04/PBG-Evaluation/";
+    this.page.identifier = "2020/11/04/PBG-Evaluation/";
+    this.page.title = "PyTorch-BigGraph 评估";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
