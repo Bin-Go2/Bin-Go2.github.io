@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Tim Berners-Lee published the first-ever website in August 6, 1991Knowledge Graph的数据大部分来源于Web  Web基本信息Web结构 Surface Web: Pages reachable by following links from static pages （表层网络，可以直接在万维网浏览的内容） Deep">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱数据获取与知识产权">
+<meta property="og:url" content="http://example.com/2020/12/01/558data-acq/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="Tim Berners-Lee published the first-ever website in August 6, 1991Knowledge Graph的数据大部分来源于Web  Web基本信息Web结构 Surface Web: Pages reachable by following links from static pages （表层网络，可以直接在万维网浏览的内容） Deep">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/web_struc.jpg">
+<meta property="og:image" content="http://example.com/image/bowtie.png">
+<meta property="og:image" content="http://example.com/image/crawler_stru.png">
+<meta property="article:published_time" content="2020-12-01T17:32:37.000Z">
+<meta property="article:modified_time" content="2020-12-01T18:41:19.394Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/web_struc.jpg">
+
+<link rel="canonical" href="http://example.com/2020/12/01/558data-acq/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>知识图谱数据获取与知识产权 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/01/558data-acq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱数据获取与知识产权
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-01 09:32:37 / Modified: 10:41:19" itemprop="dateCreated datePublished" datetime="2020-12-01T09:32:37-08:00">2020-12-01</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/01/558data-acq/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/01/558data-acq/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Tim Berners-Lee published the first-ever website in August 6, 1991<br>Knowledge Graph的数据大部分来源于Web</p>
+</blockquote>
+<h1 id="Web基本信息"><a href="#Web基本信息" class="headerlink" title="Web基本信息"></a>Web基本信息</h1><h2 id="Web结构"><a href="#Web结构" class="headerlink" title="Web结构"></a>Web结构</h2><ul>
+<li>Surface Web: Pages reachable by following links from static pages （表层网络，可以直接在万维网浏览的内容）</li>
+<li>Deep Web: Pages reachable only via web forms （不能被www直接访问到，需要账号密码，访问权限等才能进入，例如邮箱、数据库）</li>
+<li>Dark Web: Pages reachable only via Tor or equivalent （通过特定的浏览器、特殊授权或者特殊设置才能链接上的网络）</li>
+</ul>
+<p><img src="/image/web_struc.jpg"></p>
+<h2 id="Web的Bowtie模型"><a href="#Web的Bowtie模型" class="headerlink" title="Web的Bowtie模型"></a>Web的Bowtie模型</h2><p>Strongly Connected Component – 27.5%<br>IN and OUT – 21.5%<br>Tendrils and tubes – 21.5%<br>Disconnected – 8%</p>
+<p><img src="/image/bowtie.png"></p>
+<h2 id="Web-数据获取途径-Crawler"><a href="#Web-数据获取途径-Crawler" class="headerlink" title="Web 数据获取途径 - Crawler"></a>Web 数据获取途径 - Crawler</h2><p>Web Crawler定义: Software that automatically browses the web and downloads content<br>Crawler 用途: Building search engines, Study the web/internet, Archive the web, Analyze web sites, <u><b>Download content(知识图谱数据获取)</b></u><br>Crawler 基本框架: 调度器调度爬取页面，下载器多线程下载。<br><img src="/image/crawler_stru.png"><br>Queue: one per web site<br>Scheduler: breath first or depth first ?<br>Multithreaded Downloader: take Politeness and Latency into account<br>After download: Parse -&gt; Extract Content -&gt; Extract URLs -&gt;Add To Queue</p>
+<p>Crawler常用工具：Scrapy, bs4, import.io parsehub<br>Crawler 挑战: scale、deduplication、cost、error、freshness、counter-crawling/access …<br>Crawler 要求: robustness、 politeness、robots.txt</p>
+<h1 id="Web下的知识产权-Intellectual-Property"><a href="#Web下的知识产权-Intellectual-Property" class="headerlink" title="Web下的知识产权(Intellectual Property)"></a>Web下的知识产权(Intellectual Property)</h1><p>Intellectual property (IP) is an intangible creative work. It is not the physical form on which it is stored or delivered. IP can be protected through the use of patents, copyrights, trademarks, and trade secret laws.</p>
+<h2 id="专利-Patents"><a href="#专利-Patents" class="headerlink" title="专利(Patents)"></a>专利(Patents)</h2><p>PATENTS provide rights for up to 20 years for inventions in three broad categories:  </p>
+<ol>
+<li><p>Utility patents: protect useful processes, machines, articles of manufacture, and compositions of matter (实用专利)</p>
+</li>
+<li><p>Design patents guard the unauthorized use of new, original, and ornamental designs for articles of manufacture (设计专利)</p>
+</li>
+<li><p>Plant patents are the way we protect invented or discovered, asexually reproduced plant varieties (植物专利)</p>
+</li>
+</ol>
+<h2 id="版权-Copyrights"><a href="#版权-Copyrights" class="headerlink" title="版权(Copyrights)"></a>版权(Copyrights)</h2><p>COPYRIGHTS protect works of authorship, such as writings, music, and works of art that have been tangibly expressed. （文学领域，版权也称为著作权）<br>The Library of Congress registers copyrights which last the life of the author plus 70 years. （去世前+70年）<br>Books, albums, movies are all copyrighted.<br>You cannot copyright facts, such as the information in the telephone book. But you can copyright the particular presentation of those facts</p>
+<p>版权拥有者所拥有的权利:<br>Make copies of the work;<br>Produce derivative works;<br>Distribute copies;<br>Perform the work in public;<br>Display the work in public;<br>这也就意味着，非版权拥有者不能够享有这些权利。 =&gt; 需要经过许可</p>
+<p>在某些情况下，不需要许可使用作品:<br>合理使用需要考虑的因素: purpose and character of the work, nature of the copyrighted work, amount and substantiality of the portion used in relation to the copyrighted work, effect on the potential market for or value of the copyrighted work<br>以下情况可以不需要经过版权许可：<br>Use of copyrighted material that contribute to the creation of new work(The new works cannot significantly affect sales of the source material, thus depriving copyright holders of their income)；<br>Use for some research and educational purposes;<br>Use for news reporting and critiquing;</p>
+<p>不受版权法保护的作品类型:<br>Works in the public domain are not covered by IP rights;<br>Ideas (e.g., mathematical formulas);<br>Works pre-dating copyright law (e.g., Bible);<br>Expired copyright;<br>Government works;<br>Traditional knowledge, folklore.</p>
+<p>知识共享(Creative Commons (CC))<br>Attribution<br>Noncommercial<br>No Derivative Works<br>ShareAlike</p>
+<h2 id="商标-Trademarks"><a href="#商标-Trademarks" class="headerlink" title="商标(Trademarks)"></a>商标(Trademarks)</h2><p>TRADEMARKS protect words, names, symbols, sounds, or colors that distinguish goods and services from other manufacturer’s products (商品符号)<br>Trademarks, unlike patents, can be renewed forever as long as they are being used in business. (无限期)<br>No Fair-Use provision in Trademark law</p>
+<p>商标种类:<br>™ : unregistered trade mark used to promote or brand goods<br>℠ : unregistered service mark used to promote or brand services<br>® : registered trademark</p>
+<h2 id="商业秘密-Trade-Secrets"><a href="#商业秘密-Trade-Secrets" class="headerlink" title="商业秘密(Trade Secrets)"></a>商业秘密(Trade Secrets)</h2><p>TRADE SECRETS are information that companies keep secret to give them an advantage over their competitors. example: formula for Coca-Cola<br>Gives owner perpetual monopoly on secret information (无限期)</p>
+<h2 id="数据汇总-Data-Aggregation"><a href="#数据汇总-Data-Aggregation" class="headerlink" title="数据汇总(Data Aggregation)"></a>数据汇总(Data Aggregation)</h2><p>Data aggregation, aka “screen scraping” or “wrapping” is conducted widely today<br>Some of it is on sound legal ground;<br>But some it is has more ambiguous legal standing</p>
+<h2 id="软件许可证-Software-Licenses"><a href="#软件许可证-Software-Licenses" class="headerlink" title="软件许可证(Software Licenses)"></a>软件许可证(Software Licenses)</h2><p>Copyleft licenses<br>Permissive licenses</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558intro/" rel="prev" title="知识图谱简介">
+      <i class="fa fa-chevron-left"></i> 知识图谱简介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558info-extra/" rel="next" title="知识图谱数据提取">
+      知识图谱数据提取 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">Web基本信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">Web结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web%E7%9A%84Bowtie%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">Web的Bowtie模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E9%80%94%E5%BE%84-Crawler"><span class="nav-number">1.3.</span> <span class="nav-text">Web 数据获取途径 - Crawler</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web%E4%B8%8B%E7%9A%84%E7%9F%A5%E8%AF%86%E4%BA%A7%E6%9D%83-Intellectual-Property"><span class="nav-number">2.</span> <span class="nav-text">Web下的知识产权(Intellectual Property)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%93%E5%88%A9-Patents"><span class="nav-number">2.1.</span> <span class="nav-text">专利(Patents)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9D%83-Copyrights"><span class="nav-number">2.2.</span> <span class="nav-text">版权(Copyrights)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%86%E6%A0%87-Trademarks"><span class="nav-number">2.3.</span> <span class="nav-text">商标(Trademarks)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%86%E4%B8%9A%E7%A7%98%E5%AF%86-Trade-Secrets"><span class="nav-number">2.4.</span> <span class="nav-text">商业秘密(Trade Secrets)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B1%87%E6%80%BB-Data-Aggregation"><span class="nav-number">2.5.</span> <span class="nav-text">数据汇总(Data Aggregation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E8%AE%B8%E5%8F%AF%E8%AF%81-Software-Licenses"><span class="nav-number">2.6.</span> <span class="nav-text">软件许可证(Software Licenses)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共50.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/12/01/558data-acq/";
+    this.page.identifier = "2020/12/01/558data-acq/";
+    this.page.title = "知识图谱数据获取与知识产权";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

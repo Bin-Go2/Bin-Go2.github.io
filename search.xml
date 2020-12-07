@@ -1,48 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Leetcode-二叉树</title>
-    <url>/2020/09/17/Algorithm-binarytree/</url>
-    <content><![CDATA[<h2 id="二叉树的一些思想"><a href="#二叉树的一些思想" class="headerlink" title="二叉树的一些思想"></a>二叉树的一些思想</h2><ul>
-<li>前序遍历(preOrder)  root-&gt;left-&gt;right </li>
-<li>中序遍历(inOrder)    left-&gt; root-&gt;right 二叉搜索树中，其遍历结果为有序数组</li>
-<li>后序遍历(postOrder) left-&gt;right-&gt;root </li>
-<li>广度优先搜索(BFS)</li>
-<li>深度优先搜索(DFS)</li>
-<li>递归(Recursion)，根据要求选择使用前序，中序，后序的递归框架来解决问题</li>
-</ul>
-<h4 id="897-递增顺序查找树"><a href="#897-递增顺序查找树" class="headerlink" title="897. 递增顺序查找树"></a><a href="https://leetcode-cn.com/problems/increasing-order-search-tree/">897. 递增顺序查找树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 思路1: 中序遍历形成有序列表 + 重新生成树</span></span><br><span class="line"><span class="comment"># 思路2: 使用递归,改变树形状，不生成新的树</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">increasingBST</span>(<span class="params">self, root: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        dfs(root.left)</span><br><span class="line">        <span class="comment">### 对根节点的操作 ###</span></span><br><span class="line">        root.left = <span class="literal">None</span></span><br><span class="line">        self.cur.right = root</span><br><span class="line">        self.cur = root</span><br><span class="line">        <span class="comment">###################</span></span><br><span class="line">        dfs(root.right)</span><br><span class="line">    res = self.cur = TreeNode(<span class="literal">None</span>)</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> res.right</span><br></pre></td></tr></table></figure>
-
-<h4 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a><a href="https://leetcode-cn.com/problems/invert-binary-tree/">226. 翻转二叉树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invertTree</span>(<span class="params">self, root</span>):</span></span><br><span class="line">    <span class="comment"># 先序遍历  （后序遍历也可）</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="comment">### 对根节点的操作 ###</span></span><br><span class="line">    root.left,root.right = root.right,root.left</span><br><span class="line">    <span class="comment">### 对根节点的操作 ###</span></span><br><span class="line">    root.left = self.invertTree(root.left)  </span><br><span class="line">    root.right = self.invertTree(root.right)</span><br><span class="line">    <span class="comment"># 函数返回时就表示当前这个节点，以及它的左右子树都已经交换完了       </span></span><br><span class="line">    <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
-
-<h4 id="617-合并二叉树"><a href="#617-合并二叉树" class="headerlink" title="617. 合并二叉树"></a><a href="https://leetcode-cn.com/problems/merge-two-binary-trees/">617. 合并二叉树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeTrees</span>(<span class="params">self, t1: TreeNode, t2: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> (t1 <span class="keyword">and</span> t2): <span class="comment"># 不能用 if not t1 and not t2</span></span><br><span class="line">        <span class="keyword">return</span> t1 <span class="keyword">if</span> t1 <span class="keyword">else</span> t2</span><br><span class="line">    t1.val+=t2.val</span><br><span class="line">    <span class="comment">#########################</span></span><br><span class="line">    t1.left = self.mergeTrees(t1.left,t2.left) </span><br><span class="line">    t1.right = self.mergeTrees(t1.right,t2.right)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> t1</span><br></pre></td></tr></table></figure>
-
-<h4 id="938-二叉搜索树的范围和"><a href="#938-二叉搜索树的范围和" class="headerlink" title="938. 二叉搜索树的范围和"></a><a href="https://leetcode-cn.com/problems/range-sum-of-bst/">938. 二叉搜索树的范围和</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rangeSumBST</span>(<span class="params">self, root: TreeNode, L: int, R: int</span>) -&gt; int:</span></span><br><span class="line">    </span><br><span class="line">    self.res = <span class="number">0</span> <span class="comment"># 需要使用一个全局变量进行结果的保存</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root,L,R</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">        <span class="keyword">if</span> L&lt;= root.val &lt;=R:</span><br><span class="line">            self.res+=root.val</span><br><span class="line">        <span class="comment">#########################</span></span><br><span class="line">        dfs(root.left,L,R)</span><br><span class="line">        dfs(root.right,L,R)</span><br><span class="line"></span><br><span class="line">    dfs(root,L,R)</span><br><span class="line">    <span class="keyword">return</span> self.res</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104. 二叉树的最大深度"></a><a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">104. 二叉树的最大深度</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">self, root: TreeNode</span>) -&gt; int:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="comment"># 后序遍历</span></span><br><span class="line">    <span class="keyword">return</span> max(self.maxDepth(root.left),self.maxDepth(root.right)) +<span class="number">1</span></span><br><span class="line">    <span class="comment"># 也可以使用BFS得到高度</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="590-N叉树的后序遍历-前序遍历"><a href="#590-N叉树的后序遍历-前序遍历" class="headerlink" title="590. N叉树的后序遍历/前序遍历"></a><a href="https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/">590. N叉树的后序遍历</a>/<a href="https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/">前序遍历</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">postorder</span>(<span class="params">self, root: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; List[int]:</span></span><br><span class="line">    self.res = []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span></span><br><span class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> root.children:</span><br><span class="line">            helper(child)</span><br><span class="line">        <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">        self.res.append(root.val)</span><br><span class="line">        <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">    helper(root)</span><br><span class="line">    <span class="keyword">return</span> self.res</span><br></pre></td></tr></table></figure>
-
-<h4 id="700-二叉搜索树中的搜索"><a href="#700-二叉搜索树中的搜索" class="headerlink" title="700. 二叉搜索树中的搜索"></a><a href="https://leetcode-cn.com/problems/search-in-a-binary-search-tree/">700. 二叉搜索树中的搜索</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">searchBST</span>(<span class="params">self, root: TreeNode, val: int</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> </span><br><span class="line">    <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> root.val == val:</span><br><span class="line">        <span class="keyword">return</span> root</span><br><span class="line">    <span class="comment">#########################</span></span><br><span class="line">    <span class="keyword">if</span> root.val &lt; val:</span><br><span class="line">        <span class="keyword">return</span> self.searchBST(root.right,val) <span class="comment"># 记住需要return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> self.searchBST(root.left,val)</span><br></pre></td></tr></table></figure>
-
-<h4 id="108-将有序数组转换为二叉搜索树"><a href="#108-将有序数组转换为二叉搜索树" class="headerlink" title="108. 将有序数组转换为二叉搜索树"></a><a href="https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/">108. 将有序数组转换为二叉搜索树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sortedArrayToBST</span>(<span class="params">self, nums: List[int]</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> len(nums) == <span class="number">0</span> : <span class="keyword">return</span> </span><br><span class="line">    mid = len(nums)//<span class="number">2</span></span><br><span class="line">    root = TreeNode(nums[mid])</span><br><span class="line">    <span class="comment">##########################</span></span><br><span class="line">    root.left = self.sortedArrayToBST(nums[:mid])</span><br><span class="line">    root.right = self.sortedArrayToBST(nums[mid+<span class="number">1</span>:])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
-
-<h4 id="897-递增顺序查找树-1"><a href="#897-递增顺序查找树-1" class="headerlink" title="897. 递增顺序查找树"></a><a href="https://leetcode-cn.com/problems/increasing-order-search-tree/">897. 递增顺序查找树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">increasingBST</span>(<span class="params">self, root: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        dfs(root.left)</span><br><span class="line">        <span class="comment">### 对根节点的操作 #####</span></span><br><span class="line">        root.left = <span class="literal">None</span></span><br><span class="line">        self.cur.right = root</span><br><span class="line">        self.cur = root</span><br><span class="line">        <span class="comment">#####################</span></span><br><span class="line">        dfs(root.right)</span><br><span class="line">    res = self.cur = TreeNode(<span class="literal">None</span>)</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> res.right</span><br></pre></td></tr></table></figure>
-
-<h4 id="559-N叉树的最大深度"><a href="#559-N叉树的最大深度" class="headerlink" title="559. N叉树的最大深度"></a><a href="https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/">559. N叉树的最大深度</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">self, root: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; int:</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span>  <span class="number">0</span>   </span><br><span class="line">    <span class="keyword">return</span> max([self.maxDepth(i) <span class="keyword">for</span> i <span class="keyword">in</span>  root.children]+[<span class="number">0</span>])+<span class="number">1</span> <span class="comment"># 注意需要 +[0] =&gt; 没有0的话会报错: max() arg is an empty sequence</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="剑指-Offer-68-II-二叉树的最近公共祖先"><a href="#剑指-Offer-68-II-二叉树的最近公共祖先" class="headerlink" title="剑指 Offer 68 - II. 二叉树的最近公共祖先"></a><a href="https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/">剑指 Offer 68 - II. 二叉树的最近公共祖先</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self, root: TreeNode, p: TreeNode, q: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root <span class="keyword">or</span> p == root <span class="keyword">or</span> q == root: <span class="keyword">return</span> root</span><br><span class="line"></span><br><span class="line">    left = self.lowestCommonAncestor(root.left,p,q)</span><br><span class="line">    right = self.lowestCommonAncestor(root.right,p,q)</span><br><span class="line">    <span class="comment">### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> left <span class="keyword">and</span> <span class="keyword">not</span> right: <span class="keyword">return</span>  <span class="comment"># 左右子树均为空</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> left: <span class="keyword">return</span> right        <span class="comment"># 右空，左不空</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> right:<span class="keyword">return</span> left         <span class="comment"># 左空，右不空</span></span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> root                  <span class="comment"># 左右均不空</span></span><br><span class="line">    <span class="comment">### 对根节点的操作 #####</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="637-二叉树的层平均值"><a href="#637-二叉树的层平均值" class="headerlink" title="637. 二叉树的层平均值"></a><a href="https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/">637. 二叉树的层平均值</a></h4>]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据挖掘, MapReduce 介绍</title>
     <url>/2020/11/10/553week1/</url>
     <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Terms"><a href="#Terms" class="headerlink" title="Terms"></a>Terms</h2><ul>
@@ -136,6 +94,899 @@
       <tags>
         <tag>Data Mining</tag>
         <tag>Big Data</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱表格理解</title>
+    <url>/2020/12/03/558-table-und/</url>
+    <content><![CDATA[<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li>Structured Data<ul>
+<li>Knowledge Graphs</li>
+<li>The Semantic Web</li>
+<li>Databases</li>
+<li>Structured files (CSV, XML, XLS)</li>
+<li>Structures in HTML, e.g. tables  -&gt; 本章关注</li>
+</ul>
+</li>
+<li>Unstructured Data</li>
+</ul>
+<h2 id="Web中的结构化表格-Structured-Tables-on-the-Web"><a href="#Web中的结构化表格-Structured-Tables-on-the-Web" class="headerlink" title="Web中的结构化表格 (Structured Tables on the Web)"></a>Web中的结构化表格 (Structured Tables on the Web)</h2><p>Tables contain really useful data<br>Vast Amount of Data in Tabular Form</p>
+<h2 id="表格类型"><a href="#表格类型" class="headerlink" title="表格类型"></a>表格类型</h2><p><img src="/image/table_type.png"></p>
+<h3 id="Listing"><a href="#Listing" class="headerlink" title="Listing"></a>Listing</h3><p>Horizontal Listings; -&gt; 类似于excel表格的形式，每一行表示某个item的信息<br>Vertical Listings; -&gt; 类似于Dell、Apple商品展现的形式，每一列表示某个item的信息</p>
+<h3 id="Attribute-Value-Tables"><a href="#Attribute-Value-Tables" class="headerlink" title="Attribute/Value Tables"></a>Attribute/Value Tables</h3><p>类似于Wikipedia的展现形式，其本质就是一个k-v的字典</p>
+<h3 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h3><p>二维表格，第一行和第一列都描述了元信息<br>same value type for any cell</p>
+<h3 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h3><p>list series of objects with the same ontological relation;<br>major challenge: discovery of the predicate;<br>本质上就是一个list，然后其中包含了某一个属性下的列表信息。</p>
+<h3 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h3><p>like attribute-value;<br>with missing values;<br>which are filled by a user</p>
+<p>也就是日常见到的表单</p>
+<h3 id="Navigational"><a href="#Navigational" class="headerlink" title="Navigational"></a>Navigational</h3><p>purpose: navigate within or outside of a site<br>no clear relations between the cells</p>
+<p>也就是网站上常见到一系列可以点击的网页链接放在一块的展示<br><img src="/image/nva.png"></p>
+<h3 id="Formatting"><a href="#Formatting" class="headerlink" title="Formatting"></a>Formatting</h3><p>purpose: organize data visually</p>
+<p>主要是一些布局展示</p>
+<h2 id="表格的属性"><a href="#表格的属性" class="headerlink" title="表格的属性"></a>表格的属性</h2><p>Global Layout features<br>• #rows, #cols, max cell length</p>
+<p>Layout features (per row/column)<br>• cell length, length variance, ratio in col/rowspan</p>
+<p>HTML features (content)<br>• unique tags, ratio of th/anchor/img/input/br/font…</p>
+<p>Cell features (content)<br>• unique strings, end-with-colon, is/contains number, non- blank</p>
+<h2 id="提取关系数据-Extracting-Relational-Data"><a href="#提取关系数据-Extracting-Relational-Data" class="headerlink" title="提取关系数据 (Extracting Relational Data)"></a>提取关系数据 (Extracting Relational Data)</h2><p>目标:<br>找到表格中的结构化关系<br>提取出表格下的RDF三元组</p>
+<p>关键:<br>• What is the semantic type of each column? • Semantic Labeling  列的含义<br>• What is the subject of the table? • Entity Linking 表格中主体寻找<br>• What predicates describe the relationships in the table? • Semantic Modeling 单元格的关系建立</p>
+<h2 id="提取定量数据-Extracting-Quantitative-Data"><a href="#提取定量数据-Extracting-Quantitative-Data" class="headerlink" title="提取定量数据 (Extracting Quantitative Data)"></a>提取定量数据 (Extracting Quantitative Data)</h2><p>• What is quantitative data?<br>• How is it harder than relational data?<br>• How is it easier than relational data?<br>• What is important to represent about this data?</p>
+<h3 id="Quantitative-data"><a href="#Quantitative-data" class="headerlink" title="Quantitative data"></a>Quantitative data</h3><p>Quantitative data is defined as the value of data in the form of counts or numbers where each data-set has an unique numerical value associated with it.</p>
+<p>Key idea:</p>
+<p>• Measure: the thing we want to measure<br>• Attributes: help us understand what we’re measuring<br>• Dimensions: values that are varied across measurements<br>• Observation: The actual value we measured</p>
+<p>Measure表示我们需要衡量什么，比如说温度<br>Attributes表示我们衡量的这个东西具有的属性，比如说那一天的温度、那个海拔高度的温度、温度的单位<br>Dimensions表示随着这个东西的改变，衡量的值会不同，比如说地点<br>Observation表示就是观测值，比如说30度</p>
+<h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><p>Attributes有哪些？<br>Dimensions有哪些？<br>Value是什么？</p>
+<p>需要做很多操作，例如<br>Metadata Detection, Separation between header and values, Detecting layouts, Detecting dependent rows/columns, Filling the implicit values, Recognizing null values ….</p>
+<h3 id="核心任务"><a href="#核心任务" class="headerlink" title="核心任务"></a>核心任务</h3><p>Three core tasks across all table understanding tools:<br>Classify Cell Type;<br>Identify Blocks;<br>Detect Layout;<br><img src="/image/tbl_und.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱Blocking&amp;关系型实体解析</title>
+    <url>/2020/12/02/558blk-RER/</url>
+    <content><![CDATA[<h2 id="实体解析回顾"><a href="#实体解析回顾" class="headerlink" title="实体解析回顾"></a>实体解析回顾</h2><p>Deduplication: Merging Ambiguous Entities (KG-&gt;KG)<br>Record Linkage: Combining KGs (KG1-&gt;KG2)<br>Entity Mapping/Linking: Integrating New Candidates (text -&gt; KG)</p>
+<h2 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h2><p>简单匹配的问题: Comparing each entity with all other entities is too computationally demanding – O(N2)</p>
+<p>解决:  Partition entities into ”blocks” –  O(N) blocks<br>Make only within block comparisons [so if largest block is log N in size – O(N log N2)]</p>
+<p>Problem statment:<br>Input: Set of records R  Output: Set of blocks/canopies<br><img src="/image/blk.png"></p>
+<p>Variants:<br>Disjoint Blocking: Each mention appears in one block. (=Set Partition)<br>Non-disjoint Blocking: Mentions can appear in more than one block.</p>
+<h3 id="Blocking-场景"><a href="#Blocking-场景" class="headerlink" title="Blocking 场景"></a>Blocking 场景</h3><p>Ideal scenario<br><img src="/image/ideal_blk.png"></p>
+<p>Worst scenario<br><img src="/image/worst_blk.png"></p>
+<p>Practical Scenario<br><img src="/image/prac_blk.png"></p>
+<h3 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h3><p>Efficiency  = num of pairs compared / total number of pairs in RxR<br>Recall  = num of true matches compared / num of true matches in RxR<br>Precision = um of true matches compared / num of matches compared<br>Max Canopy Size： max|Ci|</p>
+<h3 id="Blocking-方式"><a href="#Blocking-方式" class="headerlink" title="Blocking 方式"></a>Blocking 方式</h3><ul>
+<li>Feature-based blocking keys</li>
+<li>Clustering or sorting</li>
+<li>Hashing</li>
+</ul>
+<h4 id="Feature-based-blocking"><a href="#Feature-based-blocking" class="headerlink" title="Feature-based blocking"></a>Feature-based blocking</h4><p>思想:<br>Pick a key: an attribute or feature of each entity<br>Put all entities with that key in the same block<br>Perform entity resolution within each block</p>
+<p>Key的选择考量:<br>Learn the keys, or use expert knowledge/heuristics<br>Schema awareness<br>Key type<br>Redundancy</p>
+<p>Key选择扩展:<br>Frequency limits<br>Adaptive keys based on frequency<br>Learning keys based on data</p>
+<h4 id="Sort-or-cluster-based-blocking"><a href="#Sort-or-cluster-based-blocking" class="headerlink" title="Sort or cluster-based blocking"></a>Sort or cluster-based blocking</h4><p>思想:<br>Pick an attribute<br>Sort all entities based on that attribute<br>Use a sliding window of |K| entities and compare all pairs.</p>
+<p>Canopy Clustering [McCallum et al KDD’00]<br>Input:</p>
+<ul>
+<li>Mentions M (a set of entities that are needed to be cluster), x is an random chosen entity from M.</li>
+<li>d(x,y), a distance metric</li>
+<li>Two thresholds T1 and T2, where T1 &gt; T2</li>
+</ul>
+<p>Algorithm:</p>
+<ul>
+<li>从M中选择一个随机的x</li>
+<li>为x生成一个block，其中的点满足d(x,y) &lt; T1</li>
+<li>为x中这个block，删除符合d(x,y)&lt;T2的点 (it means that we are finishing assigning cluster labels to y) </li>
+<li>返回第一步 (repeat until all entities in M are assigned to at least one cluster)</li>
+</ul>
+<h4 id="Hash-based-blocking"><a href="#Hash-based-blocking" class="headerlink" title="Hash-based blocking"></a>Hash-based blocking</h4><p>思想:<br>Each block Ci is associated with a hash key hi.<br>Mention x is hashed to Ci if hash(x) = hi.<br>Within a block, all pairs are compared.<br>Each hash function results in disjoint blocks.</p>
+<p>minhash<br>…</p>
+<h2 id="Collective-Relational-Entity-Resolution"><a href="#Collective-Relational-Entity-Resolution" class="headerlink" title="Collective Relational Entity Resolution"></a>Collective Relational Entity Resolution</h2><p>策略:<br>Using PSL for collective KG ER</p>
+<p>Encode ER dependencies in a set of rules;<br>Use soft-logic values to capture similarities;<br>Use logic to capture the constraints;</p>
+<p>Local vs. Collective<br><img src="/image/loca_colle.png"></p>
+<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><p>¬SAME(E1,E2)<br>CANDSAME(E1,E2) =&gt; SAME(E1,E2)<br>CANDSAME(E1,E2) ∧ SIM(E1,E2)  =&gt; SAME(E1,E2)</p>
+<h3 id="Collective"><a href="#Collective" class="headerlink" title="Collective"></a>Collective</h3><p>Symmetry: If M1 matches with M2, then M2 must match with M1<br>Transitivity: If M1 and M2 match, M2 and M3 match, then M1 and M3 match<br>Sparsity: If M1 matches with M2, then M1 cannot match with M3</p>
+<p>example:<br>SAME(E1,E2) =&gt; SAME(E2,E1)<br>CANDSAME(A,B) ∧ CANDSAME(B,C) ∧ CANDSAME(A,C) ∧ SAME(A,B) ∧ SAME(B,C) =&gt; SAME(A,C)<br>CANDSAME(A,B) ∧ CANDSAME(B,C) ∧ SAME(A,B) =&gt; ¬SAME(A,C)</p>
+<h3 id="New-entity-rules"><a href="#New-entity-rules" class="headerlink" title="New entity rules"></a>New entity rules</h3><ol>
+<li>Linking to new entities CANDSAME(E1,E2) ∧ NEWENTITY(E1) =&gt; SAME(E1,E2)</li>
+<li>Avoiding new Entities   SAME(E1,E2) ∧ CANDSAME(E1,E3) ∧ NEWENTITY(E3) =&gt; ¬SAME(E1,E3)</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱数据获取与知识产权</title>
+    <url>/2020/12/01/558data-acq/</url>
+    <content><![CDATA[<blockquote>
+<p>Tim Berners-Lee published the first-ever website in August 6, 1991<br>Knowledge Graph的数据大部分来源于Web</p>
+</blockquote>
+<h1 id="Web基本信息"><a href="#Web基本信息" class="headerlink" title="Web基本信息"></a>Web基本信息</h1><h2 id="Web结构"><a href="#Web结构" class="headerlink" title="Web结构"></a>Web结构</h2><ul>
+<li>Surface Web: Pages reachable by following links from static pages （表层网络，可以直接在万维网浏览的内容）</li>
+<li>Deep Web: Pages reachable only via web forms （不能被www直接访问到，需要账号密码，访问权限等才能进入，例如邮箱、数据库）</li>
+<li>Dark Web: Pages reachable only via Tor or equivalent （通过特定的浏览器、特殊授权或者特殊设置才能链接上的网络）</li>
+</ul>
+<p><img src="/image/web_struc.jpg"></p>
+<h2 id="Web的Bowtie模型"><a href="#Web的Bowtie模型" class="headerlink" title="Web的Bowtie模型"></a>Web的Bowtie模型</h2><p>Strongly Connected Component – 27.5%<br>IN and OUT – 21.5%<br>Tendrils and tubes – 21.5%<br>Disconnected – 8%</p>
+<p><img src="/image/bowtie.png"></p>
+<h2 id="Web-数据获取途径-Crawler"><a href="#Web-数据获取途径-Crawler" class="headerlink" title="Web 数据获取途径 - Crawler"></a>Web 数据获取途径 - Crawler</h2><p>Web Crawler定义: Software that automatically browses the web and downloads content<br>Crawler 用途: Building search engines, Study the web/internet, Archive the web, Analyze web sites, <u><b>Download content(知识图谱数据获取)</b></u><br>Crawler 基本框架: 调度器调度爬取页面，下载器多线程下载。<br><img src="/image/crawler_stru.png"><br>Queue: one per web site<br>Scheduler: breath first or depth first ?<br>Multithreaded Downloader: take Politeness and Latency into account<br>After download: Parse -&gt; Extract Content -&gt; Extract URLs -&gt;Add To Queue</p>
+<p>Crawler常用工具：Scrapy, bs4, import.io parsehub<br>Crawler 挑战: scale、deduplication、cost、error、freshness、counter-crawling/access …<br>Crawler 要求: robustness、 politeness、robots.txt</p>
+<h1 id="Web下的知识产权-Intellectual-Property"><a href="#Web下的知识产权-Intellectual-Property" class="headerlink" title="Web下的知识产权(Intellectual Property)"></a>Web下的知识产权(Intellectual Property)</h1><p>Intellectual property (IP) is an intangible creative work. It is not the physical form on which it is stored or delivered. IP can be protected through the use of patents, copyrights, trademarks, and trade secret laws.</p>
+<h2 id="专利-Patents"><a href="#专利-Patents" class="headerlink" title="专利(Patents)"></a>专利(Patents)</h2><p>PATENTS provide rights for up to 20 years for inventions in three broad categories:  </p>
+<ol>
+<li><p>Utility patents: protect useful processes, machines, articles of manufacture, and compositions of matter (实用专利)</p>
+</li>
+<li><p>Design patents guard the unauthorized use of new, original, and ornamental designs for articles of manufacture (设计专利)</p>
+</li>
+<li><p>Plant patents are the way we protect invented or discovered, asexually reproduced plant varieties (植物专利)</p>
+</li>
+</ol>
+<h2 id="版权-Copyrights"><a href="#版权-Copyrights" class="headerlink" title="版权(Copyrights)"></a>版权(Copyrights)</h2><p>COPYRIGHTS protect works of authorship, such as writings, music, and works of art that have been tangibly expressed. （文学领域，版权也称为著作权）<br>The Library of Congress registers copyrights which last the life of the author plus 70 years. （去世前+70年）<br>Books, albums, movies are all copyrighted.<br>You cannot copyright facts, such as the information in the telephone book. But you can copyright the particular presentation of those facts</p>
+<p>版权拥有者所拥有的权利:<br>Make copies of the work;<br>Produce derivative works;<br>Distribute copies;<br>Perform the work in public;<br>Display the work in public;<br>这也就意味着，非版权拥有者不能够享有这些权利。 =&gt; 需要经过许可</p>
+<p>在某些情况下，不需要许可使用作品:<br>合理使用需要考虑的因素: purpose and character of the work, nature of the copyrighted work, amount and substantiality of the portion used in relation to the copyrighted work, effect on the potential market for or value of the copyrighted work<br>以下情况可以不需要经过版权许可：<br>Use of copyrighted material that contribute to the creation of new work(The new works cannot significantly affect sales of the source material, thus depriving copyright holders of their income)；<br>Use for some research and educational purposes;<br>Use for news reporting and critiquing;</p>
+<p>不受版权法保护的作品类型:<br>Works in the public domain are not covered by IP rights;<br>Ideas (e.g., mathematical formulas);<br>Works pre-dating copyright law (e.g., Bible);<br>Expired copyright;<br>Government works;<br>Traditional knowledge, folklore.</p>
+<p>知识共享(Creative Commons (CC))<br>Attribution<br>Noncommercial<br>No Derivative Works<br>ShareAlike</p>
+<h2 id="商标-Trademarks"><a href="#商标-Trademarks" class="headerlink" title="商标(Trademarks)"></a>商标(Trademarks)</h2><p>TRADEMARKS protect words, names, symbols, sounds, or colors that distinguish goods and services from other manufacturer’s products (商品符号)<br>Trademarks, unlike patents, can be renewed forever as long as they are being used in business. (无限期)<br>No Fair-Use provision in Trademark law</p>
+<p>商标种类:<br>™ : unregistered trade mark used to promote or brand goods<br>℠ : unregistered service mark used to promote or brand services<br>® : registered trademark</p>
+<h2 id="商业秘密-Trade-Secrets"><a href="#商业秘密-Trade-Secrets" class="headerlink" title="商业秘密(Trade Secrets)"></a>商业秘密(Trade Secrets)</h2><p>TRADE SECRETS are information that companies keep secret to give them an advantage over their competitors. example: formula for Coca-Cola<br>Gives owner perpetual monopoly on secret information (无限期)</p>
+<h2 id="数据汇总-Data-Aggregation"><a href="#数据汇总-Data-Aggregation" class="headerlink" title="数据汇总(Data Aggregation)"></a>数据汇总(Data Aggregation)</h2><p>Data aggregation, aka “screen scraping” or “wrapping” is conducted widely today<br>Some of it is on sound legal ground;<br>But some it is has more ambiguous legal standing</p>
+<h2 id="软件许可证-Software-Licenses"><a href="#软件许可证-Software-Licenses" class="headerlink" title="软件许可证(Software Licenses)"></a>软件许可证(Software Licenses)</h2><p>Copyleft licenses<br>Permissive licenses</p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱实体链接</title>
+    <url>/2020/12/01/558ent-link/</url>
+    <content><![CDATA[<h2 id="NLP中的实体任务"><a href="#NLP中的实体任务" class="headerlink" title="NLP中的实体任务"></a>NLP中的实体任务</h2><ul>
+<li>NER (Recognition): detecting the phrase that is the name of an entity 实体发现</li>
+<li>NEC (Classification): assigning an entity type to the phrase 实体类型分类</li>
+<li>NEL (Linking): establishing the identity of the entity in a given reference<br>database (Wikipedia, DBpedia, YAGO) 实体链接</li>
+<li>Coreference: any phrase that makes reference to an entity instance, including<br>pronouns, noun phrases, abbreviations, acronyms, etc… 实体指代</li>
+</ul>
+<h3 id="Named-Entity-Linking-（NEL）"><a href="#Named-Entity-Linking-（NEL）" class="headerlink" title="Named Entity Linking （NEL）"></a>Named Entity Linking （NEL）</h3><p>Problem statement:<br>Potentially ambiguous entity mention (“Paris”) needs to be linked to a canonical identifier/instance (<a href="http://dbpedia.org/resource/Paris">http://dbpedia.org/resource/Paris</a>) that fits the intended referent in the context of the text</p>
+<p>entity linking (text -&gt; KG)</p>
+<h3 id="Named-Entity-Recognition-and-Disambiguation-NERD"><a href="#Named-Entity-Recognition-and-Disambiguation-NERD" class="headerlink" title="Named Entity Recognition and Disambiguation (NERD)"></a>Named Entity Recognition and Disambiguation (NERD)</h3><p>假设: the mentions are already recognized in text</p>
+<p>Combine recognition and disambiguation/linking -&gt; NERD<br>NERC + NED = NERD</p>
+<h2 id="Knowledge-bases"><a href="#Knowledge-bases" class="headerlink" title="Knowledge bases"></a>Knowledge bases</h2><p>A catalog of things, usually entities. Each one has:<br>one or more names;<br>other attributes;<br>Connections to other entities<br>Textual description;</p>
+<p>Knowledge bases are also connected to each other</p>
+<p>Example:<br>Structured knowledge bases: DBpedia &amp; Wikidata<br>Unstructured knowledge bases: Wikipedia</p>
+<h2 id="实体链接的好处"><a href="#实体链接的好处" class="headerlink" title="实体链接的好处"></a>实体链接的好处</h2><p>Benefits of connecting text and knowledge bases:<br>Automatic knowledge base construction (AKBC) / Knowledge base completion (KBC)帮助KB的完善</p>
+<h2 id="实体链接的挑战"><a href="#实体链接的挑战" class="headerlink" title="实体链接的挑战"></a>实体链接的挑战</h2><ol>
+<li>name ambiguity: Entities with the same name</li>
+<li>name variation: Different names for the same entity</li>
+<li>Missing (NIL) entities</li>
+</ol>
+<h2 id="实体链接框架"><a href="#实体链接框架" class="headerlink" title="实体链接框架"></a>实体链接框架</h2><p><img src="/image/EL.png"></p>
+<h3 id="Mention-Detection-NER"><a href="#Mention-Detection-NER" class="headerlink" title="Mention Detection (NER)"></a>Mention Detection (NER)</h3><p>在文档中识别出潜在的实体</p>
+<h3 id="Candidate-generation-selection"><a href="#Candidate-generation-selection" class="headerlink" title="Candidate generation/selection"></a>Candidate generation/selection</h3><p>Balance between generating too many candidates (too much ‘noise’) and generating too little candidates (missing the correct one)<br>Trade-off between precision and recall -&gt;  an art by itself!<br>In practice, something like 30 candidates per mention is usually enough</p>
+<p>如何选择top30?<br>commonness: for a given mention, how relatively often it refers to some instance in Wikipedia.<br>Also, observe dominance within a form and topical bias</p>
+<h3 id="Disambiguation"><a href="#Disambiguation" class="headerlink" title="Disambiguation"></a>Disambiguation</h3><p>Goal: decide which of the candidates (or none) is the correct referent.</p>
+<p>方法:</p>
+<ol>
+<li><p>Word-based methods: DBpedia Spotlight<br>Compute cosine similarity between the text paragraph with an entity mention and Wikipedia descriptions of each candidate</p>
+</li>
+<li><p>Graph-based methods: AIDA and AGDISTIS<br>Construct a subgraph that contains all entity candidates with some facts from a KB, then find the best connected candidates per mention.</p>
+</li>
+</ol>
+<h2 id="实体链接的评估"><a href="#实体链接的评估" class="headerlink" title="实体链接的评估"></a>实体链接的评估</h2><ol>
+<li>Assign a true positive (TP), false positive (FP), and/or false negative (FN) per mention occurrence</li>
+<li>Count the TPs, FPs, and FNs across all mentions</li>
+<li>Compute precision, recall, and F1-scores once on top of these</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱实体解析</title>
+    <url>/2020/12/01/558ent-res/</url>
+    <content><![CDATA[<h2 id="为什么需要实体解析？"><a href="#为什么需要实体解析？" class="headerlink" title="为什么需要实体解析？"></a>为什么需要实体解析？</h2><p>Ambiguity: Entities with the same name<br>Variance: Different names for the same entity</p>
+<p>这里我们使用record/mention来表示数字世界中的一个实体</p>
+<h2 id="什么是实体解析？"><a href="#什么是实体解析？" class="headerlink" title="什么是实体解析？"></a>什么是实体解析？</h2><p>The task of disambiguating records that correspond to real world entities across and within datasets.</p>
+<h2 id="实体解析的四个方面"><a href="#实体解析的四个方面" class="headerlink" title="实体解析的四个方面"></a>实体解析的四个方面</h2><p>Coreference: Unifying mentions of the same entity in a single document (text-&gt;text)<br>Entity Linking: Mapping mentions from text to the canonical entity in a KG (text-&gt;KG)<br>Deduplication: Unifying mentions within a KG into a single view (KG-&gt;KG)<br>Record Linkage: Matching enentites across two different KGs (KG1 -&gt; KG2)</p>
+<h3 id="Coreference"><a href="#Coreference" class="headerlink" title="Coreference"></a>Coreference</h3><p>举个例子，一篇文档中有许多的代词，需要将这些代词与之前提到的名词进行指代</p>
+<h3 id="Entity-Linking"><a href="#Entity-Linking" class="headerlink" title="Entity Linking"></a>Entity Linking</h3><p>举个例子，一篇文档出现诸多实体，需要将这些实体与已有的知识图谱中的实体进行关联</p>
+<h3 id="Deduplication"><a href="#Deduplication" class="headerlink" title="Deduplication"></a>Deduplication</h3><p>举个例子，一个知识图谱中存在的实体可能是相同或者很相似的，这个时候可以对其进行聚类，使得一类的mention表示同一个实体。</p>
+<h3 id="Record-Linkage"><a href="#Record-Linkage" class="headerlink" title="Record Linkage"></a>Record Linkage</h3><p>举个例子，对多个不同的知识图谱之间的相同的实体进行关联。</p>
+<h2 id="如何进行实体解析？"><a href="#如何进行实体解析？" class="headerlink" title="如何进行实体解析？"></a>如何进行实体解析？</h2><p>Assumption:<br>Each record/mention is associated with a single real world entity.<br>If two records/mentions are identical, then they are true matches.</p>
+<h3 id="Clustering"><a href="#Clustering" class="headerlink" title="Clustering"></a>Clustering</h3><p>从一系列records/mentions中计算实体是一个聚类问题<br>ER vs (Multi-relational) Clustering</p>
+<ul>
+<li>In typical clustering algorithms (k-means, LDA, etc.) number of clusters is a constant or sublinear in R.</li>
+<li>In ER: number of clusters is linear in R, and average cluster size is a constant. Significant fraction of clusters are singletons.</li>
+</ul>
+<h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><p>对一对实体确定匹配或非匹配是一个分类问题</p>
+<p>Imbalanced: typically O(R) matches, O(R^2) non-matches</p>
+<h2 id="实体解析相关模型"><a href="#实体解析相关模型" class="headerlink" title="实体解析相关模型"></a>实体解析相关模型</h2><h3 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h3><p>目的: 为了减少匹配次数<br>Naive pairwise: |R|2 pairwise comparisons<br>example:1000 business listings each from 1,000 different cities across the<br>world =&gt; 1M listings in total =&gt; 1 trillion comparisons<br>If we use Blocking Criterion: City =&gt; 1 billion comparisons</p>
+<p>Problem Statement:<br>Input: Set of records R<br>Output: Set of blocks/canopies</p>
+<p>Variants:<br>Disjoint Blocking<br>Non-disjoint Blocking</p>
+<p>Evalution Metrics:<br>Efficiency  = num of pairs compared / total number of pairs in RxR<br>Recall  = num of true matches compared / num of true matches in RxR<br>Precision = um of true matches compared / num of matches compared<br>Max canopy size: the size of the largest block </p>
+<p>Blocking方式:<br>Blocking predicates (keys), e.g. First three characters of last name, City + State + Zip ;<br>该方式存在的问题: Using one or more blocking predicates may be insufficient, 也就是说根据key来blocking的话，很有可能出现两种结果，1是有些key下的block还是有很多的record, 2是NULL values may create large blocks.<br>解决方式： Construct blocking predicates by combining simple predicates</p>
+<h3 id="Matching"><a href="#Matching" class="headerlink" title="Matching"></a>Matching</h3><p>Use pairwise predictor to resolve co-referent mentions</p>
+<p>Problem Statement: Given a vector of component-wise similarities for a pair of records (x,y), compute P(x and y match)</p>
+<p>Type I Error =&gt; False Positive<br>Type II Error =&gt; False Negative</p>
+<p>ML Pairwise Approaches:<br>Supervised machine learning algorithms:<br>Decision trees<br>Support vector machines<br>Ensembles of classifiers<br>Conditional Random Fields (CRF)<br>…</p>
+<p>存在的问题:<br>Training set generation<br>Imbalanced classes – many more negatives than positives<br>Misclassification cost</p>
+<h3 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h3><p>Apply constraints like 1-1 matching, identify canonical form</p>
+<p>Important forms of constraints:<br>• Exclusivity: If M1 matches with M2, then M3 cannot match with M2<br>• Transitivity: If M1 and M2 match, M2 and M3 match, then M1 and M3 match<br>• Functional Dependency: If M1 and M2 match, then M3 and M4 must match</p>
+<h2 id="String-matching-problem"><a href="#String-matching-problem" class="headerlink" title="String matching problem"></a>String matching problem</h2><p>Problem Statement:<br>Given X and Y sets of strings, Find pairs (x, y) such that both x and y refer to the same real world entity</p>
+<h3 id="为什么字符串不能完美匹配？"><a href="#为什么字符串不能完美匹配？" class="headerlink" title="为什么字符串不能完美匹配？"></a>为什么字符串不能完美匹配？</h3><p>typos, OCR errors, formatting conventions, abbreviations, nick names, word order</p>
+<h3 id="评价字符串相似的指标"><a href="#评价字符串相似的指标" class="headerlink" title="评价字符串相似的指标"></a>评价字符串相似的指标</h3><h4 id="Sequence-based-Measures"><a href="#Sequence-based-Measures" class="headerlink" title="Sequence based Measures"></a>Sequence based Measures</h4><ul>
+<li>Edit Distance/Levenshtein Distance<br>lev(x, y) is the minimum cost to transform x to y<br>Online calculator: <a href="http://planetcalc.com/1721/">http://planetcalc.com/1721/</a></li>
+</ul>
+<h4 id="Set-Based-Measures"><a href="#Set-Based-Measures" class="headerlink" title="Set-Based Measures"></a>Set-Based Measures</h4><p>方式: Generate set of tokens from the strings and measure similarity between the sets of tokens</p>
+<p>tokenize a string =&gt; “david smith” 3-grams </p>
+<ul>
+<li>Jaccard Measure</li>
+<li>TF/IDF Measure: distinguishing term should carry more weight</li>
+</ul>
+<h4 id="Hybrid-Measures"><a href="#Hybrid-Measures" class="headerlink" title="Hybrid Measures"></a>Hybrid Measures</h4><p>Do the set-based thing but use a similiarity metric for each element of the set</p>
+<h4 id="Phonetic-Similarity-Measures"><a href="#Phonetic-Similarity-Measures" class="headerlink" title="Phonetic Similarity Measures"></a>Phonetic Similarity Measures</h4>]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱数据提取</title>
+    <url>/2020/12/01/558info-extra/</url>
+    <content><![CDATA[<blockquote>
+<p>NLP是数据提取中不可缺少的元素</p>
+</blockquote>
+<h1 id="NLP-基础"><a href="#NLP-基础" class="headerlink" title="NLP 基础"></a>NLP 基础</h1><p>什么是NLP？<br>Program computers to process and analyze large amounts of natural language data.</p>
+<p>Unstructured、Ambiguous、Lots and lots of data<br>=&gt; Structured、Precise、Actionable Specific to the task data<br>By  Information Extraction</p>
+<p>什么是信息提取？<br>Information extraction is the process of extracting information from unstructured textual sources to enable finding entities as well as classifying and storing them. (<a href="https://www.ontotext.com/knowledgehub/fundamentals/information-extraction/">https://www.ontotext.com/knowledgehub/fundamentals/information-extraction/</a>)</p>
+<h2 id="Information-Extraction-总览"><a href="#Information-Extraction-总览" class="headerlink" title="Information Extraction 总览"></a>Information Extraction 总览</h2><p>信息提取的三个阶段：</p>
+<ol>
+<li>从sentence中提取<ul>
+<li>Part of speech tagging 词性标注</li>
+<li>Dependency Parsing 依存分析    </li>
+<li>Named entity recognition 命名实体识别</li>
+</ul>
+</li>
+<li>从document中提取<ul>
+<li>Coreference Resolution 指代消解</li>
+</ul>
+</li>
+<li>多个document提取<ul>
+<li>Entity resolution 实体解析</li>
+<li>Entity linking 实体链接</li>
+<li>Relation extraction 关系提取</li>
+</ul>
+</li>
+</ol>
+<h3 id="从sentence说起"><a href="#从sentence说起" class="headerlink" title="从sentence说起"></a>从sentence说起</h3><p>信息从句子中提取之前么，首先需要进行Tokenization &amp; Sentence Splitting<br><img src="/image/token_ss.png"></p>
+<p>对于Knowledge Graph造成的影响:</p>
+<ul>
+<li>Strictly constrains other NLP tasks<ul>
+<li>Parts of Speech</li>
+<li>Dependency Parsing</li>
+</ul>
+</li>
+<li>Directly effects KG nodes/edges<ul>
+<li>Mention boundaries</li>
+<li>Relations within sentences</li>
+</ul>
+</li>
+</ul>
+<h4 id="词性标注-Tagging-Parts-of-Speech"><a href="#词性标注-Tagging-Parts-of-Speech" class="headerlink" title="词性标注(Tagging Parts of Speech)"></a>词性标注(Tagging Parts of Speech)</h4><p><img src="/image/POS.png"></p>
+<p>Context matters.<br>Label whole sentence together.<br>Using Conditional Random Fields, CNN, LSTM to do such task.</p>
+<p>对于Knowledge Graph造成的影响:</p>
+<ul>
+<li>Entities appear as nouns</li>
+<li>Verbs are very useful<ul>
+<li>For identifying relations</li>
+<li>For identifying entity types</li>
+</ul>
+</li>
+<li>Important for downstream NLP (NER, Dependency Parsing…)</li>
+</ul>
+<h4 id="实体识别-Detecting-Named-Entities"><a href="#实体识别-Detecting-Named-Entities" class="headerlink" title="实体识别(Detecting Named Entities)"></a>实体识别(Detecting Named Entities)</h4><p><img src="/image/NER.png"></p>
+<p>Context matters.<br>Label whole sentence together</p>
+<p>对于Knowledge Graph造成的影响:</p>
+<ul>
+<li>Mentions describes the nodes</li>
+<li>Types of entities are incredibly important(Often restrict relations).</li>
+</ul>
+<h4 id="依存分析-Dependency-Parsing"><a href="#依存分析-Dependency-Parsing" class="headerlink" title="依存分析(Dependency Parsing)"></a>依存分析(Dependency Parsing)</h4><p><img src="/image/DEP.png"></p>
+<p>通过使用模型来对预测的依存关系进行打分来预测。</p>
+<p>对于Knowledge Graph造成的影响:</p>
+<ul>
+<li>Incredibly useful for relations!</li>
+<li>Incredibly useful for attributes!</li>
+<li>Paths are used as surface relations </li>
+</ul>
+<p>Surface relation： 仅仅根据句子的结构而不借助语义分析来判定关系模式<br><img src="/image/DEP_PATH.png"></p>
+<h3 id="一个Document中的多个sentence"><a href="#一个Document中的多个sentence" class="headerlink" title="一个Document中的多个sentence"></a>一个Document中的多个sentence</h3><h4 id="文档间指代-Within-document-Coreference"><a href="#文档间指代-Within-document-Coreference" class="headerlink" title="文档间指代(Within-document Coreference)"></a>文档间指代(Within-document Coreference)</h4><p><img src="/image/Correference.png"></p>
+<p>实现方式:<br>Model: score pairwise links, exmaple: dep path, similarity, representative mention …<br>Prediction: Search over clusterings, example: greedy (left to right), ILP,<br>belief propagation, MCMC …</p>
+<p>对于Knowledge Graph造成的影响:<br>More context for each entity!<br>Many relations occur on pronouns.<br>Coref can be used for types.<br>Difficult, so often ignored.</p>
+<h3 id="文档间、不同源间的信息提取"><a href="#文档间、不同源间的信息提取" class="headerlink" title="文档间、不同源间的信息提取"></a>文档间、不同源间的信息提取</h3><p>=&gt; Information Extraction</p>
+<ul>
+<li>Entity resolution 实体解析</li>
+<li>Entity linking 实体链接</li>
+<li>Relation extraction 关系提取</li>
+</ul>
+<p><img src="/image/IE.png"></p>
+<h2 id="Information-Extraction-细节"><a href="#Information-Extraction-细节" class="headerlink" title="Information Extraction 细节"></a>Information Extraction 细节</h2><h3 id="表面模式-Surface-Patterns"><a href="#表面模式-Surface-Patterns" class="headerlink" title="表面模式 Surface Patterns"></a>表面模式 Surface Patterns</h3><p>Combine tokens, dependency paths, and entity types to define rules.<br>简单的说，就是根据句子、文档的语法结构来判断分析出实体间的关系模式，而忽略了句子的语义信息。</p>
+<h3 id="Rule-Based-Extraction"><a href="#Rule-Based-Extraction" class="headerlink" title="Rule-Based Extraction"></a>Rule-Based Extraction</h3><p>通过人为的规定某些语法模式，根据句子的结构来信息提取。</p>
+<p>来源:<br>Manually specified, Learned from Data</p>
+<p>效果:<br>High precision: when it fires, it’s correct Easy to explain predictions. Easy to fix mistakes.<br>Poor recall: Do not generalize! Only work when the rules fire </p>
+<h3 id="Supervised-Extraction"><a href="#Supervised-Extraction" class="headerlink" title="Supervised Extraction"></a>Supervised Extraction</h3><p>通过使用机器学习算法来进行信息的提取</p>
+<p>Machine Learning: hopefully, generalizes the labels in the right way<br>Use all of NLP as features: words, POS, NER, dependencies, embeddings</p>
+<p>缺陷:<br>Requires a lot of labeled data is needed, which is expensive &amp; time consuming.<br>Requires a lot of feature engineering!</p>
+<h3 id="Entity-Resolution-amp-Linking"><a href="#Entity-Resolution-amp-Linking" class="headerlink" title="Entity Resolution &amp; Linking"></a>Entity Resolution &amp; Linking</h3><p>命名实体存在的问题:</p>
+<ol>
+<li>Different Entities with Same Name</li>
+<li>Different Names for same Entities</li>
+</ol>
+<p>一般步骤：<br>Candidate Generation =&gt; Entity Types =&gt; Coreference =&gt; Coherence</p>
+<h2 id="Information-Extraction-三个子问题及解决方式"><a href="#Information-Extraction-三个子问题及解决方式" class="headerlink" title="Information Extraction 三个子问题及解决方式"></a>Information Extraction 三个子问题及解决方式</h2><p>3*3 = 9</p>
+<p><img src="/image/IEpro.png"></p>
+<h3 id="Defining-Domain"><a href="#Defining-Domain" class="headerlink" title="Defining Domain"></a>Defining Domain</h3><h4 id="Manual"><a href="#Manual" class="headerlink" title="Manual"></a>Manual</h4><p>Highly semantic ontology;<br>Leads to high precision extraction;<br>Expensive to create;<br>Requires domain experts;</p>
+<h4 id="Semi-automatic"><a href="#Semi-automatic" class="headerlink" title="Semi-automatic"></a>Semi-automatic</h4><p>Subset of types are manually defined;<br>SSL methods discover new types from unlabeled data;</p>
+<p>Easier to derive types using existing resources;<br>Relations are discovered from the corpus;<br>Leads to moderate precision extractions;<br>Partially semantic ontology;</p>
+<p>Example:<br>Assumption:<br>Types and type hierarchy is manually defined (E.g. River, City, Food, Chemical, Disease, Bacteria);<br>Relations are automatically discovered using clustering methods</p>
+<h4 id="Automatic"><a href="#Automatic" class="headerlink" title="Automatic"></a>Automatic</h4><p>Any noun phrase is a candidate entity<br>Any verb phrase is a candidate relation</p>
+<p>Cheapest way to induce types/ relations from corpus;<br>Little expert annotations needed;<br>Limited semantics;<br>Leads to noisy extractions;</p>
+<h3 id="Learning-extractors"><a href="#Learning-extractors" class="headerlink" title="Learning extractors"></a>Learning extractors</h3><h4 id="Manual-1"><a href="#Manual-1" class="headerlink" title="Manual"></a>Manual</h4><p>Human defined high-precision extraction patterns for each relation</p>
+<h4 id="Semi-supervised"><a href="#Semi-supervised" class="headerlink" title="Semi-supervised"></a>Semi-supervised</h4><p>Bootstrapping</p>
+<p><img src="/image/semi-sup.png"><br>简单的说就是，人为给一些seed instances给机器，让机器去提取符合这些instance的pattern，然后根据提取到的pattern去提取符合的instance，重复操作，获取越来越多的instance和pattern.</p>
+<p>缺陷:Semantic Drift, 语义漂移<br>解决方式: topk, interactive<br><img src="/image/LE-semi.png"></p>
+<h4 id="Unsupervised"><a href="#Unsupervised" class="headerlink" title="Unsupervised"></a>Unsupervised</h4><p>Identify candidate relations: 为每个动词找到最长的单词序列<br>Identify arguments for each relation: 对于每个关系，找其左侧和右侧找到最接近的名词短语</p>
+<h3 id="Scoring-candidate-facts"><a href="#Scoring-candidate-facts" class="headerlink" title="Scoring candidate facts"></a>Scoring candidate facts</h3><h4 id="Manual-2"><a href="#Manual-2" class="headerlink" title="Manual"></a>Manual</h4><p>Human defined scoring function or Scoring function learnt using supervised ML with large amount of training data</p>
+<h4 id="Semi-supervised-1"><a href="#Semi-supervised-1" class="headerlink" title="Semi-supervised"></a>Semi-supervised</h4><p>Small amount of training data is available. Scoring refined over multiple iterations<br>Using both labeled and unlabeled data</p>
+<h4 id="Unsupervised-1"><a href="#Unsupervised-1" class="headerlink" title="Unsupervised"></a>Unsupervised</h4><p>Confidence(extraction pattern) ∝ (#unique instances it could extract)<br>Score(candidate fact) ∝ (#distinct extraction patterns that support it)</p>
+<h2 id="Information-Extraction-技术类别"><a href="#Information-Extraction-技术类别" class="headerlink" title="Information Extraction 技术类别"></a>Information Extraction 技术类别</h2><h3 id="Narrow-domain-patterns"><a href="#Narrow-domain-patterns" class="headerlink" title="Narrow domain patterns"></a>Narrow domain patterns</h3><p>Defining domain: Manual<br>Learning extractors:  Manual<br>Scoring candidate facts: Manual</p>
+<h3 id="Ontology-based-extraction"><a href="#Ontology-based-extraction" class="headerlink" title="Ontology based extraction"></a>Ontology based extraction</h3><p>Defining domain: Manual<br>Learning extractors:  Semi-supervised<br>Scoring candidate facts: Unsupervised</p>
+<h3 id="Interactive-extraction"><a href="#Interactive-extraction" class="headerlink" title="Interactive extraction"></a>Interactive extraction</h3><p>Defining domain: Manual<br>Learning extractors:  Semi-supervised<br>Scoring candidate facts: Semi-supervised</p>
+<h3 id="Open-domain-IE"><a href="#Open-domain-IE" class="headerlink" title="Open domain IE"></a>Open domain IE</h3><p>Defining domain: Unsupervised<br>Learning extractors:  Unsupervised<br>Scoring candidate facts: Semi-supervised</p>
+<h3 id="Hybrid-approach-Adding-structure-to-OpenIE-KB"><a href="#Hybrid-approach-Adding-structure-to-OpenIE-KB" class="headerlink" title="Hybrid approach (Adding structure to OpenIE KB)"></a>Hybrid approach (Adding structure to OpenIE KB)</h3><p>Defining domain: Semi-supervised =&gt; Distant supervision to add structure<br>Learning extractors:  Unsupervised<br>Scoring candidate facts: Semi-supervised</p>
+<h2 id="Knowledge-fusion"><a href="#Knowledge-fusion" class="headerlink" title="Knowledge fusion"></a>Knowledge fusion</h2><p>融合多种Learning extractors来提高提取准确度</p>
+<p>Knowledge fusion schemes:</p>
+<ul>
+<li>Voting (AND vs OR of extractors)</li>
+<li>Co-training (multiple extraction methods)</li>
+<li>Multi-view learning (multiple data sources)</li>
+<li>Classification</li>
+</ul>
+<h2 id="IE-systems-in-practice"><a href="#IE-systems-in-practice" class="headerlink" title="IE systems in practice"></a>IE systems in practice</h2><ul>
+<li>Conceptnet</li>
+<li>NELL (Never Ending Language Learning )</li>
+<li>Knowledge vault</li>
+<li>Open IE</li>
+</ul>
+<p><img src="/image/IE_sys.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱图嵌入</title>
+    <url>/2020/12/03/558kg-emb/</url>
+    <content><![CDATA[<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="数据的表示"><a href="#数据的表示" class="headerlink" title="数据的表示"></a>数据的表示</h3><p>Scalar: a  标量，0维<br>Vector: a[i]， 向量，1维<br>Matrix: a[i,j]， 矩阵，2维<br>Tensor: a[i,j,k]， 张量，多维</p>
+<p>Tensor和 Graph的关系:<br>Graphs over time -&gt; 3rd order tensors</p>
+<p>Knowledge Graphs:  a directed heterogeneous multigraph whose node and relation types have domain-specific semantics （Vertices: Entities, Edges: Predicates）<br>有向、异源、对关系图</p>
+<h3 id="为什么要进行嵌入？"><a href="#为什么要进行嵌入？" class="headerlink" title="为什么要进行嵌入？"></a>为什么要进行嵌入？</h3><p>Meaningful non-numerical representations are highly important, e.g., languages with discrete representations, graphs, shapes</p>
+<p>But, Most inference models, e.g., SVM, NN, Reg., etc., are designed for vector-space representable quantities<br>=&gt;<br>To benefits from these models, we need to convert non-numeric representations to numeric representations</p>
+<p>简单的说，就是将高维的离散信息转化为低维的连续数据，并且保持其信息的完整性，用于后续的建模分析。</p>
+<h3 id="嵌入"><a href="#嵌入" class="headerlink" title="嵌入"></a>嵌入</h3><p>定义:<br>Mapping of a discrete variable to a vector of continuous numbers such that semantic/abstract similarities are encoded in terms of geometric distances</p>
+<p>• Low-dimensional -&gt; Mitigate redundancy, curse of dimensionality(避免维度灾难)<br>• Embeddings provide a generalizable context about the overall<br>graph that can be used for interference, e.g., relations.</p>
+<h3 id="图嵌入"><a href="#图嵌入" class="headerlink" title="图嵌入"></a>图嵌入</h3><p>Given entities &amp; predicates, find mappings for entities and links (predicate (s,r,t))<br>就是将实体或者关系以向量的形式表达。</p>
+<h2 id="图嵌入方法"><a href="#图嵌入方法" class="headerlink" title="图嵌入方法"></a>图嵌入方法</h2><h3 id="SVD"><a href="#SVD" class="headerlink" title="SVD"></a>SVD</h3><ul>
+<li>Decomposition in terms of singular values</li>
+<li>V, U: orthogonal matrices</li>
+</ul>
+<h3 id="Deep-Graph-Embeddings"><a href="#Deep-Graph-Embeddings" class="headerlink" title="Deep Graph Embeddings"></a>Deep Graph Embeddings</h3><p>Skip-gram: DeepWalk, Node2Vec<br>思想:<br>Sample a set of paths with random walk from node 𝑣i<br>Adjacent Nodes are Similar and should have similar embeddings. The frequency of co-occurrence in random walks is an indicator of node similarity.</p>
+<ul>
+<li>Hierarchical Softmax (DeepWalk)</li>
+<li>Negative Sampling (Node2Vec)</li>
+</ul>
+<p>其他算法</p>
+<p>Metapath2Vec: heterogenous graph<br>LINE: 1st order + 2nd order proximity<br>UltimateWalk: closed form, unifies DeepWalk and Node2Vec reconstruct W,<br>AutoEncoder: similar to SVD<br>Struc2Vec: focuses on structural similarity<br>GCN: interesting! borrowed the idea from CNN</p>
+<h2 id="图嵌入应用"><a href="#图嵌入应用" class="headerlink" title="图嵌入应用"></a>图嵌入应用</h2><p>• Reconstruction / Fact checking: Triples completion: (s,?,t)<br>• Classification: Triples classification: (s,r,t)<br>• Featurizing: Link prediction, Recommendation</p>
+<h2 id="Tensor与图嵌入"><a href="#Tensor与图嵌入" class="headerlink" title="Tensor与图嵌入"></a>Tensor与图嵌入</h2><p><img src="/image/kg_tensor.png"></p>
+<h3 id="PARAFAC"><a href="#PARAFAC" class="headerlink" title="PARAFAC"></a>PARAFAC</h3><p>针对图张量的分解<br><img src="/image/PARAFAC.png"></p>
+<h2 id="知识图谱嵌入"><a href="#知识图谱嵌入" class="headerlink" title="知识图谱嵌入"></a>知识图谱嵌入</h2><p>Problem statement:<br>How to enforce KG structures on the embedding representations?</p>
+<p>Solution: Triple scoring</p>
+<p>Loss: what shall we optimize?</p>
+<h3 id="Triple-Scoring"><a href="#Triple-Scoring" class="headerlink" title="Triple Scoring"></a>Triple Scoring</h3><p>What is the relationship among sub (h), pred (r), and obj (t)? • Addition: h + r =?= t<br>表示实体关系向量间的关系。</p>
+<ol>
+<li>Addition: h + r =?= t</li>
+<li>Multiplication: h ⚬ r =?= t</li>
+</ol>
+<h4 id="Addition"><a href="#Addition" class="headerlink" title="Addition"></a>Addition</h4><p>查看 h + r 是否 = t</p>
+<p>TransE算法:<br>score(h,r,t) = – ||h+r-t||   返回结果二范式的负值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">‘Merkel’: h&#x3D;(1, 0, 0)</span><br><span class="line">‘Beatles’: t &#x3D;(0, 0, 1)</span><br><span class="line">‘plays_bass’: r &#x3D;(0, 0, 1) </span><br><span class="line">score(h,r,t)&#x3D;- ||h+ t− r|| &#x3D; -1</span><br></pre></td></tr></table></figure>
+<p>缺陷:<br>从公式就可以看出，该算法不适用于一对多的关系</p>
+<p>TransH:<br>Project to relation-specific hyperplanes</p>
+<p>TransR:<br>Translate to relation-specific space</p>
+<h4 id="Multiplication"><a href="#Multiplication" class="headerlink" title="Multiplication"></a>Multiplication</h4><p>查看 h ⚬ r 是否 =  t</p>
+<p>RESCAL算法, score(h,r,t) = h.T ⚬ Wr ⚬ t<br>缺陷: Too many parameters </p>
+<p>DistMult算法, score(h,r,t) = h.T ⚬ diag(Wr) ⚬ t<br>好处: Simplify RESCAL by using a diagonal matrix<br>缺陷: Cannot deal with asymmetric relations!</p>
+<p>ComplEx算法: score(h,r,t) = Re(h.T ⚬ diag(Wr) ⚬ t)<br>Extend DistMult by introducing complex value embedding, so can handle asymmetric relations</p>
+<h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>Closed world assumption: square loss</p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱简介</title>
+    <url>/2020/12/01/558intro/</url>
+    <content><![CDATA[<h2 id="什么是知识图谱？"><a href="#什么是知识图谱？" class="headerlink" title="什么是知识图谱？"></a>什么是知识图谱？</h2><ul>
+<li>Knowledge in graph form!</li>
+<li>Captures entities, attributes, and relationships</li>
+<li>Nodes are entities</li>
+<li>Nodes are labeled with attributes (e.g., types)</li>
+<li>Typed edges between two nodes capture a relationship between entities</li>
+</ul>
+<p><img src="/image/kg_overview.png"></p>
+<p>简单的说，知识图谱就是一张图，用来描述节点之间的关系。</p>
+<h2 id="知识图谱的来源？"><a href="#知识图谱的来源？" class="headerlink" title="知识图谱的来源？"></a>知识图谱的来源？</h2><ul>
+<li>Structured Text (Wikipedia Infoboxes, tables, databases, social nets)</li>
+<li>Unstructured Text (WWW, news, social media, reference articles)</li>
+<li>Images</li>
+<li>Video (YouTube, video feeds)</li>
+</ul>
+<h2 id="知识图谱如何被使用？"><a href="#知识图谱如何被使用？" class="headerlink" title="知识图谱如何被使用？"></a>知识图谱如何被使用？</h2><p>Human perspective:</p>
+<ul>
+<li>Combat information overload</li>
+<li>Explore via intuitive structure</li>
+<li>Tool for supporting knowledge-driven tasks</li>
+</ul>
+<p>AI perspective:</p>
+<ul>
+<li>Key ingredient for many AI tasks</li>
+<li>Bridge from data to human semantics</li>
+<li>Use decades of work on graph analysis</li>
+</ul>
+<p>常见的应用:</p>
+<ul>
+<li>QA/Agents</li>
+<li>Decision Support</li>
+<li>Fueling Discovery</li>
+</ul>
+<p>工业界的使用包括: Google Knowledge Graph(Google Knowledge Vault), Amazon Product Graph, Facebook Graph API, IBM Watson, Microsoft Satori, LinkedIn Knowledge Graph, Yandex Object Answer, Diffbot, GraphIQ, Maana, ParseHub, Reactor Labs, SpazioDati</p>
+<h2 id="典型的知识图谱架构？"><a href="#典型的知识图谱架构？" class="headerlink" title="典型的知识图谱架构？"></a>典型的知识图谱架构？</h2><p>基本流程如下：</p>
+<ol>
+<li>数据获取</li>
+<li>信息提取</li>
+<li>本体映射</li>
+<li>实体解析</li>
+<li>知识图谱的部署</li>
+<li>图谱具体应用</li>
+</ol>
+<p><img src="/image/kg_arc.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱图分析&amp;问题回答</title>
+    <url>/2020/12/03/558kg-ga-qs/</url>
+    <content><![CDATA[<h2 id="图分析"><a href="#图分析" class="headerlink" title="图分析"></a>图分析</h2><p>图分析算法</p>
+<p>Pathfinding and Search: Djikstra’s algorithm<br>Matching and coloring: k-coloring, graph equivalence<br>Centrality: Degree centrality, page-rank, betweenness centrality, closeness centrality<br>Clustering and Community Detection: Connected components, clustering coefficient</p>
+<p>Matching: a set of edges that do not have a set of common vertices.</p>
+<p>Coloring: Assignment of labels traditionally called “colors” to elements of a graph subject to certain constraints.</p>
+<h3 id="Centrality"><a href="#Centrality" class="headerlink" title="Centrality"></a>Centrality</h3><p>Eccentricity: Maximum of minimum distances of a node to other nodes in the graph （某个点的偏心率也就是说连接该点到图中其他点的最大距离）<br>Central point: node with lowest eccentricity<br>Radius: distance: central point’s eccentricity (lowest max-distance)<br>Diameter: largest eccentricity (highest max-distance)</p>
+<p>Degree Centrality: Nodes with maximum in-degree or out-degree<br>Betweenness Centrality: Number of all-pairs shortest paths a node participates<br>in<br>Closeness (Harmonic) Centrality: Inverse average of distance (or average inverse distance) to all other nodes</p>
+<h3 id="Clustering"><a href="#Clustering" class="headerlink" title="Clustering"></a>Clustering</h3><p>Connected components: Set of nodes where each node is reachable from all other nodes<br>Clustering Coefficient</p>
+<h2 id="问答系统"><a href="#问答系统" class="headerlink" title="问答系统"></a>问答系统</h2><p>子任务:<br>• Entity Linking<br>• Relation Linking<br>• Query Structure Discovery<br>• Identifying Logical Operators</p>
+<h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><ul>
+<li><p>Lexical Gap between ontology and language:</p>
+<ul>
+<li>String normalization – different forms of the same word</li>
+<li>Query expansion – adding additional terms</li>
+<li>Pattern libraries – translating complex phrasal structure into properties</li>
+<li>Entailment – using previous answers + reasoning to fill in missing facts</li>
+</ul>
+</li>
+<li><p>Ambiguity of questions and concepts</p>
+<ul>
+<li>Context-based or corpus-based filtering</li>
+<li>Constraints between concepts in the question</li>
+<li>Coherence models across ontologies and concept hierarchies</li>
+</ul>
+</li>
+<li><p>Multilingualism</p>
+</li>
+<li><p>Complexity of queries</p>
+<ul>
+<li>Multiple levels of indirection</li>
+<li>Aggregation, logical comparisons, quantifiers</li>
+<li>Indirect references to prior answers, nested queries</li>
+<li>Constraints on the answers</li>
+</ul>
+</li>
+<li><p>Distributed Knowledge across several KGs</p>
+<ul>
+<li>Identifying the right KG with the answer</li>
+<li>Understanding entity links between KGs</li>
+<li>Predicting missing links</li>
+</ul>
+</li>
+<li><p>Procedural, Spatial, &amp; Temporal QA</p>
+<ul>
+<li>Answering tasks may require different types of knowledge</li>
+<li>Answer may not be an entity (e.g., “How do you make a sandwich?”</li>
+<li>Event-based questions require knowledge of “before” “after” “causes”</li>
+<li>Questions may use geo-coodinates, spatial relationships, containment</li>
+</ul>
+</li>
+<li><p>Template(-free) questions</p>
+<ul>
+<li>Question may not match existing structural patterns</li>
+<li>Question might require multiple structural schemas</li>
+<li>May require aggregation of answers from different query types and knowledge sources</li>
+</ul>
+</li>
+</ul>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><img src="/image/sol_qa.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱表示</title>
+    <url>/2020/12/01/558kg-rep/</url>
+    <content><![CDATA[<p>本章关注:<br><img src="/image/semantic_web.png"></p>
+<h2 id="Web信息表达"><a href="#Web信息表达" class="headerlink" title="Web信息表达"></a>Web信息表达</h2><h3 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h3><p>Unicode: a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world’s writing systems.</p>
+<h3 id="Web资源地址"><a href="#Web资源地址" class="headerlink" title="Web资源地址"></a>Web资源地址</h3><p>URL(Uniform Resource Locator):A reference to an Internet resource<br>URL vs URI<br>URI = URL + URN</p>
+<p>为什么使用URI?<br>URIs look cool;<br>Precisely identify resources(Avoid confusion among different subjects);<br>Precisely identify properties;<br>Provide information about properties;<br>Look them up on the web</p>
+<h2 id="RDF-Resource-Description-Framework"><a href="#RDF-Resource-Description-Framework" class="headerlink" title="RDF (Resource Description Framework)"></a>RDF (Resource Description Framework)</h2><p>The Resource Description Framework (RDF) is a language for representing information about resources in the World Wide Web</p>
+<p>Intention: Intended for representing metadata about Web resources, such as the title, author, and modification date of a Web document（为了描述web中资源的元数据信息）<br>=&gt; also be used to represent information about things that can be identified on the Web, even when they cannot be directly retrieved on the Web</p>
+<h3 id="Triples"><a href="#Triples" class="headerlink" title="Triples"></a>Triples</h3><p>Represent Information as Triples, (Subject,Predicate,Object)<br>Subject: The resource being described<br>Predicate: A property of the resource<br>Object: The value of the property</p>
+<p>通过三元组的形式，很自然的形成了一条有向边的表达方式。</p>
+<h3 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h3><p>命名空间，用于简化URI的书写，其中存储了一系列subject或者predicate的信息<br><a href="http://xmlns.com/foaf/0.1/firstName">http://xmlns.com/foaf/0.1/firstName</a> =&gt;  foaf:firstName</p>
+<h3 id="RDF-Syntaxes"><a href="#RDF-Syntaxes" class="headerlink" title="RDF Syntaxes"></a>RDF Syntaxes</h3><p>XML, N3 Turtle, N-Triples, RDFa, JSON-LD</p>
+<h3 id="Represent-nested-structures"><a href="#Represent-nested-structures" class="headerlink" title="Represent nested structures"></a>Represent nested structures</h3><p><code>usc:isi   schema:address  “4676 Admiralty Way, Marina del Rey, CA 90292” .</code><br>问题:  In what city is USC/ISI located?</p>
+<p>使用嵌套节点</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">usc:isi schema:address usc:isi-address .</span><br><span class="line"></span><br><span class="line">usc:isi-address</span><br><span class="line">  schema:addressCountry 	“USA” ;</span><br><span class="line">  schema:addressRegion 		“CA”;</span><br><span class="line">  schema:addressLocality 	“Marina del Rey” ; </span><br><span class="line">  schema:postalCode 		“90292” ;</span><br><span class="line">  schema:streetAddress 		“4676 Admiralty Way” . </span><br></pre></td></tr></table></figure>
+<p>We minted a URI for USC/ISI’s address, but sometimes we don’t want to mint URIs =&gt; BNode<br>在这里可以发现嵌套节点usc:isi-address也有具体的URI来表示，但是该节点的URI没有什么其他的作用，所以使用空节点来表示, 前缀为_</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">usc:isi schema:address _:isi-address .</span><br><span class="line"></span><br><span class="line">_:isi-address .</span><br><span class="line">  schema:addressCountry 	“USA” ;</span><br><span class="line">  schema:addressRegion 		“CA”;</span><br><span class="line">  schema:addressLocality 	“Marina del Rey” ; </span><br><span class="line">  schema:postalCode 		“90292” ;</span><br><span class="line">  schema:streetAddress 		“4676 Admiralty Way” . </span><br></pre></td></tr></table></figure>
+
+<h3 id="字面值的类型（Typed-Literals）"><a href="#字面值的类型（Typed-Literals）" class="headerlink" title="字面值的类型（Typed Literals）"></a>字面值的类型（Typed Literals）</h3><p>在object后面添加类型信息。<br>example: weather:date ”2012-06-18”^^xsd:date ;</p>
+<h3 id="Reification"><a href="#Reification" class="headerlink" title="Reification"></a>Reification</h3><p>RDF applications sometimes need to describe other RDF statements using RDF, for instance, to record information about when statements were made, who made them, or other similar information (this is sometimes referred to as “provenance” information). </p>
+<p>举个例子： 他说了xxx<br>“On June 19 2012, Claudia said that Sam’s email address is <a href="mailto:&#x53;&#x61;&#x6d;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x53;&#x61;&#x6d;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a>”</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">_:s rdf:type        rdf:Statement .</span><br><span class="line">_:s rdf:subject     &lt;http:&#x2F;&#x2F;szekelys.com&#x2F;family#sam&gt; .    </span><br><span class="line">_:s rdf:predicate   foaf:mbox .</span><br><span class="line">_:s rdf:object      &lt;Sam@gmail.com&gt;</span><br><span class="line"></span><br><span class="line">_:s dcterms:date     “2012-06-19”^^xsd:date .</span><br><span class="line">_:s dcterms:creator  &lt;http:&#x2F;&#x2F;uniandes.edu.co&#x2F;faculty#claudiaj&gt; .</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="RDF-syntax-in-turtle"><a href="#RDF-syntax-in-turtle" class="headerlink" title="RDF syntax in turtle"></a>RDF syntax in turtle</h3><ul>
+<li><p>URIs are in &lt;&gt;</p>
+</li>
+<li><p>Prefix:<br>  @prefix foo: <a href="http://example.org/ns#">http://example.org/ns#</a> .<br>  @prefix : <a href="http://other.example.org/ns#">http://other.example.org/ns#</a> . &lt;- 空命名空间<br>  foo:bar foo: : . 等价于<br>  <a href="http://example.org/ns#bar">http://example.org/ns#bar</a> <a href="http://example.org/ns">http://example.org/ns</a> <a href="http://other.example.org/ns">http://other.example.org/ns</a>.</p>
+</li>
+<li><p>Turtle Literals</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Type of literals: </span><br><span class="line">  untyped (“London” equivalent to “London”^^xsd:string)</span><br><span class="line">  language tag</span><br><span class="line">  data type (with a URI)</span><br><span class="line">Example:</span><br><span class="line">  Strings in “”</span><br><span class="line">  Language tag: &quot;That Seventies Show&quot;@en</span><br><span class="line">  Data type: &quot;10&quot;^^xsd:decimal</span><br></pre></td></tr></table></figure></li>
+<li><p>Blank Node<br>  _:a<br>  []</p>
+</li>
+<li><p>Turtle Base URI ????</p>
+</li>
+<li><p>常用缩写<br>  rdf:type  = a<br>  “-5”^^xsd:integer<br>  “true”^^xds:boolean<br>  “1.3e2”^^xsd:double</p>
+</li>
+</ul>
+<h2 id="RDF-Schema"><a href="#RDF-Schema" class="headerlink" title="RDF Schema"></a>RDF Schema</h2><p>RDF Schema is the language for defining RDF vocabularies.<br>It specifies the RDF inference rules: the triples that are implied by the triples you have.</p>
+<p>常用rdfs:<br><img src="/image/rdfs.png"></p>
+<p>All things described by RDF are called resources, and are instances of the class rdfs:Resource</p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱键连数据与语义网络</title>
+    <url>/2020/12/03/558ld-sw/</url>
+    <content><![CDATA[<h2 id="Web-of-documents-vs-Web-of-data"><a href="#Web-of-documents-vs-Web-of-data" class="headerlink" title="Web of documents vs. Web of data"></a>Web of documents vs. Web of data</h2><p>Web of Document: 数据之间关联少<br>Analogy: a global filesystem<br>Primary objects: documents<br>Links between: documents (or sub-parts of)<br>Degree of structure in objects: fairly low<br>Semantics of content and links: implicit<br>Designed for: human consumption</p>
+<p>Web of Data<br>Analogy:  a global database<br>Primary objects: things (or descriptions of things)<br>Links between: things (including documents)<br>Degree of structure in objects: high<br>Semantics of content and links: explicit<br>Designed for: machines first, humans later</p>
+<h2 id="键连数据-Linked-data"><a href="#键连数据-Linked-data" class="headerlink" title="键连数据 (Linked data)"></a>键连数据 (Linked data)</h2><p>定义: A method of publishing structured data so that it can be<br>interlinked and become more useful</p>
+<p>键连资料是语义网的主题之一，描述了通过可链接的URI方式来发布、分享、连接Web中各类资源的方法。是一系列利用Web 在不同数据源之间创建语义关联的方法。</p>
+<p>Web technologies: HTTP,URIs,RDF to share information processed automatically by computers</p>
+<h3 id="Linked-Data-Principles"><a href="#Linked-Data-Principles" class="headerlink" title="Linked Data Principles"></a>Linked Data Principles</h3><ol>
+<li>Use URIs as names for things</li>
+<li>Use HTTP URIs so that people can look up those names</li>
+<li>When someone looks up a URI, provide useful RDF information</li>
+<li>Include RDF statements that link to other URIs so that they can discover more things</li>
+</ol>
+<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><ul>
+<li>Different URIs For the Same Thing</li>
+<li>Timeliness （not up to date）</li>
+<li>Provenance</li>
+<li>Tools</li>
+</ul>
+<h3 id="Linked-data-评级"><a href="#Linked-data-评级" class="headerlink" title="Linked data 评级"></a>Linked data 评级</h3><p><img src="/image/linkdata.png"></p>
+<h2 id="Semantic-Web"><a href="#Semantic-Web" class="headerlink" title="Semantic Web"></a>Semantic Web</h2><p>核心:通过给万维网上的文档添加能够被计算机所理解的语义，从而使整个互联网成为一个通用的信息交换介质</p>
+<h2 id="Web中的Thing与Document"><a href="#Web中的Thing与Document" class="headerlink" title="Web中的Thing与Document"></a>Web中的Thing与Document</h2><h3 id="Web-document"><a href="#Web-document" class="headerlink" title="Web document"></a>Web document</h3><p>定义: A Web document is defined as something that has a URI and can return representations (responses in a format such as HTML or JPEG or RDF) of the identified resource in response to HTTP requests.</p>
+<blockquote>
+<p>An HTML document is not a representation of a person. It is a representation of a Web document.</p>
+</blockquote>
+<h3 id="内容协商-Content-Negotiation"><a href="#内容协商-Content-Negotiation" class="headerlink" title="内容协商(Content Negotiation)"></a>内容协商(Content Negotiation)</h3><p>定义: 超文本传输协议中定义的一个机制，它使同一个统一资源标志符上的文档可以根据用户代理中指定的适用信息提供不同的版本<br><img src="/image/cn.png"></p>
+<h3 id="Web-Thing"><a href="#Web-Thing" class="headerlink" title="Web Thing"></a>Web Thing</h3><blockquote>
+<p>We use  need different URIs for Things and Web documents<br>这里的Thing其实也就是知识图谱中的entity</p>
+</blockquote>
+<p><img src="/image/thing&web.png"><br>从这个例子中也可以发现，某一个实体的web document可以是该实体的一个属性</p>
+<h3 id="303-重定向"><a href="#303-重定向" class="headerlink" title="303 重定向"></a>303 重定向</h3><p>解决问题: two documents don’t contain the same content</p>
+<p><img src="/image/303.png"></p>
+<h3 id="三个URI关系"><a href="#三个URI关系" class="headerlink" title="三个URI关系"></a>三个URI关系</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;http:&#x2F;&#x2F;ex.com&#x2F;id&#x2F;alice&gt;</span><br><span class="line">  foaf:page &lt;http:&#x2F;&#x2F;ex.com&#x2F;people&#x2F;alice&gt; ; </span><br><span class="line">  rdfs:isDefinedBy &lt;http:&#x2F;&#x2F;ex.com&#x2F;data&#x2F;alice&gt; ;</span><br><span class="line">  a foaf:Person ;</span><br><span class="line">  foaf:name &quot;Alice” ;</span><br><span class="line">  foaf:mbox &lt;mailto:alice@example.com&gt; ; ...</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱本体与推理</title>
+    <url>/2020/12/03/558ont-rea/</url>
+    <content><![CDATA[<h2 id="本体-Ontology"><a href="#本体-Ontology" class="headerlink" title="本体 Ontology"></a>本体 Ontology</h2><h3 id="从一个例子讲起"><a href="#从一个例子讲起" class="headerlink" title="从一个例子讲起"></a>从一个例子讲起</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name  rank</span><br><span class="line">Bob   Captain</span><br><span class="line">Sue   Sargent</span><br><span class="line">Mary  Admiral</span><br><span class="line">Joe   Sargent</span><br></pre></td></tr></table></figure>
+<p>select ?x  { ?x rank “Sargent” }<br>select ?x  { ?x a Person }<br>select ?x  { ?x a MilitaryPerson }</p>
+<p>如何进行inference?<br>Tell the computer some triples it infers more triples  + RDFS辅助</p>
+<p>=&gt; RDFSchema OWL</p>
+<h3 id="OWL-Web-Ontology-Language"><a href="#OWL-Web-Ontology-Language" class="headerlink" title="OWL (Web Ontology Language)"></a>OWL (Web Ontology Language)</h3><p>基本思想:<br>I state a few OWL axioms;<br>I load lots of triples;<br>The system infers lots of new triples.</p>
+<p>构建模块:<br>Classes   – 类<br>Properties – 属性<br>Individuals – 单个个体，类似于instance</p>
+<h3 id="OWL中的假设"><a href="#OWL中的假设" class="headerlink" title="OWL中的假设"></a>OWL中的假设</h3><ol>
+<li>Unique Name Assumption <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bob a foaf:Person; </span><br><span class="line">	foaf:name “Bob”;</span><br><span class="line">	ex:rank “Captain” .</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sue a foaf:Person; </span><br><span class="line">	foaf:name &quot;Sue&quot;;</span><br><span class="line">	ex:rank Sargent .</span><br></pre></td></tr></table></figure>
+Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individuals in the world</li>
+</ol>
+<p>Unique Name Assumption = FALSE:<br>=&gt; bob and sue may refer to the same individual in the world</p>
+<p>OWL使用的假设: Unique Name Assumption = FALSE</p>
+<ol start="2">
+<li>Open World or Closed World</li>
+</ol>
+<p>Closed World: if I don’t tell it something, assume it’s false, 没提到就是false<br>Open World: if I don’t tell it something, don’t assume anything I might tell it later that it is true, 没提到可能是对的</p>
+<h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><p>owl: Thing 所有的invidual均属于owl:Thing类</p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱复习大纲</title>
+    <url>/2020/12/03/558overview/</url>
+    <content><![CDATA[<h1 id="Week-1"><a href="#Week-1" class="headerlink" title="Week 1"></a>Week 1</h1><h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><h3 id="What-is-a-KG"><a href="#What-is-a-KG" class="headerlink" title="What is a KG?"></a>What is a KG?</h3><p>KG is the Knowledge in graph form, it captures entities, attributes, and relationships. In KG, nodes are entities and they are labeled with attributes. Edges between two nodes capture a relationship between entities</p>
+<p>Knowledge Graphs: is a directed heterogeneous multigraph whose node and relation types have domain-specific semantics</p>
+<h3 id="Why-KGs"><a href="#Why-KGs" class="headerlink" title="Why KGs?"></a>Why KGs?</h3><p>From human’s perspective, KG helps combat information overload. It also helps explore via intuitive structure. It is also a tool for supporting knowledge-driven tasks.<br>From AI’s perspective, KG’s content is the key ingredient for many AI tasks. It bridges from data to human semantics and people can use decades of work on graph analysis via KG.</p>
+<h3 id="How-are-KGs-used"><a href="#How-are-KGs-used" class="headerlink" title="How are KGs used?"></a>How are KGs used?</h3><p>QA/Agents: By extracting suitable candidates (entities, relations or literals) from the KG<br>Decision Support: By reasoning over the KG<br>Fueling Discovery: By reasoning over the KG, By extracting and suggesting suitable candidates in the KG, By matching and analyzing patterns in the KG</p>
+<h3 id="Where-do-KGs-come-from"><a href="#Where-do-KGs-come-from" class="headerlink" title="Where do KGs come from?"></a>Where do KGs come from?</h3><p>Structured Text (Wikipedia Infoboxes, tables, databases, social nets)<br>Unstructured Text (WWW, news, social media, reference articles)<br>Images<br>Video (YouTube, video feeds)</p>
+<h2 id="Crawling-the-Web-amp-Intellectual-Property"><a href="#Crawling-the-Web-amp-Intellectual-Property" class="headerlink" title="Crawling the Web &amp; Intellectual Property"></a>Crawling the Web &amp; Intellectual Property</h2><h3 id="Surface-web-vs-deep-web-vs-dark-web"><a href="#Surface-web-vs-deep-web-vs-dark-web" class="headerlink" title="Surface web vs. deep web vs. dark web"></a>Surface web vs. deep web vs. dark web</h3><p>Surface web:  Pages reachable by following links from static pages, people can access these pages directly<br>Deep Web: Pages reachable only via web forms , for example: email information, databases<br>Dark Web: Pages reachable only via Tor or equivalent or other specific tools.</p>
+<h3 id="What-are-the-challenges"><a href="#What-are-the-challenges" class="headerlink" title="What are the challenges?"></a>What are the challenges?</h3><p>scale<br>deduplication<br>cost (fetching, parsing/extracting, memory/disk * speed)<br>errors, redirects<br>freshness<br>deep web, forms<br>counter-crawling/access (login, captchas, traps, fake errors, banning)<br>localization<br>dynamic pages<br>infinite scrolling<br>archiving</p>
+<h3 id="What-is-the-basic-architecture-of-a-crawler"><a href="#What-is-the-basic-architecture-of-a-crawler" class="headerlink" title="What is the basic architecture of a crawler?"></a>What is the basic architecture of a crawler?</h3><p>Basically, a crawler can be split into four parts: Scheduler, Queue, Multi-thread downloader, Storage. The procedure of the crawler is : first a user providers a list of web pages(URLS) to Scheduler. Then Scheduler shedules these URLs by putting them into Queue accoring to certain rules. Then Scheduler assigns the different URLs in Queue to  Multi-thread downloader to let the downloader automatically crawls the information. After information is downloaded, content will be parsed and content will be extracted. There might be some urls extracted, the Scheduler will review thses urls and and the worthy ones to Queue again. Target data(Text and metadata) will be storeed into Storages. The crawler will end if there is no url to crawl of the user terminate it. </p>
+<h3 id="What-mechanisms-exist-to-protect-intellectual-property"><a href="#What-mechanisms-exist-to-protect-intellectual-property" class="headerlink" title="What mechanisms exist to protect intellectual property?"></a>What mechanisms exist to protect intellectual property?</h3><p>Patents<br>Copyrights<br>Trademarks<br>Trade Secrets<br>Software Licenses</p>
+<h3 id="What-are-the-requirements-for-a-patent"><a href="#What-are-the-requirements-for-a-patent" class="headerlink" title="What are the requirements for a patent?"></a>What are the requirements for a patent?</h3><p>Patent can be split into 3 main types.<br>Utility patents protect useful processes, machines, articles of manufacture, and compositions of matter.<br>Design patents guard the unauthorized use of new, original, and ornamental designs for articles of manufacture.<br>Plant patents are the way we protect invented or discovered, asexually reproduced plant varieties<br>Patents provide rights for up to 20 years for inventions</p>
+<h3 id="What-can-be-copyrighted-and-what-is-the-difference-in-CC-licenses"><a href="#What-can-be-copyrighted-and-what-is-the-difference-in-CC-licenses" class="headerlink" title="What can be copyrighted, and what is the difference in CC licenses?"></a>What can be copyrighted, and what is the difference in CC licenses?</h3><p>COPYRIGHTS protect works of authorship, such as writings, music, and works of art that have been tangibly expressed. So basically, these creative following works can be copyrighted:<br>Literary, musical and dramatic works.<br>Pantomimes and choreographic works.<br>Pictorial, graphic and sculptural works.<br>Sound recordings.<br>Motion pictures and other AV works.<br>Computer programs.<br>Compilations of works and derivative works.<br>Architectural works. </p>
+<p>Attribution: Licensees may copy, distribute, display and perform the work only if they give owner the credits<br>Noncommercial: Licensees may copy, distribute, etc. the work only for noncommercial purpose<br>No Derivative Works: Licensees may copy, distribute, etc. the work, not derivatives based on it.<br>ShareAlike: Licensees may distribute derivative works only under a license identical to the license that governs the original work.</p>
+<h1 id="Week-2"><a href="#Week-2" class="headerlink" title="Week 2"></a>Week 2</h1><h2 id="Information-Extraction"><a href="#Information-Extraction" class="headerlink" title="Information Extraction"></a>Information Extraction</h2><h3 id="What-are-some-typical-IE-tasks"><a href="#What-are-some-typical-IE-tasks" class="headerlink" title="What are some typical IE tasks?"></a>What are some typical IE tasks?</h3><p>sentence:<br>Part of speech tagging<br>Dependency Parsing<br>Named entity recognition </p>
+<p>document:<br>Coreference Resolution </p>
+<p>documents:<br>Entity resolution<br>Entity linking<br>Relation extraction </p>
+<h3 id="What-are-the-three-components-to-IE"><a href="#What-are-the-three-components-to-IE" class="headerlink" title="What are the three components to IE?"></a>What are the three components to IE?</h3><p>Defining domain<br>Learning extractors<br>Scoring the facts</p>
+<h3 id="What-are-the-possible-levels-of-supervision-for-each-component"><a href="#What-are-the-possible-levels-of-supervision-for-each-component" class="headerlink" title="What are the possible levels of supervision for each component?"></a>What are the possible levels of supervision for each component?</h3><p>Supervised<br>Semi-supervised<br>Unsupervised</p>
+<h3 id="Real-world-O-IE-systems"><a href="#Real-world-O-IE-systems" class="headerlink" title="Real-world (O)IE systems"></a>Real-world (O)IE systems</h3><p>Open domain IE:<br>Defining domain: Unsupervised<br>Learning extractors: Unsupervised<br>Scoring candidate facts: Semi-supervised</p>
+<h2 id="Knowledge-Representation"><a href="#Knowledge-Representation" class="headerlink" title="Knowledge Representation"></a>Knowledge Representation</h2><h3 id="What-are-the-basic-elements-of-RDF"><a href="#What-are-the-basic-elements-of-RDF" class="headerlink" title="What are the basic elements of RDF?"></a>What are the basic elements of RDF?</h3><p>S(subject)P(predicate)O(object)</p>
+<h3 id="What-are-the-different-syntaxes-for-RDF"><a href="#What-are-the-different-syntaxes-for-RDF" class="headerlink" title="What are the different syntaxes for RDF?"></a>What are the different syntaxes for RDF?</h3><p>XML, N3 Turtle, N-Triples, RDFa, JSON-LD</p>
+<h3 id="What-is-RDF-Schema"><a href="#What-is-RDF-Schema" class="headerlink" title="What is RDF Schema?"></a>What is RDF Schema?</h3><p>RDF Schema is the language for defining RDF vocabularies.<br>It specifies the RDF inference rules: the triples that are implied by the triples you have.</p>
+<h3 id="Degree-of-semantics-in-graphs"><a href="#Degree-of-semantics-in-graphs" class="headerlink" title="Degree of semantics in graphs"></a>Degree of semantics in graphs</h3><p>????</p>
+<h1 id="Week-3"><a href="#Week-3" class="headerlink" title="Week 3"></a>Week 3</h1><h2 id="Entity-Resolution"><a href="#Entity-Resolution" class="headerlink" title="Entity Resolution"></a>Entity Resolution</h2><h3 id="Which-ER-variants-exist"><a href="#Which-ER-variants-exist" class="headerlink" title="Which ER variants exist?"></a>Which ER variants exist?</h3><p>Ambiguity: Entities with the same name<br>Variance: Different names for the same entity</p>
+<h3 id="What-are-the-three-basic-steps-of-ER"><a href="#What-are-the-three-basic-steps-of-ER" class="headerlink" title="What are the three basic steps of ER?"></a>What are the three basic steps of ER?</h3><p>？？？</p>
+<h3 id="How-do-we-evaluate-blocking"><a href="#How-do-we-evaluate-blocking" class="headerlink" title="How do we evaluate blocking?"></a>How do we evaluate blocking?</h3><p>Efficiency = num of pairs compared / total number of pairs in RxR<br>Recall = num of true matches compared / num of true matches in RxR<br>Precision = um of true matches compared / num of matches compared<br>Max canopy size: the size of the largest block</p>
+<h3 id="What-are-real-world-examples-of-these-ER-settings"><a href="#What-are-real-world-examples-of-these-ER-settings" class="headerlink" title="What are real-world examples of these ER settings?"></a>What are real-world examples of these ER settings?</h3><p>text -&gt; text ?<br>text -&gt; KG ?<br>KG -&gt; KG ?<br>KG1 -&gt; KG2 ?</p>
+<h1 id="Week-4"><a href="#Week-4" class="headerlink" title="Week 4"></a>Week 4</h1><h2 id="Queries-amp-KGs"><a href="#Queries-amp-KGs" class="headerlink" title="Queries &amp; KGs"></a>Queries &amp; KGs</h2><h3 id="RDF-vs-Property-Graphs"><a href="#RDF-vs-Property-Graphs" class="headerlink" title="RDF vs. Property Graphs"></a>RDF vs. Property Graphs</h3><p>Similarity:<br>Both represent directed graphs as a basic data structure;<br>Both have associated graph-oriented query languages;<br>In practice, both are used as “graph stores”, accessible via HTTP and/or various API-s;</p>
+<p>Differences:<br>RDF has an emphasis on OWA, and is rooted in the Web via URL-s. Not the case for PG, PG node is oblivious to what it “contains”: can be a URL, can be a literal; (node不一定是uri)<br>PG includes the possibility to add simple key/value pairs to “relationships” (i.e., RDF predicates) （关系中可以带属性）</p>
+<h3 id="RDF-triple-stores-vs-Graph-DBs"><a href="#RDF-triple-stores-vs-Graph-DBs" class="headerlink" title="RDF triple-stores vs. Graph DBs"></a>RDF triple-stores vs. Graph DBs</h3><p>In RDF triple-stores everything is expressed in terms of SPO and its predicates can’t have attributes;<br>In Graph DBs predicates can have attributes;<br>Fair to say that RDF triple-stores are a kind of Graph DB;</p>
+<h3 id="SPARQL-syntax-Graph-Patterns-Aggregation-etc…"><a href="#SPARQL-syntax-Graph-Patterns-Aggregation-etc…" class="headerlink" title="SPARQL: syntax, Graph Patterns, Aggregation, etc…"></a>SPARQL: syntax, Graph Patterns, Aggregation, etc…</h3><h3 id="SPARQL-vs-Cypher"><a href="#SPARQL-vs-Cypher" class="headerlink" title="SPARQL vs. Cypher"></a>SPARQL vs. Cypher</h3><p>SPARQL Protocol and RDF Query Language , this is RDF’s QUERY LANGUAGE<br>Neo4j’s QUERY LANGUAGE</p>
+<h2 id="Special-Topics-KG-Use-Cases"><a href="#Special-Topics-KG-Use-Cases" class="headerlink" title="Special Topics: KG Use Cases"></a>Special Topics: KG Use Cases</h2><h3 id="Wikidata-data-model"><a href="#Wikidata-data-model" class="headerlink" title="Wikidata data model"></a>Wikidata data model</h3><p>Model using statements Subject, property, value, Qualifiers, references</p>
+<h3 id="Challenges-and-methods-for-building-KGs-in-real-applications"><a href="#Challenges-and-methods-for-building-KGs-in-real-applications" class="headerlink" title="Challenges and methods for building KGs in real applications"></a>Challenges and methods for building KGs in real applications</h3><p>challenge: make the annotations easy to use<br>hundreds of millions of sex ads on the open internet…many trafficking related<br>Data obfuscation makes even simple questions hard to automatically answer</p>
+<p>solution:<br>USE KG in tsv format<br>Knowledge Graph Is A TSV File<br>easy to process </p>
+<h1 id="Week-5"><a href="#Week-5" class="headerlink" title="Week 5"></a>Week 5</h1><h2 id="Large-KGs-amp-Entity-Linking"><a href="#Large-KGs-amp-Entity-Linking" class="headerlink" title="Large KGs &amp; Entity Linking"></a>Large KGs &amp; Entity Linking</h2><h3 id="Which-kinds-of-large-KGs-exist"><a href="#Which-kinds-of-large-KGs-exist" class="headerlink" title="Which (kinds of) large KGs exist?"></a>Which (kinds of) large KGs exist?</h3><p>DBpedia, YAGO, Wikidata, Freebase, ConceptNet, NELL, OpenIE</p>
+<h3 id="How-is-Wikidata-different-from-other-large-KGs"><a href="#How-is-Wikidata-different-from-other-large-KGs" class="headerlink" title="How is Wikidata different from other large KGs?"></a>How is Wikidata different from other large KGs?</h3><p>???</p>
+<h3 id="What-are-the-different-methods-to-get-data-from-large-KGs"><a href="#What-are-the-different-methods-to-get-data-from-large-KGs" class="headerlink" title="What are the different methods to get data from large KGs?"></a>What are the different methods to get data from large KGs?</h3><p>??? </p>
+<h3 id="What-is-entity-linking-from-text-and-why-is-it-hard"><a href="#What-is-entity-linking-from-text-and-why-is-it-hard" class="headerlink" title="What is entity linking (from text) and why is it hard?"></a>What is entity linking (from text) and why is it hard?</h3><p>Establishing the identity of the entity in a given reference<br>database (text-&gt;KG).<br>name ambiguity: Entities with the same name<br>name variation: Different names for the same entity<br>Missing (NIL) entities</p>
+<h3 id="What-is-the-basic-architecture-of-entity-linkers"><a href="#What-is-the-basic-architecture-of-entity-linkers" class="headerlink" title="What is the basic architecture of entity linkers?"></a>What is the basic architecture of entity linkers?</h3><p>mention detection -&gt; candidate selection -&gt; Disambiguation -&gt; entity annotatiton</p>
+<h3 id="What-are-some-methods-for-disambiguation"><a href="#What-are-some-methods-for-disambiguation" class="headerlink" title="What are some methods for disambiguation?"></a>What are some methods for disambiguation?</h3><p>Word-based methods: DBpedia Spotlight: Compute cosine similarity between the text paragraph with an entity mention and Wikipedia descriptions of each candidate.Decide for one mention at a time. The linking can be restricted to certain types or even to a custom set of entities.<br>Graph-based methods: AIDA and AGDISTIS: 1. construct a subgraph that contains all entity candidates with some facts from a KB. 2. find the best connected candidates per mention.</p>
+<h2 id="String-Similarity"><a href="#String-Similarity" class="headerlink" title="String Similarity"></a>String Similarity</h2><h3 id="Which-similarity-families-exist-and-what-is-the-main-idea-of-each"><a href="#Which-similarity-families-exist-and-what-is-the-main-idea-of-each" class="headerlink" title="Which similarity families exist and what is the main idea of each?"></a>Which similarity families exist and what is the main idea of each?</h3><h3 id="What-are-the-strengths-and-weaknesses-of-each-method"><a href="#What-are-the-strengths-and-weaknesses-of-each-method" class="headerlink" title="What are the strengths and weaknesses of each method?"></a>What are the strengths and weaknesses of each method?</h3><h3 id="How-do-hybrid-methods-work"><a href="#How-do-hybrid-methods-work" class="headerlink" title="How do hybrid methods work?"></a>How do hybrid methods work?</h3><h1 id="Week-6"><a href="#Week-6" class="headerlink" title="Week 6"></a>Week 6</h1><h2 id="Information-Extraction-1"><a href="#Information-Extraction-1" class="headerlink" title="Information Extraction"></a>Information Extraction</h2><h3 id="What-are-labeling-functions-Snorkel-What-makes-them-good"><a href="#What-are-labeling-functions-Snorkel-What-makes-them-good" class="headerlink" title="What are labeling functions (Snorkel)? What makes them good?"></a>What are labeling functions (Snorkel)? What makes them good?</h3><p>Labeling functions (LFs) help users encode domain knowledge and other supervision sources programmatically, it is a function desgined by human to help label data points.<br>Instead of poeple manually labeling the points, people can write heuristics to noisily label data! Human can leverage real-world knowledge, context, and common-sense heuristics to make labeling decisions. This help quick and low cost labeling.</p>
+<h3 id="What-does-the-generative-model-do"><a href="#What-does-the-generative-model-do" class="headerlink" title="What does the generative model do?"></a>What does the generative model do?</h3><p>LFs have different latent accuracies, Snorkel wants to learn these latent accuracies without labeled data by leveraging overlap and conflict of LFs.</p>
+<p>Snorkel creates a generative model to maximize the marginal likelihood of the LFs to learn parameters Intuitively, compares their agreements and disagreements, and detect correlations and other dependencies among LFs to correct their accuracies.</p>
+<h3 id="What-is-the-purpose-of-the-discriminative-model"><a href="#What-is-the-purpose-of-the-discriminative-model" class="headerlink" title="What is the purpose of the discriminative model?"></a>What is the purpose of the discriminative model?</h3><p>Compiling Rules into Features.</p>
+<p>The output of the generative model is a set of probabilistic training labels<br>Snorkel wants to use these labels to train final discriminative model. The discriminative model learns a feature representation of our LFs. </p>
+<p>The discriminative model aims to be able to generalize beyond the noisy LFs. The more unlabeled data we train with Snorkel, the better is the predictive performance of the discriminatory model.</p>
+<h1 id="Week-7"><a href="#Week-7" class="headerlink" title="Week 7"></a>Week 7</h1>]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱查询</title>
+    <url>/2020/12/01/558query-kg/</url>
+    <content><![CDATA[<h2 id="Property-Graphs"><a href="#Property-Graphs" class="headerlink" title="Property Graphs"></a>Property Graphs</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>Also called Labeled Property Graphs (LPG)</p>
+<p>It is a framework for representing data and metadata with a graph of nodes and links</p>
+<ul>
+<li>both nodes and links may have additional key/value pairs (“properties”) </li>
+<li>nodes are “just” nodes, not necessarily URLs</li>
+</ul>
+<p>Link annotations are very useful to assign temporal, spatial, provenance, etc.</p>
+<p><img src="/image/LPG.png"></p>
+<h3 id="LPG-vs-RDF"><a href="#LPG-vs-RDF" class="headerlink" title="LPG vs. RDF"></a>LPG vs. RDF</h3><p>Similarity:<br>Both represent directed graphs as a basic data structure;<br>Both have associated graph-oriented query languages;<br>In practice, both are used as “graph stores”, accessible via HTTP and/or various API-s;</p>
+<p>Differences:<br>RDF has an emphasis on OWA, and is rooted in the Web via URL-s. Not the case for PG, PG node is oblivious to what it “contains”: can be a URL, can be a literal;  (node不一定是uri)<br>PG includes the possibility to add simple key/value pairs to “relationships” (i.e., RDF predicates) （关系中可以带属性）</p>
+<h3 id="RDF-triple-stores-vs-Graph-DBs"><a href="#RDF-triple-stores-vs-Graph-DBs" class="headerlink" title="RDF triple-stores vs. Graph DBs"></a>RDF triple-stores vs. Graph DBs</h3><p>In RDF triple-stores everything is expressed in terms of SPO and its predicates can’t have attributes;<br>In Graph DBs predicates can have attributes;<br>Fair to say that RDF triple-stores are a kind of Graph DB;</p>
+<p><img src="/image/rdf-gdb.png"></p>
+<h2 id="SPARQL-SPARQL-Protocol-and-RDF-Query-Language"><a href="#SPARQL-SPARQL-Protocol-and-RDF-Query-Language" class="headerlink" title="SPARQL (SPARQL Protocol and RDF Query Language)"></a>SPARQL (SPARQL Protocol and RDF Query Language)</h2><p>SELECT/ASK/CONSTRUCT/DESCRIBE</p>
+<p>Main idea:  Pattern matching (想像成对图进行搜索)</p>
+<p>Queries describe sub-graphs of the queried graph;<br>Graph patterns are RDF graphs specified in Turtle syntax, which contain variables (prefixed by either “?” or “$”);<br>Sub-graphs that match the graph patterns yield a result</p>
+<h3 id="图模式-Graph-Pattern"><a href="#图模式-Graph-Pattern" class="headerlink" title="图模式 Graph Pattern"></a>图模式 Graph Pattern</h3><p>基本匹配: Where a set of triple patterns must match<br>集合匹配 {}: Where a set of graph patterns must all match<br>可选匹配 OPTIONAL: Where additional patterns may extend the solution =&gt; 简单理解就是这个节点有属性则加，无则省略<br>附加匹配 UNION: Where two or more possible patterns are tried<br>命名图 GRAPH: Where patterns are matched against named graphs</p>
+<h3 id="FILTER-NOT-EXISTS-vs-MINUS"><a href="#FILTER-NOT-EXISTS-vs-MINUS" class="headerlink" title="FILTER NOT EXISTS vs. MINUS"></a>FILTER NOT EXISTS vs. MINUS</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Data</span><br><span class="line">@prefix  :       &lt;http:&#x2F;&#x2F;example&#x2F;&gt; .</span><br><span class="line">@prefix  rdf:    &lt;http:&#x2F;&#x2F;www.w3.org&#x2F;1999&#x2F;02&#x2F;22-rdf-syntax-ns#&gt; .</span><br><span class="line">@prefix  foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt; .</span><br><span class="line"></span><br><span class="line">:alice  rdf:type   foaf:Person .</span><br><span class="line">:alice  foaf:name  &quot;Alice&quot; .</span><br><span class="line">:bob    rdf:type   foaf:Person . </span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">PREFIX  rdf:    &lt;http:&#x2F;&#x2F;www.w3.org&#x2F;1999&#x2F;02&#x2F;22-rdf-syntax-ns#&gt; </span><br><span class="line">PREFIX  foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt; </span><br><span class="line"></span><br><span class="line">SELECT ?person</span><br><span class="line">WHERE </span><br><span class="line">&#123;</span><br><span class="line">    ?person rdf:type  foaf:Person .</span><br><span class="line">    FILTER NOT EXISTS &#123; ?person foaf:name ?name &#125; # &#x3D;&gt; 筛选出没有这条边的点</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Result</span><br><span class="line">person</span><br><span class="line">&lt;http:&#x2F;&#x2F;example&#x2F;bob&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Data:</span><br><span class="line">@prefix :       &lt;http:&#x2F;&#x2F;example&#x2F;&gt; .</span><br><span class="line">@prefix foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt; .</span><br><span class="line"></span><br><span class="line">:alice  foaf:givenName &quot;Alice&quot; ;</span><br><span class="line">        foaf:familyName &quot;Smith&quot; .</span><br><span class="line">:bob    foaf:givenName &quot;Bob&quot; ;</span><br><span class="line">        foaf:familyName &quot;Jones&quot; .</span><br><span class="line">:carol  foaf:givenName &quot;Carol&quot; ;</span><br><span class="line">        foaf:familyName &quot;Smith&quot; </span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">PREFIX :     &lt;http:&#x2F;&#x2F;example&#x2F;&gt;</span><br><span class="line">PREFIX foaf: &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">SELECT DISTINCT ?s</span><br><span class="line">WHERE &#123;</span><br><span class="line">   ?s ?p ?o .</span><br><span class="line">   MINUS &#123;</span><br><span class="line">      ?s foaf:givenName &quot;Bob&quot; .</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Result:</span><br><span class="line">s</span><br><span class="line">&lt;http:&#x2F;&#x2F;example&#x2F;carol&gt;</span><br><span class="line">&lt;http:&#x2F;&#x2F;example&#x2F;alice&gt;</span><br></pre></td></tr></table></figure>
+<p>简单的说, FILTER 共享对象引用 MINUS 不共享, 例子</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Data: </span><br><span class="line">@prefix : &lt;http:&#x2F;&#x2F;example&#x2F;&gt; .</span><br><span class="line">:a :b :c .</span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">SELECT *</span><br><span class="line">&#123; </span><br><span class="line">  ?s ?p ?o</span><br><span class="line">  FILTER NOT EXISTS &#123; ?x ?y ?z &#125; # &#x3D;&gt; 这里  ?s &#x3D; ?x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Result:</span><br><span class="line">Null</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Data: </span><br><span class="line">@prefix : &lt;http:&#x2F;&#x2F;example&#x2F;&gt; .</span><br><span class="line">:a :b :c .</span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">SELECT *</span><br><span class="line">&#123; </span><br><span class="line">   ?s ?p ?o </span><br><span class="line">   MINUS </span><br><span class="line">     &#123; ?x ?y ?z &#125;  # &#x3D;&gt; 这里 ?s !&#x3D; ?x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Result</span><br><span class="line">s 	                       p                  o</span><br><span class="line">&lt;http:&#x2F;&#x2F;example&#x2F;a&gt; &lt;http:&#x2F;&#x2F;example&#x2F;b&gt; &lt;http:&#x2F;&#x2F;example&#x2F;c&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><p>SELECT (SUM(?lprice) AS ?totalPrice)<br>GROUP BY ?org<br>GROUP BY ?a ?b ?c<br>HAVING (SUM(?lprice) &gt; 10)</p>
+<h3 id="Subqueries"><a href="#Subqueries" class="headerlink" title="Subqueries"></a>Subqueries</h3><p>原则: 先计算内部，在算外部的</p>
+<h3 id="RDF-Dataset"><a href="#RDF-Dataset" class="headerlink" title="RDF Dataset"></a>RDF Dataset</h3><p>RDF Dataset =<br>    default graph<br>    + named graph 1<br>    + named graph 2<br>    + …</p>
+<p>Separate graphs enable you to reason about who said what and when</p>
+<h3 id="常用SPARQL语句"><a href="#常用SPARQL语句" class="headerlink" title="常用SPARQL语句"></a>常用SPARQL语句</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Data:</span><br><span class="line">@prefix foaf:  &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt; .</span><br><span class="line">          </span><br><span class="line">_:a  foaf:givenName   &quot;John&quot; .</span><br><span class="line">_:a  foaf:surname  &quot;Doe&quot; .</span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">PREFIX foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt;</span><br><span class="line">SELECT ?name</span><br><span class="line">WHERE  &#123; </span><br><span class="line">   ?P foaf:givenName ?G ; </span><br><span class="line">      foaf:surname ?S </span><br><span class="line">   BIND(CONCAT(?G, &quot; &quot;, ?S) AS ?name)  # &#x3D;&gt; Creating Values with Expressions</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Result:</span><br><span class="line">name</span><br><span class="line">“John Doe”</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Data:</span><br><span class="line">@prefix dc:   &lt;http:&#x2F;&#x2F;purl.org&#x2F;dc&#x2F;elements&#x2F;1.1&#x2F;&gt; .</span><br><span class="line">@prefix :     &lt;http:&#x2F;&#x2F;example.org&#x2F;book&#x2F;&gt; .</span><br><span class="line">@prefix ns:   &lt;http:&#x2F;&#x2F;example.org&#x2F;ns#&gt; .</span><br><span class="line"></span><br><span class="line">:book1  dc:title  &quot;SPARQL Tutorial&quot; .</span><br><span class="line">:book1  ns:price  42 .</span><br><span class="line">:book2  dc:title  &quot;The Semantic Web&quot; .</span><br><span class="line">:book2  ns:price  23 .</span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">PREFIX foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt;</span><br><span class="line">PREFIX  dc:  &lt;http:&#x2F;&#x2F;purl.org&#x2F;dc&#x2F;elements&#x2F;1.1&#x2F;&gt;</span><br><span class="line">SELECT  ?title</span><br><span class="line">WHERE   &#123; ?x dc:title ?title </span><br><span class="line">          FILTER regex(?title, &quot;^SPARQL&quot;)  # &#x3D;&gt; Restricting the Value of </span><br><span class="line">          Strings</span><br><span class="line">          # FILTER (?price &lt; 30.5)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">Result:</span><br><span class="line">title</span><br><span class="line">&quot;SPARQL Tutorial&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱RDFa</title>
+    <url>/2020/12/03/558rdfa/</url>
+    <content><![CDATA[<h2 id="RDFa"><a href="#RDFa" class="headerlink" title="RDFa"></a>RDFa</h2><p>Resource Description Framework  in  attributes</p>
+<p>定义:<br>RDFa是一个W3C推荐标准。它扩展了XHTML的几个属性，网页制作者可以利用这些属性在网页中添加可供机器读取的后设资料。与RDF资料模型的对应关系使得RDFa可以将RDF的三元组嵌入在XHTML文档中，它也使得符合标准的使用端可以从RDFa文件中提取出这些RDF三元组来。</p>
+<p>简单的说：RDFa就是在html中嵌入rdf信息。</p>
+<h2 id="RDFa-嵌入"><a href="#RDFa-嵌入" class="headerlink" title="RDFa 嵌入"></a>RDFa 嵌入</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p xmlns:dc&#x3D;&quot;http:&#x2F;&#x2F;purl.org&#x2F;dc&#x2F;elements&#x2F;1.1&#x2F;”   -- Namespace 声明</span><br><span class="line">about&#x3D;&quot;http:&#x2F;&#x2F;www.example.com&#x2F;books&#x2F;wikinomics&quot;&gt; -- Resource 声明</span><br><span class="line">In his latest book</span><br><span class="line">&lt;cite property&#x3D;&quot;dc:title&quot; &gt;Wikinomics&lt;&#x2F;cite&gt;,   -- 属性声明</span><br><span class="line">&lt;span&gt;Don Tapscott&lt;&#x2F;span&gt;</span><br><span class="line">explains deep changes in technology, demographics and business.</span><br><span class="line">The book is due to be published in &lt;span&gt;October 2006&lt;&#x2F;span&gt;.</span><br><span class="line">&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<p>SPO =&gt;<br><a href="http://www.example.com/books/wikinomics">http://www.example.com/books/wikinomics</a>  dc:title  “Wikinomics”</p>
+<p>嵌入RDFa的好处:<br>Not only human can Look Up the Meaning on the Web, but computers Can Look It Up Too.机器也可以去理解语义了。</p>
+<p>例子:<br><img src="/image/rdfa.png"></p>
+<h2 id="RDFa-问题与解决"><a href="#RDFa-问题与解决" class="headerlink" title="RDFa 问题与解决"></a>RDFa 问题与解决</h2><ol>
+<li>格式问题<br><code>&lt;span property=&quot;dc:date”&gt;October 2006&lt;/span&gt;. 在这里的话，October 2006 is not a computer understandable date e.g., an xsd:date</code><br>解决: 使用 Content Attribute<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;span </span><br><span class="line">property&#x3D;&quot;dc:date”</span><br><span class="line">content&#x3D;&quot;2006-10-01” </span><br><span class="line">datatype&#x3D;“xsd:date”&gt; October 2006&lt;&#x2F;span&gt;.</span><br></pre></td></tr></table></figure>
+只要html标签中存在content的属性，那么RDF客户端在读取数据时自动会将content的内容来代替实际文本内容</li>
+</ol>
+<h2 id="RDFa-例子"><a href="#RDFa-例子" class="headerlink" title="RDFa 例子"></a>RDFa 例子</h2><h3 id="RDFa-vocab-and-typeof"><a href="#RDFa-vocab-and-typeof" class="headerlink" title="RDFa: vocab and typeof"></a>RDFa: vocab and typeof</h3><p>vocab: Define default vocabulary for an HTML element 相当于一个词汇表<br>typeof: Declare the type of this property</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div vocab&#x3D;&quot;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&quot;&gt;   -&gt; 这里声明了一个vocab，后续的标签中可以使用该词汇表中的术语</span><br><span class="line"></span><br><span class="line">&lt;li typeof&#x3D;&quot;Person&quot;&gt;。 --&gt; 这里的Person表示的是foaf:person的含义，不需要使用uri显示表示</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;eve&#x2F;&quot;&gt;Eve&lt;&#x2F;a&gt; </span><br><span class="line">&lt;&#x2F;li&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="RDFa-property-and-href"><a href="#RDFa-property-and-href" class="headerlink" title="RDFa: property and href"></a>RDFa: property and href</h3><p>When href is present, it supplies the value for the property.  也就是说，这里的href的值表示了SPO中的O</p>
+<p><code>&lt;a property=“homepage” href=&quot;http://example.com/bob/&quot;&gt;Bob&lt;/a&gt;</code></p>
+<p><img src="/image/ex_rdfa.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱信息提取-Snorkel</title>
+    <url>/2020/12/02/558snorkel/</url>
+    <content><![CDATA[<h2 id="Dark-Data-Extraction"><a href="#Dark-Data-Extraction" class="headerlink" title="Dark Data Extraction"></a>Dark Data Extraction</h2><p>Structured Data(4%): Data easy to process by machines<br>Dark Data(96%): Valuable &amp; hard to process. (占据的web信息的绝大部分)<br>example: Scientific articles &amp; government reports，Medical Images</p>
+<p>DDE:  Dark Data(Text, Tables, Images, Diagrams, etc)  =&gt; Structured Data (Enables analyses, interfaces etc.)</p>
+<h3 id="DDE-传统流程"><a href="#DDE-传统流程" class="headerlink" title="DDE 传统流程"></a>DDE 传统流程</h3><p>1.Candidate Extraction =&gt; 2.Training Set  =&gt; 3.Feature Extraction =&gt; 4.Learning &amp; Inference</p>
+<p>Example: Chemical-Disease Relation Extraction from Text<br>方式1: Human defines candidate entity mentions to populate a relational schema with relation mentions （费事费力，需要domain expertis）<br>方式2: Relation Extraction with Machine Learning (Feature engineering is the bottleneck,however this bottleneck is solved by deep learning) 解决3，但是2没被解决</p>
+<blockquote>
+<p> Training data is THE ML dev bottleneck today.</p>
+</blockquote>
+<h3 id="DDE挑战"><a href="#DDE挑战" class="headerlink" title="DDE挑战"></a>DDE挑战</h3><p>Dark data extraction systems still take months or years to build using state-of-the-art machine learning (ML) systems<br>时间太久，成本太高。</p>
+<p>Training Data Creation: $$$, Slow, Static 成本高，耗时长，灵活性差</p>
+<ul>
+<li>Expensive &amp; Slow: Especially when domain expertise needed</li>
+<li>Static: Real-world problems change but hand-labeled training data does not.</li>
+</ul>
+<h2 id="Snorkel"><a href="#Snorkel" class="headerlink" title="Snorkel"></a>Snorkel</h2><blockquote>
+<p>Motiviton: Can we use noisier training data and still train high-performance models?</p>
+</blockquote>
+<p>Snorkel: A System for Rapidly Generating Training Data with Weak Supervision<br>简单的说，这是一个生成训练集的框架。</p>
+<p><img src="/image/snorkel.png"></p>
+<h2 id="Snorkel-Pipeline-概括"><a href="#Snorkel-Pipeline-概括" class="headerlink" title="Snorkel Pipeline 概括"></a>Snorkel Pipeline 概括</h2><ul>
+<li>Users write labeling functions to generate noisy labels</li>
+<li>Snorkel models and combine these labels</li>
+<li>We use the resulting probabilistic training labels to train a model<br><img src="/image/pipeline_snorkel.png"></li>
+</ul>
+<h3 id="Labeling-Functions"><a href="#Labeling-Functions" class="headerlink" title="Labeling Functions"></a>Labeling Functions</h3><p>Users give Snorkel labeling functions that label data points<br>简答的说，这个Labeling function的起到的作用和human expertise类似，用于规定一些规则来让snorkel后续过程中发现text里与其匹配的模式来对提取的信息信息标注。</p>
+<p>因此，用户可以书写尽可能多的Labeling Functions来提高准确性，并且Labeling Functions之间可以有冲突，因为后续用到的是概率来确定结果。</p>
+<h3 id="Model-Combine-Iterate"><a href="#Model-Combine-Iterate" class="headerlink" title="Model, Combine, Iterate"></a>Model, Combine, Iterate</h3><p>Snorkel models and combine these labels</p>
+<p>这里snorkl根据用户书写的Labeling functions进行建模，并迭代运行模型，得到一个probabilistic training labels </p>
+<h3 id="Train-End-Model"><a href="#Train-End-Model" class="headerlink" title="Train End Model"></a>Train End Model</h3><p>Use the resulting probabilistic training labels to train a model</p>
+<h2 id="Snorkel-challenge-Step2"><a href="#Snorkel-challenge-Step2" class="headerlink" title="Snorkel challenge - Step2:"></a>Snorkel challenge - Step2:</h2><blockquote>
+<p>How do we model and combine LFs? How to best reweight and combine the noisy supervision signal?</p>
+</blockquote>
+<p>解决方式: A Generative Model of the Training Data Labeling Process<br>使用生成式模型反映各个LF得到的标注结果<br><img src="/image/GM_s.png"></p>
+<p><img src="/image/example_snorkel.png"></p>
+<p>从中也可以发现，LF可以存在冲突，并且对他存在相关联的LF建模分析也能够提高精度。（ We can learn dependency structure using statistical and/or static analysis techniques [ICML ’17, NIPS ‘17]）</p>
+<h2 id="Snorkel-Pipeline-细节"><a href="#Snorkel-Pipeline-细节" class="headerlink" title="Snorkel Pipeline 细节"></a>Snorkel Pipeline 细节</h2><h3 id="Designing-Labeling-Functions-LFs"><a href="#Designing-Labeling-Functions-LFs" class="headerlink" title="Designing Labeling Functions (LFs)"></a>Designing Labeling Functions (LFs)</h3><p>Write heuristics to noisily label data! 区别于人工手动标记，这里snorkel写label function的目的是为了后续的Programmatically generate training data</p>
+<p>如何设计Labeling function:<br>Human annotators leverage real-world knowledge, context, and common-sense heuristics to make labeling decisions</p>
+<p>Labeling function 结果:<br>{-1, 0, 1} =&gt; {Negative, Abstain, Positive}</p>
+<p>流程:<br>text中提取candidates，candidates中包含true和false的instances，使用设计的Labeling function来判断candidate为true或false</p>
+<p>目标:<br>Apply labeling functions to all candidates to predict both positive and negative labels</p>
+<p>Tip:<br>Labeling functions can be noisy，毕竟无法涵盖所有范围，所有语境。</p>
+<p>设计策略:</p>
+<ol>
+<li><p>Pattern-based Labeling Functions<br> Common sense patterns or keywords<br> String matching via regular expressions and other heuristics</p>
+</li>
+<li><p>Distant Supervision Labeling Functions<br> Use an existing database of known facts to generate noisy labels</p>
+</li>
+</ol>
+<p>LF评价指标:<br>Accuracy: percentage of candidates a labeling function labels correctly<br>Coverage: percentage of all candidates that are labeled by &gt;= 1 LFs<br>Conflict: percentage of candidates with &gt;1 labels that disagree</p>
+<p>LF选择标准:<br>We want high-coverage, high-accuracy LFs<br>LFs need to label with probability better than random chance<br>Conflict is actually good — it allows our algorithm to learn information about the LF</p>
+<h3 id="Build-Generative-Model-Unifying-Supervision"><a href="#Build-Generative-Model-Unifying-Supervision" class="headerlink" title="Build Generative Model: Unifying Supervision"></a>Build Generative Model: Unifying Supervision</h3><p>Simple Baseline: Majority Vote<br>Automatically Learning LF Accuracies<br>LF Dependency Learning</p>
+<h3 id="Build-Discriminative-Model-“Compiling”-Rules-into-Features"><a href="#Build-Discriminative-Model-“Compiling”-Rules-into-Features" class="headerlink" title="Build Discriminative Model: “Compiling” Rules into Features"></a>Build Discriminative Model: “Compiling” Rules into Features</h3><p>Training with Probabilistic Labels<br>The Death of Manual Feature Engineering<br>Why Do We Need the Discriminative Model?</p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱字符串匹配</title>
+    <url>/2020/12/01/558str-match/</url>
+    <content><![CDATA[<h2 id="字符串匹配问题"><a href="#字符串匹配问题" class="headerlink" title="字符串匹配问题"></a>字符串匹配问题</h2><h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement:"></a>Problem Statement:</h3><p>Given X and Y sets of strings, Find pairs (x, y) such that both x and y refer to the same real world entity. </p>
+<p>Then use precision(fraction of pairs found that are correct) and recall(fraction of pairs found) to evaluate algorithms</p>
+<h3 id="Why-can’t-match-perfectly"><a href="#Why-can’t-match-perfectly" class="headerlink" title="Why can’t match perfectly"></a>Why can’t match perfectly</h3><p>Typos    “Joh” vs. “Jhon”<br>OCR errors “J0hn” vs “John”<br>Formatting conventions ”03/17” vs “March 17”<br>Abbreviations “J. S. Sargent” vs “John Singer Sargent”<br>Nick name ”John” vs “Jock”<br>Word order “Sargent, John S.” vs “John S. Sargent”</p>
+<p>因此，转而计算字符串的相似度</p>
+<h2 id="Similiarity-Measure"><a href="#Similiarity-Measure" class="headerlink" title="Similiarity Measure"></a>Similiarity Measure</h2><p>Similarity(x, y) in [0, 1] is better than distance(x, y) in [0, ∞)</p>
+<p>Types of Similarity Metrics:</p>
+<ul>
+<li>Sequence based</li>
+<li>Set based</li>
+<li>Hybrid</li>
+<li>Phonetic</li>
+</ul>
+<h2 id="Sequence-Based-Metrics"><a href="#Sequence-Based-Metrics" class="headerlink" title="Sequence Based Metrics"></a>Sequence Based Metrics</h2><h3 id="Edit-Distance-Levenshtein-Distance"><a href="#Edit-Distance-Levenshtein-Distance" class="headerlink" title="Edit Distance/Levenshtein Distance"></a>Edit Distance/Levenshtein Distance</h3><p>Online calculator: <a href="http://planetcalc.com/1721/">http://planetcalc.com/1721/</a></p>
+<p>lev(x, y) is the minimum cost to transform x to y(insert,delete,substitute)</p>
+<p>原理： 动态规划 d(i,j)<br>case1: xi  = yj  =&gt; d(i,j) = d(i-1,j-1)<br>case2: xi != yj  =&gt; d(i,j) = min(  d(i-1,j) + 1 , d(i,j-1) + 1 , d(i-1,j-1) + 1)</p>
+<p>缺陷:<br>Too high a cost for deleting a sequence of characters, so it is not suitable for abbreviation cases (example: lev(John Singer Sargent,John S. Sargent ) = 5, lev(John Singer Sargent,John Klinger Sargent ) = 5 )</p>
+<h3 id="Needleman-Wunch-Measure"><a href="#Needleman-Wunch-Measure" class="headerlink" title="Needleman-Wunch Measure"></a>Needleman-Wunch Measure</h3><p>Generalization of levenstein(x, y), 为了解决lev带来的缩写问题的一种新的度量方式<br>得到的结果是两个string相似的评分，而不是距离</p>
+<p><img src="/image/NW.png"></p>
+<p>缺陷:<br>Longer gaps are penalized more, bad for names (example:nw(John Singer Sargent,John S.     Sargent) = 25, nw(John Stanislaus Sargent,John S.         Sargent)</p>
+<h3 id="Affine-Gap-Measure"><a href="#Affine-Gap-Measure" class="headerlink" title="Affine Gap Measure"></a>Affine Gap Measure</h3><p>Generalization of needleman-wunch(x, y),为了解决Needleman-Wunch带来的长gap问题<br>Intuition: two small gaps are worse than one large one<br><img src="/image/Afm.png"></p>
+<h3 id="Smith-Waterman"><a href="#Smith-Waterman" class="headerlink" title="Smith-Waterman"></a>Smith-Waterman</h3><p>可以说是Needleman-Wunch的local版本</p>
+<p>Needleman-Wunch: Fully align sequences, opening gaps as needed,也就是说两边空格都被考虑进去了的<br><img src="/image/smith-waterman.png"></p>
+<h3 id="Jaro-Similarity-Measure"><a href="#Jaro-Similarity-Measure" class="headerlink" title="Jaro Similarity Measure"></a>Jaro Similarity Measure</h3><p>Get points for having characters in common<br>• but only if they are “close by”<br>Get points for common characters in the same order<br>• lose points for transpositions<br><img src="/image/Jaro-sim.png"><br>？？？</p>
+<h3 id="Jaro-Winkler-Measure"><a href="#Jaro-Winkler-Measure" class="headerlink" title="Jaro-Winkler Measure"></a>Jaro-Winkler Measure</h3><p>？？？？</p>
+<h2 id="Set-Based-Metrics"><a href="#Set-Based-Metrics" class="headerlink" title="Set-Based Metrics"></a>Set-Based Metrics</h2><p>Generate set of tokens from the strings and then measure similarity between the sets of tokens</p>
+<h3 id="Jaccard-Measure"><a href="#Jaccard-Measure" class="headerlink" title="Jaccard Measure"></a>Jaccard Measure</h3><h3 id="TF-IDF-Measure"><a href="#TF-IDF-Measure" class="headerlink" title="TF-IDF Measure"></a>TF-IDF Measure</h3><h2 id="Hybrid-Similarity-Measures"><a href="#Hybrid-Similarity-Measures" class="headerlink" title="Hybrid Similarity Measures"></a>Hybrid Similarity Measures</h2><p>Do the set-based thing but use a similiarity metric for each element of the set</p>
+<h3 id="Generalized-Jaccard-Measure"><a href="#Generalized-Jaccard-Measure" class="headerlink" title="Generalized Jaccard Measure"></a>Generalized Jaccard Measure</h3><h3 id="The-Soft-TF-IDF-Measure"><a href="#The-Soft-TF-IDF-Measure" class="headerlink" title="The Soft TF/IDF Measure"></a>The Soft TF/IDF Measure</h3><h3 id="Monge-Elkan-Measure"><a href="#Monge-Elkan-Measure" class="headerlink" title="Monge-Elkan Measure"></a>Monge-Elkan Measure</h3><h2 id="Phonetic-Similarity"><a href="#Phonetic-Similarity" class="headerlink" title="Phonetic Similarity"></a>Phonetic Similarity</h2><h3 id="Soundex"><a href="#Soundex" class="headerlink" title="Soundex"></a>Soundex</h3>]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Leetcode-二叉树</title>
+    <url>/2020/09/17/Algorithm-binarytree/</url>
+    <content><![CDATA[<h2 id="二叉树的一些思想"><a href="#二叉树的一些思想" class="headerlink" title="二叉树的一些思想"></a>二叉树的一些思想</h2><ul>
+<li>前序遍历(preOrder)  root-&gt;left-&gt;right </li>
+<li>中序遍历(inOrder)    left-&gt; root-&gt;right 二叉搜索树中，其遍历结果为有序数组</li>
+<li>后序遍历(postOrder) left-&gt;right-&gt;root </li>
+<li>广度优先搜索(BFS)</li>
+<li>深度优先搜索(DFS)</li>
+<li>递归(Recursion)，根据要求选择使用前序，中序，后序的递归框架来解决问题</li>
+</ul>
+<h4 id="897-递增顺序查找树"><a href="#897-递增顺序查找树" class="headerlink" title="897. 递增顺序查找树"></a><a href="https://leetcode-cn.com/problems/increasing-order-search-tree/">897. 递增顺序查找树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 思路1: 中序遍历形成有序列表 + 重新生成树</span></span><br><span class="line"><span class="comment"># 思路2: 使用递归,改变树形状，不生成新的树</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">increasingBST</span>(<span class="params">self, root: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        dfs(root.left)</span><br><span class="line">        <span class="comment">### 对根节点的操作 ###</span></span><br><span class="line">        root.left = <span class="literal">None</span></span><br><span class="line">        self.cur.right = root</span><br><span class="line">        self.cur = root</span><br><span class="line">        <span class="comment">###################</span></span><br><span class="line">        dfs(root.right)</span><br><span class="line">    res = self.cur = TreeNode(<span class="literal">None</span>)</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> res.right</span><br></pre></td></tr></table></figure>
+
+<h4 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a><a href="https://leetcode-cn.com/problems/invert-binary-tree/">226. 翻转二叉树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invertTree</span>(<span class="params">self, root</span>):</span></span><br><span class="line">    <span class="comment"># 先序遍历  （后序遍历也可）</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="comment">### 对根节点的操作 ###</span></span><br><span class="line">    root.left,root.right = root.right,root.left</span><br><span class="line">    <span class="comment">### 对根节点的操作 ###</span></span><br><span class="line">    root.left = self.invertTree(root.left)  </span><br><span class="line">    root.right = self.invertTree(root.right)</span><br><span class="line">    <span class="comment"># 函数返回时就表示当前这个节点，以及它的左右子树都已经交换完了       </span></span><br><span class="line">    <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
+
+<h4 id="617-合并二叉树"><a href="#617-合并二叉树" class="headerlink" title="617. 合并二叉树"></a><a href="https://leetcode-cn.com/problems/merge-two-binary-trees/">617. 合并二叉树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeTrees</span>(<span class="params">self, t1: TreeNode, t2: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> (t1 <span class="keyword">and</span> t2): <span class="comment"># 不能用 if not t1 and not t2</span></span><br><span class="line">        <span class="keyword">return</span> t1 <span class="keyword">if</span> t1 <span class="keyword">else</span> t2</span><br><span class="line">    t1.val+=t2.val</span><br><span class="line">    <span class="comment">#########################</span></span><br><span class="line">    t1.left = self.mergeTrees(t1.left,t2.left) </span><br><span class="line">    t1.right = self.mergeTrees(t1.right,t2.right)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> t1</span><br></pre></td></tr></table></figure>
+
+<h4 id="938-二叉搜索树的范围和"><a href="#938-二叉搜索树的范围和" class="headerlink" title="938. 二叉搜索树的范围和"></a><a href="https://leetcode-cn.com/problems/range-sum-of-bst/">938. 二叉搜索树的范围和</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rangeSumBST</span>(<span class="params">self, root: TreeNode, L: int, R: int</span>) -&gt; int:</span></span><br><span class="line">    </span><br><span class="line">    self.res = <span class="number">0</span> <span class="comment"># 需要使用一个全局变量进行结果的保存</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root,L,R</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">        <span class="keyword">if</span> L&lt;= root.val &lt;=R:</span><br><span class="line">            self.res+=root.val</span><br><span class="line">        <span class="comment">#########################</span></span><br><span class="line">        dfs(root.left,L,R)</span><br><span class="line">        dfs(root.right,L,R)</span><br><span class="line"></span><br><span class="line">    dfs(root,L,R)</span><br><span class="line">    <span class="keyword">return</span> self.res</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104. 二叉树的最大深度"></a><a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">104. 二叉树的最大深度</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">self, root: TreeNode</span>) -&gt; int:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="comment"># 后序遍历</span></span><br><span class="line">    <span class="keyword">return</span> max(self.maxDepth(root.left),self.maxDepth(root.right)) +<span class="number">1</span></span><br><span class="line">    <span class="comment"># 也可以使用BFS得到高度</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="590-N叉树的后序遍历-前序遍历"><a href="#590-N叉树的后序遍历-前序遍历" class="headerlink" title="590. N叉树的后序遍历/前序遍历"></a><a href="https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/">590. N叉树的后序遍历</a>/<a href="https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/">前序遍历</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">postorder</span>(<span class="params">self, root: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; List[int]:</span></span><br><span class="line">    self.res = []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span></span><br><span class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> root.children:</span><br><span class="line">            helper(child)</span><br><span class="line">        <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">        self.res.append(root.val)</span><br><span class="line">        <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">    helper(root)</span><br><span class="line">    <span class="keyword">return</span> self.res</span><br></pre></td></tr></table></figure>
+
+<h4 id="700-二叉搜索树中的搜索"><a href="#700-二叉搜索树中的搜索" class="headerlink" title="700. 二叉搜索树中的搜索"></a><a href="https://leetcode-cn.com/problems/search-in-a-binary-search-tree/">700. 二叉搜索树中的搜索</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">searchBST</span>(<span class="params">self, root: TreeNode, val: int</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> </span><br><span class="line">    <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> root.val == val:</span><br><span class="line">        <span class="keyword">return</span> root</span><br><span class="line">    <span class="comment">#########################</span></span><br><span class="line">    <span class="keyword">if</span> root.val &lt; val:</span><br><span class="line">        <span class="keyword">return</span> self.searchBST(root.right,val) <span class="comment"># 记住需要return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> self.searchBST(root.left,val)</span><br></pre></td></tr></table></figure>
+
+<h4 id="108-将有序数组转换为二叉搜索树"><a href="#108-将有序数组转换为二叉搜索树" class="headerlink" title="108. 将有序数组转换为二叉搜索树"></a><a href="https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/">108. 将有序数组转换为二叉搜索树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sortedArrayToBST</span>(<span class="params">self, nums: List[int]</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="comment">###### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> len(nums) == <span class="number">0</span> : <span class="keyword">return</span> </span><br><span class="line">    mid = len(nums)//<span class="number">2</span></span><br><span class="line">    root = TreeNode(nums[mid])</span><br><span class="line">    <span class="comment">##########################</span></span><br><span class="line">    root.left = self.sortedArrayToBST(nums[:mid])</span><br><span class="line">    root.right = self.sortedArrayToBST(nums[mid+<span class="number">1</span>:])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
+
+<h4 id="897-递增顺序查找树-1"><a href="#897-递增顺序查找树-1" class="headerlink" title="897. 递增顺序查找树"></a><a href="https://leetcode-cn.com/problems/increasing-order-search-tree/">897. 递增顺序查找树</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">increasingBST</span>(<span class="params">self, root: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        dfs(root.left)</span><br><span class="line">        <span class="comment">### 对根节点的操作 #####</span></span><br><span class="line">        root.left = <span class="literal">None</span></span><br><span class="line">        self.cur.right = root</span><br><span class="line">        self.cur = root</span><br><span class="line">        <span class="comment">#####################</span></span><br><span class="line">        dfs(root.right)</span><br><span class="line">    res = self.cur = TreeNode(<span class="literal">None</span>)</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> res.right</span><br></pre></td></tr></table></figure>
+
+<h4 id="559-N叉树的最大深度"><a href="#559-N叉树的最大深度" class="headerlink" title="559. N叉树的最大深度"></a><a href="https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/">559. N叉树的最大深度</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">self, root: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; int:</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span>  <span class="number">0</span>   </span><br><span class="line">    <span class="keyword">return</span> max([self.maxDepth(i) <span class="keyword">for</span> i <span class="keyword">in</span>  root.children]+[<span class="number">0</span>])+<span class="number">1</span> <span class="comment"># 注意需要 +[0] =&gt; 没有0的话会报错: max() arg is an empty sequence</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="剑指-Offer-68-II-二叉树的最近公共祖先"><a href="#剑指-Offer-68-II-二叉树的最近公共祖先" class="headerlink" title="剑指 Offer 68 - II. 二叉树的最近公共祖先"></a><a href="https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/">剑指 Offer 68 - II. 二叉树的最近公共祖先</a></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span>(<span class="params">self, root: TreeNode, p: TreeNode, q: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root <span class="keyword">or</span> p == root <span class="keyword">or</span> q == root: <span class="keyword">return</span> root</span><br><span class="line"></span><br><span class="line">    left = self.lowestCommonAncestor(root.left,p,q)</span><br><span class="line">    right = self.lowestCommonAncestor(root.right,p,q)</span><br><span class="line">    <span class="comment">### 对根节点的操作 #####</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> left <span class="keyword">and</span> <span class="keyword">not</span> right: <span class="keyword">return</span>  <span class="comment"># 左右子树均为空</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> left: <span class="keyword">return</span> right        <span class="comment"># 右空，左不空</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="keyword">not</span> right:<span class="keyword">return</span> left         <span class="comment"># 左空，右不空</span></span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> root                  <span class="comment"># 左右均不空</span></span><br><span class="line">    <span class="comment">### 对根节点的操作 #####</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="637-二叉树的层平均值"><a href="#637-二叉树的层平均值" class="headerlink" title="637. 二叉树的层平均值"></a><a href="https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/">637. 二叉树的层平均值</a></h4>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -237,15 +1088,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CSCI570-outline</title>
-    <url>/2020/09/08/CSCI570-outline/</url>
-    <content><![CDATA[<p>hello world!</p>
-]]></content>
-      <tags>
-        <tag>Course</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Blocking and Relational Entity Resolution</title>
     <url>/2020/10/11/Blocking-and-Relational-Entity-Resolution/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>Entity Resolution 主要分成如下四个</p>
@@ -312,6 +1154,31 @@
       </tags>
   </entry>
   <entry>
+    <title>CSCI570-outline</title>
+    <url>/2020/09/08/CSCI570-outline/</url>
+    <content><![CDATA[<p>hello world!</p>
+]]></content>
+      <tags>
+        <tag>Course</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>命令行备忘录</title>
+    <url>/2020/12/01/Command-Lib/</url>
+    <content><![CDATA[<h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br><span class="line">$ ls -l | grep &quot;^-&quot; | wc -l   # 统计当前文件夹下文件的个数（不包括目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下文件的个数（包括子目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下目录的个数（包括子目录）</span><br><span class="line"></span><br><span class="line">$ gzip –c filename &gt; filename.gz  	# 压缩文件成gz文件（保留原文件）</span><br><span class="line">$ gunzip –c filename.gz &gt; filename  # 解压gz文件（保留gz文件）</span><br><span class="line"></span><br><span class="line">$ head -n 10 filename  # 查看文件前十行内容</span><br><span class="line">$ tail -n 10 filename  # 查看文件后十行内容</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Mac:</span><br><span class="line">$ sysctl machdep.cpu #所有信息</span><br><span class="line">$ sysctl -n machdep.cpu.brand_string    # CPU型号</span><br><span class="line">$ sysctl -n machdep.cpu.core_count      # CPU核心数</span><br><span class="line">$ sysctl -n machdep.cpu.thread_count    # 线程数</span><br><span class="line"></span><br><span class="line">Linux</span><br><span class="line">$ grep &#39;physical id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u  # 查看物理cpu个数</span><br><span class="line">$ grep &#39;core id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 核心数量</span><br><span class="line">$ grep &#39;processor&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 线程数</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Commands</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DSCI-553-outline</title>
     <url>/2020/10/23/DSCI-553-outline/</url>
     <content><![CDATA[<h2 id="DSCI551-Foundations-and-Applications-of-Data-Mining"><a href="#DSCI551-Foundations-and-Applications-of-Data-Mining" class="headerlink" title="DSCI551 - Foundations and Applications of Data Mining"></a>DSCI551 - Foundations and Applications of Data Mining</h2><h3 id="Week1"><a href="#Week1" class="headerlink" title="Week1:  "></a>Week1:  <a href="/2020/11/10/553week1/" title="数据挖掘, MapReduce 介绍">数据挖掘, MapReduce 介绍</a></h3><h3 id="Part2"><a href="#Part2" class="headerlink" title="Part2:"></a>Part2:</h3><!-- <a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a>  -->
@@ -336,9 +1203,10 @@
       </tags>
   </entry>
   <entry>
-    <title>DSCI558-outline</title>
+    <title>DSCI558 Building Knowledge Graphs</title>
     <url>/2020/10/11/DSCI558-outline/</url>
-    <content><![CDATA[<h2 id="DSCI558-Building-Knowledge-Graphs"><a href="#DSCI558-Building-Knowledge-Graphs" class="headerlink" title="DSCI558 - Building Knowledge Graphs"></a>DSCI558 - Building Knowledge Graphs</h2><h3 id="待续"><a href="#待续" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-1"><a href="#待续-1" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-2"><a href="#待续-2" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-3"><a href="#待续-3" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-4"><a href="#待续-4" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-5"><a href="#待续-5" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-6"><a href="#待续-6" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-7"><a href="#待续-7" class="headerlink" title="待续"></a>待续</h3><h3 id="待续-8"><a href="#待续-8" class="headerlink" title="待续"></a>待续</h3><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/10/11/Probabilistic-Models-for-KG-Construction/" title="PSL">PSL</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" title="Blocking and Relational Entity Resolution">Blocking and Relational Entity Resolution</a></h3>]]></content>
+    <content><![CDATA[<h2 id="DSCI558-Building-Knowledge-Graphs"><a href="#DSCI558-Building-Knowledge-Graphs" class="headerlink" title="DSCI558 - Building Knowledge Graphs"></a>DSCI558 - Building Knowledge Graphs</h2><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/12/01/558intro/" title="知识图谱简介">知识图谱简介</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/12/01/558data-acq/" title="知识图谱数据获取与知识产权">知识图谱数据获取与知识产权</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><a href="/2020/12/01/558info-extra/" title="知识图谱数据提取">知识图谱数据提取</a></h3><h3 id="-3"><a href="#-3" class="headerlink" title=""></a><a href="/2020/12/01/558kg-rep/" title="知识图谱表示">知识图谱表示</a></h3><h3 id="-4"><a href="#-4" class="headerlink" title=""></a><a href="/2020/12/01/558ent-res/" title="知识图谱实体解析">知识图谱实体解析</a></h3><h3 id="-5"><a href="#-5" class="headerlink" title=""></a><a href="/2020/12/01/558query-kg/" title="知识图谱查询">知识图谱查询</a></h3><h3 id="-6"><a href="#-6" class="headerlink" title=""></a><a href="/2020/12/01/558ent-link/" title="知识图谱实体链接">知识图谱实体链接</a></h3><h3 id="-7"><a href="#-7" class="headerlink" title=""></a><a href="/2020/12/01/558str-match/" title="知识图谱字符串匹配">知识图谱字符串匹配</a></h3><h3 id="-8"><a href="#-8" class="headerlink" title=""></a><a href="/2020/10/11/Probabilistic-Models-for-KG-Construction/" title="知识图谱识别">知识图谱识别</a></h3><h3 id="-9"><a href="#-9" class="headerlink" title=""></a><a href="/2020/12/02/558blk-RER/" title="知识图谱Blocking&amp;关系型实体解析">知识图谱Blocking&amp;关系型实体解析</a></h3><h3 id="-10"><a href="#-10" class="headerlink" title=""></a><a href="/2020/12/03/558ont-rea/" title="知识图谱本体与推理">知识图谱本体与推理</a></h3><h3 id="-11"><a href="#-11" class="headerlink" title=""></a><a href="/2020/12/03/558rdfa/" title="知识图谱RDFa">知识图谱RDFa</a></h3><h3 id="-12"><a href="#-12" class="headerlink" title=""></a><a href="/2020/12/03/558-table-und/" title="知识图谱表格理解">知识图谱表格理解</a></h3><h3 id="-13"><a href="#-13" class="headerlink" title=""></a><a href="/2020/12/03/558kg-emb/" title="知识图谱图嵌入">知识图谱图嵌入</a></h3><h3 id="-14"><a href="#-14" class="headerlink" title=""></a><a href="/2020/12/03/558ld-sw/" title="知识图谱键连数据与语义网络">知识图谱键连数据与语义网络</a></h3><h3 id="-15"><a href="#-15" class="headerlink" title=""></a><a href="/2020/12/03/558overview/" title="知识图谱复习大纲">知识图谱复习大纲</a></h3><!-- ### <a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" title="Blocking and Relational Entity Resolution">Blocking and Relational Entity Resolution</a>   -->
+]]></content>
       <tags>
         <tag>Course</tag>
       </tags>
@@ -683,6 +1551,28 @@
       </tags>
   </entry>
   <entry>
+    <title>ssh连接远程服务器中途断开</title>
+    <url>/2020/10/23/Linux-screen/</url>
+    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
+<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2><ol>
+<li><p>连接远程服务器<br><code>binzhang@MacBin ~$  ssh username@servername</code></p>
+</li>
+<li><p>创建名为cskg的screen,  此时screen被创建，之后的代码或者各种工作在该screen下操作<br><code>[servername ~]$ screen -S cskg </code></p>
+</li>
+<li><p>万一本地机器掉线，重新连接远程服务器，随后使用screen -ls 查看之前创建的screen信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[servername ~]$ screen -ls  </span><br><span class="line">显示信息：</span><br><span class="line">There is a screen on:</span><br><span class="line">        157586.cskg  (Attached)</span><br><span class="line">1 Socket in &#x2F;var&#x2F;run&#x2F;screen&#x2F;xx</span><br></pre></td></tr></table></figure></li>
+<li><p>使用-r回到之前服务器工作的screen<br><code>screen -r 157586</code></p>
+</li>
+</ol>
+<h3 id="Screen常见问题"><a href="#Screen常见问题" class="headerlink" title="Screen常见问题"></a>Screen常见问题</h3><p>使用<code>screen -ls</code>, 显式当前状态为Attached，但并没有没有用户登陆该screen。screen此时正常状态应该为(Detached)使用 <code>screen -r &lt;session-id&gt;</code>无法连接，</p>
+<p>解决方案:<code>screen -D  -r ＜session-id&gt;</code>,-D -r  表示先踢掉前用户，再登陆。</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JSON-review</title>
     <url>/2020/09/07/JSON-review/</url>
     <content><![CDATA[<h2 id="JSON概述"><a href="#JSON概述" class="headerlink" title="JSON概述"></a>JSON概述</h2><p><strong>JSON</strong>（<strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来<strong>传输由属性值或者序列性的值组成的数据对象</strong>。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。</p>
@@ -754,28 +1644,6 @@
       <tags>
         <tag>Python</tag>
         <tag>File Format</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ssh连接远程服务器中途断开</title>
-    <url>/2020/10/23/Linux-screen/</url>
-    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
-<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
-<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2><ol>
-<li><p>连接远程服务器<br><code>binzhang@MacBin ~$  ssh username@servername</code></p>
-</li>
-<li><p>创建名为cskg的screen,  此时screen被创建，之后的代码或者各种工作在该screen下操作<br><code>[servername ~]$ screen -S cskg </code></p>
-</li>
-<li><p>万一本地机器掉线，重新连接远程服务器，随后使用screen -ls 查看之前创建的screen信息</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[servername ~]$ screen -ls  </span><br><span class="line">显示信息：</span><br><span class="line">There is a screen on:</span><br><span class="line">        157586.cskg  (Attached)</span><br><span class="line">1 Socket in &#x2F;var&#x2F;run&#x2F;screen&#x2F;xx</span><br></pre></td></tr></table></figure></li>
-<li><p>使用-r回到之前服务器工作的screen<br><code>screen -r 157586</code></p>
-</li>
-</ol>
-<h3 id="Screen常见问题"><a href="#Screen常见问题" class="headerlink" title="Screen常见问题"></a>Screen常见问题</h3><p>使用<code>screen -ls</code>, 显式当前状态为Attached，但并没有没有用户登陆该screen。screen此时正常状态应该为(Detached)使用 <code>screen -r &lt;session-id&gt;</code>无法连接，</p>
-<p>解决方案:<code>screen -D  -r ＜session-id&gt;</code>,-D -r  表示先踢掉前用户，再登陆。</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1023,7 +1891,7 @@
       </tags>
   </entry>
   <entry>
-    <title>PSL</title>
+    <title>知识图谱识别</title>
     <url>/2020/10/11/Probabilistic-Models-for-KG-Construction/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>在知识图谱中，主要需要解决的有三个问题:  (节点，属性，关系)</p>
 <ol>
@@ -1035,7 +1903,7 @@
 <p><img src="/image/build-KG.png"></p>
 <p>提取到的知识可能存在的一些问题:</p>
 <ol>
-<li>ambiguous (一般我们说ambiguous 指的是多个名字指向一个entity， variant指的是一个entity有多个名字)<ul>
+<li>ambiguous (一般我们说ambiguous 指的是多个entity指向一个名字， variant指的是一个entity有多个名字)<ul>
 <li>Beetles, beetles, Beatles 这三个name可能都是指向一个实体甲壳虫，但是名字不同</li>
 <li>citizenOf, livedIn, bornIn 这三个property可能都是指向一个实体，表达的意思为该实体住在某一个地方</li>
 </ul>
@@ -1472,52 +2340,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Scrapy 实例 - TripAdvisor信息抓取</title>
-    <url>/2020/10/15/scrapy-example/</url>
-    <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
-<p>餐厅信息包括:</p>
-<ul>
-<li>餐厅名称</li>
-<li>餐厅评星（几颗星）</li>
-<li>餐厅排名（针对洛杉矶而言）</li>
-<li>餐厅价格区间</li>
-<li>餐厅菜品种类</li>
-<li>餐厅地点</li>
-<li>附近旅馆</li>
-<li>附近餐厅</li>
-<li>附近景点</li>
-<li>用户评价</li>
-</ul>
-<p>酒店信息包括：</p>
-<ul>
-<li>酒店名称</li>
-<li>酒店价格区间</li>
-<li>酒店房间数</li>
-<li>酒店评星</li>
-<li>酒店设施</li>
-<li>酒店特色</li>
-<li>酒店星级</li>
-<li>酒店房间类型</li>
-<li>酒店风格</li>
-<li>酒店地点</li>
-<li>附近餐厅</li>
-<li>附近景点</li>
-<li>用户评价</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Scrapy + MongoDB<br>代码: xxxx</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
-<li>使用scrapd + spiderkeeper 进行可视化部署</li>
-<li>log文件保存(settings.py中设置LOG_FILE  = “debug.log”)</li>
-<li>使用 scrapy shell 进行xpath语法规则的调试以确保得到想要的结果</li>
-</ol>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>10522 条餐厅数据 (50M)<br>1000 条酒店数据  (100M)</p>
-]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>Web Crawler</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>spaCy学习</title>
     <url>/2020/09/10/spacy-learning/</url>
     <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
@@ -1628,6 +2450,52 @@
       <tags>
         <tag>Python</tag>
         <tag>NLP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scrapy 实例 - TripAdvisor信息抓取</title>
+    <url>/2020/10/15/scrapy-example/</url>
+    <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
+<p>餐厅信息包括:</p>
+<ul>
+<li>餐厅名称</li>
+<li>餐厅评星（几颗星）</li>
+<li>餐厅排名（针对洛杉矶而言）</li>
+<li>餐厅价格区间</li>
+<li>餐厅菜品种类</li>
+<li>餐厅地点</li>
+<li>附近旅馆</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+<p>酒店信息包括：</p>
+<ul>
+<li>酒店名称</li>
+<li>酒店价格区间</li>
+<li>酒店房间数</li>
+<li>酒店评星</li>
+<li>酒店设施</li>
+<li>酒店特色</li>
+<li>酒店星级</li>
+<li>酒店房间类型</li>
+<li>酒店风格</li>
+<li>酒店地点</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Scrapy + MongoDB<br>代码: xxxx</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>使用scrapd + spiderkeeper 进行可视化部署</li>
+<li>log文件保存(settings.py中设置LOG_FILE  = “debug.log”)</li>
+<li>使用 scrapy shell 进行xpath语法规则的调试以确保得到想要的结果</li>
+</ol>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>10522 条餐厅数据 (50M)<br>1000 条酒店数据  (100M)</p>
+]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>Web Crawler</tag>
       </tags>
   </entry>
   <entry>

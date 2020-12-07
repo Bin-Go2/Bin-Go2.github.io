@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Week 1IntroWhat is a KG?KG is the Knowledge in graph form, it captures entities, attributes, and relationships. In KG, nodes are entities and they are labeled with attributes. Edges between two nodes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱复习大纲">
+<meta property="og:url" content="http://example.com/2020/12/03/558overview/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="Week 1IntroWhat is a KG?KG is the Knowledge in graph form, it captures entities, attributes, and relationships. In KG, nodes are entities and they are labeled with attributes. Edges between two nodes">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-04T07:09:35.000Z">
+<meta property="article:modified_time" content="2020-12-06T01:17:42.198Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/12/03/558overview/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>知识图谱复习大纲 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/03/558overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱复习大纲
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-03 23:09:35" itemprop="dateCreated datePublished" datetime="2020-12-03T23:09:35-08:00">2020-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-05 17:17:42" itemprop="dateModified" datetime="2020-12-05T17:17:42-08:00">2020-12-05</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/03/558overview/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/03/558overview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Week-1"><a href="#Week-1" class="headerlink" title="Week 1"></a>Week 1</h1><h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><h3 id="What-is-a-KG"><a href="#What-is-a-KG" class="headerlink" title="What is a KG?"></a>What is a KG?</h3><p>KG is the Knowledge in graph form, it captures entities, attributes, and relationships. In KG, nodes are entities and they are labeled with attributes. Edges between two nodes capture a relationship between entities</p>
+<p>Knowledge Graphs: is a directed heterogeneous multigraph whose node and relation types have domain-specific semantics</p>
+<h3 id="Why-KGs"><a href="#Why-KGs" class="headerlink" title="Why KGs?"></a>Why KGs?</h3><p>From human’s perspective, KG helps combat information overload. It also helps explore via intuitive structure. It is also a tool for supporting knowledge-driven tasks.<br>From AI’s perspective, KG’s content is the key ingredient for many AI tasks. It bridges from data to human semantics and people can use decades of work on graph analysis via KG.</p>
+<h3 id="How-are-KGs-used"><a href="#How-are-KGs-used" class="headerlink" title="How are KGs used?"></a>How are KGs used?</h3><p>QA/Agents: By extracting suitable candidates (entities, relations or literals) from the KG<br>Decision Support: By reasoning over the KG<br>Fueling Discovery: By reasoning over the KG, By extracting and suggesting suitable candidates in the KG, By matching and analyzing patterns in the KG</p>
+<h3 id="Where-do-KGs-come-from"><a href="#Where-do-KGs-come-from" class="headerlink" title="Where do KGs come from?"></a>Where do KGs come from?</h3><p>Structured Text (Wikipedia Infoboxes, tables, databases, social nets)<br>Unstructured Text (WWW, news, social media, reference articles)<br>Images<br>Video (YouTube, video feeds)</p>
+<h2 id="Crawling-the-Web-amp-Intellectual-Property"><a href="#Crawling-the-Web-amp-Intellectual-Property" class="headerlink" title="Crawling the Web &amp; Intellectual Property"></a>Crawling the Web &amp; Intellectual Property</h2><h3 id="Surface-web-vs-deep-web-vs-dark-web"><a href="#Surface-web-vs-deep-web-vs-dark-web" class="headerlink" title="Surface web vs. deep web vs. dark web"></a>Surface web vs. deep web vs. dark web</h3><p>Surface web:  Pages reachable by following links from static pages, people can access these pages directly<br>Deep Web: Pages reachable only via web forms , for example: email information, databases<br>Dark Web: Pages reachable only via Tor or equivalent or other specific tools.</p>
+<h3 id="What-are-the-challenges"><a href="#What-are-the-challenges" class="headerlink" title="What are the challenges?"></a>What are the challenges?</h3><p>scale<br>deduplication<br>cost (fetching, parsing/extracting, memory/disk * speed)<br>errors, redirects<br>freshness<br>deep web, forms<br>counter-crawling/access (login, captchas, traps, fake errors, banning)<br>localization<br>dynamic pages<br>infinite scrolling<br>archiving</p>
+<h3 id="What-is-the-basic-architecture-of-a-crawler"><a href="#What-is-the-basic-architecture-of-a-crawler" class="headerlink" title="What is the basic architecture of a crawler?"></a>What is the basic architecture of a crawler?</h3><p>Basically, a crawler can be split into four parts: Scheduler, Queue, Multi-thread downloader, Storage. The procedure of the crawler is : first a user providers a list of web pages(URLS) to Scheduler. Then Scheduler shedules these URLs by putting them into Queue accoring to certain rules. Then Scheduler assigns the different URLs in Queue to  Multi-thread downloader to let the downloader automatically crawls the information. After information is downloaded, content will be parsed and content will be extracted. There might be some urls extracted, the Scheduler will review thses urls and and the worthy ones to Queue again. Target data(Text and metadata) will be storeed into Storages. The crawler will end if there is no url to crawl of the user terminate it. </p>
+<h3 id="What-mechanisms-exist-to-protect-intellectual-property"><a href="#What-mechanisms-exist-to-protect-intellectual-property" class="headerlink" title="What mechanisms exist to protect intellectual property?"></a>What mechanisms exist to protect intellectual property?</h3><p>Patents<br>Copyrights<br>Trademarks<br>Trade Secrets<br>Software Licenses</p>
+<h3 id="What-are-the-requirements-for-a-patent"><a href="#What-are-the-requirements-for-a-patent" class="headerlink" title="What are the requirements for a patent?"></a>What are the requirements for a patent?</h3><p>Patent can be split into 3 main types.<br>Utility patents protect useful processes, machines, articles of manufacture, and compositions of matter.<br>Design patents guard the unauthorized use of new, original, and ornamental designs for articles of manufacture.<br>Plant patents are the way we protect invented or discovered, asexually reproduced plant varieties<br>Patents provide rights for up to 20 years for inventions</p>
+<h3 id="What-can-be-copyrighted-and-what-is-the-difference-in-CC-licenses"><a href="#What-can-be-copyrighted-and-what-is-the-difference-in-CC-licenses" class="headerlink" title="What can be copyrighted, and what is the difference in CC licenses?"></a>What can be copyrighted, and what is the difference in CC licenses?</h3><p>COPYRIGHTS protect works of authorship, such as writings, music, and works of art that have been tangibly expressed. So basically, these creative following works can be copyrighted:<br>Literary, musical and dramatic works.<br>Pantomimes and choreographic works.<br>Pictorial, graphic and sculptural works.<br>Sound recordings.<br>Motion pictures and other AV works.<br>Computer programs.<br>Compilations of works and derivative works.<br>Architectural works. </p>
+<p>Attribution: Licensees may copy, distribute, display and perform the work only if they give owner the credits<br>Noncommercial: Licensees may copy, distribute, etc. the work only for noncommercial purpose<br>No Derivative Works: Licensees may copy, distribute, etc. the work, not derivatives based on it.<br>ShareAlike: Licensees may distribute derivative works only under a license identical to the license that governs the original work.</p>
+<h1 id="Week-2"><a href="#Week-2" class="headerlink" title="Week 2"></a>Week 2</h1><h2 id="Information-Extraction"><a href="#Information-Extraction" class="headerlink" title="Information Extraction"></a>Information Extraction</h2><h3 id="What-are-some-typical-IE-tasks"><a href="#What-are-some-typical-IE-tasks" class="headerlink" title="What are some typical IE tasks?"></a>What are some typical IE tasks?</h3><p>sentence:<br>Part of speech tagging<br>Dependency Parsing<br>Named entity recognition </p>
+<p>document:<br>Coreference Resolution </p>
+<p>documents:<br>Entity resolution<br>Entity linking<br>Relation extraction </p>
+<h3 id="What-are-the-three-components-to-IE"><a href="#What-are-the-three-components-to-IE" class="headerlink" title="What are the three components to IE?"></a>What are the three components to IE?</h3><p>Defining domain<br>Learning extractors<br>Scoring the facts</p>
+<h3 id="What-are-the-possible-levels-of-supervision-for-each-component"><a href="#What-are-the-possible-levels-of-supervision-for-each-component" class="headerlink" title="What are the possible levels of supervision for each component?"></a>What are the possible levels of supervision for each component?</h3><p>Supervised<br>Semi-supervised<br>Unsupervised</p>
+<h3 id="Real-world-O-IE-systems"><a href="#Real-world-O-IE-systems" class="headerlink" title="Real-world (O)IE systems"></a>Real-world (O)IE systems</h3><p>Open domain IE:<br>Defining domain: Unsupervised<br>Learning extractors: Unsupervised<br>Scoring candidate facts: Semi-supervised</p>
+<h2 id="Knowledge-Representation"><a href="#Knowledge-Representation" class="headerlink" title="Knowledge Representation"></a>Knowledge Representation</h2><h3 id="What-are-the-basic-elements-of-RDF"><a href="#What-are-the-basic-elements-of-RDF" class="headerlink" title="What are the basic elements of RDF?"></a>What are the basic elements of RDF?</h3><p>S(subject)P(predicate)O(object)</p>
+<h3 id="What-are-the-different-syntaxes-for-RDF"><a href="#What-are-the-different-syntaxes-for-RDF" class="headerlink" title="What are the different syntaxes for RDF?"></a>What are the different syntaxes for RDF?</h3><p>XML, N3 Turtle, N-Triples, RDFa, JSON-LD</p>
+<h3 id="What-is-RDF-Schema"><a href="#What-is-RDF-Schema" class="headerlink" title="What is RDF Schema?"></a>What is RDF Schema?</h3><p>RDF Schema is the language for defining RDF vocabularies.<br>It specifies the RDF inference rules: the triples that are implied by the triples you have.</p>
+<h3 id="Degree-of-semantics-in-graphs"><a href="#Degree-of-semantics-in-graphs" class="headerlink" title="Degree of semantics in graphs"></a>Degree of semantics in graphs</h3><p>????</p>
+<h1 id="Week-3"><a href="#Week-3" class="headerlink" title="Week 3"></a>Week 3</h1><h2 id="Entity-Resolution"><a href="#Entity-Resolution" class="headerlink" title="Entity Resolution"></a>Entity Resolution</h2><h3 id="Which-ER-variants-exist"><a href="#Which-ER-variants-exist" class="headerlink" title="Which ER variants exist?"></a>Which ER variants exist?</h3><p>Ambiguity: Entities with the same name<br>Variance: Different names for the same entity</p>
+<h3 id="What-are-the-three-basic-steps-of-ER"><a href="#What-are-the-three-basic-steps-of-ER" class="headerlink" title="What are the three basic steps of ER?"></a>What are the three basic steps of ER?</h3><p>？？？</p>
+<h3 id="How-do-we-evaluate-blocking"><a href="#How-do-we-evaluate-blocking" class="headerlink" title="How do we evaluate blocking?"></a>How do we evaluate blocking?</h3><p>Efficiency = num of pairs compared / total number of pairs in RxR<br>Recall = num of true matches compared / num of true matches in RxR<br>Precision = um of true matches compared / num of matches compared<br>Max canopy size: the size of the largest block</p>
+<h3 id="What-are-real-world-examples-of-these-ER-settings"><a href="#What-are-real-world-examples-of-these-ER-settings" class="headerlink" title="What are real-world examples of these ER settings?"></a>What are real-world examples of these ER settings?</h3><p>text -&gt; text ?<br>text -&gt; KG ?<br>KG -&gt; KG ?<br>KG1 -&gt; KG2 ?</p>
+<h1 id="Week-4"><a href="#Week-4" class="headerlink" title="Week 4"></a>Week 4</h1><h2 id="Queries-amp-KGs"><a href="#Queries-amp-KGs" class="headerlink" title="Queries &amp; KGs"></a>Queries &amp; KGs</h2><h3 id="RDF-vs-Property-Graphs"><a href="#RDF-vs-Property-Graphs" class="headerlink" title="RDF vs. Property Graphs"></a>RDF vs. Property Graphs</h3><p>Similarity:<br>Both represent directed graphs as a basic data structure;<br>Both have associated graph-oriented query languages;<br>In practice, both are used as “graph stores”, accessible via HTTP and/or various API-s;</p>
+<p>Differences:<br>RDF has an emphasis on OWA, and is rooted in the Web via URL-s. Not the case for PG, PG node is oblivious to what it “contains”: can be a URL, can be a literal; (node不一定是uri)<br>PG includes the possibility to add simple key/value pairs to “relationships” (i.e., RDF predicates) （关系中可以带属性）</p>
+<h3 id="RDF-triple-stores-vs-Graph-DBs"><a href="#RDF-triple-stores-vs-Graph-DBs" class="headerlink" title="RDF triple-stores vs. Graph DBs"></a>RDF triple-stores vs. Graph DBs</h3><p>In RDF triple-stores everything is expressed in terms of SPO and its predicates can’t have attributes;<br>In Graph DBs predicates can have attributes;<br>Fair to say that RDF triple-stores are a kind of Graph DB;</p>
+<h3 id="SPARQL-syntax-Graph-Patterns-Aggregation-etc…"><a href="#SPARQL-syntax-Graph-Patterns-Aggregation-etc…" class="headerlink" title="SPARQL: syntax, Graph Patterns, Aggregation, etc…"></a>SPARQL: syntax, Graph Patterns, Aggregation, etc…</h3><h3 id="SPARQL-vs-Cypher"><a href="#SPARQL-vs-Cypher" class="headerlink" title="SPARQL vs. Cypher"></a>SPARQL vs. Cypher</h3><p>SPARQL Protocol and RDF Query Language , this is RDF’s QUERY LANGUAGE<br>Neo4j’s QUERY LANGUAGE</p>
+<h2 id="Special-Topics-KG-Use-Cases"><a href="#Special-Topics-KG-Use-Cases" class="headerlink" title="Special Topics: KG Use Cases"></a>Special Topics: KG Use Cases</h2><h3 id="Wikidata-data-model"><a href="#Wikidata-data-model" class="headerlink" title="Wikidata data model"></a>Wikidata data model</h3><p>Model using statements Subject, property, value, Qualifiers, references</p>
+<h3 id="Challenges-and-methods-for-building-KGs-in-real-applications"><a href="#Challenges-and-methods-for-building-KGs-in-real-applications" class="headerlink" title="Challenges and methods for building KGs in real applications"></a>Challenges and methods for building KGs in real applications</h3><p>challenge: make the annotations easy to use<br>hundreds of millions of sex ads on the open internet…many trafficking related<br>Data obfuscation makes even simple questions hard to automatically answer</p>
+<p>solution:<br>USE KG in tsv format<br>Knowledge Graph Is A TSV File<br>easy to process </p>
+<h1 id="Week-5"><a href="#Week-5" class="headerlink" title="Week 5"></a>Week 5</h1><h2 id="Large-KGs-amp-Entity-Linking"><a href="#Large-KGs-amp-Entity-Linking" class="headerlink" title="Large KGs &amp; Entity Linking"></a>Large KGs &amp; Entity Linking</h2><h3 id="Which-kinds-of-large-KGs-exist"><a href="#Which-kinds-of-large-KGs-exist" class="headerlink" title="Which (kinds of) large KGs exist?"></a>Which (kinds of) large KGs exist?</h3><p>DBpedia, YAGO, Wikidata, Freebase, ConceptNet, NELL, OpenIE</p>
+<h3 id="How-is-Wikidata-different-from-other-large-KGs"><a href="#How-is-Wikidata-different-from-other-large-KGs" class="headerlink" title="How is Wikidata different from other large KGs?"></a>How is Wikidata different from other large KGs?</h3><p>???</p>
+<h3 id="What-are-the-different-methods-to-get-data-from-large-KGs"><a href="#What-are-the-different-methods-to-get-data-from-large-KGs" class="headerlink" title="What are the different methods to get data from large KGs?"></a>What are the different methods to get data from large KGs?</h3><p>??? </p>
+<h3 id="What-is-entity-linking-from-text-and-why-is-it-hard"><a href="#What-is-entity-linking-from-text-and-why-is-it-hard" class="headerlink" title="What is entity linking (from text) and why is it hard?"></a>What is entity linking (from text) and why is it hard?</h3><p>Establishing the identity of the entity in a given reference<br>database (text-&gt;KG).<br>name ambiguity: Entities with the same name<br>name variation: Different names for the same entity<br>Missing (NIL) entities</p>
+<h3 id="What-is-the-basic-architecture-of-entity-linkers"><a href="#What-is-the-basic-architecture-of-entity-linkers" class="headerlink" title="What is the basic architecture of entity linkers?"></a>What is the basic architecture of entity linkers?</h3><p>mention detection -&gt; candidate selection -&gt; Disambiguation -&gt; entity annotatiton</p>
+<h3 id="What-are-some-methods-for-disambiguation"><a href="#What-are-some-methods-for-disambiguation" class="headerlink" title="What are some methods for disambiguation?"></a>What are some methods for disambiguation?</h3><p>Word-based methods: DBpedia Spotlight: Compute cosine similarity between the text paragraph with an entity mention and Wikipedia descriptions of each candidate.Decide for one mention at a time. The linking can be restricted to certain types or even to a custom set of entities.<br>Graph-based methods: AIDA and AGDISTIS: 1. construct a subgraph that contains all entity candidates with some facts from a KB. 2. find the best connected candidates per mention.</p>
+<h2 id="String-Similarity"><a href="#String-Similarity" class="headerlink" title="String Similarity"></a>String Similarity</h2><h3 id="Which-similarity-families-exist-and-what-is-the-main-idea-of-each"><a href="#Which-similarity-families-exist-and-what-is-the-main-idea-of-each" class="headerlink" title="Which similarity families exist and what is the main idea of each?"></a>Which similarity families exist and what is the main idea of each?</h3><h3 id="What-are-the-strengths-and-weaknesses-of-each-method"><a href="#What-are-the-strengths-and-weaknesses-of-each-method" class="headerlink" title="What are the strengths and weaknesses of each method?"></a>What are the strengths and weaknesses of each method?</h3><h3 id="How-do-hybrid-methods-work"><a href="#How-do-hybrid-methods-work" class="headerlink" title="How do hybrid methods work?"></a>How do hybrid methods work?</h3><h1 id="Week-6"><a href="#Week-6" class="headerlink" title="Week 6"></a>Week 6</h1><h2 id="Information-Extraction-1"><a href="#Information-Extraction-1" class="headerlink" title="Information Extraction"></a>Information Extraction</h2><h3 id="What-are-labeling-functions-Snorkel-What-makes-them-good"><a href="#What-are-labeling-functions-Snorkel-What-makes-them-good" class="headerlink" title="What are labeling functions (Snorkel)? What makes them good?"></a>What are labeling functions (Snorkel)? What makes them good?</h3><p>Labeling functions (LFs) help users encode domain knowledge and other supervision sources programmatically, it is a function desgined by human to help label data points.<br>Instead of poeple manually labeling the points, people can write heuristics to noisily label data! Human can leverage real-world knowledge, context, and common-sense heuristics to make labeling decisions. This help quick and low cost labeling.</p>
+<h3 id="What-does-the-generative-model-do"><a href="#What-does-the-generative-model-do" class="headerlink" title="What does the generative model do?"></a>What does the generative model do?</h3><p>LFs have different latent accuracies, Snorkel wants to learn these latent accuracies without labeled data by leveraging overlap and conflict of LFs.</p>
+<p>Snorkel creates a generative model to maximize the marginal likelihood of the LFs to learn parameters Intuitively, compares their agreements and disagreements, and detect correlations and other dependencies among LFs to correct their accuracies.</p>
+<h3 id="What-is-the-purpose-of-the-discriminative-model"><a href="#What-is-the-purpose-of-the-discriminative-model" class="headerlink" title="What is the purpose of the discriminative model?"></a>What is the purpose of the discriminative model?</h3><p>Compiling Rules into Features.</p>
+<p>The output of the generative model is a set of probabilistic training labels<br>Snorkel wants to use these labels to train final discriminative model. The discriminative model learns a feature representation of our LFs. </p>
+<p>The discriminative model aims to be able to generalize beyond the noisy LFs. The more unlabeled data we train with Snorkel, the better is the predictive performance of the discriminatory model.</p>
+<h1 id="Week-7"><a href="#Week-7" class="headerlink" title="Week 7"></a>Week 7</h1>
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/03/558ld-sw/" rel="prev" title="知识图谱键连数据与语义网络">
+      <i class="fa fa-chevron-left"></i> 知识图谱键连数据与语义网络
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-1"><span class="nav-number">1.</span> <span class="nav-text">Week 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro"><span class="nav-number">1.1.</span> <span class="nav-text">Intro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-a-KG"><span class="nav-number">1.1.1.</span> <span class="nav-text">What is a KG?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-KGs"><span class="nav-number">1.1.2.</span> <span class="nav-text">Why KGs?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-are-KGs-used"><span class="nav-number">1.1.3.</span> <span class="nav-text">How are KGs used?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Where-do-KGs-come-from"><span class="nav-number">1.1.4.</span> <span class="nav-text">Where do KGs come from?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Crawling-the-Web-amp-Intellectual-Property"><span class="nav-number">1.2.</span> <span class="nav-text">Crawling the Web &amp; Intellectual Property</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Surface-web-vs-deep-web-vs-dark-web"><span class="nav-number">1.2.1.</span> <span class="nav-text">Surface web vs. deep web vs. dark web</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-challenges"><span class="nav-number">1.2.2.</span> <span class="nav-text">What are the challenges?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-the-basic-architecture-of-a-crawler"><span class="nav-number">1.2.3.</span> <span class="nav-text">What is the basic architecture of a crawler?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-mechanisms-exist-to-protect-intellectual-property"><span class="nav-number">1.2.4.</span> <span class="nav-text">What mechanisms exist to protect intellectual property?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-requirements-for-a-patent"><span class="nav-number">1.2.5.</span> <span class="nav-text">What are the requirements for a patent?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-can-be-copyrighted-and-what-is-the-difference-in-CC-licenses"><span class="nav-number">1.2.6.</span> <span class="nav-text">What can be copyrighted, and what is the difference in CC licenses?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-2"><span class="nav-number">2.</span> <span class="nav-text">Week 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-Extraction"><span class="nav-number">2.1.</span> <span class="nav-text">Information Extraction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-some-typical-IE-tasks"><span class="nav-number">2.1.1.</span> <span class="nav-text">What are some typical IE tasks?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-three-components-to-IE"><span class="nav-number">2.1.2.</span> <span class="nav-text">What are the three components to IE?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-possible-levels-of-supervision-for-each-component"><span class="nav-number">2.1.3.</span> <span class="nav-text">What are the possible levels of supervision for each component?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Real-world-O-IE-systems"><span class="nav-number">2.1.4.</span> <span class="nav-text">Real-world (O)IE systems</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Knowledge-Representation"><span class="nav-number">2.2.</span> <span class="nav-text">Knowledge Representation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-basic-elements-of-RDF"><span class="nav-number">2.2.1.</span> <span class="nav-text">What are the basic elements of RDF?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-different-syntaxes-for-RDF"><span class="nav-number">2.2.2.</span> <span class="nav-text">What are the different syntaxes for RDF?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-RDF-Schema"><span class="nav-number">2.2.3.</span> <span class="nav-text">What is RDF Schema?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Degree-of-semantics-in-graphs"><span class="nav-number">2.2.4.</span> <span class="nav-text">Degree of semantics in graphs</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-3"><span class="nav-number">3.</span> <span class="nav-text">Week 3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Entity-Resolution"><span class="nav-number">3.1.</span> <span class="nav-text">Entity Resolution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Which-ER-variants-exist"><span class="nav-number">3.1.1.</span> <span class="nav-text">Which ER variants exist?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-three-basic-steps-of-ER"><span class="nav-number">3.1.2.</span> <span class="nav-text">What are the three basic steps of ER?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-do-we-evaluate-blocking"><span class="nav-number">3.1.3.</span> <span class="nav-text">How do we evaluate blocking?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-real-world-examples-of-these-ER-settings"><span class="nav-number">3.1.4.</span> <span class="nav-text">What are real-world examples of these ER settings?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-4"><span class="nav-number">4.</span> <span class="nav-text">Week 4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Queries-amp-KGs"><span class="nav-number">4.1.</span> <span class="nav-text">Queries &amp; KGs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RDF-vs-Property-Graphs"><span class="nav-number">4.1.1.</span> <span class="nav-text">RDF vs. Property Graphs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDF-triple-stores-vs-Graph-DBs"><span class="nav-number">4.1.2.</span> <span class="nav-text">RDF triple-stores vs. Graph DBs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPARQL-syntax-Graph-Patterns-Aggregation-etc%E2%80%A6"><span class="nav-number">4.1.3.</span> <span class="nav-text">SPARQL: syntax, Graph Patterns, Aggregation, etc…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPARQL-vs-Cypher"><span class="nav-number">4.1.4.</span> <span class="nav-text">SPARQL vs. Cypher</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Special-Topics-KG-Use-Cases"><span class="nav-number">4.2.</span> <span class="nav-text">Special Topics: KG Use Cases</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Wikidata-data-model"><span class="nav-number">4.2.1.</span> <span class="nav-text">Wikidata data model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenges-and-methods-for-building-KGs-in-real-applications"><span class="nav-number">4.2.2.</span> <span class="nav-text">Challenges and methods for building KGs in real applications</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-5"><span class="nav-number">5.</span> <span class="nav-text">Week 5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Large-KGs-amp-Entity-Linking"><span class="nav-number">5.1.</span> <span class="nav-text">Large KGs &amp; Entity Linking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Which-kinds-of-large-KGs-exist"><span class="nav-number">5.1.1.</span> <span class="nav-text">Which (kinds of) large KGs exist?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-is-Wikidata-different-from-other-large-KGs"><span class="nav-number">5.1.2.</span> <span class="nav-text">How is Wikidata different from other large KGs?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-different-methods-to-get-data-from-large-KGs"><span class="nav-number">5.1.3.</span> <span class="nav-text">What are the different methods to get data from large KGs?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-entity-linking-from-text-and-why-is-it-hard"><span class="nav-number">5.1.4.</span> <span class="nav-text">What is entity linking (from text) and why is it hard?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-the-basic-architecture-of-entity-linkers"><span class="nav-number">5.1.5.</span> <span class="nav-text">What is the basic architecture of entity linkers?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-some-methods-for-disambiguation"><span class="nav-number">5.1.6.</span> <span class="nav-text">What are some methods for disambiguation?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Similarity"><span class="nav-number">5.2.</span> <span class="nav-text">String Similarity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Which-similarity-families-exist-and-what-is-the-main-idea-of-each"><span class="nav-number">5.2.1.</span> <span class="nav-text">Which similarity families exist and what is the main idea of each?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-the-strengths-and-weaknesses-of-each-method"><span class="nav-number">5.2.2.</span> <span class="nav-text">What are the strengths and weaknesses of each method?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-do-hybrid-methods-work"><span class="nav-number">5.2.3.</span> <span class="nav-text">How do hybrid methods work?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-6"><span class="nav-number">6.</span> <span class="nav-text">Week 6</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-Extraction-1"><span class="nav-number">6.1.</span> <span class="nav-text">Information Extraction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-labeling-functions-Snorkel-What-makes-them-good"><span class="nav-number">6.1.1.</span> <span class="nav-text">What are labeling functions (Snorkel)? What makes them good?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-does-the-generative-model-do"><span class="nav-number">6.1.2.</span> <span class="nav-text">What does the generative model do?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-the-purpose-of-the-discriminative-model"><span class="nav-number">6.1.3.</span> <span class="nav-text">What is the purpose of the discriminative model?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-7"><span class="nav-number">7.</span> <span class="nav-text">Week 7</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共50.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/12/03/558overview/";
+    this.page.identifier = "2020/12/03/558overview/";
+    this.page.title = "知识图谱复习大纲";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

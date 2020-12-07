@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="实体解析回顾Deduplication: Merging Ambiguous Entities (KG-&gt;KG)Record Linkage: Combining KGs (KG1-&gt;KG2)Entity Mapping&#x2F;Linking: Integrating New Candidates (text -&gt; KG) Blocking简单匹配的问题: Comparing each">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱Blocking&amp;关系型实体解析">
+<meta property="og:url" content="http://example.com/2020/12/02/558blk-RER/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="实体解析回顾Deduplication: Merging Ambiguous Entities (KG-&gt;KG)Record Linkage: Combining KGs (KG1-&gt;KG2)Entity Mapping&#x2F;Linking: Integrating New Candidates (text -&gt; KG) Blocking简单匹配的问题: Comparing each">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/blk.png">
+<meta property="og:image" content="http://example.com/image/ideal_blk.png">
+<meta property="og:image" content="http://example.com/image/worst_blk.png">
+<meta property="og:image" content="http://example.com/image/prac_blk.png">
+<meta property="og:image" content="http://example.com/image/loca_colle.png">
+<meta property="article:published_time" content="2020-12-03T00:05:07.000Z">
+<meta property="article:modified_time" content="2020-12-03T04:54:53.109Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/blk.png">
+
+<link rel="canonical" href="http://example.com/2020/12/02/558blk-RER/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>知识图谱Blocking&关系型实体解析 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/02/558blk-RER/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱Blocking&关系型实体解析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-02 16:05:07 / Modified: 20:54:53" itemprop="dateCreated datePublished" datetime="2020-12-02T16:05:07-08:00">2020-12-02</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/02/558blk-RER/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/02/558blk-RER/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="实体解析回顾"><a href="#实体解析回顾" class="headerlink" title="实体解析回顾"></a>实体解析回顾</h2><p>Deduplication: Merging Ambiguous Entities (KG-&gt;KG)<br>Record Linkage: Combining KGs (KG1-&gt;KG2)<br>Entity Mapping/Linking: Integrating New Candidates (text -&gt; KG)</p>
+<h2 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h2><p>简单匹配的问题: Comparing each entity with all other entities is too computationally demanding – O(N2)</p>
+<p>解决:  Partition entities into ”blocks” –  O(N) blocks<br>Make only within block comparisons [so if largest block is log N in size – O(N log N2)]</p>
+<p>Problem statment:<br>Input: Set of records R  Output: Set of blocks/canopies<br><img src="/image/blk.png"></p>
+<p>Variants:<br>Disjoint Blocking: Each mention appears in one block. (=Set Partition)<br>Non-disjoint Blocking: Mentions can appear in more than one block.</p>
+<h3 id="Blocking-场景"><a href="#Blocking-场景" class="headerlink" title="Blocking 场景"></a>Blocking 场景</h3><p>Ideal scenario<br><img src="/image/ideal_blk.png"></p>
+<p>Worst scenario<br><img src="/image/worst_blk.png"></p>
+<p>Practical Scenario<br><img src="/image/prac_blk.png"></p>
+<h3 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h3><p>Efficiency  = num of pairs compared / total number of pairs in RxR<br>Recall  = num of true matches compared / num of true matches in RxR<br>Precision = um of true matches compared / num of matches compared<br>Max Canopy Size： max|Ci|</p>
+<h3 id="Blocking-方式"><a href="#Blocking-方式" class="headerlink" title="Blocking 方式"></a>Blocking 方式</h3><ul>
+<li>Feature-based blocking keys</li>
+<li>Clustering or sorting</li>
+<li>Hashing</li>
+</ul>
+<h4 id="Feature-based-blocking"><a href="#Feature-based-blocking" class="headerlink" title="Feature-based blocking"></a>Feature-based blocking</h4><p>思想:<br>Pick a key: an attribute or feature of each entity<br>Put all entities with that key in the same block<br>Perform entity resolution within each block</p>
+<p>Key的选择考量:<br>Learn the keys, or use expert knowledge/heuristics<br>Schema awareness<br>Key type<br>Redundancy</p>
+<p>Key选择扩展:<br>Frequency limits<br>Adaptive keys based on frequency<br>Learning keys based on data</p>
+<h4 id="Sort-or-cluster-based-blocking"><a href="#Sort-or-cluster-based-blocking" class="headerlink" title="Sort or cluster-based blocking"></a>Sort or cluster-based blocking</h4><p>思想:<br>Pick an attribute<br>Sort all entities based on that attribute<br>Use a sliding window of |K| entities and compare all pairs.</p>
+<p>Canopy Clustering [McCallum et al KDD’00]<br>Input:</p>
+<ul>
+<li>Mentions M (a set of entities that are needed to be cluster), x is an random chosen entity from M.</li>
+<li>d(x,y), a distance metric</li>
+<li>Two thresholds T1 and T2, where T1 &gt; T2</li>
+</ul>
+<p>Algorithm:</p>
+<ul>
+<li>从M中选择一个随机的x</li>
+<li>为x生成一个block，其中的点满足d(x,y) &lt; T1</li>
+<li>为x中这个block，删除符合d(x,y)&lt;T2的点 (it means that we are finishing assigning cluster labels to y) </li>
+<li>返回第一步 (repeat until all entities in M are assigned to at least one cluster)</li>
+</ul>
+<h4 id="Hash-based-blocking"><a href="#Hash-based-blocking" class="headerlink" title="Hash-based blocking"></a>Hash-based blocking</h4><p>思想:<br>Each block Ci is associated with a hash key hi.<br>Mention x is hashed to Ci if hash(x) = hi.<br>Within a block, all pairs are compared.<br>Each hash function results in disjoint blocks.</p>
+<p>minhash<br>…</p>
+<h2 id="Collective-Relational-Entity-Resolution"><a href="#Collective-Relational-Entity-Resolution" class="headerlink" title="Collective Relational Entity Resolution"></a>Collective Relational Entity Resolution</h2><p>策略:<br>Using PSL for collective KG ER</p>
+<p>Encode ER dependencies in a set of rules;<br>Use soft-logic values to capture similarities;<br>Use logic to capture the constraints;</p>
+<p>Local vs. Collective<br><img src="/image/loca_colle.png"></p>
+<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><p>¬SAME(E1,E2)<br>CANDSAME(E1,E2) =&gt; SAME(E1,E2)<br>CANDSAME(E1,E2) ∧ SIM(E1,E2)  =&gt; SAME(E1,E2)</p>
+<h3 id="Collective"><a href="#Collective" class="headerlink" title="Collective"></a>Collective</h3><p>Symmetry: If M1 matches with M2, then M2 must match with M1<br>Transitivity: If M1 and M2 match, M2 and M3 match, then M1 and M3 match<br>Sparsity: If M1 matches with M2, then M1 cannot match with M3</p>
+<p>example:<br>SAME(E1,E2) =&gt; SAME(E2,E1)<br>CANDSAME(A,B) ∧ CANDSAME(B,C) ∧ CANDSAME(A,C) ∧ SAME(A,B) ∧ SAME(B,C) =&gt; SAME(A,C)<br>CANDSAME(A,B) ∧ CANDSAME(B,C) ∧ SAME(A,B) =&gt; ¬SAME(A,C)</p>
+<h3 id="New-entity-rules"><a href="#New-entity-rules" class="headerlink" title="New entity rules"></a>New entity rules</h3><ol>
+<li>Linking to new entities CANDSAME(E1,E2) ∧ NEWENTITY(E1) =&gt; SAME(E1,E2)</li>
+<li>Avoiding new Entities   SAME(E1,E2) ∧ CANDSAME(E1,E3) ∧ NEWENTITY(E3) =&gt; ¬SAME(E1,E3)</li>
+</ol>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/02/558snorkel/" rel="prev" title="知识图谱信息提取-Snorkel">
+      <i class="fa fa-chevron-left"></i> 知识图谱信息提取-Snorkel
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/03/558ont-rea/" rel="next" title="知识图谱本体与推理">
+      知识图谱本体与推理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E8%A7%A3%E6%9E%90%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">实体解析回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocking"><span class="nav-number">2.</span> <span class="nav-text">Blocking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Blocking-%E5%9C%BA%E6%99%AF"><span class="nav-number">2.1.</span> <span class="nav-text">Blocking 场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="nav-number">2.2.</span> <span class="nav-text">评估指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blocking-%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">Blocking 方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Feature-based-blocking"><span class="nav-number">2.3.1.</span> <span class="nav-text">Feature-based blocking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sort-or-cluster-based-blocking"><span class="nav-number">2.3.2.</span> <span class="nav-text">Sort or cluster-based blocking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash-based-blocking"><span class="nav-number">2.3.3.</span> <span class="nav-text">Hash-based blocking</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collective-Relational-Entity-Resolution"><span class="nav-number">3.</span> <span class="nav-text">Collective Relational Entity Resolution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic"><span class="nav-number">3.1.</span> <span class="nav-text">Basic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collective"><span class="nav-number">3.2.</span> <span class="nav-text">Collective</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#New-entity-rules"><span class="nav-number">3.3.</span> <span class="nav-text">New entity rules</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共50.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/12/02/558blk-RER/";
+    this.page.identifier = "2020/12/02/558blk-RER/";
+    this.page.title = "知识图谱Blocking&关系型实体解析";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

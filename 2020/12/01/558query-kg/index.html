@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Property Graphs定义Also called Labeled Property Graphs (LPG) It is a framework for representing data and metadata with a graph of nodes and links  both nodes and links may have additional key&#x2F;value pair">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱查询">
+<meta property="og:url" content="http://example.com/2020/12/01/558query-kg/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="Property Graphs定义Also called Labeled Property Graphs (LPG) It is a framework for representing data and metadata with a graph of nodes and links  both nodes and links may have additional key&#x2F;value pair">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/LPG.png">
+<meta property="og:image" content="http://example.com/image/rdf-gdb.png">
+<meta property="article:published_time" content="2020-12-02T04:37:59.000Z">
+<meta property="article:modified_time" content="2020-12-02T06:13:32.951Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/LPG.png">
+
+<link rel="canonical" href="http://example.com/2020/12/01/558query-kg/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>知识图谱查询 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/01/558query-kg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱查询
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-01 20:37:59 / Modified: 22:13:32" itemprop="dateCreated datePublished" datetime="2020-12-01T20:37:59-08:00">2020-12-01</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/01/558query-kg/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/01/558query-kg/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Property-Graphs"><a href="#Property-Graphs" class="headerlink" title="Property Graphs"></a>Property Graphs</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>Also called Labeled Property Graphs (LPG)</p>
+<p>It is a framework for representing data and metadata with a graph of nodes and links</p>
+<ul>
+<li>both nodes and links may have additional key/value pairs (“properties”) </li>
+<li>nodes are “just” nodes, not necessarily URLs</li>
+</ul>
+<p>Link annotations are very useful to assign temporal, spatial, provenance, etc.</p>
+<p><img src="/image/LPG.png"></p>
+<h3 id="LPG-vs-RDF"><a href="#LPG-vs-RDF" class="headerlink" title="LPG vs. RDF"></a>LPG vs. RDF</h3><p>Similarity:<br>Both represent directed graphs as a basic data structure;<br>Both have associated graph-oriented query languages;<br>In practice, both are used as “graph stores”, accessible via HTTP and/or various API-s;</p>
+<p>Differences:<br>RDF has an emphasis on OWA, and is rooted in the Web via URL-s. Not the case for PG, PG node is oblivious to what it “contains”: can be a URL, can be a literal;  (node不一定是uri)<br>PG includes the possibility to add simple key/value pairs to “relationships” (i.e., RDF predicates) （关系中可以带属性）</p>
+<h3 id="RDF-triple-stores-vs-Graph-DBs"><a href="#RDF-triple-stores-vs-Graph-DBs" class="headerlink" title="RDF triple-stores vs. Graph DBs"></a>RDF triple-stores vs. Graph DBs</h3><p>In RDF triple-stores everything is expressed in terms of SPO and its predicates can’t have attributes;<br>In Graph DBs predicates can have attributes;<br>Fair to say that RDF triple-stores are a kind of Graph DB;</p>
+<p><img src="/image/rdf-gdb.png"></p>
+<h2 id="SPARQL-SPARQL-Protocol-and-RDF-Query-Language"><a href="#SPARQL-SPARQL-Protocol-and-RDF-Query-Language" class="headerlink" title="SPARQL (SPARQL Protocol and RDF Query Language)"></a>SPARQL (SPARQL Protocol and RDF Query Language)</h2><p>SELECT/ASK/CONSTRUCT/DESCRIBE</p>
+<p>Main idea:  Pattern matching (想像成对图进行搜索)</p>
+<p>Queries describe sub-graphs of the queried graph;<br>Graph patterns are RDF graphs specified in Turtle syntax, which contain variables (prefixed by either “?” or “$”);<br>Sub-graphs that match the graph patterns yield a result</p>
+<h3 id="图模式-Graph-Pattern"><a href="#图模式-Graph-Pattern" class="headerlink" title="图模式 Graph Pattern"></a>图模式 Graph Pattern</h3><p>基本匹配: Where a set of triple patterns must match<br>集合匹配 {}: Where a set of graph patterns must all match<br>可选匹配 OPTIONAL: Where additional patterns may extend the solution =&gt; 简单理解就是这个节点有属性则加，无则省略<br>附加匹配 UNION: Where two or more possible patterns are tried<br>命名图 GRAPH: Where patterns are matched against named graphs</p>
+<h3 id="FILTER-NOT-EXISTS-vs-MINUS"><a href="#FILTER-NOT-EXISTS-vs-MINUS" class="headerlink" title="FILTER NOT EXISTS vs. MINUS"></a>FILTER NOT EXISTS vs. MINUS</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">Data</span><br><span class="line">@prefix  :       &lt;http:&#x2F;&#x2F;example&#x2F;&gt; .</span><br><span class="line">@prefix  rdf:    &lt;http:&#x2F;&#x2F;www.w3.org&#x2F;1999&#x2F;02&#x2F;22-rdf-syntax-ns#&gt; .</span><br><span class="line">@prefix  foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt; .</span><br><span class="line"></span><br><span class="line">:alice  rdf:type   foaf:Person .</span><br><span class="line">:alice  foaf:name  &quot;Alice&quot; .</span><br><span class="line">:bob    rdf:type   foaf:Person . </span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">PREFIX  rdf:    &lt;http:&#x2F;&#x2F;www.w3.org&#x2F;1999&#x2F;02&#x2F;22-rdf-syntax-ns#&gt; </span><br><span class="line">PREFIX  foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt; </span><br><span class="line"></span><br><span class="line">SELECT ?person</span><br><span class="line">WHERE </span><br><span class="line">&#123;</span><br><span class="line">    ?person rdf:type  foaf:Person .</span><br><span class="line">    FILTER NOT EXISTS &#123; ?person foaf:name ?name &#125; # &#x3D;&gt; 筛选出没有这条边的点</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Result</span><br><span class="line">person</span><br><span class="line">&lt;http:&#x2F;&#x2F;example&#x2F;bob&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Data:</span><br><span class="line">@prefix :       &lt;http:&#x2F;&#x2F;example&#x2F;&gt; .</span><br><span class="line">@prefix foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt; .</span><br><span class="line"></span><br><span class="line">:alice  foaf:givenName &quot;Alice&quot; ;</span><br><span class="line">        foaf:familyName &quot;Smith&quot; .</span><br><span class="line">:bob    foaf:givenName &quot;Bob&quot; ;</span><br><span class="line">        foaf:familyName &quot;Jones&quot; .</span><br><span class="line">:carol  foaf:givenName &quot;Carol&quot; ;</span><br><span class="line">        foaf:familyName &quot;Smith&quot; </span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">PREFIX :     &lt;http:&#x2F;&#x2F;example&#x2F;&gt;</span><br><span class="line">PREFIX foaf: &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">SELECT DISTINCT ?s</span><br><span class="line">WHERE &#123;</span><br><span class="line">   ?s ?p ?o .</span><br><span class="line">   MINUS &#123;</span><br><span class="line">      ?s foaf:givenName &quot;Bob&quot; .</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Result:</span><br><span class="line">s</span><br><span class="line">&lt;http:&#x2F;&#x2F;example&#x2F;carol&gt;</span><br><span class="line">&lt;http:&#x2F;&#x2F;example&#x2F;alice&gt;</span><br></pre></td></tr></table></figure>
+<p>简单的说, FILTER 共享对象引用 MINUS 不共享, 例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Data: </span><br><span class="line">@prefix : &lt;http:&#x2F;&#x2F;example&#x2F;&gt; .</span><br><span class="line">:a :b :c .</span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">SELECT *</span><br><span class="line">&#123; </span><br><span class="line">  ?s ?p ?o</span><br><span class="line">  FILTER NOT EXISTS &#123; ?x ?y ?z &#125; # &#x3D;&gt; 这里  ?s &#x3D; ?x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Result:</span><br><span class="line">Null</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Data: </span><br><span class="line">@prefix : &lt;http:&#x2F;&#x2F;example&#x2F;&gt; .</span><br><span class="line">:a :b :c .</span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">SELECT *</span><br><span class="line">&#123; </span><br><span class="line">   ?s ?p ?o </span><br><span class="line">   MINUS </span><br><span class="line">     &#123; ?x ?y ?z &#125;  # &#x3D;&gt; 这里 ?s !&#x3D; ?x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Result</span><br><span class="line">s 	                       p                  o</span><br><span class="line">&lt;http:&#x2F;&#x2F;example&#x2F;a&gt; &lt;http:&#x2F;&#x2F;example&#x2F;b&gt; &lt;http:&#x2F;&#x2F;example&#x2F;c&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><p>SELECT (SUM(?lprice) AS ?totalPrice)<br>GROUP BY ?org<br>GROUP BY ?a ?b ?c<br>HAVING (SUM(?lprice) &gt; 10)</p>
+<h3 id="Subqueries"><a href="#Subqueries" class="headerlink" title="Subqueries"></a>Subqueries</h3><p>原则: 先计算内部，在算外部的</p>
+<h3 id="RDF-Dataset"><a href="#RDF-Dataset" class="headerlink" title="RDF Dataset"></a>RDF Dataset</h3><p>RDF Dataset =<br>    default graph<br>    + named graph 1<br>    + named graph 2<br>    + …</p>
+<p>Separate graphs enable you to reason about who said what and when</p>
+<h3 id="常用SPARQL语句"><a href="#常用SPARQL语句" class="headerlink" title="常用SPARQL语句"></a>常用SPARQL语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">Data:</span><br><span class="line">@prefix foaf:  &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt; .</span><br><span class="line">          </span><br><span class="line">_:a  foaf:givenName   &quot;John&quot; .</span><br><span class="line">_:a  foaf:surname  &quot;Doe&quot; .</span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">PREFIX foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt;</span><br><span class="line">SELECT ?name</span><br><span class="line">WHERE  &#123; </span><br><span class="line">   ?P foaf:givenName ?G ; </span><br><span class="line">      foaf:surname ?S </span><br><span class="line">   BIND(CONCAT(?G, &quot; &quot;, ?S) AS ?name)  # &#x3D;&gt; Creating Values with Expressions</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Result:</span><br><span class="line">name</span><br><span class="line">“John Doe”</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Data:</span><br><span class="line">@prefix dc:   &lt;http:&#x2F;&#x2F;purl.org&#x2F;dc&#x2F;elements&#x2F;1.1&#x2F;&gt; .</span><br><span class="line">@prefix :     &lt;http:&#x2F;&#x2F;example.org&#x2F;book&#x2F;&gt; .</span><br><span class="line">@prefix ns:   &lt;http:&#x2F;&#x2F;example.org&#x2F;ns#&gt; .</span><br><span class="line"></span><br><span class="line">:book1  dc:title  &quot;SPARQL Tutorial&quot; .</span><br><span class="line">:book1  ns:price  42 .</span><br><span class="line">:book2  dc:title  &quot;The Semantic Web&quot; .</span><br><span class="line">:book2  ns:price  23 .</span><br><span class="line"></span><br><span class="line">Query:</span><br><span class="line">PREFIX foaf:   &lt;http:&#x2F;&#x2F;xmlns.com&#x2F;foaf&#x2F;0.1&#x2F;&gt;</span><br><span class="line">PREFIX  dc:  &lt;http:&#x2F;&#x2F;purl.org&#x2F;dc&#x2F;elements&#x2F;1.1&#x2F;&gt;</span><br><span class="line">SELECT  ?title</span><br><span class="line">WHERE   &#123; ?x dc:title ?title </span><br><span class="line">          FILTER regex(?title, &quot;^SPARQL&quot;)  # &#x3D;&gt; Restricting the Value of </span><br><span class="line">          Strings</span><br><span class="line">          # FILTER (?price &lt; 30.5)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">Result:</span><br><span class="line">title</span><br><span class="line">&quot;SPARQL Tutorial&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558ent-res/" rel="prev" title="知识图谱实体解析">
+      <i class="fa fa-chevron-left"></i> 知识图谱实体解析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558ent-link/" rel="next" title="知识图谱实体链接">
+      知识图谱实体链接 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Property-Graphs"><span class="nav-number">1.</span> <span class="nav-text">Property Graphs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LPG-vs-RDF"><span class="nav-number">1.2.</span> <span class="nav-text">LPG vs. RDF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDF-triple-stores-vs-Graph-DBs"><span class="nav-number">1.3.</span> <span class="nav-text">RDF triple-stores vs. Graph DBs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPARQL-SPARQL-Protocol-and-RDF-Query-Language"><span class="nav-number">2.</span> <span class="nav-text">SPARQL (SPARQL Protocol and RDF Query Language)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E6%A8%A1%E5%BC%8F-Graph-Pattern"><span class="nav-number">2.1.</span> <span class="nav-text">图模式 Graph Pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FILTER-NOT-EXISTS-vs-MINUS"><span class="nav-number">2.2.</span> <span class="nav-text">FILTER NOT EXISTS vs. MINUS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Aggregation"><span class="nav-number">2.3.</span> <span class="nav-text">Aggregation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subqueries"><span class="nav-number">2.4.</span> <span class="nav-text">Subqueries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDF-Dataset"><span class="nav-number">2.5.</span> <span class="nav-text">RDF Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8SPARQL%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.6.</span> <span class="nav-text">常用SPARQL语句</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共50.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/12/01/558query-kg/";
+    this.page.identifier = "2020/12/01/558query-kg/";
+    this.page.title = "知识图谱查询";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

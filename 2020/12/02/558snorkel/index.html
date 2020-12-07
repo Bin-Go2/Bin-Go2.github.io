@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Dark Data ExtractionStructured Data(4%): Data easy to process by machinesDark Data(96%): Valuable &amp; hard to process. (占据的web信息的绝大部分)example: Scientific articles &amp; government reports，Medical Im">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱信息提取-Snorkel">
+<meta property="og:url" content="http://example.com/2020/12/02/558snorkel/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="Dark Data ExtractionStructured Data(4%): Data easy to process by machinesDark Data(96%): Valuable &amp; hard to process. (占据的web信息的绝大部分)example: Scientific articles &amp; government reports，Medical Im">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/snorkel.png">
+<meta property="og:image" content="http://example.com/image/pipeline_snorkel.png">
+<meta property="og:image" content="http://example.com/image/GM_s.png">
+<meta property="og:image" content="http://example.com/image/example_snorkel.png">
+<meta property="article:published_time" content="2020-12-02T20:19:50.000Z">
+<meta property="article:modified_time" content="2020-12-05T05:24:28.780Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/snorkel.png">
+
+<link rel="canonical" href="http://example.com/2020/12/02/558snorkel/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>知识图谱信息提取-Snorkel | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/02/558snorkel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱信息提取-Snorkel
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-02 12:19:50" itemprop="dateCreated datePublished" datetime="2020-12-02T12:19:50-08:00">2020-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-04 21:24:28" itemprop="dateModified" datetime="2020-12-04T21:24:28-08:00">2020-12-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/02/558snorkel/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/02/558snorkel/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Dark-Data-Extraction"><a href="#Dark-Data-Extraction" class="headerlink" title="Dark Data Extraction"></a>Dark Data Extraction</h2><p>Structured Data(4%): Data easy to process by machines<br>Dark Data(96%): Valuable &amp; hard to process. (占据的web信息的绝大部分)<br>example: Scientific articles &amp; government reports，Medical Images</p>
+<p>DDE:  Dark Data(Text, Tables, Images, Diagrams, etc)  =&gt; Structured Data (Enables analyses, interfaces etc.)</p>
+<h3 id="DDE-传统流程"><a href="#DDE-传统流程" class="headerlink" title="DDE 传统流程"></a>DDE 传统流程</h3><p>1.Candidate Extraction =&gt; 2.Training Set  =&gt; 3.Feature Extraction =&gt; 4.Learning &amp; Inference</p>
+<p>Example: Chemical-Disease Relation Extraction from Text<br>方式1: Human defines candidate entity mentions to populate a relational schema with relation mentions （费事费力，需要domain expertis）<br>方式2: Relation Extraction with Machine Learning (Feature engineering is the bottleneck,however this bottleneck is solved by deep learning) 解决3，但是2没被解决</p>
+<blockquote>
+<p> Training data is THE ML dev bottleneck today.</p>
+</blockquote>
+<h3 id="DDE挑战"><a href="#DDE挑战" class="headerlink" title="DDE挑战"></a>DDE挑战</h3><p>Dark data extraction systems still take months or years to build using state-of-the-art machine learning (ML) systems<br>时间太久，成本太高。</p>
+<p>Training Data Creation: $$$, Slow, Static 成本高，耗时长，灵活性差</p>
+<ul>
+<li>Expensive &amp; Slow: Especially when domain expertise needed</li>
+<li>Static: Real-world problems change but hand-labeled training data does not.</li>
+</ul>
+<h2 id="Snorkel"><a href="#Snorkel" class="headerlink" title="Snorkel"></a>Snorkel</h2><blockquote>
+<p>Motiviton: Can we use noisier training data and still train high-performance models?</p>
+</blockquote>
+<p>Snorkel: A System for Rapidly Generating Training Data with Weak Supervision<br>简单的说，这是一个生成训练集的框架。</p>
+<p><img src="/image/snorkel.png"></p>
+<h2 id="Snorkel-Pipeline-概括"><a href="#Snorkel-Pipeline-概括" class="headerlink" title="Snorkel Pipeline 概括"></a>Snorkel Pipeline 概括</h2><ul>
+<li>Users write labeling functions to generate noisy labels</li>
+<li>Snorkel models and combine these labels</li>
+<li>We use the resulting probabilistic training labels to train a model<br><img src="/image/pipeline_snorkel.png"></li>
+</ul>
+<h3 id="Labeling-Functions"><a href="#Labeling-Functions" class="headerlink" title="Labeling Functions"></a>Labeling Functions</h3><p>Users give Snorkel labeling functions that label data points<br>简答的说，这个Labeling function的起到的作用和human expertise类似，用于规定一些规则来让snorkel后续过程中发现text里与其匹配的模式来对提取的信息信息标注。</p>
+<p>因此，用户可以书写尽可能多的Labeling Functions来提高准确性，并且Labeling Functions之间可以有冲突，因为后续用到的是概率来确定结果。</p>
+<h3 id="Model-Combine-Iterate"><a href="#Model-Combine-Iterate" class="headerlink" title="Model, Combine, Iterate"></a>Model, Combine, Iterate</h3><p>Snorkel models and combine these labels</p>
+<p>这里snorkl根据用户书写的Labeling functions进行建模，并迭代运行模型，得到一个probabilistic training labels </p>
+<h3 id="Train-End-Model"><a href="#Train-End-Model" class="headerlink" title="Train End Model"></a>Train End Model</h3><p>Use the resulting probabilistic training labels to train a model</p>
+<h2 id="Snorkel-challenge-Step2"><a href="#Snorkel-challenge-Step2" class="headerlink" title="Snorkel challenge - Step2:"></a>Snorkel challenge - Step2:</h2><blockquote>
+<p>How do we model and combine LFs? How to best reweight and combine the noisy supervision signal?</p>
+</blockquote>
+<p>解决方式: A Generative Model of the Training Data Labeling Process<br>使用生成式模型反映各个LF得到的标注结果<br><img src="/image/GM_s.png"></p>
+<p><img src="/image/example_snorkel.png"></p>
+<p>从中也可以发现，LF可以存在冲突，并且对他存在相关联的LF建模分析也能够提高精度。（ We can learn dependency structure using statistical and/or static analysis techniques [ICML ’17, NIPS ‘17]）</p>
+<h2 id="Snorkel-Pipeline-细节"><a href="#Snorkel-Pipeline-细节" class="headerlink" title="Snorkel Pipeline 细节"></a>Snorkel Pipeline 细节</h2><h3 id="Designing-Labeling-Functions-LFs"><a href="#Designing-Labeling-Functions-LFs" class="headerlink" title="Designing Labeling Functions (LFs)"></a>Designing Labeling Functions (LFs)</h3><p>Write heuristics to noisily label data! 区别于人工手动标记，这里snorkel写label function的目的是为了后续的Programmatically generate training data</p>
+<p>如何设计Labeling function:<br>Human annotators leverage real-world knowledge, context, and common-sense heuristics to make labeling decisions</p>
+<p>Labeling function 结果:<br>{-1, 0, 1} =&gt; {Negative, Abstain, Positive}</p>
+<p>流程:<br>text中提取candidates，candidates中包含true和false的instances，使用设计的Labeling function来判断candidate为true或false</p>
+<p>目标:<br>Apply labeling functions to all candidates to predict both positive and negative labels</p>
+<p>Tip:<br>Labeling functions can be noisy，毕竟无法涵盖所有范围，所有语境。</p>
+<p>设计策略:</p>
+<ol>
+<li><p>Pattern-based Labeling Functions<br> Common sense patterns or keywords<br> String matching via regular expressions and other heuristics</p>
+</li>
+<li><p>Distant Supervision Labeling Functions<br> Use an existing database of known facts to generate noisy labels</p>
+</li>
+</ol>
+<p>LF评价指标:<br>Accuracy: percentage of candidates a labeling function labels correctly<br>Coverage: percentage of all candidates that are labeled by &gt;= 1 LFs<br>Conflict: percentage of candidates with &gt;1 labels that disagree</p>
+<p>LF选择标准:<br>We want high-coverage, high-accuracy LFs<br>LFs need to label with probability better than random chance<br>Conflict is actually good — it allows our algorithm to learn information about the LF</p>
+<h3 id="Build-Generative-Model-Unifying-Supervision"><a href="#Build-Generative-Model-Unifying-Supervision" class="headerlink" title="Build Generative Model: Unifying Supervision"></a>Build Generative Model: Unifying Supervision</h3><p>Simple Baseline: Majority Vote<br>Automatically Learning LF Accuracies<br>LF Dependency Learning</p>
+<h3 id="Build-Discriminative-Model-“Compiling”-Rules-into-Features"><a href="#Build-Discriminative-Model-“Compiling”-Rules-into-Features" class="headerlink" title="Build Discriminative Model: “Compiling” Rules into Features"></a>Build Discriminative Model: “Compiling” Rules into Features</h3><p>Training with Probabilistic Labels<br>The Death of Manual Feature Engineering<br>Why Do We Need the Discriminative Model?</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558str-match/" rel="prev" title="知识图谱字符串匹配">
+      <i class="fa fa-chevron-left"></i> 知识图谱字符串匹配
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/02/558blk-RER/" rel="next" title="知识图谱Blocking&关系型实体解析">
+      知识图谱Blocking&关系型实体解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dark-Data-Extraction"><span class="nav-number">1.</span> <span class="nav-text">Dark Data Extraction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DDE-%E4%BC%A0%E7%BB%9F%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">DDE 传统流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDE%E6%8C%91%E6%88%98"><span class="nav-number">1.2.</span> <span class="nav-text">DDE挑战</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Snorkel"><span class="nav-number">2.</span> <span class="nav-text">Snorkel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Snorkel-Pipeline-%E6%A6%82%E6%8B%AC"><span class="nav-number">3.</span> <span class="nav-text">Snorkel Pipeline 概括</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Labeling-Functions"><span class="nav-number">3.1.</span> <span class="nav-text">Labeling Functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Combine-Iterate"><span class="nav-number">3.2.</span> <span class="nav-text">Model, Combine, Iterate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Train-End-Model"><span class="nav-number">3.3.</span> <span class="nav-text">Train End Model</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Snorkel-challenge-Step2"><span class="nav-number">4.</span> <span class="nav-text">Snorkel challenge - Step2:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Snorkel-Pipeline-%E7%BB%86%E8%8A%82"><span class="nav-number">5.</span> <span class="nav-text">Snorkel Pipeline 细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Designing-Labeling-Functions-LFs"><span class="nav-number">5.1.</span> <span class="nav-text">Designing Labeling Functions (LFs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-Generative-Model-Unifying-Supervision"><span class="nav-number">5.2.</span> <span class="nav-text">Build Generative Model: Unifying Supervision</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-Discriminative-Model-%E2%80%9CCompiling%E2%80%9D-Rules-into-Features"><span class="nav-number">5.3.</span> <span class="nav-text">Build Discriminative Model: “Compiling” Rules into Features</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共50.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/12/02/558snorkel/";
+    this.page.identifier = "2020/12/02/558snorkel/";
+    this.page.title = "知识图谱信息提取-Snorkel";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

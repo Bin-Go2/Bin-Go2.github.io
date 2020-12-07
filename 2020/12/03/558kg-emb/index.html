@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基础知识数据的表示Scalar: a  标量，0维Vector: a[i]， 向量，1维Matrix: a[i,j]， 矩阵，2维Tensor: a[i,j,k]， 张量，多维 Tensor和 Graph的关系:Graphs over time -&gt; 3rd order tensors Knowledge Graphs:  a directed heterogeneous multigrap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱图嵌入">
+<meta property="og:url" content="http://example.com/2020/12/03/558kg-emb/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="基础知识数据的表示Scalar: a  标量，0维Vector: a[i]， 向量，1维Matrix: a[i,j]， 矩阵，2维Tensor: a[i,j,k]， 张量，多维 Tensor和 Graph的关系:Graphs over time -&gt; 3rd order tensors Knowledge Graphs:  a directed heterogeneous multigrap">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/kg_tensor.png">
+<meta property="og:image" content="http://example.com/image/PARAFAC.png">
+<meta property="article:published_time" content="2020-12-03T18:59:43.000Z">
+<meta property="article:modified_time" content="2020-12-06T00:39:57.944Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/kg_tensor.png">
+
+<link rel="canonical" href="http://example.com/2020/12/03/558kg-emb/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>知识图谱图嵌入 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/03/558kg-emb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱图嵌入
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-03 10:59:43" itemprop="dateCreated datePublished" datetime="2020-12-03T10:59:43-08:00">2020-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-05 16:39:57" itemprop="dateModified" datetime="2020-12-05T16:39:57-08:00">2020-12-05</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/03/558kg-emb/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/03/558kg-emb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="数据的表示"><a href="#数据的表示" class="headerlink" title="数据的表示"></a>数据的表示</h3><p>Scalar: a  标量，0维<br>Vector: a[i]， 向量，1维<br>Matrix: a[i,j]， 矩阵，2维<br>Tensor: a[i,j,k]， 张量，多维</p>
+<p>Tensor和 Graph的关系:<br>Graphs over time -&gt; 3rd order tensors</p>
+<p>Knowledge Graphs:  a directed heterogeneous multigraph whose node and relation types have domain-specific semantics （Vertices: Entities, Edges: Predicates）<br>有向、异源、对关系图</p>
+<h3 id="为什么要进行嵌入？"><a href="#为什么要进行嵌入？" class="headerlink" title="为什么要进行嵌入？"></a>为什么要进行嵌入？</h3><p>Meaningful non-numerical representations are highly important, e.g., languages with discrete representations, graphs, shapes</p>
+<p>But, Most inference models, e.g., SVM, NN, Reg., etc., are designed for vector-space representable quantities<br>=&gt;<br>To benefits from these models, we need to convert non-numeric representations to numeric representations</p>
+<p>简单的说，就是将高维的离散信息转化为低维的连续数据，并且保持其信息的完整性，用于后续的建模分析。</p>
+<h3 id="嵌入"><a href="#嵌入" class="headerlink" title="嵌入"></a>嵌入</h3><p>定义:<br>Mapping of a discrete variable to a vector of continuous numbers such that semantic/abstract similarities are encoded in terms of geometric distances</p>
+<p>• Low-dimensional -&gt; Mitigate redundancy, curse of dimensionality(避免维度灾难)<br>• Embeddings provide a generalizable context about the overall<br>graph that can be used for interference, e.g., relations.</p>
+<h3 id="图嵌入"><a href="#图嵌入" class="headerlink" title="图嵌入"></a>图嵌入</h3><p>Given entities &amp; predicates, find mappings for entities and links (predicate (s,r,t))<br>就是将实体或者关系以向量的形式表达。</p>
+<h2 id="图嵌入方法"><a href="#图嵌入方法" class="headerlink" title="图嵌入方法"></a>图嵌入方法</h2><h3 id="SVD"><a href="#SVD" class="headerlink" title="SVD"></a>SVD</h3><ul>
+<li>Decomposition in terms of singular values</li>
+<li>V, U: orthogonal matrices</li>
+</ul>
+<h3 id="Deep-Graph-Embeddings"><a href="#Deep-Graph-Embeddings" class="headerlink" title="Deep Graph Embeddings"></a>Deep Graph Embeddings</h3><p>Skip-gram: DeepWalk, Node2Vec<br>思想:<br>Sample a set of paths with random walk from node 𝑣i<br>Adjacent Nodes are Similar and should have similar embeddings. The frequency of co-occurrence in random walks is an indicator of node similarity.</p>
+<ul>
+<li>Hierarchical Softmax (DeepWalk)</li>
+<li>Negative Sampling (Node2Vec)</li>
+</ul>
+<p>其他算法</p>
+<p>Metapath2Vec: heterogenous graph<br>LINE: 1st order + 2nd order proximity<br>UltimateWalk: closed form, unifies DeepWalk and Node2Vec reconstruct W,<br>AutoEncoder: similar to SVD<br>Struc2Vec: focuses on structural similarity<br>GCN: interesting! borrowed the idea from CNN</p>
+<h2 id="图嵌入应用"><a href="#图嵌入应用" class="headerlink" title="图嵌入应用"></a>图嵌入应用</h2><p>• Reconstruction / Fact checking: Triples completion: (s,?,t)<br>• Classification: Triples classification: (s,r,t)<br>• Featurizing: Link prediction, Recommendation</p>
+<h2 id="Tensor与图嵌入"><a href="#Tensor与图嵌入" class="headerlink" title="Tensor与图嵌入"></a>Tensor与图嵌入</h2><p><img src="/image/kg_tensor.png"></p>
+<h3 id="PARAFAC"><a href="#PARAFAC" class="headerlink" title="PARAFAC"></a>PARAFAC</h3><p>针对图张量的分解<br><img src="/image/PARAFAC.png"></p>
+<h2 id="知识图谱嵌入"><a href="#知识图谱嵌入" class="headerlink" title="知识图谱嵌入"></a>知识图谱嵌入</h2><p>Problem statement:<br>How to enforce KG structures on the embedding representations?</p>
+<p>Solution: Triple scoring</p>
+<p>Loss: what shall we optimize?</p>
+<h3 id="Triple-Scoring"><a href="#Triple-Scoring" class="headerlink" title="Triple Scoring"></a>Triple Scoring</h3><p>What is the relationship among sub (h), pred (r), and obj (t)? • Addition: h + r =?= t<br>表示实体关系向量间的关系。</p>
+<ol>
+<li>Addition: h + r =?= t</li>
+<li>Multiplication: h ⚬ r =?= t</li>
+</ol>
+<h4 id="Addition"><a href="#Addition" class="headerlink" title="Addition"></a>Addition</h4><p>查看 h + r 是否 = t</p>
+<p>TransE算法:<br>score(h,r,t) = – ||h+r-t||   返回结果二范式的负值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">‘Merkel’: h&#x3D;(1, 0, 0)</span><br><span class="line">‘Beatles’: t &#x3D;(0, 0, 1)</span><br><span class="line">‘plays_bass’: r &#x3D;(0, 0, 1) </span><br><span class="line">score(h,r,t)&#x3D;- ||h+ t− r|| &#x3D; -1</span><br></pre></td></tr></table></figure>
+<p>缺陷:<br>从公式就可以看出，该算法不适用于一对多的关系</p>
+<p>TransH:<br>Project to relation-specific hyperplanes</p>
+<p>TransR:<br>Translate to relation-specific space</p>
+<h4 id="Multiplication"><a href="#Multiplication" class="headerlink" title="Multiplication"></a>Multiplication</h4><p>查看 h ⚬ r 是否 =  t</p>
+<p>RESCAL算法, score(h,r,t) = h.T ⚬ Wr ⚬ t<br>缺陷: Too many parameters </p>
+<p>DistMult算法, score(h,r,t) = h.T ⚬ diag(Wr) ⚬ t<br>好处: Simplify RESCAL by using a diagonal matrix<br>缺陷: Cannot deal with asymmetric relations!</p>
+<p>ComplEx算法: score(h,r,t) = Re(h.T ⚬ diag(Wr) ⚬ t)<br>Extend DistMult by introducing complex value embedding, so can handle asymmetric relations</p>
+<h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>Closed world assumption: square loss</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/03/558-table-und/" rel="prev" title="知识图谱表格理解">
+      <i class="fa fa-chevron-left"></i> 知识图谱表格理解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/03/558kg-ga-qs/" rel="next" title="知识图谱图分析&问题回答">
+      知识图谱图分析&问题回答 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.1.</span> <span class="nav-text">数据的表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%B5%8C%E5%85%A5%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">为什么要进行嵌入？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%85%A5"><span class="nav-number">1.3.</span> <span class="nav-text">嵌入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="nav-number">1.4.</span> <span class="nav-text">图嵌入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%B5%8C%E5%85%A5%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">图嵌入方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SVD"><span class="nav-number">2.1.</span> <span class="nav-text">SVD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep-Graph-Embeddings"><span class="nav-number">2.2.</span> <span class="nav-text">Deep Graph Embeddings</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%B5%8C%E5%85%A5%E5%BA%94%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">图嵌入应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensor%E4%B8%8E%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">Tensor与图嵌入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PARAFAC"><span class="nav-number">4.1.</span> <span class="nav-text">PARAFAC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%B5%8C%E5%85%A5"><span class="nav-number">5.</span> <span class="nav-text">知识图谱嵌入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Triple-Scoring"><span class="nav-number">5.1.</span> <span class="nav-text">Triple Scoring</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Addition"><span class="nav-number">5.1.1.</span> <span class="nav-text">Addition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multiplication"><span class="nav-number">5.1.2.</span> <span class="nav-text">Multiplication</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loss"><span class="nav-number">5.2.</span> <span class="nav-text">Loss</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共50.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/12/03/558kg-emb/";
+    this.page.identifier = "2020/12/03/558kg-emb/";
+    this.page.title = "知识图谱图嵌入";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

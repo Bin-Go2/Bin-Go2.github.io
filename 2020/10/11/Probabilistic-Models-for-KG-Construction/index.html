@@ -20,7 +20,7 @@
 
   <meta name="description" content="前情提要在知识图谱中，主要需要解决的有三个问题:  (节点，属性，关系)  Who are the entities (nodes) in the graph? What are their attributes and types (labels)? How are they related (edges)?  知识图谱的构建主要就是通过IE将互联网上各式各样的资源进行提取，整合得到结构化的数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PSL">
+<meta property="og:title" content="知识图谱识别">
 <meta property="og:url" content="http://example.com/2020/10/11/Probabilistic-Models-for-KG-Construction/index.html">
 <meta property="og:site_name" content="Bin&#39;s blog">
 <meta property="og:description" content="前情提要在知识图谱中，主要需要解决的有三个问题:  (节点，属性，关系)  Who are the entities (nodes) in the graph? What are their attributes and types (labels)? How are they related (edges)?  知识图谱的构建主要就是通过IE将互联网上各式各样的资源进行提取，整合得到结构化的数据">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://example.com/image/voter_attitude.png">
 <meta property="og:image" content="http://example.com/image/vote_opinion.png">
 <meta property="article:published_time" content="2020-10-11T23:42:01.000Z">
-<meta property="article:modified_time" content="2020-10-12T01:43:27.302Z">
+<meta property="article:modified_time" content="2020-12-05T23:57:13.881Z">
 <meta property="article:author" content="Bin">
 <meta property="article:tag" content="Knowledge Graph">
 <meta name="twitter:card" content="summary">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>PSL | Bin's blog</title>
+  <title>知识图谱识别 | Bin's blog</title>
   
 
 
@@ -212,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          PSL
+          知识图谱识别
         </h1>
 
         <div class="post-meta">
@@ -221,10 +221,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-10-11 16:42:01 / Modified: 18:43:27" itemprop="dateCreated datePublished" datetime="2020-10-11T16:42:01-07:00">2020-10-11</time>
+              <time title="Created: 2020-10-11 16:42:01" itemprop="dateCreated datePublished" datetime="2020-10-11T16:42:01-07:00">2020-10-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-05 15:57:13" itemprop="dateModified" datetime="2020-12-05T15:57:13-08:00">2020-12-05</time>
+              </span>
 
           
   
@@ -263,7 +269,7 @@
 <p><img src="/image/build-KG.png"></p>
 <p>提取到的知识可能存在的一些问题:</p>
 <ol>
-<li>ambiguous (一般我们说ambiguous 指的是多个名字指向一个entity， variant指的是一个entity有多个名字)<ul>
+<li>ambiguous (一般我们说ambiguous 指的是多个entity指向一个名字， variant指的是一个entity有多个名字)<ul>
 <li>Beetles, beetles, Beatles 这三个name可能都是指向一个实体甲壳虫，但是名字不同</li>
 <li>citizenOf, livedIn, bornIn 这三个property可能都是指向一个实体，表达的意思为该实体住在某一个地方</li>
 </ul>
@@ -363,8 +369,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/11/DSCI558-outline/" rel="prev" title="DSCI558-outline">
-      <i class="fa fa-chevron-left"></i> DSCI558-outline
+    <a href="/2020/10/11/DSCI558-outline/" rel="prev" title="DSCI558 Building Knowledge Graphs">
+      <i class="fa fa-chevron-left"></i> DSCI558 Building Knowledge Graphs
     </a></div>
       <div class="post-nav-item">
     <a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" rel="next" title="Blocking and Relational Entity Resolution">
@@ -451,7 +457,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -513,7 +519,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共38k字</span>
+    <span class="post-count">共50.1k字</span>
 </div>
 
         
@@ -585,7 +591,7 @@
   var disqus_config = function() {
     this.page.url = "http://example.com/2020/10/11/Probabilistic-Models-for-KG-Construction/";
     this.page.identifier = "2020/10/11/Probabilistic-Models-for-KG-Construction/";
-    this.page.title = "PSL";
+    this.page.title = "知识图谱识别";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

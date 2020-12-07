@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="NLP是数据提取中不可缺少的元素  NLP 基础什么是NLP？Program computers to process and analyze large amounts of natural language data. Unstructured、Ambiguous、Lots and lots of data&#x3D;&gt; Structured、Precise、Actionable Specifi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱数据提取">
+<meta property="og:url" content="http://example.com/2020/12/01/558info-extra/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="NLP是数据提取中不可缺少的元素  NLP 基础什么是NLP？Program computers to process and analyze large amounts of natural language data. Unstructured、Ambiguous、Lots and lots of data&#x3D;&gt; Structured、Precise、Actionable Specifi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/token_ss.png">
+<meta property="og:image" content="http://example.com/image/POS.png">
+<meta property="og:image" content="http://example.com/image/NER.png">
+<meta property="og:image" content="http://example.com/image/DEP.png">
+<meta property="og:image" content="http://example.com/image/DEP_PATH.png">
+<meta property="og:image" content="http://example.com/image/Correference.png">
+<meta property="og:image" content="http://example.com/image/IE.png">
+<meta property="og:image" content="http://example.com/image/IEpro.png">
+<meta property="og:image" content="http://example.com/image/semi-sup.png">
+<meta property="og:image" content="http://example.com/image/LE-semi.png">
+<meta property="og:image" content="http://example.com/image/IE_sys.png">
+<meta property="article:published_time" content="2020-12-01T18:48:01.000Z">
+<meta property="article:modified_time" content="2020-12-05T06:26:07.954Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/token_ss.png">
+
+<link rel="canonical" href="http://example.com/2020/12/01/558info-extra/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>知识图谱数据提取 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/01/558info-extra/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱数据提取
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-01 10:48:01" itemprop="dateCreated datePublished" datetime="2020-12-01T10:48:01-08:00">2020-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-04 22:26:07" itemprop="dateModified" datetime="2020-12-04T22:26:07-08:00">2020-12-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/01/558info-extra/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/01/558info-extra/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>NLP是数据提取中不可缺少的元素</p>
+</blockquote>
+<h1 id="NLP-基础"><a href="#NLP-基础" class="headerlink" title="NLP 基础"></a>NLP 基础</h1><p>什么是NLP？<br>Program computers to process and analyze large amounts of natural language data.</p>
+<p>Unstructured、Ambiguous、Lots and lots of data<br>=&gt; Structured、Precise、Actionable Specific to the task data<br>By  Information Extraction</p>
+<p>什么是信息提取？<br>Information extraction is the process of extracting information from unstructured textual sources to enable finding entities as well as classifying and storing them. (<a target="_blank" rel="noopener" href="https://www.ontotext.com/knowledgehub/fundamentals/information-extraction/">https://www.ontotext.com/knowledgehub/fundamentals/information-extraction/</a>)</p>
+<h2 id="Information-Extraction-总览"><a href="#Information-Extraction-总览" class="headerlink" title="Information Extraction 总览"></a>Information Extraction 总览</h2><p>信息提取的三个阶段：</p>
+<ol>
+<li>从sentence中提取<ul>
+<li>Part of speech tagging 词性标注</li>
+<li>Dependency Parsing 依存分析    </li>
+<li>Named entity recognition 命名实体识别</li>
+</ul>
+</li>
+<li>从document中提取<ul>
+<li>Coreference Resolution 指代消解</li>
+</ul>
+</li>
+<li>多个document提取<ul>
+<li>Entity resolution 实体解析</li>
+<li>Entity linking 实体链接</li>
+<li>Relation extraction 关系提取</li>
+</ul>
+</li>
+</ol>
+<h3 id="从sentence说起"><a href="#从sentence说起" class="headerlink" title="从sentence说起"></a>从sentence说起</h3><p>信息从句子中提取之前么，首先需要进行Tokenization &amp; Sentence Splitting<br><img src="/image/token_ss.png"></p>
+<p>对于Knowledge Graph造成的影响:</p>
+<ul>
+<li>Strictly constrains other NLP tasks<ul>
+<li>Parts of Speech</li>
+<li>Dependency Parsing</li>
+</ul>
+</li>
+<li>Directly effects KG nodes/edges<ul>
+<li>Mention boundaries</li>
+<li>Relations within sentences</li>
+</ul>
+</li>
+</ul>
+<h4 id="词性标注-Tagging-Parts-of-Speech"><a href="#词性标注-Tagging-Parts-of-Speech" class="headerlink" title="词性标注(Tagging Parts of Speech)"></a>词性标注(Tagging Parts of Speech)</h4><p><img src="/image/POS.png"></p>
+<p>Context matters.<br>Label whole sentence together.<br>Using Conditional Random Fields, CNN, LSTM to do such task.</p>
+<p>对于Knowledge Graph造成的影响:</p>
+<ul>
+<li>Entities appear as nouns</li>
+<li>Verbs are very useful<ul>
+<li>For identifying relations</li>
+<li>For identifying entity types</li>
+</ul>
+</li>
+<li>Important for downstream NLP (NER, Dependency Parsing…)</li>
+</ul>
+<h4 id="实体识别-Detecting-Named-Entities"><a href="#实体识别-Detecting-Named-Entities" class="headerlink" title="实体识别(Detecting Named Entities)"></a>实体识别(Detecting Named Entities)</h4><p><img src="/image/NER.png"></p>
+<p>Context matters.<br>Label whole sentence together</p>
+<p>对于Knowledge Graph造成的影响:</p>
+<ul>
+<li>Mentions describes the nodes</li>
+<li>Types of entities are incredibly important(Often restrict relations).</li>
+</ul>
+<h4 id="依存分析-Dependency-Parsing"><a href="#依存分析-Dependency-Parsing" class="headerlink" title="依存分析(Dependency Parsing)"></a>依存分析(Dependency Parsing)</h4><p><img src="/image/DEP.png"></p>
+<p>通过使用模型来对预测的依存关系进行打分来预测。</p>
+<p>对于Knowledge Graph造成的影响:</p>
+<ul>
+<li>Incredibly useful for relations!</li>
+<li>Incredibly useful for attributes!</li>
+<li>Paths are used as surface relations </li>
+</ul>
+<p>Surface relation： 仅仅根据句子的结构而不借助语义分析来判定关系模式<br><img src="/image/DEP_PATH.png"></p>
+<h3 id="一个Document中的多个sentence"><a href="#一个Document中的多个sentence" class="headerlink" title="一个Document中的多个sentence"></a>一个Document中的多个sentence</h3><h4 id="文档间指代-Within-document-Coreference"><a href="#文档间指代-Within-document-Coreference" class="headerlink" title="文档间指代(Within-document Coreference)"></a>文档间指代(Within-document Coreference)</h4><p><img src="/image/Correference.png"></p>
+<p>实现方式:<br>Model: score pairwise links, exmaple: dep path, similarity, representative mention …<br>Prediction: Search over clusterings, example: greedy (left to right), ILP,<br>belief propagation, MCMC …</p>
+<p>对于Knowledge Graph造成的影响:<br>More context for each entity!<br>Many relations occur on pronouns.<br>Coref can be used for types.<br>Difficult, so often ignored.</p>
+<h3 id="文档间、不同源间的信息提取"><a href="#文档间、不同源间的信息提取" class="headerlink" title="文档间、不同源间的信息提取"></a>文档间、不同源间的信息提取</h3><p>=&gt; Information Extraction</p>
+<ul>
+<li>Entity resolution 实体解析</li>
+<li>Entity linking 实体链接</li>
+<li>Relation extraction 关系提取</li>
+</ul>
+<p><img src="/image/IE.png"></p>
+<h2 id="Information-Extraction-细节"><a href="#Information-Extraction-细节" class="headerlink" title="Information Extraction 细节"></a>Information Extraction 细节</h2><h3 id="表面模式-Surface-Patterns"><a href="#表面模式-Surface-Patterns" class="headerlink" title="表面模式 Surface Patterns"></a>表面模式 Surface Patterns</h3><p>Combine tokens, dependency paths, and entity types to define rules.<br>简单的说，就是根据句子、文档的语法结构来判断分析出实体间的关系模式，而忽略了句子的语义信息。</p>
+<h3 id="Rule-Based-Extraction"><a href="#Rule-Based-Extraction" class="headerlink" title="Rule-Based Extraction"></a>Rule-Based Extraction</h3><p>通过人为的规定某些语法模式，根据句子的结构来信息提取。</p>
+<p>来源:<br>Manually specified, Learned from Data</p>
+<p>效果:<br>High precision: when it fires, it’s correct Easy to explain predictions. Easy to fix mistakes.<br>Poor recall: Do not generalize! Only work when the rules fire </p>
+<h3 id="Supervised-Extraction"><a href="#Supervised-Extraction" class="headerlink" title="Supervised Extraction"></a>Supervised Extraction</h3><p>通过使用机器学习算法来进行信息的提取</p>
+<p>Machine Learning: hopefully, generalizes the labels in the right way<br>Use all of NLP as features: words, POS, NER, dependencies, embeddings</p>
+<p>缺陷:<br>Requires a lot of labeled data is needed, which is expensive &amp; time consuming.<br>Requires a lot of feature engineering!</p>
+<h3 id="Entity-Resolution-amp-Linking"><a href="#Entity-Resolution-amp-Linking" class="headerlink" title="Entity Resolution &amp; Linking"></a>Entity Resolution &amp; Linking</h3><p>命名实体存在的问题:</p>
+<ol>
+<li>Different Entities with Same Name</li>
+<li>Different Names for same Entities</li>
+</ol>
+<p>一般步骤：<br>Candidate Generation =&gt; Entity Types =&gt; Coreference =&gt; Coherence</p>
+<h2 id="Information-Extraction-三个子问题及解决方式"><a href="#Information-Extraction-三个子问题及解决方式" class="headerlink" title="Information Extraction 三个子问题及解决方式"></a>Information Extraction 三个子问题及解决方式</h2><p>3*3 = 9</p>
+<p><img src="/image/IEpro.png"></p>
+<h3 id="Defining-Domain"><a href="#Defining-Domain" class="headerlink" title="Defining Domain"></a>Defining Domain</h3><h4 id="Manual"><a href="#Manual" class="headerlink" title="Manual"></a>Manual</h4><p>Highly semantic ontology;<br>Leads to high precision extraction;<br>Expensive to create;<br>Requires domain experts;</p>
+<h4 id="Semi-automatic"><a href="#Semi-automatic" class="headerlink" title="Semi-automatic"></a>Semi-automatic</h4><p>Subset of types are manually defined;<br>SSL methods discover new types from unlabeled data;</p>
+<p>Easier to derive types using existing resources;<br>Relations are discovered from the corpus;<br>Leads to moderate precision extractions;<br>Partially semantic ontology;</p>
+<p>Example:<br>Assumption:<br>Types and type hierarchy is manually defined (E.g. River, City, Food, Chemical, Disease, Bacteria);<br>Relations are automatically discovered using clustering methods</p>
+<h4 id="Automatic"><a href="#Automatic" class="headerlink" title="Automatic"></a>Automatic</h4><p>Any noun phrase is a candidate entity<br>Any verb phrase is a candidate relation</p>
+<p>Cheapest way to induce types/ relations from corpus;<br>Little expert annotations needed;<br>Limited semantics;<br>Leads to noisy extractions;</p>
+<h3 id="Learning-extractors"><a href="#Learning-extractors" class="headerlink" title="Learning extractors"></a>Learning extractors</h3><h4 id="Manual-1"><a href="#Manual-1" class="headerlink" title="Manual"></a>Manual</h4><p>Human defined high-precision extraction patterns for each relation</p>
+<h4 id="Semi-supervised"><a href="#Semi-supervised" class="headerlink" title="Semi-supervised"></a>Semi-supervised</h4><p>Bootstrapping</p>
+<p><img src="/image/semi-sup.png"><br>简单的说就是，人为给一些seed instances给机器，让机器去提取符合这些instance的pattern，然后根据提取到的pattern去提取符合的instance，重复操作，获取越来越多的instance和pattern.</p>
+<p>缺陷:Semantic Drift, 语义漂移<br>解决方式: topk, interactive<br><img src="/image/LE-semi.png"></p>
+<h4 id="Unsupervised"><a href="#Unsupervised" class="headerlink" title="Unsupervised"></a>Unsupervised</h4><p>Identify candidate relations: 为每个动词找到最长的单词序列<br>Identify arguments for each relation: 对于每个关系，找其左侧和右侧找到最接近的名词短语</p>
+<h3 id="Scoring-candidate-facts"><a href="#Scoring-candidate-facts" class="headerlink" title="Scoring candidate facts"></a>Scoring candidate facts</h3><h4 id="Manual-2"><a href="#Manual-2" class="headerlink" title="Manual"></a>Manual</h4><p>Human defined scoring function or Scoring function learnt using supervised ML with large amount of training data</p>
+<h4 id="Semi-supervised-1"><a href="#Semi-supervised-1" class="headerlink" title="Semi-supervised"></a>Semi-supervised</h4><p>Small amount of training data is available. Scoring refined over multiple iterations<br>Using both labeled and unlabeled data</p>
+<h4 id="Unsupervised-1"><a href="#Unsupervised-1" class="headerlink" title="Unsupervised"></a>Unsupervised</h4><p>Confidence(extraction pattern) ∝ (#unique instances it could extract)<br>Score(candidate fact) ∝ (#distinct extraction patterns that support it)</p>
+<h2 id="Information-Extraction-技术类别"><a href="#Information-Extraction-技术类别" class="headerlink" title="Information Extraction 技术类别"></a>Information Extraction 技术类别</h2><h3 id="Narrow-domain-patterns"><a href="#Narrow-domain-patterns" class="headerlink" title="Narrow domain patterns"></a>Narrow domain patterns</h3><p>Defining domain: Manual<br>Learning extractors:  Manual<br>Scoring candidate facts: Manual</p>
+<h3 id="Ontology-based-extraction"><a href="#Ontology-based-extraction" class="headerlink" title="Ontology based extraction"></a>Ontology based extraction</h3><p>Defining domain: Manual<br>Learning extractors:  Semi-supervised<br>Scoring candidate facts: Unsupervised</p>
+<h3 id="Interactive-extraction"><a href="#Interactive-extraction" class="headerlink" title="Interactive extraction"></a>Interactive extraction</h3><p>Defining domain: Manual<br>Learning extractors:  Semi-supervised<br>Scoring candidate facts: Semi-supervised</p>
+<h3 id="Open-domain-IE"><a href="#Open-domain-IE" class="headerlink" title="Open domain IE"></a>Open domain IE</h3><p>Defining domain: Unsupervised<br>Learning extractors:  Unsupervised<br>Scoring candidate facts: Semi-supervised</p>
+<h3 id="Hybrid-approach-Adding-structure-to-OpenIE-KB"><a href="#Hybrid-approach-Adding-structure-to-OpenIE-KB" class="headerlink" title="Hybrid approach (Adding structure to OpenIE KB)"></a>Hybrid approach (Adding structure to OpenIE KB)</h3><p>Defining domain: Semi-supervised =&gt; Distant supervision to add structure<br>Learning extractors:  Unsupervised<br>Scoring candidate facts: Semi-supervised</p>
+<h2 id="Knowledge-fusion"><a href="#Knowledge-fusion" class="headerlink" title="Knowledge fusion"></a>Knowledge fusion</h2><p>融合多种Learning extractors来提高提取准确度</p>
+<p>Knowledge fusion schemes:</p>
+<ul>
+<li>Voting (AND vs OR of extractors)</li>
+<li>Co-training (multiple extraction methods)</li>
+<li>Multi-view learning (multiple data sources)</li>
+<li>Classification</li>
+</ul>
+<h2 id="IE-systems-in-practice"><a href="#IE-systems-in-practice" class="headerlink" title="IE systems in practice"></a>IE systems in practice</h2><ul>
+<li>Conceptnet</li>
+<li>NELL (Never Ending Language Learning )</li>
+<li>Knowledge vault</li>
+<li>Open IE</li>
+</ul>
+<p><img src="/image/IE_sys.png"></p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558data-acq/" rel="prev" title="知识图谱数据获取与知识产权">
+      <i class="fa fa-chevron-left"></i> 知识图谱数据获取与知识产权
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558kg-rep/" rel="next" title="知识图谱表示">
+      知识图谱表示 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NLP-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">NLP 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-Extraction-%E6%80%BB%E8%A7%88"><span class="nav-number">1.1.</span> <span class="nav-text">Information Extraction 总览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8Esentence%E8%AF%B4%E8%B5%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text">从sentence说起</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8-Tagging-Parts-of-Speech"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">词性标注(Tagging Parts of Speech)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB-Detecting-Named-Entities"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">实体识别(Detecting Named Entities)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%9D%E5%AD%98%E5%88%86%E6%9E%90-Dependency-Parsing"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">依存分析(Dependency Parsing)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AADocument%E4%B8%AD%E7%9A%84%E5%A4%9A%E4%B8%AAsentence"><span class="nav-number">1.1.2.</span> <span class="nav-text">一个Document中的多个sentence</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E9%97%B4%E6%8C%87%E4%BB%A3-Within-document-Coreference"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">文档间指代(Within-document Coreference)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E9%97%B4%E3%80%81%E4%B8%8D%E5%90%8C%E6%BA%90%E9%97%B4%E7%9A%84%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96"><span class="nav-number">1.1.3.</span> <span class="nav-text">文档间、不同源间的信息提取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-Extraction-%E7%BB%86%E8%8A%82"><span class="nav-number">1.2.</span> <span class="nav-text">Information Extraction 细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E9%9D%A2%E6%A8%A1%E5%BC%8F-Surface-Patterns"><span class="nav-number">1.2.1.</span> <span class="nav-text">表面模式 Surface Patterns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rule-Based-Extraction"><span class="nav-number">1.2.2.</span> <span class="nav-text">Rule-Based Extraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Supervised-Extraction"><span class="nav-number">1.2.3.</span> <span class="nav-text">Supervised Extraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Entity-Resolution-amp-Linking"><span class="nav-number">1.2.4.</span> <span class="nav-text">Entity Resolution &amp; Linking</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-Extraction-%E4%B8%89%E4%B8%AA%E5%AD%90%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">Information Extraction 三个子问题及解决方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Defining-Domain"><span class="nav-number">1.3.1.</span> <span class="nav-text">Defining Domain</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Manual"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Manual</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Semi-automatic"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">Semi-automatic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Automatic"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Automatic</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Learning-extractors"><span class="nav-number">1.3.2.</span> <span class="nav-text">Learning extractors</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Manual-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Manual</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Semi-supervised"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Semi-supervised</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unsupervised"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Unsupervised</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scoring-candidate-facts"><span class="nav-number">1.3.3.</span> <span class="nav-text">Scoring candidate facts</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Manual-2"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">Manual</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Semi-supervised-1"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">Semi-supervised</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unsupervised-1"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">Unsupervised</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-Extraction-%E6%8A%80%E6%9C%AF%E7%B1%BB%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">Information Extraction 技术类别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Narrow-domain-patterns"><span class="nav-number">1.4.1.</span> <span class="nav-text">Narrow domain patterns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ontology-based-extraction"><span class="nav-number">1.4.2.</span> <span class="nav-text">Ontology based extraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interactive-extraction"><span class="nav-number">1.4.3.</span> <span class="nav-text">Interactive extraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-domain-IE"><span class="nav-number">1.4.4.</span> <span class="nav-text">Open domain IE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hybrid-approach-Adding-structure-to-OpenIE-KB"><span class="nav-number">1.4.5.</span> <span class="nav-text">Hybrid approach (Adding structure to OpenIE KB)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Knowledge-fusion"><span class="nav-number">1.5.</span> <span class="nav-text">Knowledge fusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IE-systems-in-practice"><span class="nav-number">1.6.</span> <span class="nav-text">IE systems in practice</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共50.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/12/01/558info-extra/";
+    this.page.identifier = "2020/12/01/558info-extra/";
+    this.page.title = "知识图谱数据提取";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

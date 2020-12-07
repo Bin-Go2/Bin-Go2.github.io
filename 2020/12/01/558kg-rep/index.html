@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章关注: Web信息表达编码规范Unicode: a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world’s writing systems. Web资源地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱表示">
+<meta property="og:url" content="http://example.com/2020/12/01/558kg-rep/index.html">
+<meta property="og:site_name" content="Bin&#39;s blog">
+<meta property="og:description" content="本章关注: Web信息表达编码规范Unicode: a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world’s writing systems. Web资源地址">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/semantic_web.png">
+<meta property="og:image" content="http://example.com/image/rdfs.png">
+<meta property="article:published_time" content="2020-12-02T00:04:03.000Z">
+<meta property="article:modified_time" content="2020-12-02T01:36:20.760Z">
+<meta property="article:author" content="Bin">
+<meta property="article:tag" content="Knowledge Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/semantic_web.png">
+
+<link rel="canonical" href="http://example.com/2020/12/01/558kg-rep/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>知识图谱表示 | Bin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/01/558kg-rep/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱表示
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-01 16:04:03 / Modified: 17:36:20" itemprop="dateCreated datePublished" datetime="2020-12-01T16:04:03-08:00">2020-12-01</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/01/558kg-rep/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/01/558kg-rep/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本章关注:<br><img src="/image/semantic_web.png"></p>
+<h2 id="Web信息表达"><a href="#Web信息表达" class="headerlink" title="Web信息表达"></a>Web信息表达</h2><h3 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h3><p>Unicode: a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world’s writing systems.</p>
+<h3 id="Web资源地址"><a href="#Web资源地址" class="headerlink" title="Web资源地址"></a>Web资源地址</h3><p>URL(Uniform Resource Locator):A reference to an Internet resource<br>URL vs URI<br>URI = URL + URN</p>
+<p>为什么使用URI?<br>URIs look cool;<br>Precisely identify resources(Avoid confusion among different subjects);<br>Precisely identify properties;<br>Provide information about properties;<br>Look them up on the web</p>
+<h2 id="RDF-Resource-Description-Framework"><a href="#RDF-Resource-Description-Framework" class="headerlink" title="RDF (Resource Description Framework)"></a>RDF (Resource Description Framework)</h2><p>The Resource Description Framework (RDF) is a language for representing information about resources in the World Wide Web</p>
+<p>Intention: Intended for representing metadata about Web resources, such as the title, author, and modification date of a Web document（为了描述web中资源的元数据信息）<br>=&gt; also be used to represent information about things that can be identified on the Web, even when they cannot be directly retrieved on the Web</p>
+<h3 id="Triples"><a href="#Triples" class="headerlink" title="Triples"></a>Triples</h3><p>Represent Information as Triples, (Subject,Predicate,Object)<br>Subject: The resource being described<br>Predicate: A property of the resource<br>Object: The value of the property</p>
+<p>通过三元组的形式，很自然的形成了一条有向边的表达方式。</p>
+<h3 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h3><p>命名空间，用于简化URI的书写，其中存储了一系列subject或者predicate的信息<br><a target="_blank" rel="noopener" href="http://xmlns.com/foaf/0.1/firstName">http://xmlns.com/foaf/0.1/firstName</a> =&gt;  foaf:firstName</p>
+<h3 id="RDF-Syntaxes"><a href="#RDF-Syntaxes" class="headerlink" title="RDF Syntaxes"></a>RDF Syntaxes</h3><p>XML, N3 Turtle, N-Triples, RDFa, JSON-LD</p>
+<h3 id="Represent-nested-structures"><a href="#Represent-nested-structures" class="headerlink" title="Represent nested structures"></a>Represent nested structures</h3><p><code>usc:isi   schema:address  “4676 Admiralty Way, Marina del Rey, CA 90292” .</code><br>问题:  In what city is USC/ISI located?</p>
+<p>使用嵌套节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">usc:isi schema:address usc:isi-address .</span><br><span class="line"></span><br><span class="line">usc:isi-address</span><br><span class="line">  schema:addressCountry 	“USA” ;</span><br><span class="line">  schema:addressRegion 		“CA”;</span><br><span class="line">  schema:addressLocality 	“Marina del Rey” ; </span><br><span class="line">  schema:postalCode 		“90292” ;</span><br><span class="line">  schema:streetAddress 		“4676 Admiralty Way” . </span><br></pre></td></tr></table></figure>
+<p>We minted a URI for USC/ISI’s address, but sometimes we don’t want to mint URIs =&gt; BNode<br>在这里可以发现嵌套节点usc:isi-address也有具体的URI来表示，但是该节点的URI没有什么其他的作用，所以使用空节点来表示, 前缀为_</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">usc:isi schema:address _:isi-address .</span><br><span class="line"></span><br><span class="line">_:isi-address .</span><br><span class="line">  schema:addressCountry 	“USA” ;</span><br><span class="line">  schema:addressRegion 		“CA”;</span><br><span class="line">  schema:addressLocality 	“Marina del Rey” ; </span><br><span class="line">  schema:postalCode 		“90292” ;</span><br><span class="line">  schema:streetAddress 		“4676 Admiralty Way” . </span><br></pre></td></tr></table></figure>
+
+<h3 id="字面值的类型（Typed-Literals）"><a href="#字面值的类型（Typed-Literals）" class="headerlink" title="字面值的类型（Typed Literals）"></a>字面值的类型（Typed Literals）</h3><p>在object后面添加类型信息。<br>example: weather:date ”2012-06-18”^^xsd:date ;</p>
+<h3 id="Reification"><a href="#Reification" class="headerlink" title="Reification"></a>Reification</h3><p>RDF applications sometimes need to describe other RDF statements using RDF, for instance, to record information about when statements were made, who made them, or other similar information (this is sometimes referred to as “provenance” information). </p>
+<p>举个例子： 他说了xxx<br>“On June 19 2012, Claudia said that Sam’s email address is <a href="mailto:&#x53;&#x61;&#x6d;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x53;&#x61;&#x6d;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a>”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_:s rdf:type        rdf:Statement .</span><br><span class="line">_:s rdf:subject     &lt;http:&#x2F;&#x2F;szekelys.com&#x2F;family#sam&gt; .    </span><br><span class="line">_:s rdf:predicate   foaf:mbox .</span><br><span class="line">_:s rdf:object      &lt;Sam@gmail.com&gt;</span><br><span class="line"></span><br><span class="line">_:s dcterms:date     “2012-06-19”^^xsd:date .</span><br><span class="line">_:s dcterms:creator  &lt;http:&#x2F;&#x2F;uniandes.edu.co&#x2F;faculty#claudiaj&gt; .</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="RDF-syntax-in-turtle"><a href="#RDF-syntax-in-turtle" class="headerlink" title="RDF syntax in turtle"></a>RDF syntax in turtle</h3><ul>
+<li><p>URIs are in &lt;&gt;</p>
+</li>
+<li><p>Prefix:<br>  @prefix foo: <a target="_blank" rel="noopener" href="http://example.org/ns#">http://example.org/ns#</a> .<br>  @prefix : <a target="_blank" rel="noopener" href="http://other.example.org/ns#">http://other.example.org/ns#</a> . &lt;- 空命名空间<br>  foo:bar foo: : . 等价于<br>  <a target="_blank" rel="noopener" href="http://example.org/ns#bar">http://example.org/ns#bar</a> <a target="_blank" rel="noopener" href="http://example.org/ns">http://example.org/ns</a> <a target="_blank" rel="noopener" href="http://other.example.org/ns">http://other.example.org/ns</a>.</p>
+</li>
+<li><p>Turtle Literals</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Type of literals: </span><br><span class="line">  untyped (“London” equivalent to “London”^^xsd:string)</span><br><span class="line">  language tag</span><br><span class="line">  data type (with a URI)</span><br><span class="line">Example:</span><br><span class="line">  Strings in “”</span><br><span class="line">  Language tag: &quot;That Seventies Show&quot;@en</span><br><span class="line">  Data type: &quot;10&quot;^^xsd:decimal</span><br></pre></td></tr></table></figure></li>
+<li><p>Blank Node<br>  _:a<br>  []</p>
+</li>
+<li><p>Turtle Base URI ????</p>
+</li>
+<li><p>常用缩写<br>  rdf:type  = a<br>  “-5”^^xsd:integer<br>  “true”^^xds:boolean<br>  “1.3e2”^^xsd:double</p>
+</li>
+</ul>
+<h2 id="RDF-Schema"><a href="#RDF-Schema" class="headerlink" title="RDF Schema"></a>RDF Schema</h2><p>RDF Schema is the language for defining RDF vocabularies.<br>It specifies the RDF inference rules: the triples that are implied by the triples you have.</p>
+<p>常用rdfs:<br><img src="/image/rdfs.png"></p>
+<p>All things described by RDF are called resources, and are instances of the class rdfs:Resource</p>
+
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Knowledge-Graph/" rel="tag"># Knowledge Graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558info-extra/" rel="prev" title="知识图谱数据提取">
+      <i class="fa fa-chevron-left"></i> 知识图谱数据提取
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/01/558ent-res/" rel="next" title="知识图谱实体解析">
+      知识图谱实体解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+  
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web%E4%BF%A1%E6%81%AF%E8%A1%A8%E8%BE%BE"><span class="nav-number">1.</span> <span class="nav-text">Web信息表达</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83"><span class="nav-number">1.1.</span> <span class="nav-text">编码规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web%E8%B5%84%E6%BA%90%E5%9C%B0%E5%9D%80"><span class="nav-number">1.2.</span> <span class="nav-text">Web资源地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDF-Resource-Description-Framework"><span class="nav-number">2.</span> <span class="nav-text">RDF (Resource Description Framework)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Triples"><span class="nav-number">2.1.</span> <span class="nav-text">Triples</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Namespaces"><span class="nav-number">2.2.</span> <span class="nav-text">Namespaces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDF-Syntaxes"><span class="nav-number">2.3.</span> <span class="nav-text">RDF Syntaxes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Represent-nested-structures"><span class="nav-number">2.4.</span> <span class="nav-text">Represent nested structures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E9%9D%A2%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%88Typed-Literals%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">字面值的类型（Typed Literals）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reification"><span class="nav-number">2.6.</span> <span class="nav-text">Reification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDF-syntax-in-turtle"><span class="nav-number">2.7.</span> <span class="nav-text">RDF syntax in turtle</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDF-Schema"><span class="nav-number">3.</span> <span class="nav-text">RDF Schema</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Bin</p>
+  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共50.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2020/12/01/558kg-rep/";
+    this.page.identifier = "2020/12/01/558kg-rep/";
+    this.page.title = "知识图谱表示";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

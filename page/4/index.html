@@ -189,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/06/DSCI551-outline/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/22/PBG-Data-model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -203,7 +203,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/06/DSCI551-outline/" class="post-title-link" itemprop="url">DSCI551 outline</a>
+            <a href="/2020/10/22/PBG-Data-model/" class="post-title-link" itemprop="url">PyTorch-BigGraph 数据模型</a>
         </h2>
 
         <div class="post-meta">
@@ -213,14 +213,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-09-06 13:23:49" itemprop="dateCreated datePublished" datetime="2020-09-06T13:23:49-07:00">2020-09-06</time>
+              <time title="Created: 2020-10-22 23:47:46" itemprop="dateCreated datePublished" datetime="2020-10-22T23:47:46-07:00">2020-10-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 22:08:20" itemprop="dateModified" datetime="2020-09-18T22:08:20-07:00">2020-09-18</time>
+                <time title="Modified: 2020-10-23 21:38:51" itemprop="dateModified" datetime="2020-10-23T21:38:51-07:00">2020-10-23</time>
               </span>
 
           
@@ -232,8 +232,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/09/06/DSCI551-outline/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/06/DSCI551-outline/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/10/22/PBG-Data-model/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/22/PBG-Data-model/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -250,10 +250,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="DSCI551-Foundations-of-Data-Management"><a href="#DSCI551-Foundations-of-Data-Management" class="headerlink" title="DSCI551 - Foundations of Data Management"></a>DSCI551 - Foundations of Data Management</h2><h3 id><a href="#" class="headerlink" title></a><a href="/2020/09/06/Firebase-rest-web-api/" title="Firebase rest &amp; web api">Firebase rest &amp; web api</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title></a><a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title></a><a href="/2020/09/08/Storage-systems/" title="Storage systems">Storage systems</a></h3><h3 id="-3"><a href="#-3" class="headerlink" title></a><a href="/2020/09/10/File-Systems/" title="File systems">File systems</a></h3>
+          <h1 id="PBG模型"><a href="#PBG模型" class="headerlink" title="PBG模型"></a>PBG模型</h1><p>PBG operates on directed multi-relation multigraphs, whose vertices are called entities. Each edge connects a source to a destination entity, which are respectively called its left- and right-hand side (shortened to LHS and RHS). Multiple edges between the same pair of entities are allowed. Loops, i.e., edges whose left- and right- hand sides are the same, are allowed as well.<br>PBG作用在有向多关系多图上，其中，图的顶点称为实体。每一条边将源实体连接到目标实体，源实体称为左侧，目标实体称为右侧(缩写为LHS和RHS)同一对实体之间可以有多个边。循环也是允许的，例如，LHS和RHS是相同的边.(A-&gt;B B-&gt;A)</p>
+<blockquote>
+<p>key point: directed, multi-relation, multigraph </p>
+</blockquote>
+<p>Each entity is of a certain entity type (one and only one type per entity). Thus, the types partition all the entities into disjoint groups. Similarly, each edge also belongs to exactly one relation type. All edges of a given relation type must have all their left-hand side entities of the same entity type and, similarly, all their right-hand side entities of the same entity type (possibly a different entity type than the left-hand side one). This property means that each relation type has a left-hand side entity type and a right-hand side entity type.<br>每一个实体都具有某种实体类型(每个实体都只有一种类型)。因此，实体的类型将所有的实体划分成不相交的组。类似的，每一条边也只属于个唯一的关系类型。给定关系类型的边的LHS/RHS实体都只属于一个实体类型（左右两侧的实体类型可以不同）。此属性意味着每种关系类型都具有左侧实体类型和右侧实体类型。</p>
+<blockquote>
+<p>key point: entity, relation, entity type, relation type</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/06/DSCI551-outline/#more" rel="contents">
+              <a class="btn" href="/2020/10/22/PBG-Data-model/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -278,7 +285,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/05/Algorithm-jianzhioffer/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/22/PBG-overview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -292,7 +299,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/05/Algorithm-jianzhioffer/" class="post-title-link" itemprop="url">Leetcode-剑指Offer</a>
+            <a href="/2020/10/22/PBG-overview/" class="post-title-link" itemprop="url">PyTorch-BigGraph 概要</a>
         </h2>
 
         <div class="post-meta">
@@ -302,14 +309,782 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-09-05 17:22:24" itemprop="dateCreated datePublished" datetime="2020-09-05T17:22:24-07:00">2020-09-05</time>
+              <time title="Created: 2020-10-22 23:16:40" itemprop="dateCreated datePublished" datetime="2020-10-22T23:16:40-07:00">2020-10-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-11 17:47:22" itemprop="dateModified" datetime="2020-09-11T17:47:22-07:00">2020-09-11</time>
+                <time title="Modified: 2020-10-23 21:38:55" itemprop="dateModified" datetime="2020-10-23T21:38:55-07:00">2020-10-23</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/10/22/PBG-overview/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/22/PBG-overview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="PBG概要"><a href="#PBG概要" class="headerlink" title="PBG概要"></a>PBG概要</h1><p>PyTorch-BigGraph (PBG) is a distributed system for learning graph embeddings for large graphs, particularly big web interaction graphs with up to billions of entities and trillions of edges.PBG now supports GPU training.<br>PyTorch-BigGraph（PBG）是一个用于学习学习大图（节点、关系众多），特别是那些具有多达数十亿个实体和数万亿条边的大型Web交互图嵌入的分布式系统。如今PBG也支持了GPU训练的过程。</p>
+<blockquote>
+<p>key point: PBG, distributed, big graph, embedding, GPU</p>
+</blockquote>
+<p>PBG was introduced in the PyTorch-BigGraph: A Large-scale Graph Embedding Framework paper, presented at the SysML conference in 2019.<br>PBG是于2019年发表在SysML会议上的一篇论文 PYTORCH-BIGGRAPH: A LARGE-SCALE GRAPH EMBEDDING SYSTEM被首次提出<br>论文地址: <a target="_blank" rel="noopener" href="https://mlsys.org/Conferences/2019/doc/2019/71.pdf">https://mlsys.org/Conferences/2019/doc/2019/71.pdf</a></p>
+<p>PBG trains on an input graph by ingesting its list of edges, each identified by its source and target entities and, possibly, a relation type. It outputs a feature vector (embedding) for each entity, trying to place adjacent entities close to each other in the vector space, while pushing unconnected entities apart. Therefore, entities that have a similar distribution of neighbors will end up being nearby.<br>PBG通过提取图的边列表来进行embedding训练，每条边由其源实体,目标实体以及一个可能的关系类型作为标识。PBG对每个实体输出一个特征向量（嵌入）。它通过将相邻的实体在向量空间中彼此靠近放置，不相邻的实体彼此远离放置。通过这样的手段，相似的实体最终的嵌入互相靠近。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/22/PBG-overview/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/15/scrapy-example/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/15/scrapy-example/" class="post-title-link" itemprop="url">Scrapy 实例 - TripAdvisor信息抓取</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-15 19:55:41" itemprop="dateCreated datePublished" datetime="2020-10-15T19:55:41-07:00">2020-10-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-16 01:31:18" itemprop="dateModified" datetime="2020-10-16T01:31:18-07:00">2020-10-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/10/15/scrapy-example/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/15/scrapy-example/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
+<p>餐厅信息包括:</p>
+<ul>
+<li>餐厅名称</li>
+<li>餐厅评星（几颗星）</li>
+<li>餐厅排名（针对洛杉矶而言）</li>
+<li>餐厅价格区间</li>
+<li>餐厅菜品种类</li>
+<li>餐厅地点</li>
+<li>附近旅馆</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/15/scrapy-example/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/11/Blocking-and-Relational-Entity-Resolution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" class="post-title-link" itemprop="url">Blocking and Relational Entity Resolution</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-11 19:12:39" itemprop="dateCreated datePublished" datetime="2020-10-11T19:12:39-07:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-02 20:55:31" itemprop="dateModified" datetime="2020-12-02T20:55:31-08:00">2020-12-02</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/11/Blocking-and-Relational-Entity-Resolution/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>Entity Resolution 主要分成如下四个</p>
+<ol>
+<li>Coreference     文本与文本之间找同一个entity</li>
+<li>Entity linking  文本与KG中找对应entity     -&gt; Integrating New Candidates </li>
+<li>Deduplication   一个KG之间的聚类              -&gt; Merging  Ambiguous Entities</li>
+<li>Record linkage  两个不同KG之间entity的对应  -&gt; Combining KGs</li>
+</ol>
+<h1 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h1><h2 id="为什么需要Blocking-gt-reduce-the-number-of-comparisons"><a href="#为什么需要Blocking-gt-reduce-the-number-of-comparisons" class="headerlink" title="为什么需要Blocking -&gt; reduce the number of comparisons"></a>为什么需要Blocking -&gt; reduce the number of comparisons</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/11/Probabilistic-Models-for-KG-Construction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/11/Probabilistic-Models-for-KG-Construction/" class="post-title-link" itemprop="url">知识图谱识别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-11 16:42:01" itemprop="dateCreated datePublished" datetime="2020-10-11T16:42:01-07:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-05 15:57:13" itemprop="dateModified" datetime="2020-12-05T15:57:13-08:00">2020-12-05</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/10/11/Probabilistic-Models-for-KG-Construction/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/11/Probabilistic-Models-for-KG-Construction/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>在知识图谱中，主要需要解决的有三个问题:  (节点，属性，关系)</p>
+<ol>
+<li>Who are the entities (nodes) in the graph?</li>
+<li>What are their attributes and types (labels)?</li>
+<li>How are they related (edges)?<br><img src="/image/KG-problem.png"></li>
+</ol>
+<p>知识图谱的构建主要就是通过IE将互联网上各式各样的资源进行提取，整合得到结构化的数据(说起来容易，做起来难！)</p>
+<p><img src="/image/build-KG.png"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/11/Probabilistic-Models-for-KG-Construction/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/11/DSCI558-outline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/11/DSCI558-outline/" class="post-title-link" itemprop="url">DSCI558 Building Knowledge Graphs</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-11 16:39:27" itemprop="dateCreated datePublished" datetime="2020-10-11T16:39:27-07:00">2020-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-04 09:22:57" itemprop="dateModified" datetime="2020-12-04T09:22:57-08:00">2020-12-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/10/11/DSCI558-outline/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/11/DSCI558-outline/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="DSCI558-Building-Knowledge-Graphs"><a href="#DSCI558-Building-Knowledge-Graphs" class="headerlink" title="DSCI558 - Building Knowledge Graphs"></a>DSCI558 - Building Knowledge Graphs</h2><h3 id><a href="#" class="headerlink" title></a><a href="/2020/12/01/558intro/" title="知识图谱简介">知识图谱简介</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title></a><a href="/2020/12/01/558data-acq/" title="知识图谱数据获取与知识产权">知识图谱数据获取与知识产权</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title></a><a href="/2020/12/01/558info-extra/" title="知识图谱数据提取">知识图谱数据提取</a></h3><h3 id="-3"><a href="#-3" class="headerlink" title></a><a href="/2020/12/01/558kg-rep/" title="知识图谱表示">知识图谱表示</a></h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/11/DSCI558-outline/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/03/recommendation-system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/03/recommendation-system/" class="post-title-link" itemprop="url">推荐系统总览</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-03 15:03:27 / Modified: 16:56:11" itemprop="dateCreated datePublished" datetime="2020-10-03T15:03:27-07:00">2020-10-03</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/10/03/recommendation-system/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/03/recommendation-system/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="效用矩阵-utility-matrix"><a href="#效用矩阵-utility-matrix" class="headerlink" title="效用矩阵 (utility matrix)"></a>效用矩阵 (utility matrix)</h1><p>一般的推荐系统中有两类元素，一类是user，一类是item(例如电影、音乐…)，可以用一个矩阵表示这些数据<br>每一行表示每一个user，每一列表示一个item, <code>M[i][j]</code>表示第i个用户对第j项的评分。</p>
+<p>一般效用矩阵都是稀疏的，需要做的就是填充这些缺失值</p>
+<ul>
+<li>Gathering known ratings for matrix</li>
+<li>Extrapolate unknown ratings from the known ones</li>
+<li>Evaluating extrapolation methods</li>
+</ul>
+<h1 id="长尾效应-The-Long-tail"><a href="#长尾效应-The-Long-tail" class="headerlink" title="长尾效应 (The Long tail)"></a>长尾效应 (The Long tail)</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/03/recommendation-system/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/Scrapy-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/22/Scrapy-learning/" class="post-title-link" itemprop="url">Scrapy学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-22 16:33:53 / Modified: 17:11:51" itemprop="dateCreated datePublished" datetime="2020-09-22T16:33:53-07:00">2020-09-22</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/09/22/Scrapy-learning/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/22/Scrapy-learning/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Scrapy-架构"><a href="#Scrapy-架构" class="headerlink" title="Scrapy 架构"></a>Scrapy 架构</h3><p><img src="/image/scrapy.png"></p>
+<ol>
+<li>The Engine gets the initial Requests to crawl from the Spider.(获取要爬的url)</li>
+<li>The Engine schedules the Requests in the Scheduler and asks for the next Requests to crawl.（调度request到调度器中，形成一些列的url调度队列）</li>
+<li>The Scheduler returns the next Requests to the Engine.（调度器调度完成，发送第一个request给引擎）</li>
+<li>The Engine sends the Requests to the Downloader, passing through the Downloader Middlewares (see process_request()). （引擎发送第一个request给下载器）</li>
+<li>Once the page finishes downloading the Downloader generates a Response (with that page) and sends it to the Engine, passing through the Downloader Middlewares (see process_response()).（下载器得到该request的response，返回给引擎）</li>
+<li>The Engine receives the Response from the Downloader and sends it to the Spider for processing, passing through the Spider Middleware (see process_spider_input()).（引擎将response发给spider进行解析）</li>
+<li>The Spider processes the Response and returns scraped items and new Requests (to follow) to the Engine, passing through the Spider Middleware (see process_spider_output()).（spider解析好需要的数据：包括：提取需要的内容+提取新的url请求，将处理好的数据发给引擎）</li>
+<li>The Engine sends processed items to Item Pipelines, then send processed Requests to the Scheduler and asks for possible next Requests to crawl.（一方面引擎将得到的内容发给item，将得到的url请求发给调度器）</li>
+<li>The process repeats (from step 1) until there are no more requests from the Scheduler.</li>
+</ol>
+<p>摘自:<a target="_blank" rel="noopener" href="https://docs.scrapy.org/en/latest/topics/architecture.html">https://docs.scrapy.org/en/latest/topics/architecture.html</a></p>
+<h3 id="Scrapy-使用"><a href="#Scrapy-使用" class="headerlink" title="Scrapy 使用"></a>Scrapy 使用</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/22/Scrapy-learning/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/18/File-Format/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/18/File-Format/" class="post-title-link" itemprop="url">XML</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-18 22:08:08 / Modified: 23:05:05" itemprop="dateCreated datePublished" datetime="2020-09-18T22:08:08-07:00">2020-09-18</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/09/18/File-Format/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/18/File-Format/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li>XML：eXtensible Markup Language</li>
+<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
+<li>Can translate <em>any</em> data to XML</li>
+<li>Can ship XML over the Web (HTTP)</li>
+<li>Can input XML into any application</li>
+</ul>
+</li>
+</ul>
+<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
+<ul>
+<li>XML is self-describing</li>
+<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
+<li>XML is semi-structured <ul>
+<li>missing attributes  (could be represented as null in table)</li>
+<li>repeated attributes (impossible in table)</li>
+<li>Attributes with different types in different objects</li>
+<li>Nested structures</li>
+<li>Heterogeneous contents</li>
+</ul>
+</li>
+<li>an XML document has a single root element</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/18/File-Format/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/17/Algorithm-binarytree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Bin">
+      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/17/Algorithm-binarytree/" class="post-title-link" itemprop="url">Leetcode-二叉树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-17 16:29:43" itemprop="dateCreated datePublished" datetime="2020-09-17T16:29:43-07:00">2020-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 22:07:43" itemprop="dateModified" datetime="2020-09-18T22:07:43-07:00">2020-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -330,8 +1105,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/09/05/Algorithm-jianzhioffer/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/05/Algorithm-jianzhioffer/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/09/17/Algorithm-binarytree/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/17/Algorithm-binarytree/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +1123,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/">左旋转字符串</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseLeftWords</span>(<span class="params">s,n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> s[n:] + s[:n]</span><br></pre></td></tr></table></figure>
+          <h2 id="二叉树的一些思想"><a href="#二叉树的一些思想" class="headerlink" title="二叉树的一些思想"></a>二叉树的一些思想</h2><ul>
+<li>前序遍历(preOrder)  root-&gt;left-&gt;right </li>
+<li>中序遍历(inOrder)    left-&gt; root-&gt;right 二叉搜索树中，其遍历结果为有序数组</li>
+<li>后序遍历(postOrder) left-&gt;right-&gt;root </li>
+<li>广度优先搜索(BFS)</li>
+<li>深度优先搜索(DFS)</li>
+<li>递归(Recursion)，根据要求选择使用前序，中序，后序的递归框架来解决问题</li>
+</ul>
+<h4 id="897-递增顺序查找树"><a href="#897-递增顺序查找树" class="headerlink" title="897. 递增顺序查找树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/increasing-order-search-tree/">897. 递增顺序查找树</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 思路1: 中序遍历形成有序列表 + 重新生成树</span></span><br><span class="line"><span class="comment"># 思路2: 使用递归,改变树形状，不生成新的树</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">increasingBST</span>(<span class="params">self, root: TreeNode</span>) -&gt; TreeNode:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        dfs(root.left)</span><br><span class="line">        <span class="comment">### 对根节点的操作 ###</span></span><br><span class="line">        root.left = <span class="literal">None</span></span><br><span class="line">        self.cur.right = root</span><br><span class="line">        self.cur = root</span><br><span class="line">        <span class="comment">###################</span></span><br><span class="line">        dfs(root.right)</span><br><span class="line">    res = self.cur = TreeNode(<span class="literal">None</span>)</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">return</span> res.right</span><br></pre></td></tr></table></figure>
 
-<h4 id="求1-2-…-n"><a href="#求1-2-…-n" class="headerlink" title="求1+2+…+n"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/qiu-12n-lcof/">求1+2+…+n</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">res = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumNums</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="keyword">global</span> res</span><br><span class="line">    n &gt; <span class="number">1</span> <span class="keyword">and</span> sumNums(n<span class="number">-1</span>) <span class="comment"># n=1 终止递归的需求，可通过短路效应实现</span></span><br><span class="line">    res += n </span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<h4 id="数组中重复的数字"><a href="#数组中重复的数字" class="headerlink" title="数组中重复的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">数组中重复的数字</a></h4>
+<h4 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/invert-binary-tree/">226. 翻转二叉树</a></h4>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/05/Algorithm-jianzhioffer/#more" rel="contents">
+              <a class="btn" href="/2020/09/17/Algorithm-binarytree/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -379,7 +1160,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -447,7 +1228,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -509,7 +1290,7 @@
 
 <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共38k字</span>
+    <span class="post-count">共50.1k字</span>
 </div>
 
         
