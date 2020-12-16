@@ -1,51 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>知识图谱表格理解</title>
-    <url>/2020/12/03/558-table-und/</url>
-    <content><![CDATA[<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
-<li>Structured Data<ul>
-<li>Knowledge Graphs</li>
-<li>The Semantic Web</li>
-<li>Databases</li>
-<li>Structured files (CSV, XML, XLS)</li>
-<li>Structures in HTML, e.g. tables  -&gt; 本章关注</li>
-</ul>
-</li>
-<li>Unstructured Data</li>
-</ul>
-<h2 id="Web中的结构化表格-Structured-Tables-on-the-Web"><a href="#Web中的结构化表格-Structured-Tables-on-the-Web" class="headerlink" title="Web中的结构化表格 (Structured Tables on the Web)"></a>Web中的结构化表格 (Structured Tables on the Web)</h2><p>Tables contain really useful data<br>Vast Amount of Data in Tabular Form</p>
-<h2 id="表格类型"><a href="#表格类型" class="headerlink" title="表格类型"></a>表格类型</h2><p><img src="/image/table_type.png"></p>
-<h3 id="Listing"><a href="#Listing" class="headerlink" title="Listing"></a>Listing</h3><p>Horizontal Listings; -&gt; 类似于excel表格的形式，每一行表示某个item的信息<br>Vertical Listings; -&gt; 类似于Dell、Apple商品展现的形式，每一列表示某个item的信息</p>
-<h3 id="Attribute-Value-Tables"><a href="#Attribute-Value-Tables" class="headerlink" title="Attribute/Value Tables"></a>Attribute/Value Tables</h3><p>类似于Wikipedia的展现形式，其本质就是一个k-v的字典</p>
-<h3 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h3><p>二维表格，第一行和第一列都描述了元信息<br>same value type for any cell</p>
-<h3 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h3><p>list series of objects with the same ontological relation;<br>major challenge: discovery of the predicate;<br>本质上就是一个list，然后其中包含了某一个属性下的列表信息。</p>
-<h3 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h3><p>like attribute-value;<br>with missing values;<br>which are filled by a user</p>
-<p>也就是日常见到的表单</p>
-<h3 id="Navigational"><a href="#Navigational" class="headerlink" title="Navigational"></a>Navigational</h3><p>purpose: navigate within or outside of a site<br>no clear relations between the cells</p>
-<p>也就是网站上常见到一系列可以点击的网页链接放在一块的展示<br><img src="/image/nva.png"></p>
-<h3 id="Formatting"><a href="#Formatting" class="headerlink" title="Formatting"></a>Formatting</h3><p>purpose: organize data visually</p>
-<p>主要是一些布局展示</p>
-<h2 id="表格的属性"><a href="#表格的属性" class="headerlink" title="表格的属性"></a>表格的属性</h2><p>Global Layout features<br>• #rows, #cols, max cell length</p>
-<p>Layout features (per row/column)<br>• cell length, length variance, ratio in col/rowspan</p>
-<p>HTML features (content)<br>• unique tags, ratio of th/anchor/img/input/br/font…</p>
-<p>Cell features (content)<br>• unique strings, end-with-colon, is/contains number, non- blank</p>
-<h2 id="提取关系数据-Extracting-Relational-Data"><a href="#提取关系数据-Extracting-Relational-Data" class="headerlink" title="提取关系数据 (Extracting Relational Data)"></a>提取关系数据 (Extracting Relational Data)</h2><p>目标:<br>找到表格中的结构化关系<br>提取出表格下的RDF三元组</p>
-<p>关键:<br>• What is the semantic type of each column? • Semantic Labeling  列的含义<br>• What is the subject of the table? • Entity Linking 表格中主体寻找<br>• What predicates describe the relationships in the table? • Semantic Modeling 单元格的关系建立</p>
-<h2 id="提取定量数据-Extracting-Quantitative-Data"><a href="#提取定量数据-Extracting-Quantitative-Data" class="headerlink" title="提取定量数据 (Extracting Quantitative Data)"></a>提取定量数据 (Extracting Quantitative Data)</h2><p>• What is quantitative data?<br>• How is it harder than relational data?<br>• How is it easier than relational data?<br>• What is important to represent about this data?</p>
-<h3 id="Quantitative-data"><a href="#Quantitative-data" class="headerlink" title="Quantitative data"></a>Quantitative data</h3><p>Quantitative data is defined as the value of data in the form of counts or numbers where each data-set has an unique numerical value associated with it.</p>
-<p>Key idea:</p>
-<p>• Measure: the thing we want to measure<br>• Attributes: help us understand what we’re measuring<br>• Dimensions: values that are varied across measurements<br>• Observation: The actual value we measured</p>
-<p>Measure表示我们需要衡量什么，比如说温度<br>Attributes表示我们衡量的这个东西具有的属性，比如说那一天的温度、那个海拔高度的温度、温度的单位<br>Dimensions表示随着这个东西的改变，衡量的值会不同，比如说地点<br>Observation表示就是观测值，比如说30度</p>
-<h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><p>Attributes有哪些？<br>Dimensions有哪些？<br>Value是什么？</p>
-<p>需要做很多操作，例如<br>Metadata Detection, Separation between header and values, Detecting layouts, Detecting dependent rows/columns, Filling the implicit values, Recognizing null values ….</p>
-<h3 id="核心任务"><a href="#核心任务" class="headerlink" title="核心任务"></a>核心任务</h3><p>Three core tasks across all table understanding tools:<br>Classify Cell Type;<br>Identify Blocks;<br>Detect Layout;<br><img src="/image/tbl_und.png"></p>
-]]></content>
-      <tags>
-        <tag>Knowledge Graph</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据挖掘, MapReduce 介绍</title>
     <url>/2020/11/10/553week1/</url>
     <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Terms"><a href="#Terms" class="headerlink" title="Terms"></a>Terms</h2><ul>
@@ -139,6 +94,51 @@
       <tags>
         <tag>Data Mining</tag>
         <tag>Big Data</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱表格理解</title>
+    <url>/2020/12/03/558-table-und/</url>
+    <content><![CDATA[<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li>Structured Data<ul>
+<li>Knowledge Graphs</li>
+<li>The Semantic Web</li>
+<li>Databases</li>
+<li>Structured files (CSV, XML, XLS)</li>
+<li>Structures in HTML, e.g. tables  -&gt; 本章关注</li>
+</ul>
+</li>
+<li>Unstructured Data</li>
+</ul>
+<h2 id="Web中的结构化表格-Structured-Tables-on-the-Web"><a href="#Web中的结构化表格-Structured-Tables-on-the-Web" class="headerlink" title="Web中的结构化表格 (Structured Tables on the Web)"></a>Web中的结构化表格 (Structured Tables on the Web)</h2><p>Tables contain really useful data<br>Vast Amount of Data in Tabular Form</p>
+<h2 id="表格类型"><a href="#表格类型" class="headerlink" title="表格类型"></a>表格类型</h2><p><img src="/image/table_type.png"></p>
+<h3 id="Listing"><a href="#Listing" class="headerlink" title="Listing"></a>Listing</h3><p>Horizontal Listings; -&gt; 类似于excel表格的形式，每一行表示某个item的信息<br>Vertical Listings; -&gt; 类似于Dell、Apple商品展现的形式，每一列表示某个item的信息</p>
+<h3 id="Attribute-Value-Tables"><a href="#Attribute-Value-Tables" class="headerlink" title="Attribute/Value Tables"></a>Attribute/Value Tables</h3><p>类似于Wikipedia的展现形式，其本质就是一个k-v的字典</p>
+<h3 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h3><p>二维表格，第一行和第一列都描述了元信息<br>same value type for any cell</p>
+<h3 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h3><p>list series of objects with the same ontological relation;<br>major challenge: discovery of the predicate;<br>本质上就是一个list，然后其中包含了某一个属性下的列表信息。</p>
+<h3 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h3><p>like attribute-value;<br>with missing values;<br>which are filled by a user</p>
+<p>也就是日常见到的表单</p>
+<h3 id="Navigational"><a href="#Navigational" class="headerlink" title="Navigational"></a>Navigational</h3><p>purpose: navigate within or outside of a site<br>no clear relations between the cells</p>
+<p>也就是网站上常见到一系列可以点击的网页链接放在一块的展示<br><img src="/image/nva.png"></p>
+<h3 id="Formatting"><a href="#Formatting" class="headerlink" title="Formatting"></a>Formatting</h3><p>purpose: organize data visually</p>
+<p>主要是一些布局展示</p>
+<h2 id="表格的属性"><a href="#表格的属性" class="headerlink" title="表格的属性"></a>表格的属性</h2><p>Global Layout features<br>• #rows, #cols, max cell length</p>
+<p>Layout features (per row/column)<br>• cell length, length variance, ratio in col/rowspan</p>
+<p>HTML features (content)<br>• unique tags, ratio of th/anchor/img/input/br/font…</p>
+<p>Cell features (content)<br>• unique strings, end-with-colon, is/contains number, non- blank</p>
+<h2 id="提取关系数据-Extracting-Relational-Data"><a href="#提取关系数据-Extracting-Relational-Data" class="headerlink" title="提取关系数据 (Extracting Relational Data)"></a>提取关系数据 (Extracting Relational Data)</h2><p>目标:<br>找到表格中的结构化关系<br>提取出表格下的RDF三元组</p>
+<p>关键:<br>• What is the semantic type of each column? • Semantic Labeling  列的含义<br>• What is the subject of the table? • Entity Linking 表格中主体寻找<br>• What predicates describe the relationships in the table? • Semantic Modeling 单元格的关系建立</p>
+<h2 id="提取定量数据-Extracting-Quantitative-Data"><a href="#提取定量数据-Extracting-Quantitative-Data" class="headerlink" title="提取定量数据 (Extracting Quantitative Data)"></a>提取定量数据 (Extracting Quantitative Data)</h2><p>• What is quantitative data?<br>• How is it harder than relational data?<br>• How is it easier than relational data?<br>• What is important to represent about this data?</p>
+<h3 id="Quantitative-data"><a href="#Quantitative-data" class="headerlink" title="Quantitative data"></a>Quantitative data</h3><p>Quantitative data is defined as the value of data in the form of counts or numbers where each data-set has an unique numerical value associated with it.</p>
+<p>Key idea:</p>
+<p>• Measure: the thing we want to measure<br>• Attributes: help us understand what we’re measuring<br>• Dimensions: values that are varied across measurements<br>• Observation: The actual value we measured</p>
+<p>Measure表示我们需要衡量什么，比如说温度<br>Attributes表示我们衡量的这个东西具有的属性，比如说那一天的温度、那个海拔高度的温度、温度的单位<br>Dimensions表示随着这个东西的改变，衡量的值会不同，比如说地点<br>Observation表示就是观测值，比如说30度</p>
+<h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><p>Attributes有哪些？<br>Dimensions有哪些？<br>Value是什么？</p>
+<p>需要做很多操作，例如<br>Metadata Detection, Separation between header and values, Detecting layouts, Detecting dependent rows/columns, Filling the implicit values, Recognizing null values ….</p>
+<h3 id="核心任务"><a href="#核心任务" class="headerlink" title="核心任务"></a>核心任务</h3><p>Three core tasks across all table understanding tools:<br>Classify Cell Type;<br>Identify Blocks;<br>Detect Layout;<br><img src="/image/tbl_und.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
       </tags>
   </entry>
   <entry>
@@ -326,6 +326,58 @@
       </tags>
   </entry>
   <entry>
+    <title>知识图谱简介</title>
+    <url>/2020/12/01/558intro/</url>
+    <content><![CDATA[<h2 id="什么是知识图谱？"><a href="#什么是知识图谱？" class="headerlink" title="什么是知识图谱？"></a>什么是知识图谱？</h2><ul>
+<li>Knowledge in graph form!</li>
+<li>Captures entities, attributes, and relationships</li>
+<li>Nodes are entities</li>
+<li>Nodes are labeled with attributes (e.g., types)</li>
+<li>Typed edges between two nodes capture a relationship between entities</li>
+</ul>
+<p><img src="/image/kg_overview.png"></p>
+<p>简单的说，知识图谱就是一张图，用来描述节点之间的关系。</p>
+<h2 id="知识图谱的来源？"><a href="#知识图谱的来源？" class="headerlink" title="知识图谱的来源？"></a>知识图谱的来源？</h2><ul>
+<li>Structured Text (Wikipedia Infoboxes, tables, databases, social nets)</li>
+<li>Unstructured Text (WWW, news, social media, reference articles)</li>
+<li>Images</li>
+<li>Video (YouTube, video feeds)</li>
+</ul>
+<h2 id="知识图谱如何被使用？"><a href="#知识图谱如何被使用？" class="headerlink" title="知识图谱如何被使用？"></a>知识图谱如何被使用？</h2><p>Human perspective:</p>
+<ul>
+<li>Combat information overload</li>
+<li>Explore via intuitive structure</li>
+<li>Tool for supporting knowledge-driven tasks</li>
+</ul>
+<p>AI perspective:</p>
+<ul>
+<li>Key ingredient for many AI tasks</li>
+<li>Bridge from data to human semantics</li>
+<li>Use decades of work on graph analysis</li>
+</ul>
+<p>常见的应用:</p>
+<ul>
+<li>QA/Agents</li>
+<li>Decision Support</li>
+<li>Fueling Discovery</li>
+</ul>
+<p>工业界的使用包括: Google Knowledge Graph(Google Knowledge Vault), Amazon Product Graph, Facebook Graph API, IBM Watson, Microsoft Satori, LinkedIn Knowledge Graph, Yandex Object Answer, Diffbot, GraphIQ, Maana, ParseHub, Reactor Labs, SpazioDati</p>
+<h2 id="典型的知识图谱架构？"><a href="#典型的知识图谱架构？" class="headerlink" title="典型的知识图谱架构？"></a>典型的知识图谱架构？</h2><p>基本流程如下：</p>
+<ol>
+<li>数据获取</li>
+<li>信息提取</li>
+<li>本体映射</li>
+<li>实体解析</li>
+<li>知识图谱的部署</li>
+<li>图谱具体应用</li>
+</ol>
+<p><img src="/image/kg_arc.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>知识图谱数据提取</title>
     <url>/2020/12/01/558info-extra/</url>
     <content><![CDATA[<blockquote>
@@ -460,58 +512,6 @@
       </tags>
   </entry>
   <entry>
-    <title>知识图谱简介</title>
-    <url>/2020/12/01/558intro/</url>
-    <content><![CDATA[<h2 id="什么是知识图谱？"><a href="#什么是知识图谱？" class="headerlink" title="什么是知识图谱？"></a>什么是知识图谱？</h2><ul>
-<li>Knowledge in graph form!</li>
-<li>Captures entities, attributes, and relationships</li>
-<li>Nodes are entities</li>
-<li>Nodes are labeled with attributes (e.g., types)</li>
-<li>Typed edges between two nodes capture a relationship between entities</li>
-</ul>
-<p><img src="/image/kg_overview.png"></p>
-<p>简单的说，知识图谱就是一张图，用来描述节点之间的关系。</p>
-<h2 id="知识图谱的来源？"><a href="#知识图谱的来源？" class="headerlink" title="知识图谱的来源？"></a>知识图谱的来源？</h2><ul>
-<li>Structured Text (Wikipedia Infoboxes, tables, databases, social nets)</li>
-<li>Unstructured Text (WWW, news, social media, reference articles)</li>
-<li>Images</li>
-<li>Video (YouTube, video feeds)</li>
-</ul>
-<h2 id="知识图谱如何被使用？"><a href="#知识图谱如何被使用？" class="headerlink" title="知识图谱如何被使用？"></a>知识图谱如何被使用？</h2><p>Human perspective:</p>
-<ul>
-<li>Combat information overload</li>
-<li>Explore via intuitive structure</li>
-<li>Tool for supporting knowledge-driven tasks</li>
-</ul>
-<p>AI perspective:</p>
-<ul>
-<li>Key ingredient for many AI tasks</li>
-<li>Bridge from data to human semantics</li>
-<li>Use decades of work on graph analysis</li>
-</ul>
-<p>常见的应用:</p>
-<ul>
-<li>QA/Agents</li>
-<li>Decision Support</li>
-<li>Fueling Discovery</li>
-</ul>
-<p>工业界的使用包括: Google Knowledge Graph(Google Knowledge Vault), Amazon Product Graph, Facebook Graph API, IBM Watson, Microsoft Satori, LinkedIn Knowledge Graph, Yandex Object Answer, Diffbot, GraphIQ, Maana, ParseHub, Reactor Labs, SpazioDati</p>
-<h2 id="典型的知识图谱架构？"><a href="#典型的知识图谱架构？" class="headerlink" title="典型的知识图谱架构？"></a>典型的知识图谱架构？</h2><p>基本流程如下：</p>
-<ol>
-<li>数据获取</li>
-<li>信息提取</li>
-<li>本体映射</li>
-<li>实体解析</li>
-<li>知识图谱的部署</li>
-<li>图谱具体应用</li>
-</ol>
-<p><img src="/image/kg_arc.png"></p>
-]]></content>
-      <tags>
-        <tag>Knowledge Graph</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>知识图谱图嵌入</title>
     <url>/2020/12/03/558kg-emb/</url>
     <content><![CDATA[<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="数据的表示"><a href="#数据的表示" class="headerlink" title="数据的表示"></a>数据的表示</h3><p>Scalar: a  标量，0维<br>Vector: a[i]， 向量，1维<br>Matrix: a[i,j]， 矩阵，2维<br>Tensor: a[i,j,k]， 张量，多维</p>
@@ -628,6 +628,53 @@
       </tags>
   </entry>
   <entry>
+    <title>知识图谱表示</title>
+    <url>/2020/12/01/558kg-rep/</url>
+    <content><![CDATA[<p>本章关注:<br><img src="/image/semantic_web.png"></p>
+<h2 id="Web信息表达"><a href="#Web信息表达" class="headerlink" title="Web信息表达"></a>Web信息表达</h2><h3 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h3><p>Unicode: a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world’s writing systems.</p>
+<h3 id="Web资源地址"><a href="#Web资源地址" class="headerlink" title="Web资源地址"></a>Web资源地址</h3><p>URL(Uniform Resource Locator):A reference to an Internet resource<br>URL vs URI<br>URI = URL + URN</p>
+<p>为什么使用URI?<br>URIs look cool;<br>Precisely identify resources(Avoid confusion among different subjects);<br>Precisely identify properties;<br>Provide information about properties;<br>Look them up on the web</p>
+<h2 id="RDF-Resource-Description-Framework"><a href="#RDF-Resource-Description-Framework" class="headerlink" title="RDF (Resource Description Framework)"></a>RDF (Resource Description Framework)</h2><p>The Resource Description Framework (RDF) is a language for representing information about resources in the World Wide Web</p>
+<p>Intention: Intended for representing metadata about Web resources, such as the title, author, and modification date of a Web document（为了描述web中资源的元数据信息）<br>=&gt; also be used to represent information about things that can be identified on the Web, even when they cannot be directly retrieved on the Web</p>
+<h3 id="Triples"><a href="#Triples" class="headerlink" title="Triples"></a>Triples</h3><p>Represent Information as Triples, (Subject,Predicate,Object)<br>Subject: The resource being described<br>Predicate: A property of the resource<br>Object: The value of the property</p>
+<p>通过三元组的形式，很自然的形成了一条有向边的表达方式。</p>
+<h3 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h3><p>命名空间，用于简化URI的书写，其中存储了一系列subject或者predicate的信息<br><a href="http://xmlns.com/foaf/0.1/firstName">http://xmlns.com/foaf/0.1/firstName</a> =&gt;  foaf:firstName</p>
+<h3 id="RDF-Syntaxes"><a href="#RDF-Syntaxes" class="headerlink" title="RDF Syntaxes"></a>RDF Syntaxes</h3><p>XML, N3 Turtle, N-Triples, RDFa, JSON-LD</p>
+<h3 id="Represent-nested-structures"><a href="#Represent-nested-structures" class="headerlink" title="Represent nested structures"></a>Represent nested structures</h3><p><code>usc:isi   schema:address  “4676 Admiralty Way, Marina del Rey, CA 90292” .</code><br>问题:  In what city is USC/ISI located?</p>
+<p>使用嵌套节点</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">usc</span><span class="hljs-selector-pseudo">:isi</span> <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:address</span> <span class="hljs-selector-tag">usc</span><span class="hljs-selector-pseudo">:isi-address</span> .<br><br><span class="hljs-selector-tag">usc</span><span class="hljs-selector-pseudo">:isi-address</span><br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressCountry</span> 	“<span class="hljs-selector-tag">USA</span>” ;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressRegion</span> 		“<span class="hljs-selector-tag">CA</span>”;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressLocality</span> 	“<span class="hljs-selector-tag">Marina</span> <span class="hljs-selector-tag">del</span> <span class="hljs-selector-tag">Rey</span>” ; <br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:postalCode</span> 		“90292” ;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:streetAddress</span> 		“4676 <span class="hljs-selector-tag">Admiralty</span> <span class="hljs-selector-tag">Way</span>” . <br></code></pre></td></tr></table></figure>
+<p>We minted a URI for USC/ISI’s address, but sometimes we don’t want to mint URIs =&gt; BNode<br>在这里可以发现嵌套节点usc:isi-address也有具体的URI来表示，但是该节点的URI没有什么其他的作用，所以使用空节点来表示, 前缀为_</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">usc</span><span class="hljs-selector-pseudo">:isi</span> <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:address</span> _<span class="hljs-selector-pseudo">:isi-address</span> .<br><br>_<span class="hljs-selector-pseudo">:isi-address</span> .<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressCountry</span> 	“<span class="hljs-selector-tag">USA</span>” ;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressRegion</span> 		“<span class="hljs-selector-tag">CA</span>”;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressLocality</span> 	“<span class="hljs-selector-tag">Marina</span> <span class="hljs-selector-tag">del</span> <span class="hljs-selector-tag">Rey</span>” ; <br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:postalCode</span> 		“90292” ;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:streetAddress</span> 		“4676 <span class="hljs-selector-tag">Admiralty</span> <span class="hljs-selector-tag">Way</span>” . <br></code></pre></td></tr></table></figure>
+
+<h3 id="字面值的类型（Typed-Literals）"><a href="#字面值的类型（Typed-Literals）" class="headerlink" title="字面值的类型（Typed Literals）"></a>字面值的类型（Typed Literals）</h3><p>在object后面添加类型信息。<br>example: weather:date ”2012-06-18”^^xsd:date ;</p>
+<h3 id="Reification"><a href="#Reification" class="headerlink" title="Reification"></a>Reification</h3><p>RDF applications sometimes need to describe other RDF statements using RDF, for instance, to record information about when statements were made, who made them, or other similar information (this is sometimes referred to as “provenance” information). </p>
+<p>举个例子： 他说了xxx<br>“On June 19 2012, Claudia said that Sam’s email address is <a href="mailto:&#83;&#97;&#x6d;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#83;&#97;&#x6d;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#109;</a>”</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy"><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>type        <span class="hljs-attr">rdf:</span>Statement .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>subject     &lt;<span class="hljs-attr">http:</span><span class="hljs-comment">//szekelys.com/family#sam&gt; .    </span><br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>predicate   <span class="hljs-attr">foaf:</span>mbox .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>object      &lt;Sam<span class="hljs-meta">@gmail</span>.com&gt;<br><br><span class="hljs-attr">_:</span>s <span class="hljs-attr">dcterms:</span>date     “<span class="hljs-number">2012</span><span class="hljs-number">-06</span><span class="hljs-number">-19</span>”^^<span class="hljs-attr">xsd:</span>date .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">dcterms:</span>creator  &lt;<span class="hljs-attr">http:</span><span class="hljs-comment">//uniandes.edu.co/faculty#claudiaj&gt; .</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="RDF-syntax-in-turtle"><a href="#RDF-syntax-in-turtle" class="headerlink" title="RDF syntax in turtle"></a>RDF syntax in turtle</h3><ul>
+<li><p>URIs are in &lt;&gt;</p>
+</li>
+<li><p>Prefix:<br>  @prefix foo: <a href="http://example.org/ns#">http://example.org/ns#</a> .<br>  @prefix : <a href="http://other.example.org/ns#">http://other.example.org/ns#</a> . &lt;- 空命名空间<br>  foo:bar foo: : . 等价于<br>  <a href="http://example.org/ns#bar">http://example.org/ns#bar</a> <a href="http://example.org/ns">http://example.org/ns</a> <a href="http://other.example.org/ns">http://other.example.org/ns</a>.</p>
+</li>
+<li><p>Turtle Literals</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">Type</span> of literals: <br>  untyped (“London” equivalent <span class="hljs-keyword">to</span> “London”^^xsd:<span class="hljs-built_in">string</span>)<br>  language <span class="hljs-built_in">tag</span><br>  <span class="hljs-built_in">data</span> <span class="hljs-keyword">type</span> (<span class="hljs-keyword">with</span> a URI)<br>Example:<br>  Strings <span class="hljs-keyword">in</span> “”<br>  Language <span class="hljs-built_in">tag</span>: <span class="hljs-string">&quot;That Seventies Show&quot;</span>@en<br>  <span class="hljs-built_in">Data</span> <span class="hljs-keyword">type</span>: <span class="hljs-string">&quot;10&quot;</span>^^xsd:<span class="hljs-built_in">decimal</span><br></code></pre></td></tr></table></figure></li>
+<li><p>Blank Node<br>  _:a<br>  []</p>
+</li>
+<li><p>Turtle Base URI ????</p>
+</li>
+<li><p>常用缩写<br>  rdf:type  = a<br>  “-5”^^xsd:integer<br>  “true”^^xds:boolean<br>  “1.3e2”^^xsd:double</p>
+</li>
+</ul>
+<h2 id="RDF-Schema"><a href="#RDF-Schema" class="headerlink" title="RDF Schema"></a>RDF Schema</h2><p>RDF Schema is the language for defining RDF vocabularies.<br>It specifies the RDF inference rules: the triples that are implied by the triples you have.</p>
+<p>常用rdfs:<br><img src="/image/rdfs.png"></p>
+<p>All things described by RDF are called resources, and are instances of the class rdfs:Resource</p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>知识图谱键连数据与语义网络</title>
     <url>/2020/12/03/558ld-sw/</url>
     <content><![CDATA[<h2 id="Web-of-documents-vs-Web-of-data"><a href="#Web-of-documents-vs-Web-of-data" class="headerlink" title="Web of documents vs. Web of data"></a>Web of documents vs. Web of data</h2><p>Web of Document: 数据之间关联少<br>Analogy: a global filesystem<br>Primary objects: documents<br>Links between: documents (or sub-parts of)<br>Degree of structure in objects: fairly low<br>Semantics of content and links: implicit<br>Designed for: human consumption</p>
@@ -661,53 +708,6 @@
 <h3 id="303-重定向"><a href="#303-重定向" class="headerlink" title="303 重定向"></a>303 重定向</h3><p>解决问题: two documents don’t contain the same content</p>
 <p><img src="/image/303.png"></p>
 <h3 id="三个URI关系"><a href="#三个URI关系" class="headerlink" title="三个URI关系"></a>三个URI关系</h3><figure class="highlight crystal"><table><tr><td class="code"><pre><code class="hljs crystal">&lt;<span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/ex.com/id</span><span class="hljs-regexp">/alice&gt;</span><br><span class="hljs-regexp">  foaf:page &lt;http:/</span><span class="hljs-regexp">/ex.com/people</span><span class="hljs-regexp">/alice&gt; ; </span><br><span class="hljs-regexp">  rdfs:isDefinedBy &lt;http:/</span><span class="hljs-regexp">/ex.com/data</span><span class="hljs-regexp">/alice&gt; ;</span><br><span class="hljs-regexp">  a foaf:Person ;</span><br><span class="hljs-regexp">  foaf:name &quot;Alice” ;</span><br><span class="hljs-regexp">  foaf:mbox &lt;mailto:alice@example.com&gt; ; ...</span><br></code></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Knowledge Graph</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>知识图谱表示</title>
-    <url>/2020/12/01/558kg-rep/</url>
-    <content><![CDATA[<p>本章关注:<br><img src="/image/semantic_web.png"></p>
-<h2 id="Web信息表达"><a href="#Web信息表达" class="headerlink" title="Web信息表达"></a>Web信息表达</h2><h3 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h3><p>Unicode: a computing industry standard for the consistent encoding, representation and handling of text expressed in most of the world’s writing systems.</p>
-<h3 id="Web资源地址"><a href="#Web资源地址" class="headerlink" title="Web资源地址"></a>Web资源地址</h3><p>URL(Uniform Resource Locator):A reference to an Internet resource<br>URL vs URI<br>URI = URL + URN</p>
-<p>为什么使用URI?<br>URIs look cool;<br>Precisely identify resources(Avoid confusion among different subjects);<br>Precisely identify properties;<br>Provide information about properties;<br>Look them up on the web</p>
-<h2 id="RDF-Resource-Description-Framework"><a href="#RDF-Resource-Description-Framework" class="headerlink" title="RDF (Resource Description Framework)"></a>RDF (Resource Description Framework)</h2><p>The Resource Description Framework (RDF) is a language for representing information about resources in the World Wide Web</p>
-<p>Intention: Intended for representing metadata about Web resources, such as the title, author, and modification date of a Web document（为了描述web中资源的元数据信息）<br>=&gt; also be used to represent information about things that can be identified on the Web, even when they cannot be directly retrieved on the Web</p>
-<h3 id="Triples"><a href="#Triples" class="headerlink" title="Triples"></a>Triples</h3><p>Represent Information as Triples, (Subject,Predicate,Object)<br>Subject: The resource being described<br>Predicate: A property of the resource<br>Object: The value of the property</p>
-<p>通过三元组的形式，很自然的形成了一条有向边的表达方式。</p>
-<h3 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h3><p>命名空间，用于简化URI的书写，其中存储了一系列subject或者predicate的信息<br><a href="http://xmlns.com/foaf/0.1/firstName">http://xmlns.com/foaf/0.1/firstName</a> =&gt;  foaf:firstName</p>
-<h3 id="RDF-Syntaxes"><a href="#RDF-Syntaxes" class="headerlink" title="RDF Syntaxes"></a>RDF Syntaxes</h3><p>XML, N3 Turtle, N-Triples, RDFa, JSON-LD</p>
-<h3 id="Represent-nested-structures"><a href="#Represent-nested-structures" class="headerlink" title="Represent nested structures"></a>Represent nested structures</h3><p><code>usc:isi   schema:address  “4676 Admiralty Way, Marina del Rey, CA 90292” .</code><br>问题:  In what city is USC/ISI located?</p>
-<p>使用嵌套节点</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">usc</span><span class="hljs-selector-pseudo">:isi</span> <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:address</span> <span class="hljs-selector-tag">usc</span><span class="hljs-selector-pseudo">:isi-address</span> .<br><br><span class="hljs-selector-tag">usc</span><span class="hljs-selector-pseudo">:isi-address</span><br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressCountry</span> 	“<span class="hljs-selector-tag">USA</span>” ;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressRegion</span> 		“<span class="hljs-selector-tag">CA</span>”;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressLocality</span> 	“<span class="hljs-selector-tag">Marina</span> <span class="hljs-selector-tag">del</span> <span class="hljs-selector-tag">Rey</span>” ; <br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:postalCode</span> 		“90292” ;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:streetAddress</span> 		“4676 <span class="hljs-selector-tag">Admiralty</span> <span class="hljs-selector-tag">Way</span>” . <br></code></pre></td></tr></table></figure>
-<p>We minted a URI for USC/ISI’s address, but sometimes we don’t want to mint URIs =&gt; BNode<br>在这里可以发现嵌套节点usc:isi-address也有具体的URI来表示，但是该节点的URI没有什么其他的作用，所以使用空节点来表示, 前缀为_</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">usc</span><span class="hljs-selector-pseudo">:isi</span> <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:address</span> _<span class="hljs-selector-pseudo">:isi-address</span> .<br><br>_<span class="hljs-selector-pseudo">:isi-address</span> .<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressCountry</span> 	“<span class="hljs-selector-tag">USA</span>” ;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressRegion</span> 		“<span class="hljs-selector-tag">CA</span>”;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:addressLocality</span> 	“<span class="hljs-selector-tag">Marina</span> <span class="hljs-selector-tag">del</span> <span class="hljs-selector-tag">Rey</span>” ; <br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:postalCode</span> 		“90292” ;<br>  <span class="hljs-selector-tag">schema</span><span class="hljs-selector-pseudo">:streetAddress</span> 		“4676 <span class="hljs-selector-tag">Admiralty</span> <span class="hljs-selector-tag">Way</span>” . <br></code></pre></td></tr></table></figure>
-
-<h3 id="字面值的类型（Typed-Literals）"><a href="#字面值的类型（Typed-Literals）" class="headerlink" title="字面值的类型（Typed Literals）"></a>字面值的类型（Typed Literals）</h3><p>在object后面添加类型信息。<br>example: weather:date ”2012-06-18”^^xsd:date ;</p>
-<h3 id="Reification"><a href="#Reification" class="headerlink" title="Reification"></a>Reification</h3><p>RDF applications sometimes need to describe other RDF statements using RDF, for instance, to record information about when statements were made, who made them, or other similar information (this is sometimes referred to as “provenance” information). </p>
-<p>举个例子： 他说了xxx<br>“On June 19 2012, Claudia said that Sam’s email address is <a href="mailto:&#x53;&#x61;&#x6d;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x53;&#x61;&#x6d;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a>”</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy"><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>type        <span class="hljs-attr">rdf:</span>Statement .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>subject     &lt;<span class="hljs-attr">http:</span><span class="hljs-comment">//szekelys.com/family#sam&gt; .    </span><br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>predicate   <span class="hljs-attr">foaf:</span>mbox .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>object      &lt;Sam<span class="hljs-meta">@gmail</span>.com&gt;<br><br><span class="hljs-attr">_:</span>s <span class="hljs-attr">dcterms:</span>date     “<span class="hljs-number">2012</span><span class="hljs-number">-06</span><span class="hljs-number">-19</span>”^^<span class="hljs-attr">xsd:</span>date .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">dcterms:</span>creator  &lt;<span class="hljs-attr">http:</span><span class="hljs-comment">//uniandes.edu.co/faculty#claudiaj&gt; .</span><br></code></pre></td></tr></table></figure>
-
-
-<h3 id="RDF-syntax-in-turtle"><a href="#RDF-syntax-in-turtle" class="headerlink" title="RDF syntax in turtle"></a>RDF syntax in turtle</h3><ul>
-<li><p>URIs are in &lt;&gt;</p>
-</li>
-<li><p>Prefix:<br>  @prefix foo: <a href="http://example.org/ns#">http://example.org/ns#</a> .<br>  @prefix : <a href="http://other.example.org/ns#">http://other.example.org/ns#</a> . &lt;- 空命名空间<br>  foo:bar foo: : . 等价于<br>  <a href="http://example.org/ns#bar">http://example.org/ns#bar</a> <a href="http://example.org/ns">http://example.org/ns</a> <a href="http://other.example.org/ns">http://other.example.org/ns</a>.</p>
-</li>
-<li><p>Turtle Literals</p>
-<figure class="highlight lasso"><table><tr><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">Type</span> of literals: <br>  untyped (“London” equivalent <span class="hljs-keyword">to</span> “London”^^xsd:<span class="hljs-built_in">string</span>)<br>  language <span class="hljs-built_in">tag</span><br>  <span class="hljs-built_in">data</span> <span class="hljs-keyword">type</span> (<span class="hljs-keyword">with</span> a URI)<br>Example:<br>  Strings <span class="hljs-keyword">in</span> “”<br>  Language <span class="hljs-built_in">tag</span>: <span class="hljs-string">&quot;That Seventies Show&quot;</span>@en<br>  <span class="hljs-built_in">Data</span> <span class="hljs-keyword">type</span>: <span class="hljs-string">&quot;10&quot;</span>^^xsd:<span class="hljs-built_in">decimal</span><br></code></pre></td></tr></table></figure></li>
-<li><p>Blank Node<br>  _:a<br>  []</p>
-</li>
-<li><p>Turtle Base URI ????</p>
-</li>
-<li><p>常用缩写<br>  rdf:type  = a<br>  “-5”^^xsd:integer<br>  “true”^^xds:boolean<br>  “1.3e2”^^xsd:double</p>
-</li>
-</ul>
-<h2 id="RDF-Schema"><a href="#RDF-Schema" class="headerlink" title="RDF Schema"></a>RDF Schema</h2><p>RDF Schema is the language for defining RDF vocabularies.<br>It specifies the RDF inference rules: the triples that are implied by the triples you have.</p>
-<p>常用rdfs:<br><img src="/image/rdfs.png"></p>
-<p>All things described by RDF are called resources, and are instances of the class rdfs:Resource</p>
-]]></content>
       <tags>
         <tag>Knowledge Graph</tag>
       </tags>
@@ -828,33 +828,6 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
-    <title>知识图谱RDFa</title>
-    <url>/2020/12/03/558rdfa/</url>
-    <content><![CDATA[<h2 id="RDFa"><a href="#RDFa" class="headerlink" title="RDFa"></a>RDFa</h2><p>Resource Description Framework  in  attributes</p>
-<p>定义:<br>RDFa是一个W3C推荐标准。它扩展了XHTML的几个属性，网页制作者可以利用这些属性在网页中添加可供机器读取的后设资料。与RDF资料模型的对应关系使得RDFa可以将RDF的三元组嵌入在XHTML文档中，它也使得符合标准的使用端可以从RDFa文件中提取出这些RDF三元组来。</p>
-<p>简单的说：RDFa就是在html中嵌入rdf信息。</p>
-<h2 id="RDFa-嵌入"><a href="#RDFa-嵌入" class="headerlink" title="RDFa 嵌入"></a>RDFa 嵌入</h2><figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim">&lt;<span class="hljs-keyword">p</span> xmln<span class="hljs-variable">s:dc</span>=<span class="hljs-comment">&quot;http://purl.org/dc/elements/1.1/”   -- Namespace 声明</span><br>about=<span class="hljs-string">&quot;http://www.example.com/books/wikinomics&quot;</span>&gt; -- Resource 声明<br>In <span class="hljs-keyword">his</span> latest book<br>&lt;cite property=<span class="hljs-string">&quot;dc:title&quot;</span> &gt;Wikinomics&lt;/cite&gt;,   -- 属性声明<br><span class="hljs-symbol">&lt;span&gt;</span>Don Tapscott&lt;/span&gt;<br>explains deep <span class="hljs-keyword">changes</span> in technology, demographics <span class="hljs-built_in">and</span> business.<br>The book <span class="hljs-keyword">is</span> due <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> published in <span class="hljs-symbol">&lt;span&gt;</span>October <span class="hljs-number">2006</span>&lt;/span&gt;.<br>&lt;/<span class="hljs-keyword">p</span>&gt;<br></code></pre></td></tr></table></figure>
-
-<p>SPO =&gt;<br><a href="http://www.example.com/books/wikinomics">http://www.example.com/books/wikinomics</a>  dc:title  “Wikinomics”</p>
-<p>嵌入RDFa的好处:<br>Not only human can Look Up the Meaning on the Web, but computers Can Look It Up Too.机器也可以去理解语义了。</p>
-<p>例子:<br><img src="/image/rdfa.png"></p>
-<h2 id="RDFa-问题与解决"><a href="#RDFa-问题与解决" class="headerlink" title="RDFa 问题与解决"></a>RDFa 问题与解决</h2><ol>
-<li>格式问题<br><code>&lt;span property=&quot;dc:date”&gt;October 2006&lt;/span&gt;. 在这里的话，October 2006 is not a computer understandable date e.g., an xsd:date</code><br>解决: 使用 Content Attribute<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> </span><br><span class="hljs-tag"><span class="hljs-attr">property</span>=<span class="hljs-string">&quot;dc:date”</span></span><br><span class="hljs-tag"><span class="hljs-string">content=&quot;</span><span class="hljs-attr">2006-10-01</span>” </span><br><span class="hljs-tag"><span class="hljs-attr">datatype</span>=<span class="hljs-string">“xsd:date”</span>&gt;</span> October 2006<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<br></code></pre></td></tr></table></figure>
-只要html标签中存在content的属性，那么RDF客户端在读取数据时自动会将content的内容来代替实际文本内容</li>
-</ol>
-<h2 id="RDFa-例子"><a href="#RDFa-例子" class="headerlink" title="RDFa 例子"></a>RDFa 例子</h2><h3 id="RDFa-vocab-and-typeof"><a href="#RDFa-vocab-and-typeof" class="headerlink" title="RDFa: vocab and typeof"></a>RDFa: vocab and typeof</h3><p>vocab: Define default vocabulary for an HTML element 相当于一个词汇表<br>typeof: Declare the type of this property</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">vocab</span>=<span class="hljs-string">&quot;http://xmlns.com/foaf/0.1/&quot;</span>&gt;</span>   -&gt; 这里声明了一个vocab，后续的标签中可以使用该词汇表中的术语<br><br><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">&quot;Person&quot;</span>&gt;</span>。 --&gt; 这里的Person表示的是foaf:person的含义，不需要使用uri显示表示<br><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://example.com/eve/&quot;</span>&gt;</span>Eve<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> <br><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-
-<h3 id="RDFa-property-and-href"><a href="#RDFa-property-and-href" class="headerlink" title="RDFa: property and href"></a>RDFa: property and href</h3><p>When href is present, it supplies the value for the property.  也就是说，这里的href的值表示了SPO中的O</p>
-<p><code>&lt;a property=“homepage” href=&quot;http://example.com/bob/&quot;&gt;Bob&lt;/a&gt;</code></p>
-<p><img src="/image/ex_rdfa.png"></p>
-]]></content>
-      <tags>
-        <tag>Knowledge Graph</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>知识图谱信息提取-Snorkel</title>
     <url>/2020/12/02/558snorkel/</url>
     <content><![CDATA[<h2 id="Dark-Data-Extraction"><a href="#Dark-Data-Extraction" class="headerlink" title="Dark Data Extraction"></a>Dark Data Extraction</h2><p>Structured Data(4%): Data easy to process by machines<br>Dark Data(96%): Valuable &amp; hard to process. (占据的web信息的绝大部分)<br>example: Scientific articles &amp; government reports，Medical Images</p>
@@ -914,35 +887,28 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
-    <title>知识图谱字符串匹配</title>
-    <url>/2020/12/01/558str-match/</url>
-    <content><![CDATA[<h2 id="字符串匹配问题"><a href="#字符串匹配问题" class="headerlink" title="字符串匹配问题"></a>字符串匹配问题</h2><h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement:"></a>Problem Statement:</h3><p>Given X and Y sets of strings, Find pairs (x, y) such that both x and y refer to the same real world entity. </p>
-<p>Then use precision(fraction of pairs found that are correct) and recall(fraction of pairs found) to evaluate algorithms</p>
-<h3 id="Why-can’t-match-perfectly"><a href="#Why-can’t-match-perfectly" class="headerlink" title="Why can’t match perfectly"></a>Why can’t match perfectly</h3><p>Typos    “Joh” vs. “Jhon”<br>OCR errors “J0hn” vs “John”<br>Formatting conventions ”03/17” vs “March 17”<br>Abbreviations “J. S. Sargent” vs “John Singer Sargent”<br>Nick name ”John” vs “Jock”<br>Word order “Sargent, John S.” vs “John S. Sargent”</p>
-<p>因此，转而计算字符串的相似度</p>
-<h2 id="Similiarity-Measure"><a href="#Similiarity-Measure" class="headerlink" title="Similiarity Measure"></a>Similiarity Measure</h2><p>Similarity(x, y) in [0, 1] is better than distance(x, y) in [0, ∞)</p>
-<p>Types of Similarity Metrics:</p>
-<ul>
-<li>Sequence based</li>
-<li>Set based</li>
-<li>Hybrid</li>
-<li>Phonetic</li>
-</ul>
-<h2 id="Sequence-Based-Metrics"><a href="#Sequence-Based-Metrics" class="headerlink" title="Sequence Based Metrics"></a>Sequence Based Metrics</h2><h3 id="Edit-Distance-Levenshtein-Distance"><a href="#Edit-Distance-Levenshtein-Distance" class="headerlink" title="Edit Distance/Levenshtein Distance"></a>Edit Distance/Levenshtein Distance</h3><p>Online calculator: <a href="http://planetcalc.com/1721/">http://planetcalc.com/1721/</a></p>
-<p>lev(x, y) is the minimum cost to transform x to y(insert,delete,substitute)</p>
-<p>原理： 动态规划 d(i,j)<br>case1: xi  = yj  =&gt; d(i,j) = d(i-1,j-1)<br>case2: xi != yj  =&gt; d(i,j) = min(  d(i-1,j) + 1 , d(i,j-1) + 1 , d(i-1,j-1) + 1)</p>
-<p>缺陷:<br>Too high a cost for deleting a sequence of characters, so it is not suitable for abbreviation cases (example: lev(John Singer Sargent,John S. Sargent ) = 5, lev(John Singer Sargent,John Klinger Sargent ) = 5 )</p>
-<h3 id="Needleman-Wunch-Measure"><a href="#Needleman-Wunch-Measure" class="headerlink" title="Needleman-Wunch Measure"></a>Needleman-Wunch Measure</h3><p>Generalization of levenstein(x, y), 为了解决lev带来的缩写问题的一种新的度量方式<br>得到的结果是两个string相似的评分，而不是距离</p>
-<p><img src="/image/NW.png"></p>
-<p>缺陷:<br>Longer gaps are penalized more, bad for names (example:nw(John Singer Sargent,John S.     Sargent) = 25, nw(John Stanislaus Sargent,John S.         Sargent)</p>
-<h3 id="Affine-Gap-Measure"><a href="#Affine-Gap-Measure" class="headerlink" title="Affine Gap Measure"></a>Affine Gap Measure</h3><p>Generalization of needleman-wunch(x, y),为了解决Needleman-Wunch带来的长gap问题<br>Intuition: two small gaps are worse than one large one<br><img src="/image/Afm.png"></p>
-<h3 id="Smith-Waterman"><a href="#Smith-Waterman" class="headerlink" title="Smith-Waterman"></a>Smith-Waterman</h3><p>可以说是Needleman-Wunch的local版本</p>
-<p>Needleman-Wunch: Fully align sequences, opening gaps as needed,也就是说两边空格都被考虑进去了的<br><img src="/image/smith-waterman.png"></p>
-<h3 id="Jaro-Similarity-Measure"><a href="#Jaro-Similarity-Measure" class="headerlink" title="Jaro Similarity Measure"></a>Jaro Similarity Measure</h3><p>Get points for having characters in common<br>• but only if they are “close by”<br>Get points for common characters in the same order<br>• lose points for transpositions<br><img src="/image/Jaro-sim.png"><br>？？？</p>
-<h3 id="Jaro-Winkler-Measure"><a href="#Jaro-Winkler-Measure" class="headerlink" title="Jaro-Winkler Measure"></a>Jaro-Winkler Measure</h3><p>？？？？</p>
-<h2 id="Set-Based-Metrics"><a href="#Set-Based-Metrics" class="headerlink" title="Set-Based Metrics"></a>Set-Based Metrics</h2><p>Generate set of tokens from the strings and then measure similarity between the sets of tokens</p>
-<h3 id="Jaccard-Measure"><a href="#Jaccard-Measure" class="headerlink" title="Jaccard Measure"></a>Jaccard Measure</h3><h3 id="TF-IDF-Measure"><a href="#TF-IDF-Measure" class="headerlink" title="TF-IDF Measure"></a>TF-IDF Measure</h3><h2 id="Hybrid-Similarity-Measures"><a href="#Hybrid-Similarity-Measures" class="headerlink" title="Hybrid Similarity Measures"></a>Hybrid Similarity Measures</h2><p>Do the set-based thing but use a similiarity metric for each element of the set</p>
-<h3 id="Generalized-Jaccard-Measure"><a href="#Generalized-Jaccard-Measure" class="headerlink" title="Generalized Jaccard Measure"></a>Generalized Jaccard Measure</h3><h3 id="The-Soft-TF-IDF-Measure"><a href="#The-Soft-TF-IDF-Measure" class="headerlink" title="The Soft TF/IDF Measure"></a>The Soft TF/IDF Measure</h3><h3 id="Monge-Elkan-Measure"><a href="#Monge-Elkan-Measure" class="headerlink" title="Monge-Elkan Measure"></a>Monge-Elkan Measure</h3><h2 id="Phonetic-Similarity"><a href="#Phonetic-Similarity" class="headerlink" title="Phonetic Similarity"></a>Phonetic Similarity</h2><h3 id="Soundex"><a href="#Soundex" class="headerlink" title="Soundex"></a>Soundex</h3>]]></content>
+    <title>知识图谱RDFa</title>
+    <url>/2020/12/03/558rdfa/</url>
+    <content><![CDATA[<h2 id="RDFa"><a href="#RDFa" class="headerlink" title="RDFa"></a>RDFa</h2><p>Resource Description Framework  in  attributes</p>
+<p>定义:<br>RDFa是一个W3C推荐标准。它扩展了XHTML的几个属性，网页制作者可以利用这些属性在网页中添加可供机器读取的后设资料。与RDF资料模型的对应关系使得RDFa可以将RDF的三元组嵌入在XHTML文档中，它也使得符合标准的使用端可以从RDFa文件中提取出这些RDF三元组来。</p>
+<p>简单的说：RDFa就是在html中嵌入rdf信息。</p>
+<h2 id="RDFa-嵌入"><a href="#RDFa-嵌入" class="headerlink" title="RDFa 嵌入"></a>RDFa 嵌入</h2><figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim">&lt;<span class="hljs-keyword">p</span> xmln<span class="hljs-variable">s:dc</span>=<span class="hljs-comment">&quot;http://purl.org/dc/elements/1.1/”   -- Namespace 声明</span><br>about=<span class="hljs-string">&quot;http://www.example.com/books/wikinomics&quot;</span>&gt; -- Resource 声明<br>In <span class="hljs-keyword">his</span> latest book<br>&lt;cite property=<span class="hljs-string">&quot;dc:title&quot;</span> &gt;Wikinomics&lt;/cite&gt;,   -- 属性声明<br><span class="hljs-symbol">&lt;span&gt;</span>Don Tapscott&lt;/span&gt;<br>explains deep <span class="hljs-keyword">changes</span> in technology, demographics <span class="hljs-built_in">and</span> business.<br>The book <span class="hljs-keyword">is</span> due <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> published in <span class="hljs-symbol">&lt;span&gt;</span>October <span class="hljs-number">2006</span>&lt;/span&gt;.<br>&lt;/<span class="hljs-keyword">p</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>SPO =&gt;<br><a href="http://www.example.com/books/wikinomics">http://www.example.com/books/wikinomics</a>  dc:title  “Wikinomics”</p>
+<p>嵌入RDFa的好处:<br>Not only human can Look Up the Meaning on the Web, but computers Can Look It Up Too.机器也可以去理解语义了。</p>
+<p>例子:<br><img src="/image/rdfa.png"></p>
+<h2 id="RDFa-问题与解决"><a href="#RDFa-问题与解决" class="headerlink" title="RDFa 问题与解决"></a>RDFa 问题与解决</h2><ol>
+<li>格式问题<br><code>&lt;span property=&quot;dc:date”&gt;October 2006&lt;/span&gt;. 在这里的话，October 2006 is not a computer understandable date e.g., an xsd:date</code><br>解决: 使用 Content Attribute<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> </span><br><span class="hljs-tag"><span class="hljs-attr">property</span>=<span class="hljs-string">&quot;dc:date”</span></span><br><span class="hljs-tag"><span class="hljs-string">content=&quot;</span><span class="hljs-attr">2006-10-01</span>” </span><br><span class="hljs-tag"><span class="hljs-attr">datatype</span>=<span class="hljs-string">“xsd:date”</span>&gt;</span> October 2006<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<br></code></pre></td></tr></table></figure>
+只要html标签中存在content的属性，那么RDF客户端在读取数据时自动会将content的内容来代替实际文本内容</li>
+</ol>
+<h2 id="RDFa-例子"><a href="#RDFa-例子" class="headerlink" title="RDFa 例子"></a>RDFa 例子</h2><h3 id="RDFa-vocab-and-typeof"><a href="#RDFa-vocab-and-typeof" class="headerlink" title="RDFa: vocab and typeof"></a>RDFa: vocab and typeof</h3><p>vocab: Define default vocabulary for an HTML element 相当于一个词汇表<br>typeof: Declare the type of this property</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">vocab</span>=<span class="hljs-string">&quot;http://xmlns.com/foaf/0.1/&quot;</span>&gt;</span>   -&gt; 这里声明了一个vocab，后续的标签中可以使用该词汇表中的术语<br><br><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">&quot;Person&quot;</span>&gt;</span>。 --&gt; 这里的Person表示的是foaf:person的含义，不需要使用uri显示表示<br><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://example.com/eve/&quot;</span>&gt;</span>Eve<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> <br><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="RDFa-property-and-href"><a href="#RDFa-property-and-href" class="headerlink" title="RDFa: property and href"></a>RDFa: property and href</h3><p>When href is present, it supplies the value for the property.  也就是说，这里的href的值表示了SPO中的O</p>
+<p><code>&lt;a property=“homepage” href=&quot;http://example.com/bob/&quot;&gt;Bob&lt;/a&gt;</code></p>
+<p><img src="/image/ex_rdfa.png"></p>
+]]></content>
       <tags>
         <tag>Knowledge Graph</tag>
       </tags>
@@ -987,6 +953,40 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       <tags>
         <tag>Leetcode</tag>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱字符串匹配</title>
+    <url>/2020/12/01/558str-match/</url>
+    <content><![CDATA[<h2 id="字符串匹配问题"><a href="#字符串匹配问题" class="headerlink" title="字符串匹配问题"></a>字符串匹配问题</h2><h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement:"></a>Problem Statement:</h3><p>Given X and Y sets of strings, Find pairs (x, y) such that both x and y refer to the same real world entity. </p>
+<p>Then use precision(fraction of pairs found that are correct) and recall(fraction of pairs found) to evaluate algorithms</p>
+<h3 id="Why-can’t-match-perfectly"><a href="#Why-can’t-match-perfectly" class="headerlink" title="Why can’t match perfectly"></a>Why can’t match perfectly</h3><p>Typos    “Joh” vs. “Jhon”<br>OCR errors “J0hn” vs “John”<br>Formatting conventions ”03/17” vs “March 17”<br>Abbreviations “J. S. Sargent” vs “John Singer Sargent”<br>Nick name ”John” vs “Jock”<br>Word order “Sargent, John S.” vs “John S. Sargent”</p>
+<p>因此，转而计算字符串的相似度</p>
+<h2 id="Similiarity-Measure"><a href="#Similiarity-Measure" class="headerlink" title="Similiarity Measure"></a>Similiarity Measure</h2><p>Similarity(x, y) in [0, 1] is better than distance(x, y) in [0, ∞)</p>
+<p>Types of Similarity Metrics:</p>
+<ul>
+<li>Sequence based</li>
+<li>Set based</li>
+<li>Hybrid</li>
+<li>Phonetic</li>
+</ul>
+<h2 id="Sequence-Based-Metrics"><a href="#Sequence-Based-Metrics" class="headerlink" title="Sequence Based Metrics"></a>Sequence Based Metrics</h2><h3 id="Edit-Distance-Levenshtein-Distance"><a href="#Edit-Distance-Levenshtein-Distance" class="headerlink" title="Edit Distance/Levenshtein Distance"></a>Edit Distance/Levenshtein Distance</h3><p>Online calculator: <a href="http://planetcalc.com/1721/">http://planetcalc.com/1721/</a></p>
+<p>lev(x, y) is the minimum cost to transform x to y(insert,delete,substitute)</p>
+<p>原理： 动态规划 d(i,j)<br>case1: xi  = yj  =&gt; d(i,j) = d(i-1,j-1)<br>case2: xi != yj  =&gt; d(i,j) = min(  d(i-1,j) + 1 , d(i,j-1) + 1 , d(i-1,j-1) + 1)</p>
+<p>缺陷:<br>Too high a cost for deleting a sequence of characters, so it is not suitable for abbreviation cases (example: lev(John Singer Sargent,John S. Sargent ) = 5, lev(John Singer Sargent,John Klinger Sargent ) = 5 )</p>
+<h3 id="Needleman-Wunch-Measure"><a href="#Needleman-Wunch-Measure" class="headerlink" title="Needleman-Wunch Measure"></a>Needleman-Wunch Measure</h3><p>Generalization of levenstein(x, y), 为了解决lev带来的缩写问题的一种新的度量方式<br>得到的结果是两个string相似的评分，而不是距离</p>
+<p><img src="/image/NW.png"></p>
+<p>缺陷:<br>Longer gaps are penalized more, bad for names (example:nw(John Singer Sargent,John S.     Sargent) = 25, nw(John Stanislaus Sargent,John S.         Sargent)</p>
+<h3 id="Affine-Gap-Measure"><a href="#Affine-Gap-Measure" class="headerlink" title="Affine Gap Measure"></a>Affine Gap Measure</h3><p>Generalization of needleman-wunch(x, y),为了解决Needleman-Wunch带来的长gap问题<br>Intuition: two small gaps are worse than one large one<br><img src="/image/Afm.png"></p>
+<h3 id="Smith-Waterman"><a href="#Smith-Waterman" class="headerlink" title="Smith-Waterman"></a>Smith-Waterman</h3><p>可以说是Needleman-Wunch的local版本</p>
+<p>Needleman-Wunch: Fully align sequences, opening gaps as needed,也就是说两边空格都被考虑进去了的<br><img src="/image/smith-waterman.png"></p>
+<h3 id="Jaro-Similarity-Measure"><a href="#Jaro-Similarity-Measure" class="headerlink" title="Jaro Similarity Measure"></a>Jaro Similarity Measure</h3><p>Get points for having characters in common<br>• but only if they are “close by”<br>Get points for common characters in the same order<br>• lose points for transpositions<br><img src="/image/Jaro-sim.png"><br>？？？</p>
+<h3 id="Jaro-Winkler-Measure"><a href="#Jaro-Winkler-Measure" class="headerlink" title="Jaro-Winkler Measure"></a>Jaro-Winkler Measure</h3><p>？？？？</p>
+<h2 id="Set-Based-Metrics"><a href="#Set-Based-Metrics" class="headerlink" title="Set-Based Metrics"></a>Set-Based Metrics</h2><p>Generate set of tokens from the strings and then measure similarity between the sets of tokens</p>
+<h3 id="Jaccard-Measure"><a href="#Jaccard-Measure" class="headerlink" title="Jaccard Measure"></a>Jaccard Measure</h3><h3 id="TF-IDF-Measure"><a href="#TF-IDF-Measure" class="headerlink" title="TF-IDF Measure"></a>TF-IDF Measure</h3><h2 id="Hybrid-Similarity-Measures"><a href="#Hybrid-Similarity-Measures" class="headerlink" title="Hybrid Similarity Measures"></a>Hybrid Similarity Measures</h2><p>Do the set-based thing but use a similiarity metric for each element of the set</p>
+<h3 id="Generalized-Jaccard-Measure"><a href="#Generalized-Jaccard-Measure" class="headerlink" title="Generalized Jaccard Measure"></a>Generalized Jaccard Measure</h3><h3 id="The-Soft-TF-IDF-Measure"><a href="#The-Soft-TF-IDF-Measure" class="headerlink" title="The Soft TF/IDF Measure"></a>The Soft TF/IDF Measure</h3><h3 id="Monge-Elkan-Measure"><a href="#Monge-Elkan-Measure" class="headerlink" title="Monge-Elkan Measure"></a>Monge-Elkan Measure</h3><h2 id="Phonetic-Similarity"><a href="#Phonetic-Similarity" class="headerlink" title="Phonetic Similarity"></a>Phonetic Similarity</h2><h3 id="Soundex"><a href="#Soundex" class="headerlink" title="Soundex"></a>Soundex</h3>]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
       </tags>
   </entry>
   <entry>
@@ -1203,6 +1203,15 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
+    <title>DSCI558 Building Knowledge Graphs</title>
+    <url>/2020/10/11/DSCI558-outline/</url>
+    <content><![CDATA[<h2 id="DSCI558-Building-Knowledge-Graphs"><a href="#DSCI558-Building-Knowledge-Graphs" class="headerlink" title="DSCI558 - Building Knowledge Graphs"></a>DSCI558 - Building Knowledge Graphs</h2><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/12/01/558intro/" title="知识图谱简介">知识图谱简介</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/12/01/558data-acq/" title="知识图谱数据获取与知识产权">知识图谱数据获取与知识产权</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><a href="/2020/12/01/558info-extra/" title="知识图谱数据提取">知识图谱数据提取</a></h3><h3 id="-3"><a href="#-3" class="headerlink" title=""></a><a href="/2020/12/01/558kg-rep/" title="知识图谱表示">知识图谱表示</a></h3><h3 id="-4"><a href="#-4" class="headerlink" title=""></a><a href="/2020/12/01/558ent-res/" title="知识图谱实体解析">知识图谱实体解析</a></h3><h3 id="-5"><a href="#-5" class="headerlink" title=""></a><a href="/2020/12/01/558query-kg/" title="知识图谱查询">知识图谱查询</a></h3><h3 id="-6"><a href="#-6" class="headerlink" title=""></a><a href="/2020/12/01/558ent-link/" title="知识图谱实体链接">知识图谱实体链接</a></h3><h3 id="-7"><a href="#-7" class="headerlink" title=""></a><a href="/2020/12/01/558str-match/" title="知识图谱字符串匹配">知识图谱字符串匹配</a></h3><h3 id="-8"><a href="#-8" class="headerlink" title=""></a><a href="/2020/10/11/Probabilistic-Models-for-KG-Construction/" title="知识图谱识别">知识图谱识别</a></h3><h3 id="-9"><a href="#-9" class="headerlink" title=""></a><a href="/2020/12/02/558blk-RER/" title="知识图谱Blocking&amp;关系型实体解析">知识图谱Blocking&amp;关系型实体解析</a></h3><h3 id="-10"><a href="#-10" class="headerlink" title=""></a><a href="/2020/12/03/558ont-rea/" title="知识图谱本体与推理">知识图谱本体与推理</a></h3><h3 id="-11"><a href="#-11" class="headerlink" title=""></a><a href="/2020/12/03/558rdfa/" title="知识图谱RDFa">知识图谱RDFa</a></h3><h3 id="-12"><a href="#-12" class="headerlink" title=""></a><a href="/2020/12/03/558-table-und/" title="知识图谱表格理解">知识图谱表格理解</a></h3><h3 id="-13"><a href="#-13" class="headerlink" title=""></a><a href="/2020/12/03/558kg-emb/" title="知识图谱图嵌入">知识图谱图嵌入</a></h3><h3 id="-14"><a href="#-14" class="headerlink" title=""></a><a href="/2020/12/03/558ld-sw/" title="知识图谱键连数据与语义网络">知识图谱键连数据与语义网络</a></h3><h3 id="-15"><a href="#-15" class="headerlink" title=""></a><a href="/2020/12/03/558overview/" title="知识图谱复习大纲">知识图谱复习大纲</a></h3><!-- ### <a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" title="Blocking and Relational Entity Resolution">Blocking and Relational Entity Resolution</a>   -->
+]]></content>
+      <tags>
+        <tag>Course</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>分类问题中的评估指标</title>
     <url>/2020/11/04/Eva-Classification-Problem/</url>
     <content><![CDATA[<h2 id="Term"><a href="#Term" class="headerlink" title="Term"></a>Term</h2><ul>
@@ -1254,12 +1263,38 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
-    <title>DSCI558 Building Knowledge Graphs</title>
-    <url>/2020/10/11/DSCI558-outline/</url>
-    <content><![CDATA[<h2 id="DSCI558-Building-Knowledge-Graphs"><a href="#DSCI558-Building-Knowledge-Graphs" class="headerlink" title="DSCI558 - Building Knowledge Graphs"></a>DSCI558 - Building Knowledge Graphs</h2><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/12/01/558intro/" title="知识图谱简介">知识图谱简介</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/12/01/558data-acq/" title="知识图谱数据获取与知识产权">知识图谱数据获取与知识产权</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><a href="/2020/12/01/558info-extra/" title="知识图谱数据提取">知识图谱数据提取</a></h3><h3 id="-3"><a href="#-3" class="headerlink" title=""></a><a href="/2020/12/01/558kg-rep/" title="知识图谱表示">知识图谱表示</a></h3><h3 id="-4"><a href="#-4" class="headerlink" title=""></a><a href="/2020/12/01/558ent-res/" title="知识图谱实体解析">知识图谱实体解析</a></h3><h3 id="-5"><a href="#-5" class="headerlink" title=""></a><a href="/2020/12/01/558query-kg/" title="知识图谱查询">知识图谱查询</a></h3><h3 id="-6"><a href="#-6" class="headerlink" title=""></a><a href="/2020/12/01/558ent-link/" title="知识图谱实体链接">知识图谱实体链接</a></h3><h3 id="-7"><a href="#-7" class="headerlink" title=""></a><a href="/2020/12/01/558str-match/" title="知识图谱字符串匹配">知识图谱字符串匹配</a></h3><h3 id="-8"><a href="#-8" class="headerlink" title=""></a><a href="/2020/10/11/Probabilistic-Models-for-KG-Construction/" title="知识图谱识别">知识图谱识别</a></h3><h3 id="-9"><a href="#-9" class="headerlink" title=""></a><a href="/2020/12/02/558blk-RER/" title="知识图谱Blocking&amp;关系型实体解析">知识图谱Blocking&amp;关系型实体解析</a></h3><h3 id="-10"><a href="#-10" class="headerlink" title=""></a><a href="/2020/12/03/558ont-rea/" title="知识图谱本体与推理">知识图谱本体与推理</a></h3><h3 id="-11"><a href="#-11" class="headerlink" title=""></a><a href="/2020/12/03/558rdfa/" title="知识图谱RDFa">知识图谱RDFa</a></h3><h3 id="-12"><a href="#-12" class="headerlink" title=""></a><a href="/2020/12/03/558-table-und/" title="知识图谱表格理解">知识图谱表格理解</a></h3><h3 id="-13"><a href="#-13" class="headerlink" title=""></a><a href="/2020/12/03/558kg-emb/" title="知识图谱图嵌入">知识图谱图嵌入</a></h3><h3 id="-14"><a href="#-14" class="headerlink" title=""></a><a href="/2020/12/03/558ld-sw/" title="知识图谱键连数据与语义网络">知识图谱键连数据与语义网络</a></h3><h3 id="-15"><a href="#-15" class="headerlink" title=""></a><a href="/2020/12/03/558overview/" title="知识图谱复习大纲">知识图谱复习大纲</a></h3><!-- ### <a href="/2020/10/11/Blocking-and-Relational-Entity-Resolution/" title="Blocking and Relational Entity Resolution">Blocking and Relational Entity Resolution</a>   -->
-]]></content>
+    <title>XML</title>
+    <url>/2020/09/18/File-Format/</url>
+    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li>XML：eXtensible Markup Language</li>
+<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
+<li>Can translate <em>any</em> data to XML</li>
+<li>Can ship XML over the Web (HTTP)</li>
+<li>Can input XML into any application</li>
+</ul>
+</li>
+</ul>
+<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
+<ul>
+<li>XML is self-describing</li>
+<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
+<li>XML is semi-structured <ul>
+<li>missing attributes  (could be represented as null in table)</li>
+<li>repeated attributes (impossible in table)</li>
+<li>Attributes with different types in different objects</li>
+<li>Nested structures</li>
+<li>Heterogeneous contents</li>
+</ul>
+</li>
+<li>an XML document has a single root element</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">example:<br><span class="hljs-tag">&lt;<span class="hljs-name">bib</span>&gt;</span><br>...<br>  <span class="hljs-tag">&lt;<span class="hljs-name">book</span> <span class="hljs-attr">price</span>=<span class="hljs-string">&quot;35&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">publisher</span>&gt;</span>Addison-Wesley<span class="hljs-tag">&lt;/<span class="hljs-name">publisher</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span>Serge Abiteboul<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">first-name</span>&gt;</span>Rick<span class="hljs-tag">&lt;/<span class="hljs-name">first-name</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">last-name</span>&gt;</span>Hull<span class="hljs-tag">&lt;/<span class="hljs-name">last-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span> <span class="hljs-attr">age</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>Victor Vianu<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Foundations of Databases<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">year</span>&gt;</span>1995<span class="hljs-tag">&lt;/<span class="hljs-name">year</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">price</span>&gt;</span>38.8<span class="hljs-tag">&lt;/<span class="hljs-name">price</span>&gt;</span> <br>  <span class="hljs-tag">&lt;/<span class="hljs-name">book</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">book</span> <span class="hljs-attr">price</span>=<span class="hljs-string">&quot;55&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">publisher</span>&gt;</span>Freeman<span class="hljs-tag">&lt;/<span class="hljs-name">publisher</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span>Jeffrey D. Ullman<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Principles of Database and Knowledge Base Systems<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">year</span>&gt;</span>1998<span class="hljs-tag">&lt;/<span class="hljs-name">year</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">book</span>&gt;</span> <br>... <br><span class="hljs-tag">&lt;/<span class="hljs-name">bib</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Querying-XML-Data"><a href="#Querying-XML-Data" class="headerlink" title="Querying XML Data"></a>Querying XML Data</h3><h4 id="XPath-simple-navigation-through-the-tree"><a href="#XPath-simple-navigation-through-the-tree" class="headerlink" title="XPath: simple navigation through the tree"></a>XPath: simple navigation through the tree</h4><p><img src="/image/xpath.png"></p>
+<h3 id="lxml"><a href="#lxml" class="headerlink" title="lxml"></a>lxml</h3><figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">$ pip install lxml<br><br><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br>f = open(<span class="hljs-string">&#x27;bibs.xml&#x27;</span>)<br>tree = etree.parse(f)<br>print(etree.tostring(tree, pretty_print=<span class="hljs-literal">True</span>))<br><br><span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> tree.xpath(<span class="hljs-string">&quot;//author&quot;</span>): <br>    print(etree.tostring(element))<br>    print(element.tag, element.text)<br><br></code></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>Course</tag>
+        <tag>Python</tag>
+        <tag>File Format</tag>
       </tags>
   </entry>
   <entry>
@@ -1306,41 +1341,6 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
 ]]></content>
       <tags>
         <tag>Evaluation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XML</title>
-    <url>/2020/09/18/File-Format/</url>
-    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
-<li>XML：eXtensible Markup Language</li>
-<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
-<li>Can translate <em>any</em> data to XML</li>
-<li>Can ship XML over the Web (HTTP)</li>
-<li>Can input XML into any application</li>
-</ul>
-</li>
-</ul>
-<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
-<ul>
-<li>XML is self-describing</li>
-<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
-<li>XML is semi-structured <ul>
-<li>missing attributes  (could be represented as null in table)</li>
-<li>repeated attributes (impossible in table)</li>
-<li>Attributes with different types in different objects</li>
-<li>Nested structures</li>
-<li>Heterogeneous contents</li>
-</ul>
-</li>
-<li>an XML document has a single root element</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">example:<br><span class="hljs-tag">&lt;<span class="hljs-name">bib</span>&gt;</span><br>...<br>  <span class="hljs-tag">&lt;<span class="hljs-name">book</span> <span class="hljs-attr">price</span>=<span class="hljs-string">&quot;35&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">publisher</span>&gt;</span>Addison-Wesley<span class="hljs-tag">&lt;/<span class="hljs-name">publisher</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span>Serge Abiteboul<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">first-name</span>&gt;</span>Rick<span class="hljs-tag">&lt;/<span class="hljs-name">first-name</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">last-name</span>&gt;</span>Hull<span class="hljs-tag">&lt;/<span class="hljs-name">last-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span> <span class="hljs-attr">age</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>Victor Vianu<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Foundations of Databases<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">year</span>&gt;</span>1995<span class="hljs-tag">&lt;/<span class="hljs-name">year</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">price</span>&gt;</span>38.8<span class="hljs-tag">&lt;/<span class="hljs-name">price</span>&gt;</span> <br>  <span class="hljs-tag">&lt;/<span class="hljs-name">book</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">book</span> <span class="hljs-attr">price</span>=<span class="hljs-string">&quot;55&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">publisher</span>&gt;</span>Freeman<span class="hljs-tag">&lt;/<span class="hljs-name">publisher</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span>Jeffrey D. Ullman<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Principles of Database and Knowledge Base Systems<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">year</span>&gt;</span>1998<span class="hljs-tag">&lt;/<span class="hljs-name">year</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">book</span>&gt;</span> <br>... <br><span class="hljs-tag">&lt;/<span class="hljs-name">bib</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="Querying-XML-Data"><a href="#Querying-XML-Data" class="headerlink" title="Querying XML Data"></a>Querying XML Data</h3><h4 id="XPath-simple-navigation-through-the-tree"><a href="#XPath-simple-navigation-through-the-tree" class="headerlink" title="XPath: simple navigation through the tree"></a>XPath: simple navigation through the tree</h4><p><img src="/image/xpath.png"></p>
-<h3 id="lxml"><a href="#lxml" class="headerlink" title="lxml"></a>lxml</h3><figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">$ pip install lxml<br><br><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br>f = open(<span class="hljs-string">&#x27;bibs.xml&#x27;</span>)<br>tree = etree.parse(f)<br>print(etree.tostring(tree, pretty_print=<span class="hljs-literal">True</span>))<br><br><span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> tree.xpath(<span class="hljs-string">&quot;//author&quot;</span>): <br>    print(etree.tostring(element))<br>    print(element.tag, element.text)<br><br></code></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>File Format</tag>
       </tags>
   </entry>
   <entry>
@@ -1551,6 +1551,28 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
+    <title>ssh连接远程服务器中途断开</title>
+    <url>/2020/10/23/Linux-screen/</url>
+    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
+<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2><ol>
+<li><p>连接远程服务器<br><code>binzhang@MacBin ~$  ssh username@servername</code></p>
+</li>
+<li><p>创建名为cskg的screen,  此时screen被创建，之后的代码或者各种工作在该screen下操作<br><code>[servername ~]$ screen -S cskg </code></p>
+</li>
+<li><p>万一本地机器掉线，重新连接远程服务器，随后使用screen -ls 查看之前创建的screen信息</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">[servername ~]$<span class="hljs-built_in"> screen </span>-ls  <br>显示信息：<br>There is a<span class="hljs-built_in"> screen </span>on:<br>        157586.cskg  (Attached)<br>1 Socket <span class="hljs-keyword">in</span> /var/run/screen/xx<br></code></pre></td></tr></table></figure></li>
+<li><p>使用-r回到之前服务器工作的screen<br><code>screen -r 157586</code></p>
+</li>
+</ol>
+<h3 id="Screen常见问题"><a href="#Screen常见问题" class="headerlink" title="Screen常见问题"></a>Screen常见问题</h3><p>使用<code>screen -ls</code>, 显式当前状态为Attached，但并没有没有用户登陆该screen。screen此时正常状态应该为(Detached)使用 <code>screen -r &lt;session-id&gt;</code>无法连接，</p>
+<p>解决方案:<code>screen -D  -r ＜session-id&gt;</code>,-D -r  表示先踢掉前用户，再登陆。</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JSON-review</title>
     <url>/2020/09/07/JSON-review/</url>
     <content><![CDATA[<h2 id="JSON概述"><a href="#JSON概述" class="headerlink" title="JSON概述"></a>JSON概述</h2><p><strong>JSON</strong>（<strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation)，由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言,该语言以易于让人阅读的文字为基础，用来<strong>传输由属性值或者序列性的值组成的数据对象</strong>。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式。</p>
@@ -1622,28 +1644,6 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       <tags>
         <tag>Python</tag>
         <tag>File Format</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ssh连接远程服务器中途断开</title>
-    <url>/2020/10/23/Linux-screen/</url>
-    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
-<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
-<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2><ol>
-<li><p>连接远程服务器<br><code>binzhang@MacBin ~$  ssh username@servername</code></p>
-</li>
-<li><p>创建名为cskg的screen,  此时screen被创建，之后的代码或者各种工作在该screen下操作<br><code>[servername ~]$ screen -S cskg </code></p>
-</li>
-<li><p>万一本地机器掉线，重新连接远程服务器，随后使用screen -ls 查看之前创建的screen信息</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">[servername ~]$<span class="hljs-built_in"> screen </span>-ls  <br>显示信息：<br>There is a<span class="hljs-built_in"> screen </span>on:<br>        157586.cskg  (Attached)<br>1 Socket <span class="hljs-keyword">in</span> /var/run/screen/xx<br></code></pre></td></tr></table></figure></li>
-<li><p>使用-r回到之前服务器工作的screen<br><code>screen -r 157586</code></p>
-</li>
-</ol>
-<h3 id="Screen常见问题"><a href="#Screen常见问题" class="headerlink" title="Screen常见问题"></a>Screen常见问题</h3><p>使用<code>screen -ls</code>, 显式当前状态为Attached，但并没有没有用户登陆该screen。screen此时正常状态应该为(Detached)使用 <code>screen -r &lt;session-id&gt;</code>无法连接，</p>
-<p>解决方案:<code>screen -D  -r ＜session-id&gt;</code>,-D -r  表示先踢掉前用户，再登陆。</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2021,6 +2021,91 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
+    <title>社交网络</title>
+    <url>/2020/10/23/Social-network/</url>
+    <content><![CDATA[<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>社交网络与图, 社交网络的聚类, 社区发现</p>
+<h2 id="社交网络与图"><a href="#社交网络与图" class="headerlink" title="社交网络与图"></a>社交网络与图</h2><p>1.What is a network? a network can be defined as a graph in which nodes and/or edges have attributes (e.g. names). 带有属性信息的图</p>
+<p>2.Network’s properties:</p>
+<ul>
+<li>size: # of nodes/edges</li>
+<li>node degree: # of links to other nodes</li>
+<li>degree distribution: probability that a randomly selected node has degree k<ul>
+<li>scale-free network: network whose degree distribution follows a power law, at least asymptotically. 网络中的大部分节点只和很少节点连接，而有极少的节点与非常多的节点连接,幂律分布/长尾效应</li>
+<li>Real networks are scale-free</li>
+</ul>
+</li>
+<li>path,</li>
+<li>shortest path </li>
+<li>diameter: shortest path between most distant nodes/maximal shortest path<br>…</li>
+</ul>
+<p>3.Mathematical representation<br>Adjacency matrix : A<br>Path matrix: 可以通过邻接矩阵计算路径矩阵, A^l 结果表示为路径矩阵</p>
+<p>3.Phenomena arise as a result of properties: </p>
+<ul>
+<li><p>Friendship paradox: on average, your friends have more friends than you do, 友谊悖论</p>
+</li>
+<li><p>Small world: most nodes are not neighbors of one another,but most nodes can be reached from every other by a small number of hops or steps. 小世界理论，六度空间</p>
+<ul>
+<li>The typical distance L between two randomly chosen nodes grows proportionally to the logarithm of the number of nodes N in the network, 两个节点的距离和整个网络的节点数的对数成正比<br><img src="/image/small_world.png"></li>
+</ul>
+</li>
+<li><p>Perception bias in networks,网络中存在感知误差</p>
+</li>
+</ul>
+<h2 id="社交网络的聚类"><a href="#社交网络的聚类" class="headerlink" title="社交网络的聚类"></a>社交网络的聚类</h2><p>方式:<br>1.Hierarchical</p>
+<ul>
+<li>Agglomerative (bottom-up):<br>  Initially, each point is a cluster，每个点都是一个cluster<br>  Repeatedly combine the two “nearest” clusters into one，不断往上去合并点，最终得到结果。<br>  Use distance metric</li>
+<li>Divisive (top-down):  ==&gt;&gt; 本文关注的算法<br>  Start with one cluster and recursively split it 整个图为一个cluster，不断去细分clusters</li>
+</ul>
+<p>2.Point assignment<br>    Maintain a set of clusters<br>    Points belong to “nearest” cluster<br>    Use distance metric</p>
+<p>社交网络中距离指标</p>
+<p>1.d(x, y) is 0 if there is an edge and 1 if there is no such edge.<br>限制🚫: violate the triangle inequality<br>例子: 假设A,B,C三点,AC一边,那么 d(A,B) = d(B,C) = 0 and d(A,C) = 1 &gt; d(A,B) + d(B,C) </p>
+<p>====&gt;</p>
+<p>2.Shortest path distance: Minimum # of edges connecting to nodes:<br>例子: 假设A,B,C三点，边AB，BC，那么d(A,B) = d(B,C) = 1   and  d(A,C) = 2</p>
+<p>The problem is more complex because the distance between data points (nodes) is not measured by Euclidian<br>由此可以看到传统的聚类方法（KNN，Kmeans）不太适用于社交网络的聚类，因为距离指标计算很复杂</p>
+<p>====&gt;<br>3. Betweenness 中介性/居间性</p>
+<p>Edge betweenness: # of shortest paths passing over the edge<br>边的中介性，简单理解就是经过该条边的最短路径数目</p>
+<p>example:Betweenness of edge (a, b):<br>number of pairs of nodes x and y -&gt; x<br>edge (a,b) lies on the shortest path between x and y</p>
+<p>However,if there are several shortest paths between x and y, edge (a,b) is credited with the fraction of those shortest paths that include edge (a,b)</p>
+<p>但是!!!y-&gt;x的最短路径不只有一条，假设y-&gt;x的最短路径有3条，其中有一条进过了边(a,b),那么这一条最短路径为（a,b）的中介性贡献了1/3</p>
+<p>A high score is bad: suggests that edge (a,b) runs between two different communities<br>我们可以发现如果一条边的中介性很高的话，表明a和b是属于两个不同的社区&lt;&lt;== 聚类实现</p>
+<p><img src="/image/edge_betweeness.png"></p>
+<h2 id="社区发现"><a href="#社区发现" class="headerlink" title="社区发现"></a>社区发现</h2><h3 id="利用betweeness的社区发现算法：Girvan-Newman-Algorithm"><a href="#利用betweeness的社区发现算法：Girvan-Newman-Algorithm" class="headerlink" title="利用betweeness的社区发现算法：Girvan-Newman Algorithm"></a>利用betweeness的社区发现算法：Girvan-Newman Algorithm</h3><p>Idea: discover communities using divisive hierarchical clustering (Start with one cluster (the social network) and recursively split it)</p>
+<p>Strategy: edge betweenness(# of shortest paths passing through the edge)</p>
+<p>Algorithm: Girvan-Newman Algorithm</p>
+<p>Repeat until no edges are left:<br>    Calculate betweenness of edges<br>    Remove edges with highest betweenness</p>
+<p>Result: Connected components are communities<br><img src="/image/GN.png"></p>
+<p>但是通过上述的描述可以发现，通过不断的移除最大的edge betweeness，最后得到结果是一个个孤立的点，所以需要明确以下两点:<br>1.How to compute betweenness?<br>2.How to select the number of clusters?</p>
+<h4 id="Compute-betweenness"><a href="#Compute-betweenness" class="headerlink" title="Compute betweenness"></a>Compute betweenness</h4><p>Strategy: BFS</p>
+<p>1.Perform a breadth-first search (BFS) of the graph, starting at node X<br>首先对于每一个点 X，得到一个BFS tree，这个BFS tree可以反映出该点到其他所有点的最短路径</p>
+<p>2.Label each node by the number of shortest paths that reach it from the root node<br>标记处每个点到root node X的最短路径数目<br><img src="/image/label_sp_num.png"></p>
+<p>3.Calculate for each edge e, the sum over all nodes Y (of the fraction) of the shortest paths from the root X to Y that go through edge e<br>为每条边e计算从root nodeX到其他所有点Y的最短路径中经过e的总和(包括分数部分)</p>
+<p>具体计算:<br><img src="/image/step1.png"><br>第一步: 从底部开始<br>• A and C are leaves: get credit = 1;<br>• Each of these nodes has only one parent, so their credit=1 is given to edges (B,A) and (B,C)<br>• At level 2, G is a leaf: gets credit = 1<br>• B gets credit 1 + credit of DAG edges entering from below = 1 + 1 +1 = 3<br>• B has only one parent, so edge (D,B) gets entire credit of node B = 3</p>
+<p>第二步:碰见需要拆分的情况 G has 2 parents<br><img src="/image/step2.png"><br>• In this case, both D and F have just one shortest path from E to each of those nodes<br>    • So, give half credit of node G to each of those edges<br>    • Credit = 1/(1 + 1) = 0.5<br>• In general, how we distribute credit of a node to its edges depends on number of shortest paths<br>    • Say there were 5 shortest paths to D and only 3 to F<br>    • Then credit of edge (D,G) = 5/8 and credit of edge (F,G) = 3/8<br>• Node D gets credit = 1 + credits of edges below it = 1 + 3 + 0.5 = 4.5<br>• Node F gets credit = 1 + 0.5 = 1.5<br>• D has only one parent, so Edge (E,D) gets credit = 4.5 from D<br>• Likewise for F: Edge (E,F) gets credit = 1.5 from F.</p>
+<p>To complete betweenness calculation, must: </p>
+<ul>
+<li>Repeat this for every node as root</li>
+<li>Sum the contributions on each edge</li>
+<li>Divide by 2 to get true betweenness<ul>
+<li>since every shortest path will be counted twice, once for each of its endpoints</li>
+</ul>
+</li>
+</ul>
+<p>以上仅仅是对针对一个节点计算的各个边的betweeness，需要对每个节点重复这样的计算随后累加除以2得到最终结果。从这里也可以发现GN是针对无向图的，如果是有向图的话，就不需要除以2了。</p>
+<h4 id="Select-the-number-of-clusters"><a href="#Select-the-number-of-clusters" class="headerlink" title="Select the number of clusters"></a>Select the number of clusters</h4><p>Communities: sets of tightly connected nodes</p>
+<p>Modularity Q: A measure of how well a network is partitioned into communities<br>模块：衡量一个网络中社区聚类好坏的指标</p>
+<blockquote>
+<p>Modularity compares the number of edges inside a cluster with the expected number of edges that one would find in the cluster if the network were a random network with the same number of nodes and where each node keeps its degree, but edges are otherwise randomly attached.<br> Networks with high modularity have dense connections between the nodes within groups but sparse connections between nodes in different groups.<br> The null model is a graph which matches one specific graph in some of its structural features, but which is otherwise taken to be an instance of a random graph. The null model is used as a term of comparison, to verify whether the graph in question displays some feature, such as community structure, or not.</p>
+</blockquote>
+<p><img src="/image/modularity.png"></p>
+<p>rclone mount GD: /nas/home/binzhang/data –allow-other –allow-non-empty –vfs-cache-mode writes</p>
+<p>rclone mount GD: /nas/home/binzhang/GoogleDrive –allow-other –allow-non-empty –vfs-cache-mode writes</p>
+<p> rclone copy /home/backup gdrive:backu</p>
+]]></content>
+      <tags>
+        <tag>Data mining</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Storage systems</title>
     <url>/2020/09/08/Storage-systems/</url>
     <content><![CDATA[<h2 id="Storage-Device"><a href="#Storage-Device" class="headerlink" title="Storage Device"></a>Storage Device</h2><h3 id="Hierarchy"><a href="#Hierarchy" class="headerlink" title="Hierarchy"></a>Hierarchy</h3><p><img src="/image/storage_hierarchy.png"></p>
@@ -2168,91 +2253,6 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
 ]]></content>
       <tags>
         <tag>Operating System</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>社交网络</title>
-    <url>/2020/10/23/Social-network/</url>
-    <content><![CDATA[<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>社交网络与图, 社交网络的聚类, 社区发现</p>
-<h2 id="社交网络与图"><a href="#社交网络与图" class="headerlink" title="社交网络与图"></a>社交网络与图</h2><p>1.What is a network? a network can be defined as a graph in which nodes and/or edges have attributes (e.g. names). 带有属性信息的图</p>
-<p>2.Network’s properties:</p>
-<ul>
-<li>size: # of nodes/edges</li>
-<li>node degree: # of links to other nodes</li>
-<li>degree distribution: probability that a randomly selected node has degree k<ul>
-<li>scale-free network: network whose degree distribution follows a power law, at least asymptotically. 网络中的大部分节点只和很少节点连接，而有极少的节点与非常多的节点连接,幂律分布/长尾效应</li>
-<li>Real networks are scale-free</li>
-</ul>
-</li>
-<li>path,</li>
-<li>shortest path </li>
-<li>diameter: shortest path between most distant nodes/maximal shortest path<br>…</li>
-</ul>
-<p>3.Mathematical representation<br>Adjacency matrix : A<br>Path matrix: 可以通过邻接矩阵计算路径矩阵, A^l 结果表示为路径矩阵</p>
-<p>3.Phenomena arise as a result of properties: </p>
-<ul>
-<li><p>Friendship paradox: on average, your friends have more friends than you do, 友谊悖论</p>
-</li>
-<li><p>Small world: most nodes are not neighbors of one another,but most nodes can be reached from every other by a small number of hops or steps. 小世界理论，六度空间</p>
-<ul>
-<li>The typical distance L between two randomly chosen nodes grows proportionally to the logarithm of the number of nodes N in the network, 两个节点的距离和整个网络的节点数的对数成正比<br><img src="/image/small_world.png"></li>
-</ul>
-</li>
-<li><p>Perception bias in networks,网络中存在感知误差</p>
-</li>
-</ul>
-<h2 id="社交网络的聚类"><a href="#社交网络的聚类" class="headerlink" title="社交网络的聚类"></a>社交网络的聚类</h2><p>方式:<br>1.Hierarchical</p>
-<ul>
-<li>Agglomerative (bottom-up):<br>  Initially, each point is a cluster，每个点都是一个cluster<br>  Repeatedly combine the two “nearest” clusters into one，不断往上去合并点，最终得到结果。<br>  Use distance metric</li>
-<li>Divisive (top-down):  ==&gt;&gt; 本文关注的算法<br>  Start with one cluster and recursively split it 整个图为一个cluster，不断去细分clusters</li>
-</ul>
-<p>2.Point assignment<br>    Maintain a set of clusters<br>    Points belong to “nearest” cluster<br>    Use distance metric</p>
-<p>社交网络中距离指标</p>
-<p>1.d(x, y) is 0 if there is an edge and 1 if there is no such edge.<br>限制🚫: violate the triangle inequality<br>例子: 假设A,B,C三点,AC一边,那么 d(A,B) = d(B,C) = 0 and d(A,C) = 1 &gt; d(A,B) + d(B,C) </p>
-<p>====&gt;</p>
-<p>2.Shortest path distance: Minimum # of edges connecting to nodes:<br>例子: 假设A,B,C三点，边AB，BC，那么d(A,B) = d(B,C) = 1   and  d(A,C) = 2</p>
-<p>The problem is more complex because the distance between data points (nodes) is not measured by Euclidian<br>由此可以看到传统的聚类方法（KNN，Kmeans）不太适用于社交网络的聚类，因为距离指标计算很复杂</p>
-<p>====&gt;<br>3. Betweenness 中介性/居间性</p>
-<p>Edge betweenness: # of shortest paths passing over the edge<br>边的中介性，简单理解就是经过该条边的最短路径数目</p>
-<p>example:Betweenness of edge (a, b):<br>number of pairs of nodes x and y -&gt; x<br>edge (a,b) lies on the shortest path between x and y</p>
-<p>However,if there are several shortest paths between x and y, edge (a,b) is credited with the fraction of those shortest paths that include edge (a,b)</p>
-<p>但是!!!y-&gt;x的最短路径不只有一条，假设y-&gt;x的最短路径有3条，其中有一条进过了边(a,b),那么这一条最短路径为（a,b）的中介性贡献了1/3</p>
-<p>A high score is bad: suggests that edge (a,b) runs between two different communities<br>我们可以发现如果一条边的中介性很高的话，表明a和b是属于两个不同的社区&lt;&lt;== 聚类实现</p>
-<p><img src="/image/edge_betweeness.png"></p>
-<h2 id="社区发现"><a href="#社区发现" class="headerlink" title="社区发现"></a>社区发现</h2><h3 id="利用betweeness的社区发现算法：Girvan-Newman-Algorithm"><a href="#利用betweeness的社区发现算法：Girvan-Newman-Algorithm" class="headerlink" title="利用betweeness的社区发现算法：Girvan-Newman Algorithm"></a>利用betweeness的社区发现算法：Girvan-Newman Algorithm</h3><p>Idea: discover communities using divisive hierarchical clustering (Start with one cluster (the social network) and recursively split it)</p>
-<p>Strategy: edge betweenness(# of shortest paths passing through the edge)</p>
-<p>Algorithm: Girvan-Newman Algorithm</p>
-<p>Repeat until no edges are left:<br>    Calculate betweenness of edges<br>    Remove edges with highest betweenness</p>
-<p>Result: Connected components are communities<br><img src="/image/GN.png"></p>
-<p>但是通过上述的描述可以发现，通过不断的移除最大的edge betweeness，最后得到结果是一个个孤立的点，所以需要明确以下两点:<br>1.How to compute betweenness?<br>2.How to select the number of clusters?</p>
-<h4 id="Compute-betweenness"><a href="#Compute-betweenness" class="headerlink" title="Compute betweenness"></a>Compute betweenness</h4><p>Strategy: BFS</p>
-<p>1.Perform a breadth-first search (BFS) of the graph, starting at node X<br>首先对于每一个点 X，得到一个BFS tree，这个BFS tree可以反映出该点到其他所有点的最短路径</p>
-<p>2.Label each node by the number of shortest paths that reach it from the root node<br>标记处每个点到root node X的最短路径数目<br><img src="/image/label_sp_num.png"></p>
-<p>3.Calculate for each edge e, the sum over all nodes Y (of the fraction) of the shortest paths from the root X to Y that go through edge e<br>为每条边e计算从root nodeX到其他所有点Y的最短路径中经过e的总和(包括分数部分)</p>
-<p>具体计算:<br><img src="/image/step1.png"><br>第一步: 从底部开始<br>• A and C are leaves: get credit = 1;<br>• Each of these nodes has only one parent, so their credit=1 is given to edges (B,A) and (B,C)<br>• At level 2, G is a leaf: gets credit = 1<br>• B gets credit 1 + credit of DAG edges entering from below = 1 + 1 +1 = 3<br>• B has only one parent, so edge (D,B) gets entire credit of node B = 3</p>
-<p>第二步:碰见需要拆分的情况 G has 2 parents<br><img src="/image/step2.png"><br>• In this case, both D and F have just one shortest path from E to each of those nodes<br>    • So, give half credit of node G to each of those edges<br>    • Credit = 1/(1 + 1) = 0.5<br>• In general, how we distribute credit of a node to its edges depends on number of shortest paths<br>    • Say there were 5 shortest paths to D and only 3 to F<br>    • Then credit of edge (D,G) = 5/8 and credit of edge (F,G) = 3/8<br>• Node D gets credit = 1 + credits of edges below it = 1 + 3 + 0.5 = 4.5<br>• Node F gets credit = 1 + 0.5 = 1.5<br>• D has only one parent, so Edge (E,D) gets credit = 4.5 from D<br>• Likewise for F: Edge (E,F) gets credit = 1.5 from F.</p>
-<p>To complete betweenness calculation, must: </p>
-<ul>
-<li>Repeat this for every node as root</li>
-<li>Sum the contributions on each edge</li>
-<li>Divide by 2 to get true betweenness<ul>
-<li>since every shortest path will be counted twice, once for each of its endpoints</li>
-</ul>
-</li>
-</ul>
-<p>以上仅仅是对针对一个节点计算的各个边的betweeness，需要对每个节点重复这样的计算随后累加除以2得到最终结果。从这里也可以发现GN是针对无向图的，如果是有向图的话，就不需要除以2了。</p>
-<h4 id="Select-the-number-of-clusters"><a href="#Select-the-number-of-clusters" class="headerlink" title="Select the number of clusters"></a>Select the number of clusters</h4><p>Communities: sets of tightly connected nodes</p>
-<p>Modularity Q: A measure of how well a network is partitioned into communities<br>模块：衡量一个网络中社区聚类好坏的指标</p>
-<blockquote>
-<p>Modularity compares the number of edges inside a cluster with the expected number of edges that one would find in the cluster if the network were a random network with the same number of nodes and where each node keeps its degree, but edges are otherwise randomly attached.<br> Networks with high modularity have dense connections between the nodes within groups but sparse connections between nodes in different groups.<br> The null model is a graph which matches one specific graph in some of its structural features, but which is otherwise taken to be an instance of a random graph. The null model is used as a term of comparison, to verify whether the graph in question displays some feature, such as community structure, or not.</p>
-</blockquote>
-<p><img src="/image/modularity.png"></p>
-<p>rclone mount GD: /nas/home/binzhang/data –allow-other –allow-non-empty –vfs-cache-mode writes</p>
-<p>rclone mount GD: /nas/home/binzhang/GoogleDrive –allow-other –allow-non-empty –vfs-cache-mode writes</p>
-<p> rclone copy /home/backup gdrive:backu</p>
-]]></content>
-      <tags>
-        <tag>Data mining</tag>
       </tags>
   </entry>
   <entry>
