@@ -67,7 +67,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>BIN'S BLOG</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -247,7 +247,7 @@
 
 <h3 id="字面值的类型（Typed-Literals）"><a href="#字面值的类型（Typed-Literals）" class="headerlink" title="字面值的类型（Typed Literals）"></a>字面值的类型（Typed Literals）</h3><p>在object后面添加类型信息。<br>example: weather:date ”2012-06-18”^^xsd:date ;</p>
 <h3 id="Reification"><a href="#Reification" class="headerlink" title="Reification"></a>Reification</h3><p>RDF applications sometimes need to describe other RDF statements using RDF, for instance, to record information about when statements were made, who made them, or other similar information (this is sometimes referred to as “provenance” information). </p>
-<p>举个例子： 他说了xxx<br>“On June 19 2012, Claudia said that Sam’s email address is <a href="mailto:&#x53;&#x61;&#x6d;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x53;&#x61;&#x6d;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a>”</p>
+<p>举个例子： 他说了xxx<br>“On June 19 2012, Claudia said that Sam’s email address is <a href="mailto:&#83;&#97;&#x6d;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#83;&#97;&#x6d;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a>”</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs groovy"><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>type        <span class="hljs-attr">rdf:</span>Statement .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>subject     &lt;<span class="hljs-attr">http:</span><span class="hljs-comment">//szekelys.com/family#sam&gt; .    </span><br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>predicate   <span class="hljs-attr">foaf:</span>mbox .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>object      &lt;Sam<span class="hljs-meta">@gmail</span>.com&gt;<br><br><span class="hljs-attr">_:</span>s <span class="hljs-attr">dcterms:</span>date     “<span class="hljs-number">2012</span><span class="hljs-number">-06</span><span class="hljs-number">-19</span>”^^<span class="hljs-attr">xsd:</span>date .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">dcterms:</span>creator  &lt;<span class="hljs-attr">http:</span><span class="hljs-comment">//uniandes.edu.co/faculty#claudiaj&gt; .</span><br></code></pre></td></tr></table></figure>
 
 
@@ -404,6 +404,30 @@
      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            Page View 
+            <span id="busuanzi_value_site_pv"></span>
+             
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            Unique visito 
+            <span id="busuanzi_value_site_uv"></span>
+             
+          </span>
+      
+    
+  </div>
+
 
   
 
@@ -461,6 +485,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
 
 
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
