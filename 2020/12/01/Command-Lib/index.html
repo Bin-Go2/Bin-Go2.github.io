@@ -1,517 +1,448 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="我熊人族永不为奴！！吼吼吼！！！">
+  <meta name="author" content="Bin">
+  <meta name="keywords" content="">
+  <title>命令行备忘录 - Bin&#39;s blog</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta name="description" content="1. hexo12345$ hexo new &amp;#x27;post&amp;#x27; # Create a new post$ hexo g  # Generate static files  $ hexo s  # Run server$ hexo d  # Deploy to remote sites$ hexo clean # Remove cache file (db.json) and sta">
-<meta property="og:type" content="article">
-<meta property="og:title" content="命令行备忘录">
-<meta property="og:url" content="http://example.com/2020/12/01/Command-Lib/index.html">
-<meta property="og:site_name" content="Bin&#39;s blog">
-<meta property="og:description" content="1. hexo12345$ hexo new &amp;#x27;post&amp;#x27; # Create a new post$ hexo g  # Generate static files  $ hexo s  # Run server$ hexo d  # Deploy to remote sites$ hexo clean # Remove cache file (db.json) and sta">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-01T17:05:50.000Z">
-<meta property="article:modified_time" content="2020-12-01T17:07:09.403Z">
-<meta property="article:author" content="Bin">
-<meta property="article:tag" content="Commands">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2020/12/01/Command-Lib/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>命令行备忘录 | Bin's blog</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Bin's blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
-        </a>
-      </li>
-  </ul>
 </nav>
 
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="Searching..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/01/Command-Lib/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          命令行备忘录
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="命令行备忘录">
               
-
-              <time title="Created: 2020-12-01 09:05:50 / Modified: 09:07:09" itemprop="dateCreated datePublished" datetime="2020-12-01T09:05:50-08:00">2020-12-01</time>
             </span>
 
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/12/01/Command-Lib/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/01/Command-Lib/" itemprop="commentCount"></span>
-    </a>
-  </span>
+            
+              <div class="mt-3">
   
   
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-01 09:05" pubdate>
+        December 1, 2020 am
+      </time>
+    </span>
+  
+</div>
 
-          
-
-        </div>
-      </header>
-
+<div class="mt-1">
+  
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      456 字
+    </span>
+  
 
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-        <h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&#x27;post&#x27;</span> <span class="comment"># Create a new post</span></span><br><span class="line">$ hexo g  <span class="comment"># Generate static files  </span></span><br><span class="line">$ hexo s  <span class="comment"># Run server</span></span><br><span class="line">$ hexo d  <span class="comment"># Deploy to remote sites</span></span><br><span class="line">$ hexo clean <span class="comment"># Remove cache file (db.json) and static files (public)</span></span><br></pre></td></tr></table></figure>
+      
+      6
+       分钟
+    </span>
+  
 
+  
+  
+</div>
 
-<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n env_name python=<span class="number">3.6</span>   <span class="comment"># 创建虚拟环境</span></span><br><span class="line">$ conda activate env_name   <span class="comment"># 激活虚拟环境</span></span><br><span class="line">$ conda deactivate env_name <span class="comment"># 退出虚拟环境</span></span><br><span class="line">$ conda env list <span class="comment"># 查看conda环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span></span><br><span class="line"><span class="number">1.</span> $ conda activate env_name </span><br><span class="line"><span class="number">2.</span> $ conda install ipykernel</span><br><span class="line"><span class="number">3.</span> $ python -m ipykernel install --name env_name</span><br><span class="line"><span class="number">4.</span> $ jupyter notebook  新建python,出现对应环境提示</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改环境名称（无法修改，只能复制+删除）</span></span><br><span class="line"><span class="number">1.</span> $ conda create -n new_env --clone old_env</span><br><span class="line"><span class="number">2.</span> $ conda remove -n old_env --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ du -h --max-depth&#x3D;1  dir-name # 查看文件夹大小</span><br><span class="line">$ du -sh * #查看当前文件以及文件夹的大小</span><br><span class="line">$ htop  # 查看系统cpu、mem使用情况 </span><br><span class="line">$ htop -u username #查看某个用户的进程使用</span><br><span class="line">$ cpulimit -l 50 -p pid #限制某个进程的cpu使用率为50%</span><br><span class="line">$ rclone # 本地文件与google drive连接的桥梁</span><br><span class="line"></span><br><span class="line">$ ls -l | grep &quot;^-&quot; | wc -l   # 统计当前文件夹下文件的个数（不包括目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下文件的个数（包括子目录）</span><br><span class="line">$ ls -lR| grep &quot;^-&quot; | wc -l   # 统计当前目录下目录的个数（包括子目录）</span><br><span class="line"></span><br><span class="line">$ gzip –c filename &gt; filename.gz  	# 压缩文件成gz文件（保留原文件）</span><br><span class="line">$ gunzip –c filename.gz &gt; filename  # 解压gz文件（保留gz文件）</span><br><span class="line"></span><br><span class="line">$ head -n 10 filename  # 查看文件前十行内容</span><br><span class="line">$ tail -n 10 filename  # 查看文件后十行内容</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Mac:</span><br><span class="line">$ sysctl machdep.cpu #所有信息</span><br><span class="line">$ sysctl -n machdep.cpu.brand_string    # CPU型号</span><br><span class="line">$ sysctl -n machdep.cpu.core_count      # CPU核心数</span><br><span class="line">$ sysctl -n machdep.cpu.thread_count    # 线程数</span><br><span class="line"></span><br><span class="line">Linux</span><br><span class="line">$ grep &#39;physical id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u  # 查看物理cpu个数</span><br><span class="line">$ grep &#39;core id&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 核心数量</span><br><span class="line">$ grep &#39;processor&#39; &#x2F;proc&#x2F;cpuinfo | sort -u | wc -l  # 线程数</span><br></pre></td></tr></table></figure>
-    </div>
-
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Commands/" rel="tag"># Commands</a>
+            
           </div>
 
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/11/10/553week1/" rel="prev" title="数据挖掘, MapReduce 介绍">
-      <i class="fa fa-chevron-left"></i> 数据挖掘, MapReduce 介绍
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/12/01/558intro/" rel="next" title="知识图谱简介">
-      知识图谱简介 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-  
-
-
-          </div>
           
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-hexo"><span class="nav-number">1.</span> <span class="nav-text">1. hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Conda"><span class="nav-number">2.</span> <span class="nav-text">2. Conda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Linux"><span class="nav-number">3.</span> <span class="nav-text">3. Linux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CPU%E4%BF%A1%E6%81%AF"><span class="nav-number">4.</span> <span class="nav-text">4. CPU信息</span></a></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Bin"
-      src="/images/avatar.png">
-  <p class="site-author-name" itemprop="name">Bin</p>
-  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">50</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">18</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </header>
 
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">命令行备忘录</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1. hexo"></a>1. hexo</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">$ hexo new <span class="hljs-string">&#x27;post&#x27;</span> <span class="hljs-comment"># Create a new post</span><br>$ hexo g  <span class="hljs-comment"># Generate static files  </span><br>$ hexo s  <span class="hljs-comment"># Run server</span><br>$ hexo d  <span class="hljs-comment"># Deploy to remote sites</span><br>$ hexo clean <span class="hljs-comment"># Remove cache file (db.json) and static files (public)</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="2-Conda"><a href="#2-Conda" class="headerlink" title="2. Conda"></a>2. Conda</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python">$ conda create -n env_name python=<span class="hljs-number">3.6</span>   <span class="hljs-comment"># 创建虚拟环境</span><br>$ conda activate env_name   <span class="hljs-comment"># 激活虚拟环境</span><br>$ conda deactivate env_name <span class="hljs-comment"># 退出虚拟环境</span><br>$ conda env list <span class="hljs-comment"># 查看conda环境</span><br><br><span class="hljs-comment"># 关于切换jupyter中服务内核(在jupyter notebook中使用不同的环境)</span><br><span class="hljs-number">1.</span> $ conda activate env_name <br><span class="hljs-number">2.</span> $ conda install ipykernel<br><span class="hljs-number">3.</span> $ python -m ipykernel install --name env_name<br><span class="hljs-number">4.</span> $ jupyter notebook  新建python,出现对应环境提示<br><br><span class="hljs-comment"># 修改环境名称（无法修改，只能复制+删除）</span><br><span class="hljs-number">1.</span> $ conda create -n new_env --clone old_env<br><span class="hljs-number">2.</span> $ conda remove -n old_env --all<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-Linux"><a href="#3-Linux" class="headerlink" title="3. Linux"></a>3. Linux</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> du <span class="hljs-literal">-h</span> -<span class="hljs-literal">-max</span><span class="hljs-literal">-depth</span>=<span class="hljs-number">1</span>  <span class="hljs-built_in">dir</span><span class="hljs-literal">-name</span> <span class="hljs-comment"># 查看文件夹大小</span><br><span class="hljs-variable">$</span> du <span class="hljs-literal">-sh</span> * <span class="hljs-comment">#查看当前文件以及文件夹的大小</span><br><span class="hljs-variable">$</span> htop  <span class="hljs-comment"># 查看系统cpu、mem使用情况 </span><br><span class="hljs-variable">$</span> htop <span class="hljs-literal">-u</span> username <span class="hljs-comment">#查看某个用户的进程使用</span><br><span class="hljs-variable">$</span> cpulimit <span class="hljs-literal">-l</span> <span class="hljs-number">50</span> <span class="hljs-literal">-p</span> pid <span class="hljs-comment">#限制某个进程的cpu使用率为50%</span><br><span class="hljs-variable">$</span> rclone <span class="hljs-comment"># 本地文件与google drive连接的桥梁</span><br><br><span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span> <span class="hljs-literal">-l</span> | grep <span class="hljs-string">&quot;^-&quot;</span> | wc <span class="hljs-literal">-l</span>   <span class="hljs-comment"># 统计当前文件夹下文件的个数（不包括目录）</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span> <span class="hljs-literal">-lR</span>| grep <span class="hljs-string">&quot;^-&quot;</span> | wc <span class="hljs-literal">-l</span>   <span class="hljs-comment"># 统计当前目录下文件的个数（包括子目录）</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span> <span class="hljs-literal">-lR</span>| grep <span class="hljs-string">&quot;^-&quot;</span> | wc <span class="hljs-literal">-l</span>   <span class="hljs-comment"># 统计当前目录下目录的个数（包括子目录）</span><br><br><span class="hljs-variable">$</span> gzip –c filename &gt; filename.gz  	<span class="hljs-comment"># 压缩文件成gz文件（保留原文件）</span><br><span class="hljs-variable">$</span> gunzip –c filename.gz &gt; filename  <span class="hljs-comment"># 解压gz文件（保留gz文件）</span><br><br><span class="hljs-variable">$</span> head <span class="hljs-literal">-n</span> <span class="hljs-number">10</span> filename  <span class="hljs-comment"># 查看文件前十行内容</span><br><span class="hljs-variable">$</span> tail <span class="hljs-literal">-n</span> <span class="hljs-number">10</span> filename  <span class="hljs-comment"># 查看文件后十行内容</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="4-CPU信息"><a href="#4-CPU信息" class="headerlink" title="4. CPU信息"></a>4. CPU信息</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs powershell">Mac:<br><span class="hljs-variable">$</span> sysctl machdep.cpu <span class="hljs-comment">#所有信息</span><br><span class="hljs-variable">$</span> sysctl <span class="hljs-literal">-n</span> machdep.cpu.brand_string    <span class="hljs-comment"># CPU型号</span><br><span class="hljs-variable">$</span> sysctl <span class="hljs-literal">-n</span> machdep.cpu.core_count      <span class="hljs-comment"># CPU核心数</span><br><span class="hljs-variable">$</span> sysctl <span class="hljs-literal">-n</span> machdep.cpu.thread_count    <span class="hljs-comment"># 线程数</span><br><br>Linux<br><span class="hljs-variable">$</span> grep <span class="hljs-string">&#x27;physical id&#x27;</span> /proc/cpuinfo | <span class="hljs-built_in">sort</span> <span class="hljs-literal">-u</span>  <span class="hljs-comment"># 查看物理cpu个数</span><br><span class="hljs-variable">$</span> grep <span class="hljs-string">&#x27;core id&#x27;</span> /proc/cpuinfo | <span class="hljs-built_in">sort</span> <span class="hljs-literal">-u</span> | wc <span class="hljs-literal">-l</span>  <span class="hljs-comment"># 核心数量</span><br><span class="hljs-variable">$</span> grep <span class="hljs-string">&#x27;processor&#x27;</span> /proc/cpuinfo | <span class="hljs-built_in">sort</span> <span class="hljs-literal">-u</span> | wc <span class="hljs-literal">-l</span>  <span class="hljs-comment"># 线程数</span><br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Commands/">Commands</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/01/558intro/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">知识图谱简介</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/10/553week1/">
+                        <span class="hidden-mobile">数据挖掘, MapReduce 介绍</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
 
       </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Bin</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+    
   </div>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-
-<div class="theme-info">
-    <div class="powered-by"></div>
-    <span class="post-count">共50.1k字</span>
 </div>
 
-        
+<!-- Custom -->
 
 
+    
 
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-
-
-
-
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </footer>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
   </div>
+</div>
+    
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+    
+  </main>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
   
 
   
 
-<script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "http://example.com/2020/12/01/Command-Lib/";
-    this.page.identifier = "2020/12/01/Command-Lib/";
-    this.page.title = "命令行备忘录";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
-</script>
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>

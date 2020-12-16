@@ -1,585 +1,505 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="我熊人族永不为奴！！吼吼吼！！！">
+  <meta name="author" content="Bin">
+  <meta name="keywords" content="">
+  <title>Leetcode-剑指Offer - Bin&#39;s blog</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta name="description" content="左旋转字符串12def reverseLeftWords(s,n):    return s[n:] + s[:n]  求1+2+…+n123456res &#x3D; 0def sumNums(n):    global res    n &gt; 1 and sumNums(n-1) # n&#x3D;1 终止递归的需求，可通过短路效应实现    res +&#x3D; n     return res  数组中重复的数字">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode-剑指Offer">
-<meta property="og:url" content="http://example.com/2020/09/05/Algorithm-jianzhioffer/index.html">
-<meta property="og:site_name" content="Bin&#39;s blog">
-<meta property="og:description" content="左旋转字符串12def reverseLeftWords(s,n):    return s[n:] + s[:n]  求1+2+…+n123456res &#x3D; 0def sumNums(n):    global res    n &gt; 1 and sumNums(n-1) # n&#x3D;1 终止递归的需求，可通过短路效应实现    res +&#x3D; n     return res  数组中重复的数字">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-06T00:22:24.000Z">
-<meta property="article:modified_time" content="2020-09-12T00:47:22.450Z">
-<meta property="article:author" content="Bin">
-<meta property="article:tag" content="Leetcode">
-<meta property="article:tag" content="Python">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2020/09/05/Algorithm-jianzhioffer/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>Leetcode-剑指Offer | Bin's blog</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Bin's blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">今日摸鱼进度： 1/ ∞</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
-        </a>
-      </li>
-  </ul>
 </nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Leetcode-剑指Offer">
+              
+            </span>
 
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="Searching..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
             
-
-    
+              <div class="mt-3">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/05/Algorithm-jianzhioffer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bin">
-      <meta itemprop="description" content="我熊人族永不为奴！！吼吼吼！！！">
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-05 17:22" pubdate>
+        September 5, 2020 pm
+      </time>
     </span>
+  
+</div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bin's blog">
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
     </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Leetcode-剑指Offer
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-05 17:22:24" itemprop="dateCreated datePublished" datetime="2020-09-05T17:22:24-07:00">2020-09-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-11 17:47:22" itemprop="dateModified" datetime="2020-09-11T17:47:22-07:00">2020-09-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/09/05/Algorithm-jianzhioffer/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/05/Algorithm-jianzhioffer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
   
 
-          
-
-        </div>
-      </header>
-
+  
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-        <h4 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/">左旋转字符串</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseLeftWords</span>(<span class="params">s,n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> s[n:] + s[:n]</span><br></pre></td></tr></table></figure>
+      
+      33
+       分钟
+    </span>
+  
 
-<h4 id="求1-2-…-n"><a href="#求1-2-…-n" class="headerlink" title="求1+2+…+n"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/qiu-12n-lcof/">求1+2+…+n</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">res = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumNums</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="keyword">global</span> res</span><br><span class="line">    n &gt; <span class="number">1</span> <span class="keyword">and</span> sumNums(n<span class="number">-1</span>) <span class="comment"># n=1 终止递归的需求，可通过短路效应实现</span></span><br><span class="line">    res += n </span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+  
+  
+</div>
 
-<h4 id="数组中重复的数字"><a href="#数组中重复的数字" class="headerlink" title="数组中重复的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">数组中重复的数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findRepeatNumber</span>(<span class="params">nums</span>):</span></span><br><span class="line">    fre_dict=&#123;&#125; <span class="comment"># 使用字典</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">        fre_dict[i] = fre_dict.get(i,<span class="number">0</span>)+<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> fre_dict[i]&gt;<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">    <span class="comment"># 另一种思路 ，排序 找nums[i] == nums[i-1]</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="数组中数字出现的次数"><a href="#数组中数字出现的次数" class="headerlink" title="数组中数字出现的次数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/">数组中数字出现的次数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">singleNumbers</span>(<span class="params">nums</span>):</span> </span><br><span class="line">    tmp_res = <span class="number">0</span>     </span><br><span class="line">    a,b = <span class="number">0</span>,<span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">        tmp_res = tmp_res ^ i  <span class="comment"># 假设需要的结果为为a和b 那么tmp_res = a^b  note: a^a = 0 </span></span><br><span class="line">    <span class="comment"># 将数组分成两部分 一部分只包含a  另一部分只包含b</span></span><br><span class="line">    pivot = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> tmp_res&amp;pivot ==<span class="number">0</span>:</span><br><span class="line">        pivot = pivot&lt;&lt;<span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">        <span class="keyword">if</span> i &amp;pivot:</span><br><span class="line">            a = a^i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            b = b^i</span><br><span class="line">    <span class="keyword">return</span> [a,b]</span><br></pre></td></tr></table></figure>
-
-<h4 id="数组中数字出现的次数-II"><a href="#数组中数字出现的次数-II" class="headerlink" title="数组中数字出现的次数 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/">数组中数字出现的次数 II</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">nums</span>):</span></span><br><span class="line">  <span class="comment"># 1.数学 (sum(set(nums))*3-sum(nums))//2  2.字典思路 3. 位运算</span></span><br><span class="line">  <span class="comment"># a^a = 0  a^0 = a 位运算</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>): <span class="comment"># 1 &lt;= nums[i] &lt; 2^31限制</span></span><br><span class="line">        idx = <span class="number">1</span> &lt;&lt; i  <span class="comment"># 0001   0010   0010</span></span><br><span class="line">        count = <span class="number">0</span> </span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> num &amp; idx !=<span class="number">0</span>:</span><br><span class="line">                count+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count%<span class="number">3</span> ==<span class="number">1</span>: <span class="comment"># 表明唯一的那个数在这一位上为1</span></span><br><span class="line">            res = res|idx</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<h4 id="二叉树的深度"><a href="#二叉树的深度" class="headerlink" title="二叉树的深度"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/">二叉树的深度</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> <span class="number">0</span> <span class="comment"># 递归出口</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + max(self.maxDepth(root.left),self.maxDepth(root.right))</span><br><span class="line"><span class="comment"># 非递归方法： BFS 获得层数即二叉树的深度</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="链表中倒数第k个节点"><a href="#链表中倒数第k个节点" class="headerlink" title="链表中倒数第k个节点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/">链表中倒数第k个节点</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getKthFromEnd</span>(<span class="params">head, k</span>):</span></span><br><span class="line">    <span class="comment"># 思路1: 遍历统计链表长度，倒是第k个节点便是顺数n-k个节点</span></span><br><span class="line">    <span class="comment"># 快慢指针思路</span></span><br><span class="line">    slow,fast = head,head</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(k): <span class="comment"># 快指针先走k步</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> fast: <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        fast = fast.next</span><br><span class="line">    <span class="keyword">while</span> fast:</span><br><span class="line">        slow = slow.next</span><br><span class="line">        fast = fast.next</span><br><span class="line">    <span class="keyword">return</span> slow</span><br></pre></td></tr></table></figure>
-
-<h4 id="二叉树的镜像"><a href="#二叉树的镜像" class="headerlink" title="二叉树的镜像"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/">二叉树的镜像</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mirrorTree</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> <span class="literal">None</span> <span class="comment"># 递归出口</span></span><br><span class="line">    root.left, root.right = self.mirrorTree(root.right),self.mirrorTree(root.left)</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line"><span class="comment"># 非递归方法： BFS 对每一层进行迭代 </span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mirrorTree</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> <span class="literal">None</span> </span><br><span class="line">    queue = deque()</span><br><span class="line">    queue.append(root)</span><br><span class="line">    <span class="keyword">while</span> queue: <span class="comment"># 对每一层的每一个节点进行遍历</span></span><br><span class="line">        node = queue.popleft()</span><br><span class="line">        tmp_left, tmp_right =node.left, node.right</span><br><span class="line">        <span class="keyword">if</span> tmp_left:</span><br><span class="line">            queue.append(tmp_left)</span><br><span class="line">            node.right = tmp_left</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            node.right = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">if</span> tmp_right:</span><br><span class="line">            queue.append(tmp_right)</span><br><span class="line">            node.left = tmp_right  </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            node.left = <span class="literal">None</span>              </span><br><span class="line">    <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
-
-<h4 id="打印从1到最大的n位数"><a href="#打印从1到最大的n位数" class="headerlink" title="打印从1到最大的n位数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof/">打印从1到最大的n位数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printNumbers</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="keyword">return</span> [ i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">10</span>**n) ]</span><br></pre></td></tr></table></figure>
-
-<h4 id="替换空格"><a href="#替换空格" class="headerlink" title="替换空格"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/">替换空格</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">replaceSpace</span>(<span class="params">self, s</span>):</span></span><br><span class="line">    <span class="keyword">return</span> s.replace(<span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;%20&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h4 id="从尾到头打印链表"><a href="#从尾到头打印链表" class="headerlink" title="从尾到头打印链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/">从尾到头打印链表</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reversePrint</span>(<span class="params">head</span>):</span></span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">while</span> head:</span><br><span class="line">        res.append(head.val)</span><br><span class="line">        head = head.next</span><br><span class="line">    <span class="keyword">return</span> res[::<span class="number">-1</span>]    </span><br><span class="line"><span class="comment"># 递归解法 return reversePrint(head.next) + [head.val] if head else []</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseList</span>(<span class="params">head</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> head: <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    cur,pre = head,<span class="literal">None</span></span><br><span class="line">    <span class="keyword">while</span> cur:</span><br><span class="line">        tmp = cur.next</span><br><span class="line">        cur.next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = tmp </span><br><span class="line">    <span class="keyword">return</span> pre </span><br></pre></td></tr></table></figure>
-
-<h4 id="二叉搜索树的第k大节点"><a href="#二叉搜索树的第k大节点" class="headerlink" title="二叉搜索树的第k大节点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/">二叉搜索树的第k大节点</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kthLargest</span>(<span class="params">root, k</span>):</span></span><br><span class="line">    <span class="comment"># 中序遍历 获得有序数组后返回第k个大的数字。 中序遍历： 左子树 + root + 右子树</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">traverse</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> </span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">if</span> root.left:</span><br><span class="line">            res+=(traverse(root.left)) <span class="comment"># 注意不能使用append  否则会形成一个嵌套列表 </span></span><br><span class="line">        res.append(root.val)</span><br><span class="line">        <span class="keyword">if</span> root.right:</span><br><span class="line">            res+=(traverse(root.right))</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    res = traverse(root)</span><br><span class="line">    <span class="keyword">return</span> res[-k]</span><br></pre></td></tr></table></figure>
-
-<h4 id="合并两个排序的链表"><a href="#合并两个排序的链表" class="headerlink" title="合并两个排序的链表####"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/">合并两个排序的链表</a>####</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeTwoLists</span>(<span class="params">l1,l2</span>):</span></span><br><span class="line">    <span class="comment"># 思路1: 新建一个链表，依次插入合适的节点</span></span><br><span class="line">    cur = dummy = ListNode(<span class="number">0</span>) </span><br><span class="line">    <span class="keyword">while</span> l1 <span class="keyword">and</span> l2:</span><br><span class="line">        <span class="keyword">if</span> l1.val &lt; l2.val:</span><br><span class="line">            cur.next, l1 = l1, l1.next</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cur.next, l2 = l2, l2.next</span><br><span class="line">        cur = cur.next</span><br><span class="line">    cur.next = l1 <span class="keyword">if</span> l1 <span class="keyword">else</span> l2</span><br><span class="line">    <span class="keyword">return</span> dummy.next</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 思路2: 使用递归进行</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l1:<span class="keyword">return</span> l2</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l2:<span class="keyword">return</span> l1</span><br><span class="line">    <span class="keyword">if</span> l1.val &lt;= l2.val:</span><br><span class="line">        l1.next = self.mergeTwoLists(l1.next,l2)</span><br><span class="line">        <span class="keyword">return</span> l1</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        l2.next = self.mergeTwoLists(l1,l2.next)</span><br><span class="line">        <span class="keyword">return</span> l2</span><br></pre></td></tr></table></figure>
-
-<h4 id="二进制中1的个数"><a href="#二进制中1的个数" class="headerlink" title="二进制中1的个数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/">二进制中1的个数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hammingWeight</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="comment"># 位运算 n&amp;(n−1)  二进制数字n最右边的 1 变成 0 ，其余不变。</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> n:</span><br><span class="line">        res += <span class="number">1</span></span><br><span class="line">        n &amp;= n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">    <span class="comment"># n&amp;1 =1 =&gt; n 二进制 最右一位 为 1 ；n&amp;1 = 0 =&gt; n 二进制 最右一位 为 0</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> n:</span><br><span class="line">        res += n&amp;<span class="number">1</span></span><br><span class="line">        n = n&gt;&gt;<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<h4 id="用两个栈实现队列"><a href="#用两个栈实现队列" class="headerlink" title="用两个栈实现队列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/">用两个栈实现队列</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CQueue</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">       self.A,self.B = [],[]</span><br><span class="line">       <span class="comment"># A 负责入队  B负责出队</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">appendTail</span>(<span class="params">self, value</span>):</span></span><br><span class="line">        self.A.append(value)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteHead</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.B: <span class="keyword">return</span> self.B.pop()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.A: <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span> self.A:</span><br><span class="line">            self.B.append(self.A.pop())</span><br><span class="line">        <span class="keyword">return</span> self.B.pop()</span><br></pre></td></tr></table></figure>
-
-<h4 id="复杂链表的复制-待定"><a href="#复杂链表的复制-待定" class="headerlink" title="复杂链表的复制 ##待定"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a> ##待定</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">copyRandomList</span>(<span class="params">head</span>):</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="二叉树的最近公共祖先-待定"><a href="#二叉树的最近公共祖先-待定" class="headerlink" title="二叉树的最近公共祖先##待定"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/">二叉树的最近公共祖先</a>##待定</h4><h4 id="和为s的连续正数序列"><a href="#和为s的连续正数序列" class="headerlink" title="和为s的连续正数序列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/">和为s的连续正数序列</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findContinuousSequence</span>(<span class="params">target</span>):</span></span><br><span class="line">    <span class="comment"># 滑动窗口解决</span></span><br><span class="line">    nums = list(range(<span class="number">1</span>,(target//<span class="number">2</span>+<span class="number">2</span>))) <span class="comment"># 候选的最大值不会超高target/2 +1</span></span><br><span class="line">    res = []</span><br><span class="line">    start_window,total = <span class="number">0</span>,nums[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> end_window <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">        total += nums[end_window]</span><br><span class="line">        <span class="keyword">while</span> total&gt;=target:</span><br><span class="line">            <span class="keyword">if</span> total == target:  <span class="comment"># 窗口和 = target =&gt;当前窗口加入结果 窗口起点右移</span></span><br><span class="line">                res.append(nums[start_window:end_window+<span class="number">1</span>])</span><br><span class="line">            total -= nums[start_window]</span><br><span class="line">            start_window+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<h4 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/">重建二叉树</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">buildTree</span>(<span class="params">preorder, inorder</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> preorder:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span> </span><br><span class="line">    root = preorder[<span class="number">0</span>]</span><br><span class="line">    pos = inorder.index(root)</span><br><span class="line"></span><br><span class="line">    binary_tree = TreeNode(root)</span><br><span class="line">    binary_tree.left = self.buildTree(preorder[<span class="number">1</span>:pos+<span class="number">1</span>],inorder[:pos])</span><br><span class="line">    binary_tree.right = self.buildTree(preorder[pos+<span class="number">1</span>:],inorder[pos+<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">return</span> binary_tree</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="从上到下打印二叉树-I"><a href="#从上到下打印二叉树-I" class="headerlink" title="从上到下打印二叉树 I"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/">从上到下打印二叉树 I</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:<span class="keyword">return</span> []</span><br><span class="line">    queue = deque()</span><br><span class="line">    queue.append(root)</span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">while</span> queue:</span><br><span class="line">        level_size = len(queue)</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(level_size):</span><br><span class="line">            node = queue.popleft()</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                queue.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                queue.append(node.right)</span><br><span class="line">            res.append(node.val)</span><br><span class="line">    <span class="keyword">return</span> res </span><br></pre></td></tr></table></figure>
-
-
-<h4 id="从上到下打印二叉树-II"><a href="#从上到下打印二叉树-II" class="headerlink" title="从上到下打印二叉树 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/">从上到下打印二叉树 II</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="comment"># BFS 层序遍历 使用队列实现</span></span><br><span class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> []</span><br><span class="line">    queue = deque()</span><br><span class="line">    queue.append(root)</span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">while</span> queue:</span><br><span class="line">        level_size = len(queue)</span><br><span class="line">        cur_level = []</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(level_size):</span><br><span class="line">            node = queue.popleft()</span><br><span class="line">            cur_level.append(node.val)</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                queue.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                queue.append(node.right)</span><br><span class="line">        res.append(cur_level)</span><br><span class="line">    <span class="keyword">return</span> res </span><br></pre></td></tr></table></figure>
-
-<h4 id="礼物的最大价值"><a href="#礼物的最大价值" class="headerlink" title="礼物的最大价值"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/">礼物的最大价值</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxValue</span>(<span class="params">grid</span>):</span> </span><br><span class="line">    <span class="comment"># 二维dp  grid[i][j] = max(grid[i][j - 1], grid[i - 1][j]) +  grid[i][j]</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(grid)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(grid[<span class="number">0</span>])):</span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">0</span> <span class="keyword">and</span> j == <span class="number">0</span>: <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">0</span>: grid[i][j] += grid[i][j - <span class="number">1</span>]</span><br><span class="line">            <span class="keyword">elif</span> j == <span class="number">0</span>: grid[i][j] += grid[i - <span class="number">1</span>][j]</span><br><span class="line">            <span class="keyword">else</span>: grid[i][j] += max(grid[i][j - <span class="number">1</span>], grid[i - <span class="number">1</span>][j])</span><br><span class="line">    <span class="keyword">return</span> grid[<span class="number">-1</span>][<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-
-<h4 id="数组中出现次数超过一半的数字"><a href="#数组中出现次数超过一半的数字" class="headerlink" title="数组中出现次数超过一半的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/">数组中出现次数超过一半的数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">majorityElement</span>(<span class="params">nums</span>):</span></span><br><span class="line">    <span class="keyword">return</span> sorted(nums)[len(nums)//<span class="number">2</span>]  <span class="comment">#  排序后取中间的数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#Boyer-Moore 投票法 O(n)</span></span><br><span class="line">    res = nums[<span class="number">0</span>]</span><br><span class="line">    cal = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> cal ==<span class="number">0</span>: </span><br><span class="line">            res = i</span><br><span class="line">        <span class="keyword">if</span> i == res:</span><br><span class="line">            cal+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cal-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<h4 id="和为s的两个数字"><a href="#和为s的两个数字" class="headerlink" title="和为s的两个数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/">和为s的两个数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">twoSum</span>(<span class="params">nums,target</span>):</span>  </span><br><span class="line">    left, right = <span class="number">0</span>,len(nums)<span class="number">-1</span> <span class="comment"># 使用双指针 空间复杂度O(1)</span></span><br><span class="line">    <span class="keyword">while</span> left&lt;right:</span><br><span class="line">        sums = nums[left]+nums[right]</span><br><span class="line">        <span class="keyword">if</span> sums&lt;target:</span><br><span class="line">            left+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> sums&gt;target:</span><br><span class="line">            right-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> [nums[left],nums[right]]</span><br><span class="line">    <span class="keyword">return</span> []</span><br></pre></td></tr></table></figure>
-
-<h4 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/chou-shu-lcof/">丑数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nthUglyNumber</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="comment"># 带条件的动态规划</span></span><br><span class="line">    dp, a, b, c = [<span class="number">1</span>] * n, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        n2, n3, n5 = dp[a] * <span class="number">2</span>, dp[b] * <span class="number">3</span>, dp[c] * <span class="number">5</span></span><br><span class="line">        dp[i] = min(n2, n3, n5)</span><br><span class="line">        <span class="keyword">if</span> dp[i] == n2: a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> dp[i] == n3: b += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> dp[i] == n5: c += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-
-<h4 id="调整数组顺序使奇数位于偶数前面"><a href="#调整数组顺序使奇数位于偶数前面" class="headerlink" title="调整数组顺序使奇数位于偶数前面"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/">调整数组顺序使奇数位于偶数前面</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exchange</span>(<span class="params">self, nums: List[int]</span>) -&gt; List[int]:</span></span><br><span class="line">    left,right = <span class="number">0</span>,len(nums)<span class="number">-1</span></span><br><span class="line">    <span class="keyword">while</span> left&lt;right:</span><br><span class="line">    <span class="comment"># 保证nums[left]奇数,nums[right]为偶数</span></span><br><span class="line">        <span class="keyword">if</span> nums[left]%<span class="number">2</span>==<span class="number">1</span>:  </span><br><span class="line">            left+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> nums[right]%<span class="number">2</span> ==<span class="number">1</span>:</span><br><span class="line">                nums[left],nums[right]=nums[right],nums[left]</span><br><span class="line">                left+=<span class="number">1</span></span><br><span class="line">                right-=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                right-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-
-<h4 id="股票的最大利润"><a href="#股票的最大利润" class="headerlink" title="股票的最大利润"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/">股票的最大利润</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span>(<span class="params">prices</span>):</span></span><br><span class="line">    <span class="comment"># opt[i] = max(opt[i-1],prices[i]-min(prices[:i])) 动态规划转移方程</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> prices: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    min_price = prices[<span class="number">0</span>] <span class="comment"># 存储当天前最低的股票</span></span><br><span class="line">    opt = [<span class="number">0</span>]*len(prices)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(prices)):</span><br><span class="line">        <span class="keyword">if</span> prices[i]&lt;min_price:</span><br><span class="line">            min_price = prices[i]</span><br><span class="line">        opt[i] = max(opt[i<span class="number">-1</span>],prices[i]-min_price)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> opt[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-
-<h4 id="圆圈中最后剩下的数字"><a href="#圆圈中最后剩下的数字" class="headerlink" title="圆圈中最后剩下的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/">圆圈中最后剩下的数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="把字符串转换成整数"><a href="#把字符串转换成整数" class="headerlink" title="把字符串转换成整数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/">把字符串转换成整数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">strToInt</span>(<span class="params">self, str: str</span>) -&gt; int:</span></span><br><span class="line">    sign,res = <span class="number">1</span>,<span class="number">0</span></span><br><span class="line">    str = str.strip()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 情况1: 字符串只有空格</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> str: <span class="keyword">return</span> <span class="number">0</span> </span><br><span class="line">    <span class="comment"># 首先判断第一个字符</span></span><br><span class="line">    <span class="keyword">if</span> str[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span> : sign = <span class="number">-1</span></span><br><span class="line">    <span class="keyword">elif</span> str[<span class="number">0</span>] == <span class="string">&#x27;+&#x27;</span>: sign = <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="string">&#x27;0&#x27;</span>&lt;=str[<span class="number">0</span>]&lt;=<span class="string">&#x27;9&#x27;</span>:res = res*<span class="number">10</span> + int(str[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> res </span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> str[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;0&#x27;</span>&lt;=i&lt;=<span class="string">&#x27;9&#x27;</span>:</span><br><span class="line">            res = res*<span class="number">10</span> + ord(i) - ord(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> sign&gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> res <span class="keyword">if</span> res &lt; <span class="number">2</span>**<span class="number">31</span><span class="number">-1</span> <span class="keyword">else</span> <span class="number">2</span>**<span class="number">31</span><span class="number">-1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> res*sign <span class="keyword">if</span> res*sign &gt; <span class="number">-2</span>**<span class="number">31</span> <span class="keyword">else</span>  <span class="number">-2</span>**<span class="number">31</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="数值的整数次方"><a href="#数值的整数次方" class="headerlink" title="数值的整数次方"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/">数值的整数次方</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">myPow</span>(<span class="params">self, x: float, n: int</span>) -&gt; float:</span></span><br><span class="line">    <span class="comment">### 分治思想</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">1</span> <span class="comment"># base </span></span><br><span class="line">    <span class="keyword">if</span> n&lt;<span class="number">0</span> : x,n = <span class="number">1</span>/x,-n  </span><br><span class="line">    <span class="keyword">if</span> n %<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> self.myPow(x,n//<span class="number">2</span>)**<span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> x * self.myPow(x,n//<span class="number">2</span>)**<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="数字序列中某一位的数字"><a href="#数字序列中某一位的数字" class="headerlink" title="数字序列中某一位的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/">数字序列中某一位的数字</a></h4><h4 id="0～n-1中缺失的数字"><a href="#0～n-1中缺失的数字" class="headerlink" title="0～n-1中缺失的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/">0～n-1中缺失的数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">missingNumber</span>(<span class="params">self, nums: List[int]</span>) -&gt; int:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] != i:</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">    <span class="keyword">return</span> len(nums) <span class="comment"># 类似 [0]这样的情况，缺失的为1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 思路2: 排序数组中的搜索问题，首先想到&quot;二分&quot;解决。</span></span><br><span class="line">    xxx</span><br></pre></td></tr></table></figure>
-
-    </div>
-
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Leetcode/" rel="tag"># Leetcode</a>
-              <a href="/tags/Python/" rel="tag"># Python</a>
+            
           </div>
 
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/2020/09/06/DSCI551-outline/" rel="next" title="DSCI551 outline">
-      DSCI551 outline <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-  
-
-
-          </div>
           
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.</span> <span class="nav-text">左旋转字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%821-2-%E2%80%A6-n"><span class="nav-number">2.</span> <span class="nav-text">求1+2+…+n</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">数组中重复的数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">数组中数字出现的次数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0-II"><span class="nav-number">5.</span> <span class="nav-text">数组中数字出现的次数 II</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">二叉树的深度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">链表中倒数第k个节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F"><span class="nav-number">8.</span> <span class="nav-text">二叉树的镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E4%BB%8E1%E5%88%B0%E6%9C%80%E5%A4%A7%E7%9A%84n%E4%BD%8D%E6%95%B0"><span class="nav-number">9.</span> <span class="nav-text">打印从1到最大的n位数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC"><span class="nav-number">10.</span> <span class="nav-text">替换空格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"><span class="nav-number">11.</span> <span class="nav-text">从尾到头打印链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8"><span class="nav-number">12.</span> <span class="nav-text">反转链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9"><span class="nav-number">13.</span> <span class="nav-text">二叉搜索树的第k大节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8"><span class="nav-number">14.</span> <span class="nav-text">合并两个排序的链表####</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">15.</span> <span class="nav-text">二进制中1的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="nav-number">16.</span> <span class="nav-text">用两个栈实现队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6-%E5%BE%85%E5%AE%9A"><span class="nav-number">17.</span> <span class="nav-text">复杂链表的复制 ##待定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88-%E5%BE%85%E5%AE%9A"><span class="nav-number">18.</span> <span class="nav-text">二叉树的最近公共祖先##待定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%92%8C%E4%B8%BAs%E7%9A%84%E8%BF%9E%E7%BB%AD%E6%AD%A3%E6%95%B0%E5%BA%8F%E5%88%97"><span class="nav-number">19.</span> <span class="nav-text">和为s的连续正数序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">20.</span> <span class="nav-text">重建二叉树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91-I"><span class="nav-number">21.</span> <span class="nav-text">从上到下打印二叉树 I</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91-II"><span class="nav-number">22.</span> <span class="nav-text">从上到下打印二叉树 II</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC"><span class="nav-number">23.</span> <span class="nav-text">礼物的最大价值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">24.</span> <span class="nav-text">数组中出现次数超过一半的数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%92%8C%E4%B8%BAs%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97"><span class="nav-number">25.</span> <span class="nav-text">和为s的两个数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%91%E6%95%B0"><span class="nav-number">26.</span> <span class="nav-text">丑数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2"><span class="nav-number">27.</span> <span class="nav-text">调整数组顺序使奇数位于偶数前面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6"><span class="nav-number">28.</span> <span class="nav-text">股票的最大利润</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%86%E5%9C%88%E4%B8%AD%E6%9C%80%E5%90%8E%E5%89%A9%E4%B8%8B%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">29.</span> <span class="nav-text">圆圈中最后剩下的数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%88%90%E6%95%B4%E6%95%B0"><span class="nav-number">30.</span> <span class="nav-text">把字符串转换成整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9"><span class="nav-number">31.</span> <span class="nav-text">数值的整数次方</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E5%BA%8F%E5%88%97%E4%B8%AD%E6%9F%90%E4%B8%80%E4%BD%8D%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">32.</span> <span class="nav-text">数字序列中某一位的数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0%EF%BD%9En-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">33.</span> <span class="nav-text">0～n-1中缺失的数字</span></a></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Bin"
-      src="/images/avatar.png">
-  <p class="site-author-name" itemprop="name">Bin</p>
-  <div class="site-description" itemprop="description">我熊人族永不为奴！！吼吼吼！！！</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">50</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">18</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Bin-Go2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bin-Go2" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:binzhangsam@gmail.com" title="E-Mail → mailto:binzhangsam@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </header>
 
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Leetcode-剑指Offer</h1>
+            
+            <div class="markdown-body">
+              <h4 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/">左旋转字符串</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverseLeftWords</span>(<span class="hljs-params">s,n</span>):</span><br>    <span class="hljs-keyword">return</span> s[n:] + s[:n]<br></code></pre></td></tr></table></figure>
+
+<h4 id="求1-2-…-n"><a href="#求1-2-…-n" class="headerlink" title="求1+2+…+n"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/qiu-12n-lcof/">求1+2+…+n</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">res = <span class="hljs-number">0</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sumNums</span>(<span class="hljs-params">n</span>):</span><br>    <span class="hljs-keyword">global</span> res<br>    n &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> sumNums(n<span class="hljs-number">-1</span>) <span class="hljs-comment"># n=1 终止递归的需求，可通过短路效应实现</span><br>    res += n <br>    <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+<h4 id="数组中重复的数字"><a href="#数组中重复的数字" class="headerlink" title="数组中重复的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">数组中重复的数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">findRepeatNumber</span>(<span class="hljs-params">nums</span>):</span><br>    fre_dict=&#123;&#125; <span class="hljs-comment"># 使用字典</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> nums:<br>        fre_dict[i] = fre_dict.get(i,<span class="hljs-number">0</span>)+<span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> fre_dict[i]&gt;<span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> i<br>    <span class="hljs-comment"># 另一种思路 ，排序 找nums[i] == nums[i-1]</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="数组中数字出现的次数"><a href="#数组中数字出现的次数" class="headerlink" title="数组中数字出现的次数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/">数组中数字出现的次数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">singleNumbers</span>(<span class="hljs-params">nums</span>):</span> <br>    tmp_res = <span class="hljs-number">0</span>     <br>    a,b = <span class="hljs-number">0</span>,<span class="hljs-number">0</span> <br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> nums:<br>        tmp_res = tmp_res ^ i  <span class="hljs-comment"># 假设需要的结果为为a和b 那么tmp_res = a^b  note: a^a = 0 </span><br>    <span class="hljs-comment"># 将数组分成两部分 一部分只包含a  另一部分只包含b</span><br>    pivot = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">while</span> tmp_res&amp;pivot ==<span class="hljs-number">0</span>:<br>        pivot = pivot&lt;&lt;<span class="hljs-number">1</span><br>    <br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> nums:<br>        <span class="hljs-keyword">if</span> i &amp;pivot:<br>            a = a^i<br>        <span class="hljs-keyword">else</span>:<br>            b = b^i<br>    <span class="hljs-keyword">return</span> [a,b]<br></code></pre></td></tr></table></figure>
+
+<h4 id="数组中数字出现的次数-II"><a href="#数组中数字出现的次数-II" class="headerlink" title="数组中数字出现的次数 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/">数组中数字出现的次数 II</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">singleNumber</span>(<span class="hljs-params">nums</span>):</span><br>  <span class="hljs-comment"># 1.数学 (sum(set(nums))*3-sum(nums))//2  2.字典思路 3. 位运算</span><br>  <span class="hljs-comment"># a^a = 0  a^0 = a 位运算</span><br>    res = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">32</span>): <span class="hljs-comment"># 1 &lt;= nums[i] &lt; 2^31限制</span><br>        idx = <span class="hljs-number">1</span> &lt;&lt; i  <span class="hljs-comment"># 0001   0010   0010</span><br>        count = <span class="hljs-number">0</span> <br>        <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums:<br>            <span class="hljs-keyword">if</span> num &amp; idx !=<span class="hljs-number">0</span>:<br>                count+=<span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> count%<span class="hljs-number">3</span> ==<span class="hljs-number">1</span>: <span class="hljs-comment"># 表明唯一的那个数在这一位上为1</span><br>            res = res|idx<br>    <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+<h4 id="二叉树的深度"><a href="#二叉树的深度" class="headerlink" title="二叉树的深度"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/">二叉树的深度</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxDepth</span>(<span class="hljs-params">root</span>):</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:<span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-comment"># 递归出口</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + max(self.maxDepth(root.left),self.maxDepth(root.right))<br><span class="hljs-comment"># 非递归方法： BFS 获得层数即二叉树的深度</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="链表中倒数第k个节点"><a href="#链表中倒数第k个节点" class="headerlink" title="链表中倒数第k个节点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/">链表中倒数第k个节点</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getKthFromEnd</span>(<span class="hljs-params">head, k</span>):</span><br>    <span class="hljs-comment"># 思路1: 遍历统计链表长度，倒是第k个节点便是顺数n-k个节点</span><br>    <span class="hljs-comment"># 快慢指针思路</span><br>    slow,fast = head,head<br>    index = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(k): <span class="hljs-comment"># 快指针先走k步</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> fast: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        fast = fast.next<br>    <span class="hljs-keyword">while</span> fast:<br>        slow = slow.next<br>        fast = fast.next<br>    <span class="hljs-keyword">return</span> slow<br></code></pre></td></tr></table></figure>
+
+<h4 id="二叉树的镜像"><a href="#二叉树的镜像" class="headerlink" title="二叉树的镜像"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/">二叉树的镜像</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mirrorTree</span>(<span class="hljs-params">root</span>):</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span> <span class="hljs-comment"># 递归出口</span><br>    root.left, root.right = self.mirrorTree(root.right),self.mirrorTree(root.left)<br>    <span class="hljs-keyword">return</span> root<br><span class="hljs-comment"># 非递归方法： BFS 对每一层进行迭代 </span><br><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mirrorTree</span>(<span class="hljs-params">root</span>):</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span> <br>    queue = deque()<br>    queue.append(root)<br>    <span class="hljs-keyword">while</span> queue: <span class="hljs-comment"># 对每一层的每一个节点进行遍历</span><br>        node = queue.popleft()<br>        tmp_left, tmp_right =node.left, node.right<br>        <span class="hljs-keyword">if</span> tmp_left:<br>            queue.append(tmp_left)<br>            node.right = tmp_left<br>        <span class="hljs-keyword">else</span>:<br>            node.right = <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">if</span> tmp_right:<br>            queue.append(tmp_right)<br>            node.left = tmp_right  <br>        <span class="hljs-keyword">else</span>:<br>            node.left = <span class="hljs-literal">None</span>              <br>    <span class="hljs-keyword">return</span> root<br></code></pre></td></tr></table></figure>
+
+<h4 id="打印从1到最大的n位数"><a href="#打印从1到最大的n位数" class="headerlink" title="打印从1到最大的n位数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof/">打印从1到最大的n位数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">printNumbers</span>(<span class="hljs-params">n</span>):</span><br>    <span class="hljs-keyword">return</span> [ i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>**n) ]<br></code></pre></td></tr></table></figure>
+
+<h4 id="替换空格"><a href="#替换空格" class="headerlink" title="替换空格"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/">替换空格</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">replaceSpace</span>(<span class="hljs-params">self, s</span>):</span><br>    <span class="hljs-keyword">return</span> s.replace(<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;%20&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="从尾到头打印链表"><a href="#从尾到头打印链表" class="headerlink" title="从尾到头打印链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/">从尾到头打印链表</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reversePrint</span>(<span class="hljs-params">head</span>):</span><br>    res = []<br>    <span class="hljs-keyword">while</span> head:<br>        res.append(head.val)<br>        head = head.next<br>    <span class="hljs-keyword">return</span> res[::<span class="hljs-number">-1</span>]    <br><span class="hljs-comment"># 递归解法 return reversePrint(head.next) + [head.val] if head else []</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverseList</span>(<span class="hljs-params">head</span>):</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>    cur,pre = head,<span class="hljs-literal">None</span><br>    <span class="hljs-keyword">while</span> cur:<br>        tmp = cur.next<br>        cur.next = pre<br>        pre = cur<br>        cur = tmp <br>    <span class="hljs-keyword">return</span> pre <br></code></pre></td></tr></table></figure>
+
+<h4 id="二叉搜索树的第k大节点"><a href="#二叉搜索树的第k大节点" class="headerlink" title="二叉搜索树的第k大节点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/">二叉搜索树的第k大节点</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">kthLargest</span>(<span class="hljs-params">root, k</span>):</span><br>    <span class="hljs-comment"># 中序遍历 获得有序数组后返回第k个大的数字。 中序遍历： 左子树 + root + 右子树</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">traverse</span>(<span class="hljs-params">root</span>):</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> <br>        res = []<br>        <span class="hljs-keyword">if</span> root.left:<br>            res+=(traverse(root.left)) <span class="hljs-comment"># 注意不能使用append  否则会形成一个嵌套列表 </span><br>        res.append(root.val)<br>        <span class="hljs-keyword">if</span> root.right:<br>            res+=(traverse(root.right))<br>        <span class="hljs-keyword">return</span> res<br>    res = traverse(root)<br>    <span class="hljs-keyword">return</span> res[-k]<br></code></pre></td></tr></table></figure>
+
+<h4 id="合并两个排序的链表"><a href="#合并两个排序的链表" class="headerlink" title="合并两个排序的链表####"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/">合并两个排序的链表</a>####</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mergeTwoLists</span>(<span class="hljs-params">l1,l2</span>):</span><br>    <span class="hljs-comment"># 思路1: 新建一个链表，依次插入合适的节点</span><br>    cur = dummy = ListNode(<span class="hljs-number">0</span>) <br>    <span class="hljs-keyword">while</span> l1 <span class="hljs-keyword">and</span> l2:<br>        <span class="hljs-keyword">if</span> l1.val &lt; l2.val:<br>            cur.next, l1 = l1, l1.next<br>        <span class="hljs-keyword">else</span>:<br>            cur.next, l2 = l2, l2.next<br>        cur = cur.next<br>    cur.next = l1 <span class="hljs-keyword">if</span> l1 <span class="hljs-keyword">else</span> l2<br>    <span class="hljs-keyword">return</span> dummy.next<br><br>    <span class="hljs-comment"># 思路2: 使用递归进行</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> l1:<span class="hljs-keyword">return</span> l2<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> l2:<span class="hljs-keyword">return</span> l1<br>    <span class="hljs-keyword">if</span> l1.val &lt;= l2.val:<br>        l1.next = self.mergeTwoLists(l1.next,l2)<br>        <span class="hljs-keyword">return</span> l1<br>    <span class="hljs-keyword">else</span>:<br>        l2.next = self.mergeTwoLists(l1,l2.next)<br>        <span class="hljs-keyword">return</span> l2<br></code></pre></td></tr></table></figure>
+
+<h4 id="二进制中1的个数"><a href="#二进制中1的个数" class="headerlink" title="二进制中1的个数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/">二进制中1的个数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hammingWeight</span>(<span class="hljs-params">n</span>):</span><br>    <span class="hljs-comment"># 位运算 n&amp;(n−1)  二进制数字n最右边的 1 变成 0 ，其余不变。</span><br>    res = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> n:<br>        res += <span class="hljs-number">1</span><br>        n &amp;= n - <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> res<br>    <span class="hljs-comment"># n&amp;1 =1 =&gt; n 二进制 最右一位 为 1 ；n&amp;1 = 0 =&gt; n 二进制 最右一位 为 0</span><br>    res = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> n:<br>        res += n&amp;<span class="hljs-number">1</span><br>        n = n&gt;&gt;<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+<h4 id="用两个栈实现队列"><a href="#用两个栈实现队列" class="headerlink" title="用两个栈实现队列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/">用两个栈实现队列</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CQueue</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>       self.A,self.B = [],[]<br>       <span class="hljs-comment"># A 负责入队  B负责出队</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">appendTail</span>(<span class="hljs-params">self, value</span>):</span><br>        self.A.append(value)<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteHead</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">if</span> self.B: <span class="hljs-keyword">return</span> self.B.pop()<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.A: <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>        <span class="hljs-keyword">while</span> self.A:<br>            self.B.append(self.A.pop())<br>        <span class="hljs-keyword">return</span> self.B.pop()<br></code></pre></td></tr></table></figure>
+
+<h4 id="复杂链表的复制-待定"><a href="#复杂链表的复制-待定" class="headerlink" title="复杂链表的复制 ##待定"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a> ##待定</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">copyRandomList</span>(<span class="hljs-params">head</span>):</span><br><br></code></pre></td></tr></table></figure>
+
+<h4 id="二叉树的最近公共祖先-待定"><a href="#二叉树的最近公共祖先-待定" class="headerlink" title="二叉树的最近公共祖先##待定"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/">二叉树的最近公共祖先</a>##待定</h4><h4 id="和为s的连续正数序列"><a href="#和为s的连续正数序列" class="headerlink" title="和为s的连续正数序列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/">和为s的连续正数序列</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">findContinuousSequence</span>(<span class="hljs-params">target</span>):</span><br>    <span class="hljs-comment"># 滑动窗口解决</span><br>    nums = list(range(<span class="hljs-number">1</span>,(target//<span class="hljs-number">2</span>+<span class="hljs-number">2</span>))) <span class="hljs-comment"># 候选的最大值不会超高target/2 +1</span><br>    res = []<br>    start_window,total = <span class="hljs-number">0</span>,nums[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> end_window <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,len(nums)):<br>        total += nums[end_window]<br>        <span class="hljs-keyword">while</span> total&gt;=target:<br>            <span class="hljs-keyword">if</span> total == target:  <span class="hljs-comment"># 窗口和 = target =&gt;当前窗口加入结果 窗口起点右移</span><br>                res.append(nums[start_window:end_window+<span class="hljs-number">1</span>])<br>            total -= nums[start_window]<br>            start_window+=<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+<h4 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/">重建二叉树</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildTree</span>(<span class="hljs-params">preorder, inorder</span>):</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> preorder:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span> <br>    root = preorder[<span class="hljs-number">0</span>]<br>    pos = inorder.index(root)<br><br>    binary_tree = TreeNode(root)<br>    binary_tree.left = self.buildTree(preorder[<span class="hljs-number">1</span>:pos+<span class="hljs-number">1</span>],inorder[:pos])<br>    binary_tree.right = self.buildTree(preorder[pos+<span class="hljs-number">1</span>:],inorder[pos+<span class="hljs-number">1</span>:])<br>    <span class="hljs-keyword">return</span> binary_tree<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="从上到下打印二叉树-I"><a href="#从上到下打印二叉树-I" class="headerlink" title="从上到下打印二叉树 I"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/">从上到下打印二叉树 I</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span>(<span class="hljs-params">root</span>):</span><br>    <span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:<span class="hljs-keyword">return</span> []<br>    queue = deque()<br>    queue.append(root)<br>    res = []<br>    <span class="hljs-keyword">while</span> queue:<br>        level_size = len(queue)<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(level_size):<br>            node = queue.popleft()<br>            <span class="hljs-keyword">if</span> node.left:<br>                queue.append(node.left)<br>            <span class="hljs-keyword">if</span> node.right:<br>                queue.append(node.right)<br>            res.append(node.val)<br>    <span class="hljs-keyword">return</span> res <br></code></pre></td></tr></table></figure>
+
+
+<h4 id="从上到下打印二叉树-II"><a href="#从上到下打印二叉树-II" class="headerlink" title="从上到下打印二叉树 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/">从上到下打印二叉树 II</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span>(<span class="hljs-params">root</span>):</span><br>    <span class="hljs-comment"># BFS 层序遍历 使用队列实现</span><br>    <span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> []<br>    queue = deque()<br>    queue.append(root)<br>    res = []<br>    <span class="hljs-keyword">while</span> queue:<br>        level_size = len(queue)<br>        cur_level = []<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(level_size):<br>            node = queue.popleft()<br>            cur_level.append(node.val)<br>            <span class="hljs-keyword">if</span> node.left:<br>                queue.append(node.left)<br>            <span class="hljs-keyword">if</span> node.right:<br>                queue.append(node.right)<br>        res.append(cur_level)<br>    <span class="hljs-keyword">return</span> res <br></code></pre></td></tr></table></figure>
+
+<h4 id="礼物的最大价值"><a href="#礼物的最大价值" class="headerlink" title="礼物的最大价值"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/">礼物的最大价值</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxValue</span>(<span class="hljs-params">grid</span>):</span> <br>    <span class="hljs-comment"># 二维dp  grid[i][j] = max(grid[i][j - 1], grid[i - 1][j]) +  grid[i][j]</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(grid)):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(len(grid[<span class="hljs-number">0</span>])):<br>            <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> j == <span class="hljs-number">0</span>: <span class="hljs-keyword">continue</span><br>            <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span>: grid[i][j] += grid[i][j - <span class="hljs-number">1</span>]<br>            <span class="hljs-keyword">elif</span> j == <span class="hljs-number">0</span>: grid[i][j] += grid[i - <span class="hljs-number">1</span>][j]<br>            <span class="hljs-keyword">else</span>: grid[i][j] += max(grid[i][j - <span class="hljs-number">1</span>], grid[i - <span class="hljs-number">1</span>][j])<br>    <span class="hljs-keyword">return</span> grid[<span class="hljs-number">-1</span>][<span class="hljs-number">-1</span>]<br></code></pre></td></tr></table></figure>
+
+<h4 id="数组中出现次数超过一半的数字"><a href="#数组中出现次数超过一半的数字" class="headerlink" title="数组中出现次数超过一半的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/">数组中出现次数超过一半的数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">majorityElement</span>(<span class="hljs-params">nums</span>):</span><br>    <span class="hljs-keyword">return</span> sorted(nums)[len(nums)//<span class="hljs-number">2</span>]  <span class="hljs-comment">#  排序后取中间的数</span><br><br>    <span class="hljs-comment">#Boyer-Moore 投票法 O(n)</span><br>    res = nums[<span class="hljs-number">0</span>]<br>    cal = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> nums[<span class="hljs-number">1</span>:]:<br>        <span class="hljs-keyword">if</span> cal ==<span class="hljs-number">0</span>: <br>            res = i<br>        <span class="hljs-keyword">if</span> i == res:<br>            cal+=<span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            cal-=<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+<h4 id="和为s的两个数字"><a href="#和为s的两个数字" class="headerlink" title="和为s的两个数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/">和为s的两个数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">twoSum</span>(<span class="hljs-params">nums,target</span>):</span>  <br>    left, right = <span class="hljs-number">0</span>,len(nums)<span class="hljs-number">-1</span> <span class="hljs-comment"># 使用双指针 空间复杂度O(1)</span><br>    <span class="hljs-keyword">while</span> left&lt;right:<br>        sums = nums[left]+nums[right]<br>        <span class="hljs-keyword">if</span> sums&lt;target:<br>            left+=<span class="hljs-number">1</span><br>        <span class="hljs-keyword">elif</span> sums&gt;target:<br>            right-=<span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> [nums[left],nums[right]]<br>    <span class="hljs-keyword">return</span> []<br></code></pre></td></tr></table></figure>
+
+<h4 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/chou-shu-lcof/">丑数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">nthUglyNumber</span>(<span class="hljs-params">n</span>):</span><br>    <span class="hljs-comment"># 带条件的动态规划</span><br>    dp, a, b, c = [<span class="hljs-number">1</span>] * n, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, n):<br>        n2, n3, n5 = dp[a] * <span class="hljs-number">2</span>, dp[b] * <span class="hljs-number">3</span>, dp[c] * <span class="hljs-number">5</span><br>        dp[i] = min(n2, n3, n5)<br>        <span class="hljs-keyword">if</span> dp[i] == n2: a += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> dp[i] == n3: b += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> dp[i] == n5: c += <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> dp[<span class="hljs-number">-1</span>]<br></code></pre></td></tr></table></figure>
+
+<h4 id="调整数组顺序使奇数位于偶数前面"><a href="#调整数组顺序使奇数位于偶数前面" class="headerlink" title="调整数组顺序使奇数位于偶数前面"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/">调整数组顺序使奇数位于偶数前面</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exchange</span>(<span class="hljs-params">self, nums: List[int]</span>) -&gt; List[int]:</span><br>    left,right = <span class="hljs-number">0</span>,len(nums)<span class="hljs-number">-1</span><br>    <span class="hljs-keyword">while</span> left&lt;right:<br>    <span class="hljs-comment"># 保证nums[left]奇数,nums[right]为偶数</span><br>        <span class="hljs-keyword">if</span> nums[left]%<span class="hljs-number">2</span>==<span class="hljs-number">1</span>:  <br>            left+=<span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">if</span> nums[right]%<span class="hljs-number">2</span> ==<span class="hljs-number">1</span>:<br>                nums[left],nums[right]=nums[right],nums[left]<br>                left+=<span class="hljs-number">1</span><br>                right-=<span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                right-=<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> nums<br></code></pre></td></tr></table></figure>
+
+<h4 id="股票的最大利润"><a href="#股票的最大利润" class="headerlink" title="股票的最大利润"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/">股票的最大利润</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxProfit</span>(<span class="hljs-params">prices</span>):</span><br>    <span class="hljs-comment"># opt[i] = max(opt[i-1],prices[i]-min(prices[:i])) 动态规划转移方程</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> prices: <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    min_price = prices[<span class="hljs-number">0</span>] <span class="hljs-comment"># 存储当天前最低的股票</span><br>    opt = [<span class="hljs-number">0</span>]*len(prices)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,len(prices)):<br>        <span class="hljs-keyword">if</span> prices[i]&lt;min_price:<br>            min_price = prices[i]<br>        opt[i] = max(opt[i<span class="hljs-number">-1</span>],prices[i]-min_price)<br>    <br>    <span class="hljs-keyword">return</span> opt[<span class="hljs-number">-1</span>]<br></code></pre></td></tr></table></figure>
+
+<h4 id="圆圈中最后剩下的数字"><a href="#圆圈中最后剩下的数字" class="headerlink" title="圆圈中最后剩下的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/">圆圈中最后剩下的数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><br></code></pre></td></tr></table></figure>
+
+<h4 id="把字符串转换成整数"><a href="#把字符串转换成整数" class="headerlink" title="把字符串转换成整数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/">把字符串转换成整数</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">strToInt</span>(<span class="hljs-params">self, str: str</span>) -&gt; int:</span><br>    sign,res = <span class="hljs-number">1</span>,<span class="hljs-number">0</span><br>    str = str.strip()<br>    <br>    <span class="hljs-comment"># 情况1: 字符串只有空格</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> str: <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <br>    <span class="hljs-comment"># 首先判断第一个字符</span><br>    <span class="hljs-keyword">if</span> str[<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;-&#x27;</span> : sign = <span class="hljs-number">-1</span><br>    <span class="hljs-keyword">elif</span> str[<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;+&#x27;</span>: sign = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">elif</span> <span class="hljs-string">&#x27;0&#x27;</span>&lt;=str[<span class="hljs-number">0</span>]&lt;=<span class="hljs-string">&#x27;9&#x27;</span>:res = res*<span class="hljs-number">10</span> + int(str[<span class="hljs-number">0</span>])<br>    <span class="hljs-keyword">else</span>: <span class="hljs-keyword">return</span> res <br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> str[<span class="hljs-number">1</span>:]:<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;0&#x27;</span>&lt;=i&lt;=<span class="hljs-string">&#x27;9&#x27;</span>:<br>            res = res*<span class="hljs-number">10</span> + ord(i) - ord(<span class="hljs-string">&#x27;0&#x27;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">if</span> sign&gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> res <span class="hljs-keyword">if</span> res &lt; <span class="hljs-number">2</span>**<span class="hljs-number">31</span><span class="hljs-number">-1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">2</span>**<span class="hljs-number">31</span><span class="hljs-number">-1</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> res*sign <span class="hljs-keyword">if</span> res*sign &gt; <span class="hljs-number">-2</span>**<span class="hljs-number">31</span> <span class="hljs-keyword">else</span>  <span class="hljs-number">-2</span>**<span class="hljs-number">31</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="数值的整数次方"><a href="#数值的整数次方" class="headerlink" title="数值的整数次方"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/">数值的整数次方</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myPow</span>(<span class="hljs-params">self, x: float, n: int</span>) -&gt; float:</span><br>    <span class="hljs-comment">### 分治思想</span><br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span>: <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> <span class="hljs-comment"># base </span><br>    <span class="hljs-keyword">if</span> n&lt;<span class="hljs-number">0</span> : x,n = <span class="hljs-number">1</span>/x,-n  <br>    <span class="hljs-keyword">if</span> n %<span class="hljs-number">2</span> == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> self.myPow(x,n//<span class="hljs-number">2</span>)**<span class="hljs-number">2</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> x * self.myPow(x,n//<span class="hljs-number">2</span>)**<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="数字序列中某一位的数字"><a href="#数字序列中某一位的数字" class="headerlink" title="数字序列中某一位的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/">数字序列中某一位的数字</a></h4><h4 id="0～n-1中缺失的数字"><a href="#0～n-1中缺失的数字" class="headerlink" title="0～n-1中缺失的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/">0～n-1中缺失的数字</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">missingNumber</span>(<span class="hljs-params">self, nums: List[int]</span>) -&gt; int:</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(nums)):<br>        <span class="hljs-keyword">if</span> nums[i] != i:<br>            <span class="hljs-keyword">return</span> i<br>    <span class="hljs-keyword">return</span> len(nums) <span class="hljs-comment"># 类似 [0]这样的情况，缺失的为1</span><br><br>    <span class="hljs-comment"># 思路2: 排序数组中的搜索问题，首先想到&quot;二分&quot;解决。</span><br>    xxx<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Leetcode/">Leetcode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/06/DSCI551-outline/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DSCI551 outline</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
 
       </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Bin</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+    
   </div>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-
-<div class="theme-info">
-    <div class="powered-by"></div>
-    <span class="post-count">共50.1k字</span>
 </div>
 
-        
+<!-- Custom -->
 
 
+    
 
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-
-
-
-
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </footer>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
   </div>
+</div>
+    
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+    
+  </main>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
   
 
   
 
-<script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-bin-go2-github-io.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "http://example.com/2020/09/05/Algorithm-jianzhioffer/";
-    this.page.identifier = "2020/09/05/Algorithm-jianzhioffer/";
-    this.page.title = "Leetcode-剑指Offer";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://https-bin-go2-github-io.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
-</script>
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>
