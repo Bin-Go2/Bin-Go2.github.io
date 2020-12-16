@@ -97,6 +97,51 @@
       </tags>
   </entry>
   <entry>
+    <title>知识图谱表格理解</title>
+    <url>/2020/12/03/558-table-und/</url>
+    <content><![CDATA[<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li>Structured Data<ul>
+<li>Knowledge Graphs</li>
+<li>The Semantic Web</li>
+<li>Databases</li>
+<li>Structured files (CSV, XML, XLS)</li>
+<li>Structures in HTML, e.g. tables  -&gt; 本章关注</li>
+</ul>
+</li>
+<li>Unstructured Data</li>
+</ul>
+<h2 id="Web中的结构化表格-Structured-Tables-on-the-Web"><a href="#Web中的结构化表格-Structured-Tables-on-the-Web" class="headerlink" title="Web中的结构化表格 (Structured Tables on the Web)"></a>Web中的结构化表格 (Structured Tables on the Web)</h2><p>Tables contain really useful data<br>Vast Amount of Data in Tabular Form</p>
+<h2 id="表格类型"><a href="#表格类型" class="headerlink" title="表格类型"></a>表格类型</h2><p><img src="/image/table_type.png"></p>
+<h3 id="Listing"><a href="#Listing" class="headerlink" title="Listing"></a>Listing</h3><p>Horizontal Listings; -&gt; 类似于excel表格的形式，每一行表示某个item的信息<br>Vertical Listings; -&gt; 类似于Dell、Apple商品展现的形式，每一列表示某个item的信息</p>
+<h3 id="Attribute-Value-Tables"><a href="#Attribute-Value-Tables" class="headerlink" title="Attribute/Value Tables"></a>Attribute/Value Tables</h3><p>类似于Wikipedia的展现形式，其本质就是一个k-v的字典</p>
+<h3 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h3><p>二维表格，第一行和第一列都描述了元信息<br>same value type for any cell</p>
+<h3 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h3><p>list series of objects with the same ontological relation;<br>major challenge: discovery of the predicate;<br>本质上就是一个list，然后其中包含了某一个属性下的列表信息。</p>
+<h3 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h3><p>like attribute-value;<br>with missing values;<br>which are filled by a user</p>
+<p>也就是日常见到的表单</p>
+<h3 id="Navigational"><a href="#Navigational" class="headerlink" title="Navigational"></a>Navigational</h3><p>purpose: navigate within or outside of a site<br>no clear relations between the cells</p>
+<p>也就是网站上常见到一系列可以点击的网页链接放在一块的展示<br><img src="/image/nva.png"></p>
+<h3 id="Formatting"><a href="#Formatting" class="headerlink" title="Formatting"></a>Formatting</h3><p>purpose: organize data visually</p>
+<p>主要是一些布局展示</p>
+<h2 id="表格的属性"><a href="#表格的属性" class="headerlink" title="表格的属性"></a>表格的属性</h2><p>Global Layout features<br>• #rows, #cols, max cell length</p>
+<p>Layout features (per row/column)<br>• cell length, length variance, ratio in col/rowspan</p>
+<p>HTML features (content)<br>• unique tags, ratio of th/anchor/img/input/br/font…</p>
+<p>Cell features (content)<br>• unique strings, end-with-colon, is/contains number, non- blank</p>
+<h2 id="提取关系数据-Extracting-Relational-Data"><a href="#提取关系数据-Extracting-Relational-Data" class="headerlink" title="提取关系数据 (Extracting Relational Data)"></a>提取关系数据 (Extracting Relational Data)</h2><p>目标:<br>找到表格中的结构化关系<br>提取出表格下的RDF三元组</p>
+<p>关键:<br>• What is the semantic type of each column? • Semantic Labeling  列的含义<br>• What is the subject of the table? • Entity Linking 表格中主体寻找<br>• What predicates describe the relationships in the table? • Semantic Modeling 单元格的关系建立</p>
+<h2 id="提取定量数据-Extracting-Quantitative-Data"><a href="#提取定量数据-Extracting-Quantitative-Data" class="headerlink" title="提取定量数据 (Extracting Quantitative Data)"></a>提取定量数据 (Extracting Quantitative Data)</h2><p>• What is quantitative data?<br>• How is it harder than relational data?<br>• How is it easier than relational data?<br>• What is important to represent about this data?</p>
+<h3 id="Quantitative-data"><a href="#Quantitative-data" class="headerlink" title="Quantitative data"></a>Quantitative data</h3><p>Quantitative data is defined as the value of data in the form of counts or numbers where each data-set has an unique numerical value associated with it.</p>
+<p>Key idea:</p>
+<p>• Measure: the thing we want to measure<br>• Attributes: help us understand what we’re measuring<br>• Dimensions: values that are varied across measurements<br>• Observation: The actual value we measured</p>
+<p>Measure表示我们需要衡量什么，比如说温度<br>Attributes表示我们衡量的这个东西具有的属性，比如说那一天的温度、那个海拔高度的温度、温度的单位<br>Dimensions表示随着这个东西的改变，衡量的值会不同，比如说地点<br>Observation表示就是观测值，比如说30度</p>
+<h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><p>Attributes有哪些？<br>Dimensions有哪些？<br>Value是什么？</p>
+<p>需要做很多操作，例如<br>Metadata Detection, Separation between header and values, Detecting layouts, Detecting dependent rows/columns, Filling the implicit values, Recognizing null values ….</p>
+<h3 id="核心任务"><a href="#核心任务" class="headerlink" title="核心任务"></a>核心任务</h3><p>Three core tasks across all table understanding tools:<br>Classify Cell Type;<br>Identify Blocks;<br>Detect Layout;<br><img src="/image/tbl_und.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>知识图谱Blocking&amp;关系型实体解析</title>
     <url>/2020/12/02/558blk-RER/</url>
     <content><![CDATA[<h2 id="实体解析回顾"><a href="#实体解析回顾" class="headerlink" title="实体解析回顾"></a>实体解析回顾</h2><p>Deduplication: Merging Ambiguous Entities (KG-&gt;KG)<br>Record Linkage: Combining KGs (KG1-&gt;KG2)<br>Entity Mapping/Linking: Integrating New Candidates (text -&gt; KG)</p>
@@ -142,51 +187,6 @@
 <li>Linking to new entities CANDSAME(E1,E2) ∧ NEWENTITY(E1) =&gt; SAME(E1,E2)</li>
 <li>Avoiding new Entities   SAME(E1,E2) ∧ CANDSAME(E1,E3) ∧ NEWENTITY(E3) =&gt; ¬SAME(E1,E3)</li>
 </ol>
-]]></content>
-      <tags>
-        <tag>Knowledge Graph</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>知识图谱表格理解</title>
-    <url>/2020/12/03/558-table-und/</url>
-    <content><![CDATA[<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
-<li>Structured Data<ul>
-<li>Knowledge Graphs</li>
-<li>The Semantic Web</li>
-<li>Databases</li>
-<li>Structured files (CSV, XML, XLS)</li>
-<li>Structures in HTML, e.g. tables  -&gt; 本章关注</li>
-</ul>
-</li>
-<li>Unstructured Data</li>
-</ul>
-<h2 id="Web中的结构化表格-Structured-Tables-on-the-Web"><a href="#Web中的结构化表格-Structured-Tables-on-the-Web" class="headerlink" title="Web中的结构化表格 (Structured Tables on the Web)"></a>Web中的结构化表格 (Structured Tables on the Web)</h2><p>Tables contain really useful data<br>Vast Amount of Data in Tabular Form</p>
-<h2 id="表格类型"><a href="#表格类型" class="headerlink" title="表格类型"></a>表格类型</h2><p><img src="/image/table_type.png"></p>
-<h3 id="Listing"><a href="#Listing" class="headerlink" title="Listing"></a>Listing</h3><p>Horizontal Listings; -&gt; 类似于excel表格的形式，每一行表示某个item的信息<br>Vertical Listings; -&gt; 类似于Dell、Apple商品展现的形式，每一列表示某个item的信息</p>
-<h3 id="Attribute-Value-Tables"><a href="#Attribute-Value-Tables" class="headerlink" title="Attribute/Value Tables"></a>Attribute/Value Tables</h3><p>类似于Wikipedia的展现形式，其本质就是一个k-v的字典</p>
-<h3 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h3><p>二维表格，第一行和第一列都描述了元信息<br>same value type for any cell</p>
-<h3 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h3><p>list series of objects with the same ontological relation;<br>major challenge: discovery of the predicate;<br>本质上就是一个list，然后其中包含了某一个属性下的列表信息。</p>
-<h3 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h3><p>like attribute-value;<br>with missing values;<br>which are filled by a user</p>
-<p>也就是日常见到的表单</p>
-<h3 id="Navigational"><a href="#Navigational" class="headerlink" title="Navigational"></a>Navigational</h3><p>purpose: navigate within or outside of a site<br>no clear relations between the cells</p>
-<p>也就是网站上常见到一系列可以点击的网页链接放在一块的展示<br><img src="/image/nva.png"></p>
-<h3 id="Formatting"><a href="#Formatting" class="headerlink" title="Formatting"></a>Formatting</h3><p>purpose: organize data visually</p>
-<p>主要是一些布局展示</p>
-<h2 id="表格的属性"><a href="#表格的属性" class="headerlink" title="表格的属性"></a>表格的属性</h2><p>Global Layout features<br>• #rows, #cols, max cell length</p>
-<p>Layout features (per row/column)<br>• cell length, length variance, ratio in col/rowspan</p>
-<p>HTML features (content)<br>• unique tags, ratio of th/anchor/img/input/br/font…</p>
-<p>Cell features (content)<br>• unique strings, end-with-colon, is/contains number, non- blank</p>
-<h2 id="提取关系数据-Extracting-Relational-Data"><a href="#提取关系数据-Extracting-Relational-Data" class="headerlink" title="提取关系数据 (Extracting Relational Data)"></a>提取关系数据 (Extracting Relational Data)</h2><p>目标:<br>找到表格中的结构化关系<br>提取出表格下的RDF三元组</p>
-<p>关键:<br>• What is the semantic type of each column? • Semantic Labeling  列的含义<br>• What is the subject of the table? • Entity Linking 表格中主体寻找<br>• What predicates describe the relationships in the table? • Semantic Modeling 单元格的关系建立</p>
-<h2 id="提取定量数据-Extracting-Quantitative-Data"><a href="#提取定量数据-Extracting-Quantitative-Data" class="headerlink" title="提取定量数据 (Extracting Quantitative Data)"></a>提取定量数据 (Extracting Quantitative Data)</h2><p>• What is quantitative data?<br>• How is it harder than relational data?<br>• How is it easier than relational data?<br>• What is important to represent about this data?</p>
-<h3 id="Quantitative-data"><a href="#Quantitative-data" class="headerlink" title="Quantitative data"></a>Quantitative data</h3><p>Quantitative data is defined as the value of data in the form of counts or numbers where each data-set has an unique numerical value associated with it.</p>
-<p>Key idea:</p>
-<p>• Measure: the thing we want to measure<br>• Attributes: help us understand what we’re measuring<br>• Dimensions: values that are varied across measurements<br>• Observation: The actual value we measured</p>
-<p>Measure表示我们需要衡量什么，比如说温度<br>Attributes表示我们衡量的这个东西具有的属性，比如说那一天的温度、那个海拔高度的温度、温度的单位<br>Dimensions表示随着这个东西的改变，衡量的值会不同，比如说地点<br>Observation表示就是观测值，比如说30度</p>
-<h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><p>Attributes有哪些？<br>Dimensions有哪些？<br>Value是什么？</p>
-<p>需要做很多操作，例如<br>Metadata Detection, Separation between header and values, Detecting layouts, Detecting dependent rows/columns, Filling the implicit values, Recognizing null values ….</p>
-<h3 id="核心任务"><a href="#核心任务" class="headerlink" title="核心任务"></a>核心任务</h3><p>Three core tasks across all table understanding tools:<br>Classify Cell Type;<br>Identify Blocks;<br>Detect Layout;<br><img src="/image/tbl_und.png"></p>
 ]]></content>
       <tags>
         <tag>Knowledge Graph</tag>
@@ -321,58 +321,6 @@
 </ul>
 <h4 id="Hybrid-Measures"><a href="#Hybrid-Measures" class="headerlink" title="Hybrid Measures"></a>Hybrid Measures</h4><p>Do the set-based thing but use a similiarity metric for each element of the set</p>
 <h4 id="Phonetic-Similarity-Measures"><a href="#Phonetic-Similarity-Measures" class="headerlink" title="Phonetic Similarity Measures"></a>Phonetic Similarity Measures</h4>]]></content>
-      <tags>
-        <tag>Knowledge Graph</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>知识图谱简介</title>
-    <url>/2020/12/01/558intro/</url>
-    <content><![CDATA[<h2 id="什么是知识图谱？"><a href="#什么是知识图谱？" class="headerlink" title="什么是知识图谱？"></a>什么是知识图谱？</h2><ul>
-<li>Knowledge in graph form!</li>
-<li>Captures entities, attributes, and relationships</li>
-<li>Nodes are entities</li>
-<li>Nodes are labeled with attributes (e.g., types)</li>
-<li>Typed edges between two nodes capture a relationship between entities</li>
-</ul>
-<p><img src="/image/kg_overview.png"></p>
-<p>简单的说，知识图谱就是一张图，用来描述节点之间的关系。</p>
-<h2 id="知识图谱的来源？"><a href="#知识图谱的来源？" class="headerlink" title="知识图谱的来源？"></a>知识图谱的来源？</h2><ul>
-<li>Structured Text (Wikipedia Infoboxes, tables, databases, social nets)</li>
-<li>Unstructured Text (WWW, news, social media, reference articles)</li>
-<li>Images</li>
-<li>Video (YouTube, video feeds)</li>
-</ul>
-<h2 id="知识图谱如何被使用？"><a href="#知识图谱如何被使用？" class="headerlink" title="知识图谱如何被使用？"></a>知识图谱如何被使用？</h2><p>Human perspective:</p>
-<ul>
-<li>Combat information overload</li>
-<li>Explore via intuitive structure</li>
-<li>Tool for supporting knowledge-driven tasks</li>
-</ul>
-<p>AI perspective:</p>
-<ul>
-<li>Key ingredient for many AI tasks</li>
-<li>Bridge from data to human semantics</li>
-<li>Use decades of work on graph analysis</li>
-</ul>
-<p>常见的应用:</p>
-<ul>
-<li>QA/Agents</li>
-<li>Decision Support</li>
-<li>Fueling Discovery</li>
-</ul>
-<p>工业界的使用包括: Google Knowledge Graph(Google Knowledge Vault), Amazon Product Graph, Facebook Graph API, IBM Watson, Microsoft Satori, LinkedIn Knowledge Graph, Yandex Object Answer, Diffbot, GraphIQ, Maana, ParseHub, Reactor Labs, SpazioDati</p>
-<h2 id="典型的知识图谱架构？"><a href="#典型的知识图谱架构？" class="headerlink" title="典型的知识图谱架构？"></a>典型的知识图谱架构？</h2><p>基本流程如下：</p>
-<ol>
-<li>数据获取</li>
-<li>信息提取</li>
-<li>本体映射</li>
-<li>实体解析</li>
-<li>知识图谱的部署</li>
-<li>图谱具体应用</li>
-</ol>
-<p><img src="/image/kg_arc.png"></p>
-]]></content>
       <tags>
         <tag>Knowledge Graph</tag>
       </tags>
@@ -562,6 +510,58 @@
       </tags>
   </entry>
   <entry>
+    <title>知识图谱简介</title>
+    <url>/2020/12/01/558intro/</url>
+    <content><![CDATA[<h2 id="什么是知识图谱？"><a href="#什么是知识图谱？" class="headerlink" title="什么是知识图谱？"></a>什么是知识图谱？</h2><ul>
+<li>Knowledge in graph form!</li>
+<li>Captures entities, attributes, and relationships</li>
+<li>Nodes are entities</li>
+<li>Nodes are labeled with attributes (e.g., types)</li>
+<li>Typed edges between two nodes capture a relationship between entities</li>
+</ul>
+<p><img src="/image/kg_overview.png"></p>
+<p>简单的说，知识图谱就是一张图，用来描述节点之间的关系。</p>
+<h2 id="知识图谱的来源？"><a href="#知识图谱的来源？" class="headerlink" title="知识图谱的来源？"></a>知识图谱的来源？</h2><ul>
+<li>Structured Text (Wikipedia Infoboxes, tables, databases, social nets)</li>
+<li>Unstructured Text (WWW, news, social media, reference articles)</li>
+<li>Images</li>
+<li>Video (YouTube, video feeds)</li>
+</ul>
+<h2 id="知识图谱如何被使用？"><a href="#知识图谱如何被使用？" class="headerlink" title="知识图谱如何被使用？"></a>知识图谱如何被使用？</h2><p>Human perspective:</p>
+<ul>
+<li>Combat information overload</li>
+<li>Explore via intuitive structure</li>
+<li>Tool for supporting knowledge-driven tasks</li>
+</ul>
+<p>AI perspective:</p>
+<ul>
+<li>Key ingredient for many AI tasks</li>
+<li>Bridge from data to human semantics</li>
+<li>Use decades of work on graph analysis</li>
+</ul>
+<p>常见的应用:</p>
+<ul>
+<li>QA/Agents</li>
+<li>Decision Support</li>
+<li>Fueling Discovery</li>
+</ul>
+<p>工业界的使用包括: Google Knowledge Graph(Google Knowledge Vault), Amazon Product Graph, Facebook Graph API, IBM Watson, Microsoft Satori, LinkedIn Knowledge Graph, Yandex Object Answer, Diffbot, GraphIQ, Maana, ParseHub, Reactor Labs, SpazioDati</p>
+<h2 id="典型的知识图谱架构？"><a href="#典型的知识图谱架构？" class="headerlink" title="典型的知识图谱架构？"></a>典型的知识图谱架构？</h2><p>基本流程如下：</p>
+<ol>
+<li>数据获取</li>
+<li>信息提取</li>
+<li>本体映射</li>
+<li>实体解析</li>
+<li>知识图谱的部署</li>
+<li>图谱具体应用</li>
+</ol>
+<p><img src="/image/kg_arc.png"></p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>知识图谱图分析&amp;问题回答</title>
     <url>/2020/12/03/558kg-ga-qs/</url>
     <content><![CDATA[<h2 id="图分析"><a href="#图分析" class="headerlink" title="图分析"></a>图分析</h2><p>图分析算法</p>
@@ -648,7 +648,7 @@
 
 <h3 id="字面值的类型（Typed-Literals）"><a href="#字面值的类型（Typed-Literals）" class="headerlink" title="字面值的类型（Typed Literals）"></a>字面值的类型（Typed Literals）</h3><p>在object后面添加类型信息。<br>example: weather:date ”2012-06-18”^^xsd:date ;</p>
 <h3 id="Reification"><a href="#Reification" class="headerlink" title="Reification"></a>Reification</h3><p>RDF applications sometimes need to describe other RDF statements using RDF, for instance, to record information about when statements were made, who made them, or other similar information (this is sometimes referred to as “provenance” information). </p>
-<p>举个例子： 他说了xxx<br>“On June 19 2012, Claudia said that Sam’s email address is <a href="mailto:&#x53;&#97;&#x6d;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#x53;&#97;&#x6d;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;</a>”</p>
+<p>举个例子： 他说了xxx<br>“On June 19 2012, Claudia said that Sam’s email address is <a href="mailto:&#83;&#97;&#109;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#83;&#97;&#109;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>”</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy"><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>type        <span class="hljs-attr">rdf:</span>Statement .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>subject     &lt;<span class="hljs-attr">http:</span><span class="hljs-comment">//szekelys.com/family#sam&gt; .    </span><br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>predicate   <span class="hljs-attr">foaf:</span>mbox .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">rdf:</span>object      &lt;Sam<span class="hljs-meta">@gmail</span>.com&gt;<br><br><span class="hljs-attr">_:</span>s <span class="hljs-attr">dcterms:</span>date     “<span class="hljs-number">2012</span><span class="hljs-number">-06</span><span class="hljs-number">-19</span>”^^<span class="hljs-attr">xsd:</span>date .<br><span class="hljs-attr">_:</span>s <span class="hljs-attr">dcterms:</span>creator  &lt;<span class="hljs-attr">http:</span><span class="hljs-comment">//uniandes.edu.co/faculty#claudiaj&gt; .</span><br></code></pre></td></tr></table></figure>
 
 
@@ -669,31 +669,6 @@
 <h2 id="RDF-Schema"><a href="#RDF-Schema" class="headerlink" title="RDF Schema"></a>RDF Schema</h2><p>RDF Schema is the language for defining RDF vocabularies.<br>It specifies the RDF inference rules: the triples that are implied by the triples you have.</p>
 <p>常用rdfs:<br><img src="/image/rdfs.png"></p>
 <p>All things described by RDF are called resources, and are instances of the class rdfs:Resource</p>
-]]></content>
-      <tags>
-        <tag>Knowledge Graph</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>知识图谱本体与推理</title>
-    <url>/2020/12/03/558ont-rea/</url>
-    <content><![CDATA[<h2 id="本体-Ontology"><a href="#本体-Ontology" class="headerlink" title="本体 Ontology"></a>本体 Ontology</h2><h3 id="从一个例子讲起"><a href="#从一个例子讲起" class="headerlink" title="从一个例子讲起"></a>从一个例子讲起</h3><figure class="highlight properties"><table><tr><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">name</span>  <span class="hljs-string">rank</span><br><span class="hljs-attr">Bob</span>   <span class="hljs-string">Captain</span><br><span class="hljs-attr">Sue</span>   <span class="hljs-string">Sargent</span><br><span class="hljs-attr">Mary</span>  <span class="hljs-string">Admiral</span><br><span class="hljs-attr">Joe</span>   <span class="hljs-string">Sargent</span><br></code></pre></td></tr></table></figure>
-<p>select ?x  { ?x rank “Sargent” }<br>select ?x  { ?x a Person }<br>select ?x  { ?x a MilitaryPerson }</p>
-<p>如何进行inference?<br>Tell the computer some triples it infers more triples  + RDFS辅助</p>
-<p>=&gt; RDFSchema OWL</p>
-<h3 id="OWL-Web-Ontology-Language"><a href="#OWL-Web-Ontology-Language" class="headerlink" title="OWL (Web Ontology Language)"></a>OWL (Web Ontology Language)</h3><p>基本思想:<br>I state a few OWL axioms;<br>I load lots of triples;<br>The system infers lots of new triples.</p>
-<p>构建模块:<br>Classes   – 类<br>Properties – 属性<br>Individuals – 单个个体，类似于instance</p>
-<h3 id="OWL中的假设"><a href="#OWL中的假设" class="headerlink" title="OWL中的假设"></a>OWL中的假设</h3><ol>
-<li>Unique Name Assumption <figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">bob</span> <span class="hljs-selector-tag">a</span> <span class="hljs-selector-tag">foaf</span><span class="hljs-selector-pseudo">:Person</span>; <br>	<span class="hljs-selector-tag">foaf</span><span class="hljs-selector-pseudo">:name</span> “<span class="hljs-selector-tag">Bob</span>”;<br>	<span class="hljs-selector-tag">ex</span><span class="hljs-selector-pseudo">:rank</span> “<span class="hljs-selector-tag">Captain</span>” .<br><br><br><span class="hljs-selector-tag">sue</span> <span class="hljs-selector-tag">a</span> <span class="hljs-selector-tag">foaf</span><span class="hljs-selector-pseudo">:Person</span>; <br>	<span class="hljs-selector-tag">foaf</span><span class="hljs-selector-pseudo">:name</span> &quot;<span class="hljs-selector-tag">Sue</span>&quot;;<br>	<span class="hljs-selector-tag">ex</span><span class="hljs-selector-pseudo">:rank</span> <span class="hljs-selector-tag">Sargent</span> .<br></code></pre></td></tr></table></figure>
-Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individuals in the world</li>
-</ol>
-<p>Unique Name Assumption = FALSE:<br>=&gt; bob and sue may refer to the same individual in the world</p>
-<p>OWL使用的假设: Unique Name Assumption = FALSE</p>
-<ol start="2">
-<li>Open World or Closed World</li>
-</ol>
-<p>Closed World: if I don’t tell it something, assume it’s false, 没提到就是false<br>Open World: if I don’t tell it something, don’t assume anything I might tell it later that it is true, 没提到可能是对的</p>
-<h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><p>owl: Thing 所有的invidual均属于owl:Thing类</p>
 ]]></content>
       <tags>
         <tag>Knowledge Graph</tag>
@@ -733,6 +708,31 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
 <h3 id="303-重定向"><a href="#303-重定向" class="headerlink" title="303 重定向"></a>303 重定向</h3><p>解决问题: two documents don’t contain the same content</p>
 <p><img src="/image/303.png"></p>
 <h3 id="三个URI关系"><a href="#三个URI关系" class="headerlink" title="三个URI关系"></a>三个URI关系</h3><figure class="highlight crystal"><table><tr><td class="code"><pre><code class="hljs crystal">&lt;<span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/ex.com/id</span><span class="hljs-regexp">/alice&gt;</span><br><span class="hljs-regexp">  foaf:page &lt;http:/</span><span class="hljs-regexp">/ex.com/people</span><span class="hljs-regexp">/alice&gt; ; </span><br><span class="hljs-regexp">  rdfs:isDefinedBy &lt;http:/</span><span class="hljs-regexp">/ex.com/data</span><span class="hljs-regexp">/alice&gt; ;</span><br><span class="hljs-regexp">  a foaf:Person ;</span><br><span class="hljs-regexp">  foaf:name &quot;Alice” ;</span><br><span class="hljs-regexp">  foaf:mbox &lt;mailto:alice@example.com&gt; ; ...</span><br></code></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱本体与推理</title>
+    <url>/2020/12/03/558ont-rea/</url>
+    <content><![CDATA[<h2 id="本体-Ontology"><a href="#本体-Ontology" class="headerlink" title="本体 Ontology"></a>本体 Ontology</h2><h3 id="从一个例子讲起"><a href="#从一个例子讲起" class="headerlink" title="从一个例子讲起"></a>从一个例子讲起</h3><figure class="highlight properties"><table><tr><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">name</span>  <span class="hljs-string">rank</span><br><span class="hljs-attr">Bob</span>   <span class="hljs-string">Captain</span><br><span class="hljs-attr">Sue</span>   <span class="hljs-string">Sargent</span><br><span class="hljs-attr">Mary</span>  <span class="hljs-string">Admiral</span><br><span class="hljs-attr">Joe</span>   <span class="hljs-string">Sargent</span><br></code></pre></td></tr></table></figure>
+<p>select ?x  { ?x rank “Sargent” }<br>select ?x  { ?x a Person }<br>select ?x  { ?x a MilitaryPerson }</p>
+<p>如何进行inference?<br>Tell the computer some triples it infers more triples  + RDFS辅助</p>
+<p>=&gt; RDFSchema OWL</p>
+<h3 id="OWL-Web-Ontology-Language"><a href="#OWL-Web-Ontology-Language" class="headerlink" title="OWL (Web Ontology Language)"></a>OWL (Web Ontology Language)</h3><p>基本思想:<br>I state a few OWL axioms;<br>I load lots of triples;<br>The system infers lots of new triples.</p>
+<p>构建模块:<br>Classes   – 类<br>Properties – 属性<br>Individuals – 单个个体，类似于instance</p>
+<h3 id="OWL中的假设"><a href="#OWL中的假设" class="headerlink" title="OWL中的假设"></a>OWL中的假设</h3><ol>
+<li>Unique Name Assumption <figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">bob</span> <span class="hljs-selector-tag">a</span> <span class="hljs-selector-tag">foaf</span><span class="hljs-selector-pseudo">:Person</span>; <br>	<span class="hljs-selector-tag">foaf</span><span class="hljs-selector-pseudo">:name</span> “<span class="hljs-selector-tag">Bob</span>”;<br>	<span class="hljs-selector-tag">ex</span><span class="hljs-selector-pseudo">:rank</span> “<span class="hljs-selector-tag">Captain</span>” .<br><br><br><span class="hljs-selector-tag">sue</span> <span class="hljs-selector-tag">a</span> <span class="hljs-selector-tag">foaf</span><span class="hljs-selector-pseudo">:Person</span>; <br>	<span class="hljs-selector-tag">foaf</span><span class="hljs-selector-pseudo">:name</span> &quot;<span class="hljs-selector-tag">Sue</span>&quot;;<br>	<span class="hljs-selector-tag">ex</span><span class="hljs-selector-pseudo">:rank</span> <span class="hljs-selector-tag">Sargent</span> .<br></code></pre></td></tr></table></figure>
+Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individuals in the world</li>
+</ol>
+<p>Unique Name Assumption = FALSE:<br>=&gt; bob and sue may refer to the same individual in the world</p>
+<p>OWL使用的假设: Unique Name Assumption = FALSE</p>
+<ol start="2">
+<li>Open World or Closed World</li>
+</ol>
+<p>Closed World: if I don’t tell it something, assume it’s false, 没提到就是false<br>Open World: if I don’t tell it something, don’t assume anything I might tell it later that it is true, 没提到可能是对的</p>
+<h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><p>owl: Thing 所有的invidual均属于owl:Thing类</p>
+]]></content>
       <tags>
         <tag>Knowledge Graph</tag>
       </tags>
@@ -855,65 +855,6 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
-    <title>知识图谱信息提取-Snorkel</title>
-    <url>/2020/12/02/558snorkel/</url>
-    <content><![CDATA[<h2 id="Dark-Data-Extraction"><a href="#Dark-Data-Extraction" class="headerlink" title="Dark Data Extraction"></a>Dark Data Extraction</h2><p>Structured Data(4%): Data easy to process by machines<br>Dark Data(96%): Valuable &amp; hard to process. (占据的web信息的绝大部分)<br>example: Scientific articles &amp; government reports，Medical Images</p>
-<p>DDE:  Dark Data(Text, Tables, Images, Diagrams, etc)  =&gt; Structured Data (Enables analyses, interfaces etc.)</p>
-<h3 id="DDE-传统流程"><a href="#DDE-传统流程" class="headerlink" title="DDE 传统流程"></a>DDE 传统流程</h3><p>1.Candidate Extraction =&gt; 2.Training Set  =&gt; 3.Feature Extraction =&gt; 4.Learning &amp; Inference</p>
-<p>Example: Chemical-Disease Relation Extraction from Text<br>方式1: Human defines candidate entity mentions to populate a relational schema with relation mentions （费事费力，需要domain expertis）<br>方式2: Relation Extraction with Machine Learning (Feature engineering is the bottleneck,however this bottleneck is solved by deep learning) 解决3，但是2没被解决</p>
-<blockquote>
-<p> Training data is THE ML dev bottleneck today.</p>
-</blockquote>
-<h3 id="DDE挑战"><a href="#DDE挑战" class="headerlink" title="DDE挑战"></a>DDE挑战</h3><p>Dark data extraction systems still take months or years to build using state-of-the-art machine learning (ML) systems<br>时间太久，成本太高。</p>
-<p>Training Data Creation: $$$, Slow, Static 成本高，耗时长，灵活性差</p>
-<ul>
-<li>Expensive &amp; Slow: Especially when domain expertise needed</li>
-<li>Static: Real-world problems change but hand-labeled training data does not.</li>
-</ul>
-<h2 id="Snorkel"><a href="#Snorkel" class="headerlink" title="Snorkel"></a>Snorkel</h2><blockquote>
-<p>Motiviton: Can we use noisier training data and still train high-performance models?</p>
-</blockquote>
-<p>Snorkel: A System for Rapidly Generating Training Data with Weak Supervision<br>简单的说，这是一个生成训练集的框架。</p>
-<p><img src="/image/snorkel.png"></p>
-<h2 id="Snorkel-Pipeline-概括"><a href="#Snorkel-Pipeline-概括" class="headerlink" title="Snorkel Pipeline 概括"></a>Snorkel Pipeline 概括</h2><ul>
-<li>Users write labeling functions to generate noisy labels</li>
-<li>Snorkel models and combine these labels</li>
-<li>We use the resulting probabilistic training labels to train a model<br><img src="/image/pipeline_snorkel.png"></li>
-</ul>
-<h3 id="Labeling-Functions"><a href="#Labeling-Functions" class="headerlink" title="Labeling Functions"></a>Labeling Functions</h3><p>Users give Snorkel labeling functions that label data points<br>简答的说，这个Labeling function的起到的作用和human expertise类似，用于规定一些规则来让snorkel后续过程中发现text里与其匹配的模式来对提取的信息信息标注。</p>
-<p>因此，用户可以书写尽可能多的Labeling Functions来提高准确性，并且Labeling Functions之间可以有冲突，因为后续用到的是概率来确定结果。</p>
-<h3 id="Model-Combine-Iterate"><a href="#Model-Combine-Iterate" class="headerlink" title="Model, Combine, Iterate"></a>Model, Combine, Iterate</h3><p>Snorkel models and combine these labels</p>
-<p>这里snorkl根据用户书写的Labeling functions进行建模，并迭代运行模型，得到一个probabilistic training labels </p>
-<h3 id="Train-End-Model"><a href="#Train-End-Model" class="headerlink" title="Train End Model"></a>Train End Model</h3><p>Use the resulting probabilistic training labels to train a model</p>
-<h2 id="Snorkel-challenge-Step2"><a href="#Snorkel-challenge-Step2" class="headerlink" title="Snorkel challenge - Step2:"></a>Snorkel challenge - Step2:</h2><blockquote>
-<p>How do we model and combine LFs? How to best reweight and combine the noisy supervision signal?</p>
-</blockquote>
-<p>解决方式: A Generative Model of the Training Data Labeling Process<br>使用生成式模型反映各个LF得到的标注结果<br><img src="/image/GM_s.png"></p>
-<p><img src="/image/example_snorkel.png"></p>
-<p>从中也可以发现，LF可以存在冲突，并且对他存在相关联的LF建模分析也能够提高精度。（ We can learn dependency structure using statistical and/or static analysis techniques [ICML ’17, NIPS ‘17]）</p>
-<h2 id="Snorkel-Pipeline-细节"><a href="#Snorkel-Pipeline-细节" class="headerlink" title="Snorkel Pipeline 细节"></a>Snorkel Pipeline 细节</h2><h3 id="Designing-Labeling-Functions-LFs"><a href="#Designing-Labeling-Functions-LFs" class="headerlink" title="Designing Labeling Functions (LFs)"></a>Designing Labeling Functions (LFs)</h3><p>Write heuristics to noisily label data! 区别于人工手动标记，这里snorkel写label function的目的是为了后续的Programmatically generate training data</p>
-<p>如何设计Labeling function:<br>Human annotators leverage real-world knowledge, context, and common-sense heuristics to make labeling decisions</p>
-<p>Labeling function 结果:<br>{-1, 0, 1} =&gt; {Negative, Abstain, Positive}</p>
-<p>流程:<br>text中提取candidates，candidates中包含true和false的instances，使用设计的Labeling function来判断candidate为true或false</p>
-<p>目标:<br>Apply labeling functions to all candidates to predict both positive and negative labels</p>
-<p>Tip:<br>Labeling functions can be noisy，毕竟无法涵盖所有范围，所有语境。</p>
-<p>设计策略:</p>
-<ol>
-<li><p>Pattern-based Labeling Functions<br> Common sense patterns or keywords<br> String matching via regular expressions and other heuristics</p>
-</li>
-<li><p>Distant Supervision Labeling Functions<br> Use an existing database of known facts to generate noisy labels</p>
-</li>
-</ol>
-<p>LF评价指标:<br>Accuracy: percentage of candidates a labeling function labels correctly<br>Coverage: percentage of all candidates that are labeled by &gt;= 1 LFs<br>Conflict: percentage of candidates with &gt;1 labels that disagree</p>
-<p>LF选择标准:<br>We want high-coverage, high-accuracy LFs<br>LFs need to label with probability better than random chance<br>Conflict is actually good — it allows our algorithm to learn information about the LF</p>
-<h3 id="Build-Generative-Model-Unifying-Supervision"><a href="#Build-Generative-Model-Unifying-Supervision" class="headerlink" title="Build Generative Model: Unifying Supervision"></a>Build Generative Model: Unifying Supervision</h3><p>Simple Baseline: Majority Vote<br>Automatically Learning LF Accuracies<br>LF Dependency Learning</p>
-<h3 id="Build-Discriminative-Model-“Compiling”-Rules-into-Features"><a href="#Build-Discriminative-Model-“Compiling”-Rules-into-Features" class="headerlink" title="Build Discriminative Model: “Compiling” Rules into Features"></a>Build Discriminative Model: “Compiling” Rules into Features</h3><p>Training with Probabilistic Labels<br>The Death of Manual Feature Engineering<br>Why Do We Need the Discriminative Model?</p>
-]]></content>
-      <tags>
-        <tag>Knowledge Graph</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>知识图谱字符串匹配</title>
     <url>/2020/12/01/558str-match/</url>
     <content><![CDATA[<h2 id="字符串匹配问题"><a href="#字符串匹配问题" class="headerlink" title="字符串匹配问题"></a>字符串匹配问题</h2><h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement:"></a>Problem Statement:</h3><p>Given X and Y sets of strings, Find pairs (x, y) such that both x and y refer to the same real world entity. </p>
@@ -987,6 +928,65 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       <tags>
         <tag>Leetcode</tag>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>知识图谱信息提取-Snorkel</title>
+    <url>/2020/12/02/558snorkel/</url>
+    <content><![CDATA[<h2 id="Dark-Data-Extraction"><a href="#Dark-Data-Extraction" class="headerlink" title="Dark Data Extraction"></a>Dark Data Extraction</h2><p>Structured Data(4%): Data easy to process by machines<br>Dark Data(96%): Valuable &amp; hard to process. (占据的web信息的绝大部分)<br>example: Scientific articles &amp; government reports，Medical Images</p>
+<p>DDE:  Dark Data(Text, Tables, Images, Diagrams, etc)  =&gt; Structured Data (Enables analyses, interfaces etc.)</p>
+<h3 id="DDE-传统流程"><a href="#DDE-传统流程" class="headerlink" title="DDE 传统流程"></a>DDE 传统流程</h3><p>1.Candidate Extraction =&gt; 2.Training Set  =&gt; 3.Feature Extraction =&gt; 4.Learning &amp; Inference</p>
+<p>Example: Chemical-Disease Relation Extraction from Text<br>方式1: Human defines candidate entity mentions to populate a relational schema with relation mentions （费事费力，需要domain expertis）<br>方式2: Relation Extraction with Machine Learning (Feature engineering is the bottleneck,however this bottleneck is solved by deep learning) 解决3，但是2没被解决</p>
+<blockquote>
+<p> Training data is THE ML dev bottleneck today.</p>
+</blockquote>
+<h3 id="DDE挑战"><a href="#DDE挑战" class="headerlink" title="DDE挑战"></a>DDE挑战</h3><p>Dark data extraction systems still take months or years to build using state-of-the-art machine learning (ML) systems<br>时间太久，成本太高。</p>
+<p>Training Data Creation: $$$, Slow, Static 成本高，耗时长，灵活性差</p>
+<ul>
+<li>Expensive &amp; Slow: Especially when domain expertise needed</li>
+<li>Static: Real-world problems change but hand-labeled training data does not.</li>
+</ul>
+<h2 id="Snorkel"><a href="#Snorkel" class="headerlink" title="Snorkel"></a>Snorkel</h2><blockquote>
+<p>Motiviton: Can we use noisier training data and still train high-performance models?</p>
+</blockquote>
+<p>Snorkel: A System for Rapidly Generating Training Data with Weak Supervision<br>简单的说，这是一个生成训练集的框架。</p>
+<p><img src="/image/snorkel.png"></p>
+<h2 id="Snorkel-Pipeline-概括"><a href="#Snorkel-Pipeline-概括" class="headerlink" title="Snorkel Pipeline 概括"></a>Snorkel Pipeline 概括</h2><ul>
+<li>Users write labeling functions to generate noisy labels</li>
+<li>Snorkel models and combine these labels</li>
+<li>We use the resulting probabilistic training labels to train a model<br><img src="/image/pipeline_snorkel.png"></li>
+</ul>
+<h3 id="Labeling-Functions"><a href="#Labeling-Functions" class="headerlink" title="Labeling Functions"></a>Labeling Functions</h3><p>Users give Snorkel labeling functions that label data points<br>简答的说，这个Labeling function的起到的作用和human expertise类似，用于规定一些规则来让snorkel后续过程中发现text里与其匹配的模式来对提取的信息信息标注。</p>
+<p>因此，用户可以书写尽可能多的Labeling Functions来提高准确性，并且Labeling Functions之间可以有冲突，因为后续用到的是概率来确定结果。</p>
+<h3 id="Model-Combine-Iterate"><a href="#Model-Combine-Iterate" class="headerlink" title="Model, Combine, Iterate"></a>Model, Combine, Iterate</h3><p>Snorkel models and combine these labels</p>
+<p>这里snorkl根据用户书写的Labeling functions进行建模，并迭代运行模型，得到一个probabilistic training labels </p>
+<h3 id="Train-End-Model"><a href="#Train-End-Model" class="headerlink" title="Train End Model"></a>Train End Model</h3><p>Use the resulting probabilistic training labels to train a model</p>
+<h2 id="Snorkel-challenge-Step2"><a href="#Snorkel-challenge-Step2" class="headerlink" title="Snorkel challenge - Step2:"></a>Snorkel challenge - Step2:</h2><blockquote>
+<p>How do we model and combine LFs? How to best reweight and combine the noisy supervision signal?</p>
+</blockquote>
+<p>解决方式: A Generative Model of the Training Data Labeling Process<br>使用生成式模型反映各个LF得到的标注结果<br><img src="/image/GM_s.png"></p>
+<p><img src="/image/example_snorkel.png"></p>
+<p>从中也可以发现，LF可以存在冲突，并且对他存在相关联的LF建模分析也能够提高精度。（ We can learn dependency structure using statistical and/or static analysis techniques [ICML ’17, NIPS ‘17]）</p>
+<h2 id="Snorkel-Pipeline-细节"><a href="#Snorkel-Pipeline-细节" class="headerlink" title="Snorkel Pipeline 细节"></a>Snorkel Pipeline 细节</h2><h3 id="Designing-Labeling-Functions-LFs"><a href="#Designing-Labeling-Functions-LFs" class="headerlink" title="Designing Labeling Functions (LFs)"></a>Designing Labeling Functions (LFs)</h3><p>Write heuristics to noisily label data! 区别于人工手动标记，这里snorkel写label function的目的是为了后续的Programmatically generate training data</p>
+<p>如何设计Labeling function:<br>Human annotators leverage real-world knowledge, context, and common-sense heuristics to make labeling decisions</p>
+<p>Labeling function 结果:<br>{-1, 0, 1} =&gt; {Negative, Abstain, Positive}</p>
+<p>流程:<br>text中提取candidates，candidates中包含true和false的instances，使用设计的Labeling function来判断candidate为true或false</p>
+<p>目标:<br>Apply labeling functions to all candidates to predict both positive and negative labels</p>
+<p>Tip:<br>Labeling functions can be noisy，毕竟无法涵盖所有范围，所有语境。</p>
+<p>设计策略:</p>
+<ol>
+<li><p>Pattern-based Labeling Functions<br> Common sense patterns or keywords<br> String matching via regular expressions and other heuristics</p>
+</li>
+<li><p>Distant Supervision Labeling Functions<br> Use an existing database of known facts to generate noisy labels</p>
+</li>
+</ol>
+<p>LF评价指标:<br>Accuracy: percentage of candidates a labeling function labels correctly<br>Coverage: percentage of all candidates that are labeled by &gt;= 1 LFs<br>Conflict: percentage of candidates with &gt;1 labels that disagree</p>
+<p>LF选择标准:<br>We want high-coverage, high-accuracy LFs<br>LFs need to label with probability better than random chance<br>Conflict is actually good — it allows our algorithm to learn information about the LF</p>
+<h3 id="Build-Generative-Model-Unifying-Supervision"><a href="#Build-Generative-Model-Unifying-Supervision" class="headerlink" title="Build Generative Model: Unifying Supervision"></a>Build Generative Model: Unifying Supervision</h3><p>Simple Baseline: Majority Vote<br>Automatically Learning LF Accuracies<br>LF Dependency Learning</p>
+<h3 id="Build-Discriminative-Model-“Compiling”-Rules-into-Features"><a href="#Build-Discriminative-Model-“Compiling”-Rules-into-Features" class="headerlink" title="Build Discriminative Model: “Compiling” Rules into Features"></a>Build Discriminative Model: “Compiling” Rules into Features</h3><p>Training with Probabilistic Labels<br>The Death of Manual Feature Engineering<br>Why Do We Need the Discriminative Model?</p>
+]]></content>
+      <tags>
+        <tag>Knowledge Graph</tag>
       </tags>
   </entry>
   <entry>
@@ -1179,6 +1179,14 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
+    <title>DSCI551 outline</title>
+    <url>/2020/09/06/DSCI551-outline/</url>
+    <content><![CDATA[<h2 id="DSCI551-Foundations-of-Data-Management"><a href="#DSCI551-Foundations-of-Data-Management" class="headerlink" title="DSCI551 - Foundations of Data Management"></a>DSCI551 - Foundations of Data Management</h2><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/09/06/Firebase-rest-web-api/" title="Firebase rest &amp; web api">Firebase rest &amp; web api</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><a href="/2020/09/08/Storage-systems/" title="Storage systems">Storage systems</a></h3><h3 id="-3"><a href="#-3" class="headerlink" title=""></a><a href="/2020/09/10/File-Systems/" title="File systems">File systems</a></h3><h3 id="-4"><a href="#-4" class="headerlink" title=""></a><a href="/2020/09/11/NFS/" title="Network File System">Network File System</a></h3><h3 id="-5"><a href="#-5" class="headerlink" title=""></a><a href="/2020/09/18/File-Format/" title="XML">XML</a></h3>]]></content>
+      <tags>
+        <tag>Course</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DSCI-553-outline</title>
     <url>/2020/10/23/DSCI-553-outline/</url>
     <content><![CDATA[<h2 id="DSCI551-Foundations-and-Applications-of-Data-Mining"><a href="#DSCI551-Foundations-and-Applications-of-Data-Mining" class="headerlink" title="DSCI551 - Foundations and Applications of Data Mining"></a>DSCI551 - Foundations and Applications of Data Mining</h2><h3 id="Week1"><a href="#Week1" class="headerlink" title="Week1:  "></a>Week1:  <a href="/2020/11/10/553week1/" title="数据挖掘, MapReduce 介绍">数据挖掘, MapReduce 介绍</a></h3><h3 id="Part2"><a href="#Part2" class="headerlink" title="Part2:"></a>Part2:</h3><!-- <a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a>  -->
@@ -1190,14 +1198,6 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
 
 
 ]]></content>
-      <tags>
-        <tag>Course</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DSCI551 outline</title>
-    <url>/2020/09/06/DSCI551-outline/</url>
-    <content><![CDATA[<h2 id="DSCI551-Foundations-of-Data-Management"><a href="#DSCI551-Foundations-of-Data-Management" class="headerlink" title="DSCI551 - Foundations of Data Management"></a>DSCI551 - Foundations of Data Management</h2><h3 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/09/06/Firebase-rest-web-api/" title="Firebase rest &amp; web api">Firebase rest &amp; web api</a></h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="/2020/09/07/JSON-review/" title="JSON-review">JSON-review</a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><a href="/2020/09/08/Storage-systems/" title="Storage systems">Storage systems</a></h3><h3 id="-3"><a href="#-3" class="headerlink" title=""></a><a href="/2020/09/10/File-Systems/" title="File systems">File systems</a></h3><h3 id="-4"><a href="#-4" class="headerlink" title=""></a><a href="/2020/09/11/NFS/" title="Network File System">Network File System</a></h3><h3 id="-5"><a href="#-5" class="headerlink" title=""></a><a href="/2020/09/18/File-Format/" title="XML">XML</a></h3>]]></content>
       <tags>
         <tag>Course</tag>
       </tags>
@@ -1309,6 +1309,41 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
+    <title>XML</title>
+    <url>/2020/09/18/File-Format/</url>
+    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li>XML：eXtensible Markup Language</li>
+<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
+<li>Can translate <em>any</em> data to XML</li>
+<li>Can ship XML over the Web (HTTP)</li>
+<li>Can input XML into any application</li>
+</ul>
+</li>
+</ul>
+<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
+<ul>
+<li>XML is self-describing</li>
+<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
+<li>XML is semi-structured <ul>
+<li>missing attributes  (could be represented as null in table)</li>
+<li>repeated attributes (impossible in table)</li>
+<li>Attributes with different types in different objects</li>
+<li>Nested structures</li>
+<li>Heterogeneous contents</li>
+</ul>
+</li>
+<li>an XML document has a single root element</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">example:<br><span class="hljs-tag">&lt;<span class="hljs-name">bib</span>&gt;</span><br>...<br>  <span class="hljs-tag">&lt;<span class="hljs-name">book</span> <span class="hljs-attr">price</span>=<span class="hljs-string">&quot;35&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">publisher</span>&gt;</span>Addison-Wesley<span class="hljs-tag">&lt;/<span class="hljs-name">publisher</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span>Serge Abiteboul<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">first-name</span>&gt;</span>Rick<span class="hljs-tag">&lt;/<span class="hljs-name">first-name</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">last-name</span>&gt;</span>Hull<span class="hljs-tag">&lt;/<span class="hljs-name">last-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span> <span class="hljs-attr">age</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>Victor Vianu<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Foundations of Databases<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">year</span>&gt;</span>1995<span class="hljs-tag">&lt;/<span class="hljs-name">year</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">price</span>&gt;</span>38.8<span class="hljs-tag">&lt;/<span class="hljs-name">price</span>&gt;</span> <br>  <span class="hljs-tag">&lt;/<span class="hljs-name">book</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">book</span> <span class="hljs-attr">price</span>=<span class="hljs-string">&quot;55&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">publisher</span>&gt;</span>Freeman<span class="hljs-tag">&lt;/<span class="hljs-name">publisher</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span>Jeffrey D. Ullman<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Principles of Database and Knowledge Base Systems<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">year</span>&gt;</span>1998<span class="hljs-tag">&lt;/<span class="hljs-name">year</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">book</span>&gt;</span> <br>... <br><span class="hljs-tag">&lt;/<span class="hljs-name">bib</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Querying-XML-Data"><a href="#Querying-XML-Data" class="headerlink" title="Querying XML Data"></a>Querying XML Data</h3><h4 id="XPath-simple-navigation-through-the-tree"><a href="#XPath-simple-navigation-through-the-tree" class="headerlink" title="XPath: simple navigation through the tree"></a>XPath: simple navigation through the tree</h4><p><img src="/image/xpath.png"></p>
+<h3 id="lxml"><a href="#lxml" class="headerlink" title="lxml"></a>lxml</h3><figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">$ pip install lxml<br><br><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br>f = open(<span class="hljs-string">&#x27;bibs.xml&#x27;</span>)<br>tree = etree.parse(f)<br>print(etree.tostring(tree, pretty_print=<span class="hljs-literal">True</span>))<br><br><span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> tree.xpath(<span class="hljs-string">&quot;//author&quot;</span>): <br>    print(etree.tostring(element))<br>    print(element.tag, element.text)<br><br></code></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>File Format</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>File systems</title>
     <url>/2020/09/10/File-Systems/</url>
     <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><blockquote>
@@ -1413,38 +1448,49 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
-    <title>XML</title>
-    <url>/2020/09/18/File-Format/</url>
-    <content><![CDATA[<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
-<li>XML：eXtensible Markup Language</li>
-<li>XML is a syntax (serialization format) for data sharing and exchange on the Web<ul>
-<li>Can translate <em>any</em> data to XML</li>
-<li>Can ship XML over the Web (HTTP)</li>
-<li>Can input XML into any application</li>
-</ul>
-</li>
-</ul>
-<h3 id="XML-Structure"><a href="#XML-Structure" class="headerlink" title="XML Structure"></a>XML Structure</h3><p><img src="/image/XML.png"></p>
-<ul>
-<li>XML is self-describing</li>
-<li>Schema elements become part of the data(关系型数据记录中schema不算是内容，但是在xml中节点自身也携带内容信息) </li>
-<li>XML is semi-structured <ul>
-<li>missing attributes  (could be represented as null in table)</li>
-<li>repeated attributes (impossible in table)</li>
-<li>Attributes with different types in different objects</li>
-<li>Nested structures</li>
-<li>Heterogeneous contents</li>
-</ul>
-</li>
-<li>an XML document has a single root element</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">example:<br><span class="hljs-tag">&lt;<span class="hljs-name">bib</span>&gt;</span><br>...<br>  <span class="hljs-tag">&lt;<span class="hljs-name">book</span> <span class="hljs-attr">price</span>=<span class="hljs-string">&quot;35&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">publisher</span>&gt;</span>Addison-Wesley<span class="hljs-tag">&lt;/<span class="hljs-name">publisher</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span>Serge Abiteboul<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">first-name</span>&gt;</span>Rick<span class="hljs-tag">&lt;/<span class="hljs-name">first-name</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">last-name</span>&gt;</span>Hull<span class="hljs-tag">&lt;/<span class="hljs-name">last-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span> <span class="hljs-attr">age</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>Victor Vianu<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Foundations of Databases<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">year</span>&gt;</span>1995<span class="hljs-tag">&lt;/<span class="hljs-name">year</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">price</span>&gt;</span>38.8<span class="hljs-tag">&lt;/<span class="hljs-name">price</span>&gt;</span> <br>  <span class="hljs-tag">&lt;/<span class="hljs-name">book</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">book</span> <span class="hljs-attr">price</span>=<span class="hljs-string">&quot;55&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">publisher</span>&gt;</span>Freeman<span class="hljs-tag">&lt;/<span class="hljs-name">publisher</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">author</span>&gt;</span>Jeffrey D. Ullman<span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Principles of Database and Knowledge Base Systems<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">year</span>&gt;</span>1998<span class="hljs-tag">&lt;/<span class="hljs-name">year</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">book</span>&gt;</span> <br>... <br><span class="hljs-tag">&lt;/<span class="hljs-name">bib</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="Querying-XML-Data"><a href="#Querying-XML-Data" class="headerlink" title="Querying XML Data"></a>Querying XML Data</h3><h4 id="XPath-simple-navigation-through-the-tree"><a href="#XPath-simple-navigation-through-the-tree" class="headerlink" title="XPath: simple navigation through the tree"></a>XPath: simple navigation through the tree</h4><p><img src="/image/xpath.png"></p>
-<h3 id="lxml"><a href="#lxml" class="headerlink" title="lxml"></a>lxml</h3><figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">$ pip install lxml<br><br><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br>f = open(<span class="hljs-string">&#x27;bibs.xml&#x27;</span>)<br>tree = etree.parse(f)<br>print(etree.tostring(tree, pretty_print=<span class="hljs-literal">True</span>))<br><br><span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> tree.xpath(<span class="hljs-string">&quot;//author&quot;</span>): <br>    print(etree.tostring(element))<br>    print(element.tag, element.text)<br><br></code></pre></td></tr></table></figure>]]></content>
+    <title>PyTorch-BigGraph 从实体嵌入到边得分</title>
+    <url>/2020/10/23/From-embedding-to-scores/</url>
+    <content><![CDATA[<h1 id="From-entity-embeddings-to-edge-scores"><a href="#From-entity-embeddings-to-edge-scores" class="headerlink" title="From entity embeddings to edge scores"></a>From entity embeddings to edge scores</h1><p>The goal of training is to embed each entity in ℝ^D so that the embeddings of two entities are a good proxy to predict whether there is a relation of a certain type between them.<br>训练的目的是将每个实体嵌入到D维的向量空间中，以便两个实体的嵌入可以很好地预测它们之间是否存在某种类型的关系。</p>
+<p>To be more precise, the goal is to learn an embedding for each entity and a function for each relation type that takes two entity embeddings and assigns them a score, with the goal of having positive relations achieve higher scores than negative ones.<br>更确切地说，PBG的目标是学习每个实体的嵌入和每种关系类型的函数，该函数接受两个实体嵌入并为其分配一个分数，目的是使正面关系比负面关系获得更高的分数。</p>
+<blockquote>
+<p>key point: 实体-&gt;D维向量 关系-&gt;函数</p>
+</blockquote>
+<p>All the edges provided in the training set are considered positive instances. In order to perform training, a set of negative edges is needed as well. These are not provided by the user but instead generated by the system during training (Negative sampling), usually by fixing the left-hand side entity and the relation type and sampling a new right-hand side entity, or vice versa. This sampling scheme makes sense for large sparse graphs, where there is a low probability that edges generated this way are true positives edges in the graph.<br>训练集中提供的所有边被视为正例。为了执行训练，还需要一些负边（负样本）。 这些不是由用户提供的，而是由系统在训练过程中生成的（负采样），通常是通过固定左侧实体和关系类型并采样新的右侧实体，反之亦然。 对于大的稀疏图，这种采样方案是有意义的，因为在这样的情况下，以这种方式生成的边为图中的正例的可能性很小。</p>
+<p>A priori, entity embeddings could take any value in ℝ^D. Although, in some cases (for example when restricting them to be within a certain ball, or when comparing them using cosine distance), their “angle” will have greater importance than their norm.<br>先验实体嵌入可以在D维空间中取任何值。但是在某些情况下（例如，当将它们限制在某个球内或使用余弦距离进行比较时），它们的“角度”比范数更具有意义。</p>
+<p>Per-relation scoring functions, however, must be expressible in a specific form (the most common functions in the literature can be converted to such a representation). In the current implementation, they are only allowed to transform the embedding of one of the two sides, which is then compared to the un-transformed embedding of the other side using a generic symmetric comparator function, which is the same for all relations. Formally, for left- and right-hand side entities 𝑥 and 𝑦 respectively, and for a relation type 𝑟, the score is:<center>𝑓𝑟(𝜃𝑥,𝜃𝑦)=𝑐(𝜃𝑥,𝑔𝑟(𝜃𝑦))</center><br>where 𝜃𝑥 and 𝜃𝑦 are the embeddings of 𝑥 and 𝑦 respectively, 𝑓𝑟 is the scoring function for 𝑟, 𝑔𝑟 is the operator for 𝑟 and 𝑐 is the comparator.</p>
+<!-- $$f_{r}\left(\theta_{x}, \theta_{y}\right)=c\left(\theta_{x}, g_{r}\left(\theta_{y}\right)\right) -->
+<p>然而，对于每个关系的得分计算函数，必须以特定的形式表现出来（文献中最常见的函数可以转换为这种表示形式）。在目前的实现中，只允许对一侧的实体进行嵌入转换，通过使用通用的对称比较器将其与另一侧未转换的实体嵌入进行比较，这样的操作对于所有的关系类型都是一样的。形式上，分别对于左侧和右侧实体𝑥和,，以及对于关系类型𝑟，得分为：𝑓𝑟(𝜃𝑥,𝜃𝑦)=𝑐(𝜃𝑥,𝑔𝑟(𝜃𝑦)), 其中，𝜃𝑥和𝜃𝑦分别是𝑥和𝑦的嵌入，𝑓𝑟是关系𝑟的评分函数，𝑔𝑟是关系r的算子，𝑐是比较器。</p>
+<p>Under “normal” circumstances (the so-called “standard” relations mode) the operator is solely applied to the right-hand side entities. This is not the case when using dynamic relations. Applying the operator to both sides would oftentimes be redundant. Also, preferring one side over the other allows to break the symmetry and capture the direction of the edge.<br>在通常情况下(或者说是标准的关系模式中)，算子仅仅是适用于右侧实体。但是在PBG的动态关系中则不是这样。通常，将算子运用在两侧的实体嵌入上是多余的，并且倾向于选择某一侧的举动可以很好的打破对称性并且捕捉到边的方向。</p>
+<h2 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h2><p>Embeddings live in a 𝐷-dimensional real space, where 𝐷 is determined by the dimension configuration parameter.<br>嵌入是一个𝐷维实空间的向量，其中𝐷的大小由配置参数确定。</p>
+<p>Normally, each entity has its own embedding, which is entirely independent from any other entity’s embedding. When using featurized entities however this works differently, and an entity’s embedding will be the average of the embeddings of its features.<br>通常的，每一个实体都有属于自己的完全和其他实体嵌入独立的嵌入。然而，当使用特征化的实体时，情况有所不同。此时实体的嵌入为其特征嵌入的平均值。</p>
+<p>If the max_norm configuration parameter is set, embeddings will be projected onto the unit ball with radius max_norm after each parameter update.<br>如果设置了max_norm配置参数，则在每次更新参数后，嵌入将会被投影到半径为max_norm的单位球上。</p>
+<blockquote>
+<p>🤔️ 暂时没看懂。</p>
+</blockquote>
+<p>To add a new type of embedding, one needs to subclass the torchbiggraph.model.AbstractEmbedding class.<br>要添加一种新型的嵌入，需要将torchbiggraph.model.AbstractEmbedding类作为子类。</p>
+<blockquote>
+<p>🤔️ 暂时没看懂。</p>
+</blockquote>
+<h2 id="Global-embeddings"><a href="#Global-embeddings" class="headerlink" title="Global embeddings"></a>Global embeddings</h2><p>When the global_emb configuration option is active, each entity’s embedding will be translated by a vector that is specific to each entity type (and that is learned at the same time as the embeddings).<br>当global_emb配置参数设置为True的时候，每个实体的嵌入将会被表示成一个向量，该向量对于每种实体类型都是特定的。（并且该向量是与嵌入同时学习得到的）</p>
+<blockquote>
+<p>🤔️ 暂时没看懂。</p>
+</blockquote>
+<h2 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h2><p>The operators that are currently provided are:<br>• none, no-op, which leaves the embeddings unchanged;<br>• translation, which adds to the embedding a vector of the same dimension;<br>• diagonal, which multiplies each dimension by a different coefficient (equivalent to multiplying by a diagonal matrix);<br>• linear, which applies a linear map, i.e., multiplies by a full square matrix<br>• affine, which applies a affine transformation, i.e., linear followed by translation.<br>• complex_diagonal, which interprets the 𝐷-dimensional real vector as a 𝐷/2-dimensional complex vector (𝐷 must be even; the first half of the vector are the real parts, the second half the imaginary parts) and then multiplies each entry by a different complex parameter, just like diagonal.<br>当前提供的算子有:<br>• 无，无操作，使嵌入保持不变；<br>• 平移算子，将相同尺寸的向量添加到嵌入中；<br>• 对角算子，将每个维度乘以不同的系数（相当于乘以对角矩阵）；<br>• 线性算子，运用一个线性映射，例如，讲嵌入和一个全方阵点乘；<br>• 仿射算子，应用仿射变换，即线性变换后再进行平移；<br>• 复对角算子，将D维实向量转化为D/2维复矢量（𝐷必须是偶数；矢量的前半部分是实数部分，后半部分是虚数部分），然后将每个项乘以不同的复数参数，就像对角算子一样。</p>
+<p>All the operators’ parameters are learned during training.<br>训练过程中将学习所有算子的参数。</p>
+<p>To define an additional operator, one must subclass the torchbiggraph.model.AbstractOperator class (or the torchbiggraph.model.AbstractDynamicOperator one when using dynamic relations; their docstrings explain what must be implemented) and decorate it with the torchbiggraph.model.OPERATORS.register_as() decorator (respectively the torchbiggraph.model.DYNAMIC_OPERATORS.register_as() one), specifying a new name that can then be used in the config to select that comparator. All of the above can be done inside the config file itself.<br>如果要自定义新的算子，需要实现torchbiggraph.model.AbstractOperator的子类（动态关系情况下实现torchbiggraph.model.AbstractDynamicOperator子类，docstrings解释了必须实现什么）并且在torchbiggraph.model.OPERATORS.register_as()装饰器中注册（或者torchbiggraph.model.DYNAMIC_OPERATORS.register_as() ）指定一个新名称，然后在配置中使用该名称来选择比较器。上述所有操作都可以在配置文件内部完成。</p>
+<blockquote>
+<p>🤔️ 暂时没看懂。</p>
+</blockquote>
+<h2 id="Comparators"><a href="#Comparators" class="headerlink" title="Comparators"></a>Comparators</h2><p>The available comparators are:<br>• dot, the dot-product, which computes the scalar or inner product of the two embedding vectors;<br>• cos, the cos distance, which is the cosine of the angle between the two vectors or, equivalently, the dot product divided by the product of the vectors’ norms.<br>• l2, the negative L2 distance, a.k.a. the Euclidean distance (negative because smaller distances should get higher scores).<br>• squared_l2, the negative squared L2 distance.<br>当前提供的比较器有：<br>• 点乘，计算两个实体嵌入向量的标量或内积；<br>• 余弦距离，两个实体嵌入向量的余弦夹角，或者等效的说是 dot(a,b)/(sqrt(a^2)*sqrt(a^2))<br>• 负L2距离，又称欧几里得距离（使用负的二范数是因为真正比较的是两者的相似度，较小的距离应获得更高的分数，这里的分数其实就类似于相似度)<br>• L2的负平方距离。</p>
+<p>Custom comparators need to extend the torchbiggraph.model.AbstractComparator class (its docstring explains how) and decorate it with the torchbiggraph.model.COMPARATORS.register_as() decorator, specifying a new name that can then be used in the config to select that comparator. All of the above can be done inside the config file itself.<br>自定义比较器需要扩展torchbiggraph.model.AbstractComparator类（其文档字符串说明方式），并使用torchbiggraph.model.COMPARATORS.register_as（）装饰器对其进行修饰，并指定一个新名称，该名称随后可在配置中用于选择该比较器。以上所有操作均可在配置文件本身中完成。</p>
+<h2 id="Bias"><a href="#Bias" class="headerlink" title="Bias"></a>Bias</h2><p>If the bias configuration key is in use, then the first coordinate of the embeddings will act as a bias in the comparator computation. This means that the comparator will be computed on the last 𝐷−1 entries of the vectors only, and then both the first entries of the two vectors will be added to the result.<br>如果bias参数在配置文件中设置为True，那么嵌入的第一个坐标将充当比较器计算中的偏置。这意味着比较器将仅在向量得第二维到第D维上进行计算，然后将两个向量的第一维都直接被添加到结果中。</p>
+<h2 id="Coherent-sets-of-configuration-parameters"><a href="#Coherent-sets-of-configuration-parameters" class="headerlink" title="Coherent sets of configuration parameters"></a>Coherent sets of configuration parameters</h2><p>While the parameters described in this chapter are exposed as uncoupled knobs in the configuration file (to more closely match the implementation, and to allow for more flexible tuning), some combinations of them are more sensible than others.<br>尽管本章中描述的参数在配置文件中显示为未耦合的旋钮（为了更近似匹配实现效果，并允许更灵活的调优），但它们中的某些组合比其他组合更合理。</p>
+<p>Apart from the default one, the following configuration has been found to work well: init_scale = 0.1, comparator = dot, bias = true, loss_fn = logistic, lr = 0.1.<br>除默认配置外，还发现以下配置可以正常运行：init_scale = 0.1，comparator = dot, bias = true, loss_fn = logistic, lr = 0.1。</p>
+<h2 id="Interpreting-the-scores"><a href="#Interpreting-the-scores" class="headerlink" title="Interpreting the scores"></a>Interpreting the scores</h2><p>The scores will be tuned to have different meaning and become more suitable for certain applications based on the loss function used during training. Common options include ranking what other entities may be related to a given entity, determining the probability that a certain relation exists between two given entities, etc.<br>根据训练过程中使用的损失函数，得分将被调整为具有不同的含义，并且变得更适合某些特定的应用。常见选项包括对其他实体可能与给定实体相关的等级进行排名、确定两个给定实体之间存在某种关系的可能性等指标。</p>
+<p>源地址：<br><a href="https://torchbiggraph.readthedocs.io/en/latest/scoring.html">https://torchbiggraph.readthedocs.io/en/latest/scoring.html</a></p>
+]]></content>
       <tags>
-        <tag>Python</tag>
-        <tag>File Format</tag>
+        <tag>PyTorch-BigGraph</tag>
       </tags>
   </entry>
   <entry>
@@ -1579,49 +1625,25 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
-    <title>PyTorch-BigGraph 从实体嵌入到边得分</title>
-    <url>/2020/10/23/From-embedding-to-scores/</url>
-    <content><![CDATA[<h1 id="From-entity-embeddings-to-edge-scores"><a href="#From-entity-embeddings-to-edge-scores" class="headerlink" title="From entity embeddings to edge scores"></a>From entity embeddings to edge scores</h1><p>The goal of training is to embed each entity in ℝ^D so that the embeddings of two entities are a good proxy to predict whether there is a relation of a certain type between them.<br>训练的目的是将每个实体嵌入到D维的向量空间中，以便两个实体的嵌入可以很好地预测它们之间是否存在某种类型的关系。</p>
-<p>To be more precise, the goal is to learn an embedding for each entity and a function for each relation type that takes two entity embeddings and assigns them a score, with the goal of having positive relations achieve higher scores than negative ones.<br>更确切地说，PBG的目标是学习每个实体的嵌入和每种关系类型的函数，该函数接受两个实体嵌入并为其分配一个分数，目的是使正面关系比负面关系获得更高的分数。</p>
-<blockquote>
-<p>key point: 实体-&gt;D维向量 关系-&gt;函数</p>
-</blockquote>
-<p>All the edges provided in the training set are considered positive instances. In order to perform training, a set of negative edges is needed as well. These are not provided by the user but instead generated by the system during training (Negative sampling), usually by fixing the left-hand side entity and the relation type and sampling a new right-hand side entity, or vice versa. This sampling scheme makes sense for large sparse graphs, where there is a low probability that edges generated this way are true positives edges in the graph.<br>训练集中提供的所有边被视为正例。为了执行训练，还需要一些负边（负样本）。 这些不是由用户提供的，而是由系统在训练过程中生成的（负采样），通常是通过固定左侧实体和关系类型并采样新的右侧实体，反之亦然。 对于大的稀疏图，这种采样方案是有意义的，因为在这样的情况下，以这种方式生成的边为图中的正例的可能性很小。</p>
-<p>A priori, entity embeddings could take any value in ℝ^D. Although, in some cases (for example when restricting them to be within a certain ball, or when comparing them using cosine distance), their “angle” will have greater importance than their norm.<br>先验实体嵌入可以在D维空间中取任何值。但是在某些情况下（例如，当将它们限制在某个球内或使用余弦距离进行比较时），它们的“角度”比范数更具有意义。</p>
-<p>Per-relation scoring functions, however, must be expressible in a specific form (the most common functions in the literature can be converted to such a representation). In the current implementation, they are only allowed to transform the embedding of one of the two sides, which is then compared to the un-transformed embedding of the other side using a generic symmetric comparator function, which is the same for all relations. Formally, for left- and right-hand side entities 𝑥 and 𝑦 respectively, and for a relation type 𝑟, the score is:<center>𝑓𝑟(𝜃𝑥,𝜃𝑦)=𝑐(𝜃𝑥,𝑔𝑟(𝜃𝑦))</center><br>where 𝜃𝑥 and 𝜃𝑦 are the embeddings of 𝑥 and 𝑦 respectively, 𝑓𝑟 is the scoring function for 𝑟, 𝑔𝑟 is the operator for 𝑟 and 𝑐 is the comparator.</p>
-<!-- $$f_{r}\left(\theta_{x}, \theta_{y}\right)=c\left(\theta_{x}, g_{r}\left(\theta_{y}\right)\right) -->
-<p>然而，对于每个关系的得分计算函数，必须以特定的形式表现出来（文献中最常见的函数可以转换为这种表示形式）。在目前的实现中，只允许对一侧的实体进行嵌入转换，通过使用通用的对称比较器将其与另一侧未转换的实体嵌入进行比较，这样的操作对于所有的关系类型都是一样的。形式上，分别对于左侧和右侧实体𝑥和,，以及对于关系类型𝑟，得分为：𝑓𝑟(𝜃𝑥,𝜃𝑦)=𝑐(𝜃𝑥,𝑔𝑟(𝜃𝑦)), 其中，𝜃𝑥和𝜃𝑦分别是𝑥和𝑦的嵌入，𝑓𝑟是关系𝑟的评分函数，𝑔𝑟是关系r的算子，𝑐是比较器。</p>
-<p>Under “normal” circumstances (the so-called “standard” relations mode) the operator is solely applied to the right-hand side entities. This is not the case when using dynamic relations. Applying the operator to both sides would oftentimes be redundant. Also, preferring one side over the other allows to break the symmetry and capture the direction of the edge.<br>在通常情况下(或者说是标准的关系模式中)，算子仅仅是适用于右侧实体。但是在PBG的动态关系中则不是这样。通常，将算子运用在两侧的实体嵌入上是多余的，并且倾向于选择某一侧的举动可以很好的打破对称性并且捕捉到边的方向。</p>
-<h2 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h2><p>Embeddings live in a 𝐷-dimensional real space, where 𝐷 is determined by the dimension configuration parameter.<br>嵌入是一个𝐷维实空间的向量，其中𝐷的大小由配置参数确定。</p>
-<p>Normally, each entity has its own embedding, which is entirely independent from any other entity’s embedding. When using featurized entities however this works differently, and an entity’s embedding will be the average of the embeddings of its features.<br>通常的，每一个实体都有属于自己的完全和其他实体嵌入独立的嵌入。然而，当使用特征化的实体时，情况有所不同。此时实体的嵌入为其特征嵌入的平均值。</p>
-<p>If the max_norm configuration parameter is set, embeddings will be projected onto the unit ball with radius max_norm after each parameter update.<br>如果设置了max_norm配置参数，则在每次更新参数后，嵌入将会被投影到半径为max_norm的单位球上。</p>
-<blockquote>
-<p>🤔️ 暂时没看懂。</p>
-</blockquote>
-<p>To add a new type of embedding, one needs to subclass the torchbiggraph.model.AbstractEmbedding class.<br>要添加一种新型的嵌入，需要将torchbiggraph.model.AbstractEmbedding类作为子类。</p>
-<blockquote>
-<p>🤔️ 暂时没看懂。</p>
-</blockquote>
-<h2 id="Global-embeddings"><a href="#Global-embeddings" class="headerlink" title="Global embeddings"></a>Global embeddings</h2><p>When the global_emb configuration option is active, each entity’s embedding will be translated by a vector that is specific to each entity type (and that is learned at the same time as the embeddings).<br>当global_emb配置参数设置为True的时候，每个实体的嵌入将会被表示成一个向量，该向量对于每种实体类型都是特定的。（并且该向量是与嵌入同时学习得到的）</p>
-<blockquote>
-<p>🤔️ 暂时没看懂。</p>
-</blockquote>
-<h2 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h2><p>The operators that are currently provided are:<br>• none, no-op, which leaves the embeddings unchanged;<br>• translation, which adds to the embedding a vector of the same dimension;<br>• diagonal, which multiplies each dimension by a different coefficient (equivalent to multiplying by a diagonal matrix);<br>• linear, which applies a linear map, i.e., multiplies by a full square matrix<br>• affine, which applies a affine transformation, i.e., linear followed by translation.<br>• complex_diagonal, which interprets the 𝐷-dimensional real vector as a 𝐷/2-dimensional complex vector (𝐷 must be even; the first half of the vector are the real parts, the second half the imaginary parts) and then multiplies each entry by a different complex parameter, just like diagonal.<br>当前提供的算子有:<br>• 无，无操作，使嵌入保持不变；<br>• 平移算子，将相同尺寸的向量添加到嵌入中；<br>• 对角算子，将每个维度乘以不同的系数（相当于乘以对角矩阵）；<br>• 线性算子，运用一个线性映射，例如，讲嵌入和一个全方阵点乘；<br>• 仿射算子，应用仿射变换，即线性变换后再进行平移；<br>• 复对角算子，将D维实向量转化为D/2维复矢量（𝐷必须是偶数；矢量的前半部分是实数部分，后半部分是虚数部分），然后将每个项乘以不同的复数参数，就像对角算子一样。</p>
-<p>All the operators’ parameters are learned during training.<br>训练过程中将学习所有算子的参数。</p>
-<p>To define an additional operator, one must subclass the torchbiggraph.model.AbstractOperator class (or the torchbiggraph.model.AbstractDynamicOperator one when using dynamic relations; their docstrings explain what must be implemented) and decorate it with the torchbiggraph.model.OPERATORS.register_as() decorator (respectively the torchbiggraph.model.DYNAMIC_OPERATORS.register_as() one), specifying a new name that can then be used in the config to select that comparator. All of the above can be done inside the config file itself.<br>如果要自定义新的算子，需要实现torchbiggraph.model.AbstractOperator的子类（动态关系情况下实现torchbiggraph.model.AbstractDynamicOperator子类，docstrings解释了必须实现什么）并且在torchbiggraph.model.OPERATORS.register_as()装饰器中注册（或者torchbiggraph.model.DYNAMIC_OPERATORS.register_as() ）指定一个新名称，然后在配置中使用该名称来选择比较器。上述所有操作都可以在配置文件内部完成。</p>
-<blockquote>
-<p>🤔️ 暂时没看懂。</p>
-</blockquote>
-<h2 id="Comparators"><a href="#Comparators" class="headerlink" title="Comparators"></a>Comparators</h2><p>The available comparators are:<br>• dot, the dot-product, which computes the scalar or inner product of the two embedding vectors;<br>• cos, the cos distance, which is the cosine of the angle between the two vectors or, equivalently, the dot product divided by the product of the vectors’ norms.<br>• l2, the negative L2 distance, a.k.a. the Euclidean distance (negative because smaller distances should get higher scores).<br>• squared_l2, the negative squared L2 distance.<br>当前提供的比较器有：<br>• 点乘，计算两个实体嵌入向量的标量或内积；<br>• 余弦距离，两个实体嵌入向量的余弦夹角，或者等效的说是 dot(a,b)/(sqrt(a^2)*sqrt(a^2))<br>• 负L2距离，又称欧几里得距离（使用负的二范数是因为真正比较的是两者的相似度，较小的距离应获得更高的分数，这里的分数其实就类似于相似度)<br>• L2的负平方距离。</p>
-<p>Custom comparators need to extend the torchbiggraph.model.AbstractComparator class (its docstring explains how) and decorate it with the torchbiggraph.model.COMPARATORS.register_as() decorator, specifying a new name that can then be used in the config to select that comparator. All of the above can be done inside the config file itself.<br>自定义比较器需要扩展torchbiggraph.model.AbstractComparator类（其文档字符串说明方式），并使用torchbiggraph.model.COMPARATORS.register_as（）装饰器对其进行修饰，并指定一个新名称，该名称随后可在配置中用于选择该比较器。以上所有操作均可在配置文件本身中完成。</p>
-<h2 id="Bias"><a href="#Bias" class="headerlink" title="Bias"></a>Bias</h2><p>If the bias configuration key is in use, then the first coordinate of the embeddings will act as a bias in the comparator computation. This means that the comparator will be computed on the last 𝐷−1 entries of the vectors only, and then both the first entries of the two vectors will be added to the result.<br>如果bias参数在配置文件中设置为True，那么嵌入的第一个坐标将充当比较器计算中的偏置。这意味着比较器将仅在向量得第二维到第D维上进行计算，然后将两个向量的第一维都直接被添加到结果中。</p>
-<h2 id="Coherent-sets-of-configuration-parameters"><a href="#Coherent-sets-of-configuration-parameters" class="headerlink" title="Coherent sets of configuration parameters"></a>Coherent sets of configuration parameters</h2><p>While the parameters described in this chapter are exposed as uncoupled knobs in the configuration file (to more closely match the implementation, and to allow for more flexible tuning), some combinations of them are more sensible than others.<br>尽管本章中描述的参数在配置文件中显示为未耦合的旋钮（为了更近似匹配实现效果，并允许更灵活的调优），但它们中的某些组合比其他组合更合理。</p>
-<p>Apart from the default one, the following configuration has been found to work well: init_scale = 0.1, comparator = dot, bias = true, loss_fn = logistic, lr = 0.1.<br>除默认配置外，还发现以下配置可以正常运行：init_scale = 0.1，comparator = dot, bias = true, loss_fn = logistic, lr = 0.1。</p>
-<h2 id="Interpreting-the-scores"><a href="#Interpreting-the-scores" class="headerlink" title="Interpreting the scores"></a>Interpreting the scores</h2><p>The scores will be tuned to have different meaning and become more suitable for certain applications based on the loss function used during training. Common options include ranking what other entities may be related to a given entity, determining the probability that a certain relation exists between two given entities, etc.<br>根据训练过程中使用的损失函数，得分将被调整为具有不同的含义，并且变得更适合某些特定的应用。常见选项包括对其他实体可能与给定实体相关的等级进行排名、确定两个给定实体之间存在某种关系的可能性等指标。</p>
-<p>源地址：<br><a href="https://torchbiggraph.readthedocs.io/en/latest/scoring.html">https://torchbiggraph.readthedocs.io/en/latest/scoring.html</a></p>
+    <title>ssh连接远程服务器中途断开</title>
+    <url>/2020/10/23/Linux-screen/</url>
+    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
+<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2><ol>
+<li><p>连接远程服务器<br><code>binzhang@MacBin ~$  ssh username@servername</code></p>
+</li>
+<li><p>创建名为cskg的screen,  此时screen被创建，之后的代码或者各种工作在该screen下操作<br><code>[servername ~]$ screen -S cskg </code></p>
+</li>
+<li><p>万一本地机器掉线，重新连接远程服务器，随后使用screen -ls 查看之前创建的screen信息</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">[servername ~]$<span class="hljs-built_in"> screen </span>-ls  <br>显示信息：<br>There is a<span class="hljs-built_in"> screen </span>on:<br>        157586.cskg  (Attached)<br>1 Socket <span class="hljs-keyword">in</span> /var/run/screen/xx<br></code></pre></td></tr></table></figure></li>
+<li><p>使用-r回到之前服务器工作的screen<br><code>screen -r 157586</code></p>
+</li>
+</ol>
+<h3 id="Screen常见问题"><a href="#Screen常见问题" class="headerlink" title="Screen常见问题"></a>Screen常见问题</h3><p>使用<code>screen -ls</code>, 显式当前状态为Attached，但并没有没有用户登陆该screen。screen此时正常状态应该为(Detached)使用 <code>screen -r &lt;session-id&gt;</code>无法连接，</p>
+<p>解决方案:<code>screen -D  -r ＜session-id&gt;</code>,-D -r  表示先踢掉前用户，再登陆。</p>
 ]]></content>
       <tags>
-        <tag>PyTorch-BigGraph</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1708,48 +1730,6 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
-    <title>ssh连接远程服务器中途断开</title>
-    <url>/2020/10/23/Linux-screen/</url>
-    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac机器使用ssh操作远程服务器的途中,由于网络波动,断开连接,休眠等一系列奇葩原因导致终端<code>client_loop: send disconnect: Broken pipe</code>,<br>在这样的情况下，远程服务器也跟着掉线。</p>
-<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>即使本地Mac掉线，远程服务器仍旧保持工作</p>
-<h2 id="解决方式-Screen"><a href="#解决方式-Screen" class="headerlink" title="解决方式: Screen"></a>解决方式: Screen</h2><ol>
-<li><p>连接远程服务器<br><code>binzhang@MacBin ~$  ssh username@servername</code></p>
-</li>
-<li><p>创建名为cskg的screen,  此时screen被创建，之后的代码或者各种工作在该screen下操作<br><code>[servername ~]$ screen -S cskg </code></p>
-</li>
-<li><p>万一本地机器掉线，重新连接远程服务器，随后使用screen -ls 查看之前创建的screen信息</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">[servername ~]$<span class="hljs-built_in"> screen </span>-ls  <br>显示信息：<br>There is a<span class="hljs-built_in"> screen </span>on:<br>        157586.cskg  (Attached)<br>1 Socket <span class="hljs-keyword">in</span> /var/run/screen/xx<br></code></pre></td></tr></table></figure></li>
-<li><p>使用-r回到之前服务器工作的screen<br><code>screen -r 157586</code></p>
-</li>
-</ol>
-<h3 id="Screen常见问题"><a href="#Screen常见问题" class="headerlink" title="Screen常见问题"></a>Screen常见问题</h3><p>使用<code>screen -ls</code>, 显式当前状态为Attached，但并没有没有用户登陆该screen。screen此时正常状态应该为(Detached)使用 <code>screen -r &lt;session-id&gt;</code>无法连接，</p>
-<p>解决方案:<code>screen -D  -r ＜session-id&gt;</code>,-D -r  表示先踢掉前用户，再登陆。</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PyTorch-BigGraph  批准备</title>
-    <url>/2020/10/27/PBG-Batch-preparation/</url>
-    <content><![CDATA[<h1 id="PBG-批准备"><a href="#PBG-批准备" class="headerlink" title="PBG 批准备"></a>PBG 批准备</h1><p>This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.<br>本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。</p>
-<p>Training proceeds by iterating over the edges, through various nested loops. The outermost one walks through so-called epochs. Each epoch is independent and essentially equivalent to every other one. Their goal is to repeat the inner loop until convergence. Each epoch visits all the edges exactly once. The number of epochs is specified in the num_epochs configuration parameter.<br>训练过程通过不断嵌套循环各条边来进行。所有边都被训练过一次叫做一个epoch，每一个epoch都是互相独立且平等的。他们的目标都是为了重复训练边最终达到收敛的效果。每一个epoch只访问每一条一次。在配置文件中的num_epochs指定epoch数目。</p>
-<p>The edges are partitioned into edge sets (one for each directory of the edge_paths configuration key) and, within each epoch, the edge sets are traversed in order.<br>图中的边被划分为边集合的形式（edge_paths目录下的每个文件表示一个边集合），在每一个epoch下，这些边集合按照顺序访问遍历。</p>
-<p>When iterating over an edge set, each of its buckets is first divided into equally sized chunks: each chunk spans a contiguous interval of edges (in the order they are stored in the files) and the number of chunks can be tweaked using the num_edge_chunks configuration key. The training first operates on the all the first chunks of all buckets, then on all of their second chunks, and so on.<br>当在某一个边集合上进行迭代训练的时候，每一个桶（一个边集合）首先被划分成相同大小的chunks，每一个chunk跨度连续的边间隔（按它们存储在文件中的顺序），可以在配置文件中使用num_edge_chunks来设置chunk的大小。训练首先对桶中的第一个chunk进行训练，然后对第二个，以此类推。</p>
-<p>Next, the algorithm iterates over the buckets. The order in which buckets are processed depends on the value of the bucket_order configuration key. In addition to a random permutation, there are methods that try to have successive buckets share a common partition: this allows for that partition to be reused, thus allowing it to be kept in memory rather than being unloaded and another one getting loaded in its place. (In distributed mode, the various trainer processes operate on the buckets at the same time, thus the iteration is managed differently).<br>接下来，该算法迭代训练每一个桶。桶训练顺序取决于配置文件中的bucket_order。除了随机排列之外，还有一些方法尝试使连续的存储桶共享一个公共分区，也就是说允许这个共享分区被重用。通过这样其允许这这些边数据保存在内存中而不是被卸载然后被其他的边数据取代。（在分布式模式下，各种训练器进程同时在存储桶上运行训练，因此对迭代的管理不同）。</p>
-<p>Once the trainer has fixed a given chunk and a certain bucket, its edges are finally loaded from disk. When evaluating during training, a subset of these edges is withheld (such subset is the same for all epochs). The remaining edges are immediately uniformly shuffled and then split into equal parts. These parts are distributed among a pool of processes, so that the training can proceed in parallel on all of them at the same time. These subprocesses are “Hogwild!” workers, which do not synchronize their computations or memory accesses. The number of such workers is determined by the workers parameter.<br>一旦训练器获得了一个给定的chunk和bucket，其chuck的边最终从磁盘上加载到内存。在训练之前，边的一部分被保留下载作为之后的评估使用。（对于所有的epoch而言，这些边是一样的），其余的边都作为训练数据，他们被均匀地混洗，然后分成相等的部分分发到进程池里进行训练。因此训练是可以在所有进程上并行运行的。这些子进程被称为“Hogwild!” worker，他们的计算和内存使用并不同步进行。worker的数目在配置文件中的worfers参数指定。</p>
-<blockquote>
-<p>key point: 这里worker就可以当成是进程数目，几个worker表示可以同时几个进程并行训练数据。</p>
-</blockquote>
-<p>The way each worker trains on its set of edges depends on whether dynamic relations are in use. The simplest scenario is if they are, in which case the edges are split into contiguous batches (each one having the size specified in the batch_size configuration key, except possibly the last one which could be smaller). Training is then performed on that batch before moving on to the next one.<br>worker训练边集合的方式取决于是否使用动态关系。最简单的情况是，如果边被分成连续的批次，（每个批次具有一样的大小，并且其在配置文件的batch_size中指定，最后一个批次可能会小些。）训练分批次依次进行训练。</p>
-<p>When dynamic relations are not in use, however, the loss can only be computed on a set of edges that are all of the same type. Thus the worker first randomly samples a relation type, with probability proportional to the number of edges of that type that are left in the pool. It then takes the first batch_size relations of that type (or fewer, if not enough of them are left), removes them from the pool and performs training on them.<br>当不使用动态关系的时候，损失函数将只能用于同种关系类型的边计算。因此worker首先需要随机的选出某一种关系类型的样本，（挑选概率和池子残留的边成正比）。随后，其采用该类型的第一个batch_size（如果剩余的不多的话，数目可能会很少）,从池子中移除然后进行训练。</p>
-<p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html">https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html</a></p>
-]]></content>
-      <tags>
-        <tag>PyTorch-BigGraph</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PyTorch-BigGraph 数据模型</title>
     <url>/2020/10/22/PBG-Data-model/</url>
     <content><![CDATA[<h1 id="PBG模型"><a href="#PBG模型" class="headerlink" title="PBG模型"></a>PBG模型</h1><p>PBG operates on directed multi-relation multigraphs, whose vertices are called entities. Each edge connects a source to a destination entity, which are respectively called its left- and right-hand side (shortened to LHS and RHS). Multiple edges between the same pair of entities are allowed. Loops, i.e., edges whose left- and right- hand sides are the same, are allowed as well.<br>PBG作用在有向多关系多图上，其中，图的顶点称为实体。每一条边将源实体连接到目标实体，源实体称为左侧，目标实体称为右侧(缩写为LHS和RHS)同一对实体之间可以有多个边。循环也是允许的，例如，LHS和RHS是相同的边.(A-&gt;B B-&gt;A)</p>
@@ -1772,6 +1752,26 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
 <p>An entity is identified by its type, its partition and its index within the partition (indices must be contiguous, meaning that if there are 𝑁 entities in a type’s partition, their indices lie in the half-open interval [0,𝑁)). An edge is identified by its type, its bucket (i.e., the partitions of its left- and right-hand side entity types) and the indices of its left- and right-hand side entities in their respective partitions. An edge doesn’t have to specify its left- and right-hand side entity types, because they are implicit in the edge’s relation type.<br>实体由其类型，分区和分区内的索引标识(索引必须是连续的，这意味着如果类型的分区中有N个实体，则其索引位于[0，𝑁)中)。边由其类型，其存储桶（即其左侧和右侧实体类型的分区对）以及其左侧和右侧实体在它们各自分区中的索引来标识。边不必指定其左侧和右侧实体类型，因为它们隐含在边的关系类型中。</p>
 <p>Formally, each bucket can be identifies by a pair of integers (𝑖,𝑗), where 𝑖 and 𝑗 are respectively the left- and right-hand side partitions. Inside that bucket, each edge can be identified by a triplet of integers (𝑥,𝑟,𝑦), with 𝑥 and 𝑦 representing respectively the left- and right-hand side entities and 𝑟 representing the relation type. This edge is “interpreted” by first looking up relation type 𝑟 in the configuration, and finding out that it can only have entities of type 𝑒1 on its left-hand side and of type 𝑒2 on its right-hand side. One can then determine the left-hand side entity, which is given by (𝑒1,𝑖,𝑥) (its type, its partition and its index within the partition), and, similarly, the right-hand side one which is (𝑒2,𝑗,𝑦).<br>形式上，每个桶都可以由一对整数（𝑖，𝑗）标识，其中𝑖和𝑗分别是左侧和右侧分区的索引。 在该桶内，每条边都可以由三元组（𝑥，𝑟，𝑦）标识，其中𝑥和𝑦分别表示左侧和右侧实体在各自分区中的索引，而𝑟表示关系类型。 边的解译通过:首先在配置文件中查找关系类型𝑟，然后发现𝑟的左侧只能是具有𝑒1类型的实体，而在右侧则是具有𝑒2类型的实体， 然后，可以确定左侧实体，该实体由（𝑒1，𝑖，𝑥）（𝑒1=实体类型，i=左侧分区索引，x=该实体在分区内的索引）给出，类似地，右侧实体为（𝑒2 ，𝑗，𝑦）。</p>
 <p>源地址：<br><a href="https://torchbiggraph.readthedocs.io/en/latest/data_model.html">https://torchbiggraph.readthedocs.io/en/latest/data_model.html</a></p>
+]]></content>
+      <tags>
+        <tag>PyTorch-BigGraph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PyTorch-BigGraph  批准备</title>
+    <url>/2020/10/27/PBG-Batch-preparation/</url>
+    <content><![CDATA[<h1 id="PBG-批准备"><a href="#PBG-批准备" class="headerlink" title="PBG 批准备"></a>PBG 批准备</h1><p>This section presents how the training data is prepared and organized in batches before the loss is calculated and optimized on each of them.<br>本节介绍了如何在计算和优化损失之前如何对训练数据进行准备和组织。</p>
+<p>Training proceeds by iterating over the edges, through various nested loops. The outermost one walks through so-called epochs. Each epoch is independent and essentially equivalent to every other one. Their goal is to repeat the inner loop until convergence. Each epoch visits all the edges exactly once. The number of epochs is specified in the num_epochs configuration parameter.<br>训练过程通过不断嵌套循环各条边来进行。所有边都被训练过一次叫做一个epoch，每一个epoch都是互相独立且平等的。他们的目标都是为了重复训练边最终达到收敛的效果。每一个epoch只访问每一条一次。在配置文件中的num_epochs指定epoch数目。</p>
+<p>The edges are partitioned into edge sets (one for each directory of the edge_paths configuration key) and, within each epoch, the edge sets are traversed in order.<br>图中的边被划分为边集合的形式（edge_paths目录下的每个文件表示一个边集合），在每一个epoch下，这些边集合按照顺序访问遍历。</p>
+<p>When iterating over an edge set, each of its buckets is first divided into equally sized chunks: each chunk spans a contiguous interval of edges (in the order they are stored in the files) and the number of chunks can be tweaked using the num_edge_chunks configuration key. The training first operates on the all the first chunks of all buckets, then on all of their second chunks, and so on.<br>当在某一个边集合上进行迭代训练的时候，每一个桶（一个边集合）首先被划分成相同大小的chunks，每一个chunk跨度连续的边间隔（按它们存储在文件中的顺序），可以在配置文件中使用num_edge_chunks来设置chunk的大小。训练首先对桶中的第一个chunk进行训练，然后对第二个，以此类推。</p>
+<p>Next, the algorithm iterates over the buckets. The order in which buckets are processed depends on the value of the bucket_order configuration key. In addition to a random permutation, there are methods that try to have successive buckets share a common partition: this allows for that partition to be reused, thus allowing it to be kept in memory rather than being unloaded and another one getting loaded in its place. (In distributed mode, the various trainer processes operate on the buckets at the same time, thus the iteration is managed differently).<br>接下来，该算法迭代训练每一个桶。桶训练顺序取决于配置文件中的bucket_order。除了随机排列之外，还有一些方法尝试使连续的存储桶共享一个公共分区，也就是说允许这个共享分区被重用。通过这样其允许这这些边数据保存在内存中而不是被卸载然后被其他的边数据取代。（在分布式模式下，各种训练器进程同时在存储桶上运行训练，因此对迭代的管理不同）。</p>
+<p>Once the trainer has fixed a given chunk and a certain bucket, its edges are finally loaded from disk. When evaluating during training, a subset of these edges is withheld (such subset is the same for all epochs). The remaining edges are immediately uniformly shuffled and then split into equal parts. These parts are distributed among a pool of processes, so that the training can proceed in parallel on all of them at the same time. These subprocesses are “Hogwild!” workers, which do not synchronize their computations or memory accesses. The number of such workers is determined by the workers parameter.<br>一旦训练器获得了一个给定的chunk和bucket，其chuck的边最终从磁盘上加载到内存。在训练之前，边的一部分被保留下载作为之后的评估使用。（对于所有的epoch而言，这些边是一样的），其余的边都作为训练数据，他们被均匀地混洗，然后分成相等的部分分发到进程池里进行训练。因此训练是可以在所有进程上并行运行的。这些子进程被称为“Hogwild!” worker，他们的计算和内存使用并不同步进行。worker的数目在配置文件中的worfers参数指定。</p>
+<blockquote>
+<p>key point: 这里worker就可以当成是进程数目，几个worker表示可以同时几个进程并行训练数据。</p>
+</blockquote>
+<p>The way each worker trains on its set of edges depends on whether dynamic relations are in use. The simplest scenario is if they are, in which case the edges are split into contiguous batches (each one having the size specified in the batch_size configuration key, except possibly the last one which could be smaller). Training is then performed on that batch before moving on to the next one.<br>worker训练边集合的方式取决于是否使用动态关系。最简单的情况是，如果边被分成连续的批次，（每个批次具有一样的大小，并且其在配置文件的batch_size中指定，最后一个批次可能会小些。）训练分批次依次进行训练。</p>
+<p>When dynamic relations are not in use, however, the loss can only be computed on a set of edges that are all of the same type. Thus the worker first randomly samples a relation type, with probability proportional to the number of edges of that type that are left in the pool. It then takes the first batch_size relations of that type (or fewer, if not enough of them are left), removes them from the pool and performs training on them.<br>当不使用动态关系的时候，损失函数将只能用于同种关系类型的边计算。因此worker首先需要随机的选出某一种关系类型的样本，（挑选概率和池子残留的边成正比）。随后，其采用该类型的第一个batch_size（如果剩余的不多的话，数目可能会很少）,从池子中移除然后进行训练。</p>
+<p>源地址：<a href="https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html">https://torchbiggraph.readthedocs.io/en/latest/batch_preparation.html</a></p>
 ]]></content>
       <tags>
         <tag>PyTorch-BigGraph</tag>
@@ -2340,6 +2340,52 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       </tags>
   </entry>
   <entry>
+    <title>Scrapy 实例 - TripAdvisor信息抓取</title>
+    <url>/2020/10/15/scrapy-example/</url>
+    <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
+<p>餐厅信息包括:</p>
+<ul>
+<li>餐厅名称</li>
+<li>餐厅评星（几颗星）</li>
+<li>餐厅排名（针对洛杉矶而言）</li>
+<li>餐厅价格区间</li>
+<li>餐厅菜品种类</li>
+<li>餐厅地点</li>
+<li>附近旅馆</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+<p>酒店信息包括：</p>
+<ul>
+<li>酒店名称</li>
+<li>酒店价格区间</li>
+<li>酒店房间数</li>
+<li>酒店评星</li>
+<li>酒店设施</li>
+<li>酒店特色</li>
+<li>酒店星级</li>
+<li>酒店房间类型</li>
+<li>酒店风格</li>
+<li>酒店地点</li>
+<li>附近餐厅</li>
+<li>附近景点</li>
+<li>用户评价</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Scrapy + MongoDB<br>代码: xxxx</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>使用scrapd + spiderkeeper 进行可视化部署</li>
+<li>log文件保存(settings.py中设置LOG_FILE  = “debug.log”)</li>
+<li>使用 scrapy shell 进行xpath语法规则的调试以确保得到想要的结果</li>
+</ol>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>10522 条餐厅数据 (50M)<br>1000 条酒店数据  (100M)</p>
+]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>Web Crawler</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>spaCy学习</title>
     <url>/2020/09/10/spacy-learning/</url>
     <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
@@ -2450,52 +2496,6 @@ Unique Name Assumption = TRUE:<br>=&gt; bob and sue refer to different individua
       <tags>
         <tag>Python</tag>
         <tag>NLP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Scrapy 实例 - TripAdvisor信息抓取</title>
-    <url>/2020/10/15/scrapy-example/</url>
-    <content><![CDATA[<h1 id="TripAdvisor-Scrapy-实例"><a href="#TripAdvisor-Scrapy-实例" class="headerlink" title="TripAdvisor Scrapy 实例"></a>TripAdvisor Scrapy 实例</h1><h2 id="爬虫需求"><a href="#爬虫需求" class="headerlink" title="爬虫需求"></a>爬虫需求</h2><p>爬取洛杉矶地区的餐厅和酒店的相关信息</p>
-<p>餐厅信息包括:</p>
-<ul>
-<li>餐厅名称</li>
-<li>餐厅评星（几颗星）</li>
-<li>餐厅排名（针对洛杉矶而言）</li>
-<li>餐厅价格区间</li>
-<li>餐厅菜品种类</li>
-<li>餐厅地点</li>
-<li>附近旅馆</li>
-<li>附近餐厅</li>
-<li>附近景点</li>
-<li>用户评价</li>
-</ul>
-<p>酒店信息包括：</p>
-<ul>
-<li>酒店名称</li>
-<li>酒店价格区间</li>
-<li>酒店房间数</li>
-<li>酒店评星</li>
-<li>酒店设施</li>
-<li>酒店特色</li>
-<li>酒店星级</li>
-<li>酒店房间类型</li>
-<li>酒店风格</li>
-<li>酒店地点</li>
-<li>附近餐厅</li>
-<li>附近景点</li>
-<li>用户评价</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>Scrapy + MongoDB<br>代码: xxxx</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
-<li>使用scrapd + spiderkeeper 进行可视化部署</li>
-<li>log文件保存(settings.py中设置LOG_FILE  = “debug.log”)</li>
-<li>使用 scrapy shell 进行xpath语法规则的调试以确保得到想要的结果</li>
-</ol>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>10522 条餐厅数据 (50M)<br>1000 条酒店数据  (100M)</p>
-]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>Web Crawler</tag>
       </tags>
   </entry>
   <entry>
